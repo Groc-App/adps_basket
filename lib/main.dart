@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:your_basket/Screens/intro_screen.dart';
+import 'package:your_basket/utils/theme.dart';
 import 'Screens/homeScreen.dart';
 
 void main() {
@@ -15,12 +16,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        textTheme: TextTheme(
-          bodyMedium: GoogleFonts.openSans(),
-        ),
-        primarySwatch: Colors.blue,
-      ),
+      theme: MyTheme.lightTheme(context),
+      debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
       routes: {
         '/homepage': (context) => HomeScreen(),
