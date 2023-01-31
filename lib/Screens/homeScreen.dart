@@ -1,6 +1,8 @@
 import 'dart:math';
 
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import '../Widgets/Homepage/Carousel.dart';
+import '../Widgets/Homepage/BottomNavBar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -18,41 +20,10 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 212, 127, 227),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
-      body: Container(
-        child: Center(child: Text('This is home Page')),
-      ),
-      bottomNavigationBar: CurvedNavigationBar(
-        items: [
-          Icon(
-            FontAwesomeIcons.houseChimney,
-            size: 18,
-            // color: Colors.purple,
-          ),
-          Icon(
-            FontAwesomeIcons.cartShopping,
-            size: 18,
-            // color: Colors.purple,
-          ),
-          Icon(
-            FontAwesomeIcons.code,
-            size: 18,
-            // color: Colors.purple,
-          ),
-          Icon(
-            FontAwesomeIcons.user,
-            size: 18,
-            // color: Colors.purple,
-            fill: 1.0,
-          ),
-        ],
-        animationDuration: Duration(milliseconds: 200),
-        height: max(sc_height * 0.08, 50),
-        backgroundColor: Colors.white,
-        color: Color.fromARGB(255, 212, 127, 227),
-        buttonBackgroundColor: Colors.white,
-      ),
+      body: Carousel(),
+      bottomNavigationBar: BotmNavBar(),
     );
   }
 }
