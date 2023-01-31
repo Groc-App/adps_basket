@@ -1,7 +1,11 @@
+/* -------------------------------------------------------------------------- */
+/*                                 Theme Data                                 */
+/* -------------------------------------------------------------------------- */
 import 'package:flutter/material.dart';
 
 class MyTheme {
-  static ThemeData themeData(BuildContext context) => ThemeData(
+/* ------------------------------- light theme ------------------------------ */
+  static ThemeData lightTheme(BuildContext context) => ThemeData(
       primarySwatch: Colors.purple,
       appBarTheme: AppBarTheme(
         color: Colors.white,
