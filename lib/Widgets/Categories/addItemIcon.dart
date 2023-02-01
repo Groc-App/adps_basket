@@ -1,8 +1,7 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:your_basket/Widgets/Categories/incrementItem.dart';
-import 'incrementItem.dart';
 
 class AddToCart extends StatefulWidget {
   const AddToCart({super.key});
@@ -43,8 +42,8 @@ class _AddToCartState extends State<AddToCart> {
                       onPressed: () {
                         addHandler();
                       },
-                      child: Text("ADD"))
-                  : IncrementItem(),
+                      child: const Text("ADD"))
+                  : const IncrementItem(),
             )));
   }
 }
