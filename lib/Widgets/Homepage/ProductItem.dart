@@ -55,50 +55,53 @@ class _ProductItemState extends State<ProductItem> {
             Text('500 ml'),
           ],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text('Price'),
-            added == true
-                ? Container(
-                    width: sc_width * 0.28 * 0.36,
-                    height: sc_width * 0.28 * 0.16,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.white,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            child: Icon(Icons.remove,
-                                size: sc_width * 0.28 * 0.15 * 0.7),
-                            onTap: () => decrementHandler(),
+        Container(
+          margin: EdgeInsets.only(bottom: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text('Price'),
+              added == true
+                  ? Container(
+                      width: sc_width * 0.28 * 0.36,
+                      height: sc_width * 0.28 * 0.16,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                              child: Icon(Icons.remove,
+                                  size: sc_width * 0.28 * 0.15 * 0.7),
+                              onTap: () => decrementHandler(),
+                            ),
                           ),
-                        ),
-                        Text('${counter}'),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            child: Icon(Icons.add,
-                                size: sc_width * 0.28 * 0.15 * 0.7),
-                            onTap: () => incrementHandler(),
+                          Text('${counter}'),
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                              child: Icon(Icons.add,
+                                  size: sc_width * 0.28 * 0.15 * 0.7),
+                              onTap: () => incrementHandler(),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                : OutlinedButton(
-                    onPressed: () {
-                      setState(() {
-                        added = true;
-                      });
-                      print(added);
-                    },
-                    child: Text('ADD')),
-          ],
+                        ],
+                      ),
+                    )
+                  : OutlinedButton(
+                      onPressed: () {
+                        setState(() {
+                          added = true;
+                        });
+                        print(added);
+                      },
+                      child: Text('ADD')),
+            ],
+          ),
         )
       ]),
     );
