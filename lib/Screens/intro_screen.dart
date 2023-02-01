@@ -3,9 +3,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../Widgets/Intro/intro_screen1.dart';
-import '../Widgets/Intro/intro_screen2.dart';
-import '../Widgets/Intro/intro_screen3.dart';
+import '../Widgets/Intro/intro_widget1.dart';
+import '../Widgets/Intro/intro_widget2.dart';
+import '../Widgets/Intro/intro_widget3.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
