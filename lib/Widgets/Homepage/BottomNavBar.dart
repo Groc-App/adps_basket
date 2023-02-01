@@ -43,7 +43,7 @@ class BotmNavBar extends StatelessWidget {
       animationDuration: const Duration(milliseconds: 200),
       height: max(scHeight * 0.08, 50),
       backgroundColor: Colors.white,
-      color: const Color.fromARGB(255, 212, 127, 227),
+      color: Theme.of(context).primaryColor,
       buttonBackgroundColor: Colors.white,
     );
   }
