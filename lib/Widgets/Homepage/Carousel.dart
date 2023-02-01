@@ -1,7 +1,6 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 
 class Carousel extends StatelessWidget {
@@ -9,17 +8,17 @@ class Carousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sc_size = MediaQuery.of(context).size;
-    final sc_width = sc_size.width;
-    final sc_height = sc_size.height;
+    final scSize = MediaQuery.of(context).size;
+    final scHeight = scSize.height;
 
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      height: sc_height * 0.3,
+      height: scHeight * 0.3,
       child: CarouselSlider(
+        // ignore: sort_child_properties_last
         children: [
           Container(
             decoration: BoxDecoration(
@@ -40,15 +39,15 @@ class Carousel extends StatelessWidget {
             ),
           ),
         ],
-        slideTransform: DepthTransform(),
+        slideTransform: const DepthTransform(),
         slideIndicator: CircularSlideIndicator(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             indicatorBackgroundColor: Theme.of(context).primaryColor,
             currentIndicatorColor: Colors.white),
         enableAutoSlider: true,
         unlimitedMode: true,
         scrollDirection: Axis.horizontal,
-        autoSliderTransitionTime: Duration(milliseconds: 500),
+        autoSliderTransitionTime: const Duration(milliseconds: 500),
         autoSliderTransitionCurve: Curves.ease,
       ),
     );

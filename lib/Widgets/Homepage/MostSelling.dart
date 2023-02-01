@@ -1,32 +1,28 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 
 class MostSelling extends StatelessWidget {
   const MostSelling({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final sc_size = MediaQuery.of(context).size;
-    final sc_width = sc_size.width;
-    final sc_height = sc_size.height;
+    final scSize = MediaQuery.of(context).size;
+    final scWidth = scSize.width;
+    final scHeight = scSize.height;
 
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           border: Border(
               top: BorderSide(width: 5),
               bottom: BorderSide(width: 5),
               left: BorderSide(width: 5),
               right: BorderSide(width: 5))),
-      height: sc_height,
+      height: scHeight * 0.9,
       child: Column(
         children: [
           Container(
-            height: 0.1 * sc_height,
-            alignment: Alignment(0, 0),
-            // margin: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
-            child: Text(
+            margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
+            child: const Text(
               'Most Selling Products',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -35,7 +31,50 @@ class MostSelling extends StatelessWidget {
               ),
             ),
           ),
-          ProductItem(),
+          Container(
+            decoration: const BoxDecoration(
+                border: Border(
+                    top: BorderSide(width: 5),
+                    bottom: BorderSide(width: 5),
+                    left: BorderSide(width: 5),
+                    right: BorderSide(width: 5))),
+            height: scHeight * 0.75,
+            child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3, childAspectRatio: 0.7),
+                itemCount: 6,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            top: BorderSide(width: 5),
+                            bottom: BorderSide(width: 5),
+                            left: BorderSide(width: 5),
+                            right: BorderSide(width: 5))),
+                    child: Card(
+                      color: Colors.amber,
+                      child: Column(children: [
+                        SizedBox(
+                          height: scWidth * 0.25,
+                          child: Image.network(
+                            'https://m.media-amazon.com/images/I/812816L+HkL._SL1500_.jpg',
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
+                        const Text('Amul Toned Milk'),
+                        const Text('500 ml'),
+                        Row(
+                          children: [
+                            const Text('Price'),
+                            OutlinedButton(
+                                onPressed: () {}, child: const Text('ADD')),
+                          ],
+                        )
+                      ]),
+                    ),
+                  );
+                }),
+          ),
         ],
       ),
     );

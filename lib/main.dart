@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:your_basket/Screens/intro_screen.dart';
+import 'package:your_basket/Screens/categoryScreen.dart';
 import 'package:your_basket/utils/theme.dart';
 import 'Screens/homeScreen.dart';
 
@@ -14,13 +13,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // Globals().setContext(context);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: MyTheme.lightTheme(context),
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
       routes: {
-        '/homepage': (context) => HomeScreen(),
+        '/homepage': (context) => const HomeScreen(),
+        // '/catalogueScreen'
       },
     );
   }
@@ -35,8 +36,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    // ignore: prefer_const_constructors
     return Scaffold(
-      body: IntroScreen(),
+      body: const CategoryScreen(),
     );
   }
 }
