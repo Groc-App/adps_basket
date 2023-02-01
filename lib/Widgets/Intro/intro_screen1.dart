@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:lottie/lottie.dart';
+import 'package:your_basket/utils/global.dart';
 
 class Intro1 extends StatelessWidget {
   const Intro1({super.key});
