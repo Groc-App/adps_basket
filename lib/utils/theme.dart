@@ -16,5 +16,6 @@ class MyTheme {
           titleTextStyle: Theme.of(context).textTheme.titleLarge,
         ),
         primaryColor: Colors.deepPurple[300],
+        backgroundColor: Color.fromARGB(245, 246, 251, 255),
       );
 }

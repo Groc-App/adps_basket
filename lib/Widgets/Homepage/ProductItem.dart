@@ -45,7 +45,7 @@ class _ProductItemState extends State<ProductItem> {
         Container(
           height: sc_width * 0.28,
           child: Image.network(
-            'https://m.media-amazon.com/images/I/812816L+HkL._SL1500_.jpg',
+            'https://e7.pngegg.com/pngimages/195/186/png-clipart-buttermilk-cream-mother-dairy-dairy-products-milk-cream-food.png',
             fit: BoxFit.fitWidth,
           ),
         ),
