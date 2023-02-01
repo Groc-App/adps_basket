@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 
@@ -11,18 +11,32 @@ class CategorySliderItems extends StatelessWidget {
   const CategorySliderItems(this.categoryName, this.catergoryURL, {super.key});
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(8.0),
-          child: Image.network(
-            catergoryURL,
-            height: 50.0,
-            width: 50.0,
-          ),
-        ),
-        Text(categoryName)
-      ],
-    );
+    return GestureDetector(
+        onTap: () {},
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(children: [
+            Container(
+              margin: EdgeInsets.all(8),
+              width: 50,
+              height: 50,
+              alignment: Alignment.center,
+              child: Image.network(
+                'https://swarajdairy.com/images/all_bakery_products.png',
+                height: 50,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  "Milk And Bakery",
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ]),
+        ));
   }
 }

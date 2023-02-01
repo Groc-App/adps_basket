@@ -14,35 +14,64 @@ class CatergoriesGrid extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-          // boxShadow:
-          //     BoxShadow(color: Colors.grey, blurRadius: 8, spreadRadius: 1),
-          border: Border(
-              top: BorderSide(width: 5),
-              bottom: BorderSide(width: 5),
-              left: BorderSide(width: 5),
-              right: BorderSide(width: 5))),
-      child: Card(
-        color: Color.fromARGB(255, 175, 172, 163),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                height: sc_width * 0.28,
-                child: Image.network(
-                  'https://m.media-amazon.com/images/I/812816L+HkL._SL1500_.jpg',
-                  fit: BoxFit.fitWidth,
-                ),
-              ),
-              Column(
+        boxShadow: const [
+          BoxShadow(
+            color: Color.fromARGB(255, 255, 255, 255),
+            blurRadius: 1,
+            spreadRadius: 1,
+          )
+        ],
+      ),
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).pushNamed('/productItemPage');
+        },
+        child: Card(
+          color: Color.fromARGB(255, 255, 255, 255),
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Amul Toned Milk'),
-                  Text('500 ml'),
-                ],
-              ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [Text("20 RS"), AddToCart()])
-            ]),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      height: sc_width * 0.28,
+                      child: Image.network(
+                        'https://m.media-amazon.com/images/I/812816L+HkL._SL1500_.jpg',
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    // margin: EdgeInsets.only(left: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Amul Toned Milk',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text('500 ml'),
+                      ],
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "20 RS",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          AddToCart()
+                        ]),
+                  )
+                ]),
+          ),
+        ),
       ),
     );
   }

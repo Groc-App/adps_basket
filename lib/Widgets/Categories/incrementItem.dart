@@ -29,28 +29,31 @@ class _incrementItemState extends State<IncrementItem> {
 
     void decrementHandler() {
       setState(() {
-        if (counter == 0) return;
+        if (counter == 1) return;
         counter--;
       });
     }
 
     /* ------------------------------ //Making row ------------------------------ */
     return Container(
-      width: sc_width * 0.40 * 0.30,
-      height: sc_width * 0.48 * 0.15,
-      color: Colors.white,
+      // margin: EdgeInsets.only(bottom: sc_height * 0.1),
+      margin: EdgeInsets.only(bottom: 2),
+      width: sc_width * 0.28 * 0.35,
+      height: sc_width * 0.28 * 0.15,
+
+      color: Color.fromARGB(255, 130, 96, 177).withOpacity(0.3),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          IconButton(
-              onPressed: decrementHandler,
-              icon: Icon(Icons.remove),
-              iconSize: sc_width * 0.35 * 0.15 * 0.7),
+          GestureDetector(
+            onTap: decrementHandler,
+            child: Icon(Icons.remove, size: sc_width * 0.28 * 0.15 * 0.7),
+          ),
           Text('$counter'),
-          IconButton(
-              onPressed: incrementHandler,
-              icon: Icon(Icons.add),
-              iconSize: sc_width * 0.35 * 0.15 * 0.7),
+          GestureDetector(
+            onTap: incrementHandler,
+            child: Icon(Icons.add, size: sc_width * 0.28 * 0.15 * 0.7),
+          )
         ],
       ),
     );

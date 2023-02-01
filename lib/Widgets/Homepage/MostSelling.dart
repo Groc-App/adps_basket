@@ -34,7 +34,30 @@ class MostSelling extends StatelessWidget {
               ),
             ),
           ),
-          ProductItem(),
+          Expanded(
+            // decoration: BoxDecoration(
+            //     border: Border(
+            //         top: BorderSide(width: 5),
+            //         bottom: BorderSide(width: 5),
+            //         left: BorderSide(width: 5),
+            //         right: BorderSide(width: 5))),
+            // height: sc_height * 0.78,
+            child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3, childAspectRatio: 0.7),
+                itemCount: 6,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            top: BorderSide(width: 5),
+                            bottom: BorderSide(width: 5),
+                            left: BorderSide(width: 5),
+                            right: BorderSide(width: 5))),
+                    child: ProductItem(),
+                  );
+                }),
+          ),
         ],
       ),
     );

@@ -8,98 +8,99 @@ class ProductItem extends StatefulWidget {
 }
 
 class _ProductItemState extends State<ProductItem> {
+  bool added = false;
+  var counter = 1;
+
   @override
   Widget build(BuildContext context) {
     final sc_size = MediaQuery.of(context).size;
     final sc_width = sc_size.width;
     final sc_height = sc_size.height;
 
-    bool added = false;
-
-    @override
-    void initState() {
-      super.initState();
-      added = false;
+    void incrementHandler() {
+      setState(() {
+        counter++;
+      });
     }
 
-    @override
-    void dispose() {
-      super.dispose();
+    void decrementHandler() {
+      if (counter == 1) {
+        setState(() {
+          added = false;
+        });
+      } else {
+        setState(() {
+          counter--;
+        });
+      }
     }
 
-    return Expanded(
-      // decoration: BoxDecoration(
-      //     border: Border(
-      //         top: BorderSide(width: 5),
-      //         bottom: BorderSide(width: 5),
-      //         left: BorderSide(width: 5),
-      //         right: BorderSide(width: 5))),
-      // height: sc_height * 0.78,
-      child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, childAspectRatio: 0.7),
-          itemCount: 6,
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-              decoration: BoxDecoration(
-                  border: Border(
-                      top: BorderSide(width: 5),
-                      bottom: BorderSide(width: 5),
-                      left: BorderSide(width: 5),
-                      right: BorderSide(width: 5))),
-              child: Card(
-                color: Colors.amber,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: sc_width * 0.28,
-                        child: Image.network(
-                          'https://m.media-amazon.com/images/I/812816L+HkL._SL1500_.jpg',
-                          fit: BoxFit.fitWidth,
-                        ),
+    return Card(
+      color: Colors.amber,
+      child:
+          Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Container(
+          height: sc_width * 0.28,
+          child: Image.network(
+            'https://m.media-amazon.com/images/I/812816L+HkL._SL1500_.jpg',
+            fit: BoxFit.fitWidth,
+          ),
+        ),
+        Column(
+          children: [
+            Text('Amul Toned Milk'),
+            Text('500 ml'),
+          ],
+        ),
+        Container(
+          margin: EdgeInsets.only(bottom: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text('Price'),
+              added == true
+                  ? Container(
+                      width: sc_width * 0.28 * 0.36,
+                      height: sc_width * 0.28 * 0.16,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white,
                       ),
-                      Column(
-                        children: [
-                          Text('Amul Toned Milk'),
-                          Text('500 ml'),
-                        ],
-                      ),
-                      Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text('Price'),
-                          added == true
-                              ? Container(
-                                  width: sc_width * 0.28 * 0.35,
-                                  height: sc_width * 0.28 * 0.15,
-                                  color: Colors.white,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Icon(Icons.add,
-                                          size: sc_width * 0.28 * 0.15 * 0.7),
-                                      Text('1'),
-                                      Icon(Icons.add,
-                                          size: sc_width * 0.28 * 0.15 * 0.7),
-                                    ],
-                                  ),
-                                )
-                              : OutlinedButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      added = true;
-                                    });
-                                    print(added);
-                                  },
-                                  child: Text('ADD')),
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                              child: Icon(Icons.remove,
+                                  size: sc_width * 0.28 * 0.15 * 0.7),
+                              onTap: () => decrementHandler(),
+                            ),
+                          ),
+                          Text('${counter}'),
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                              child: Icon(Icons.add,
+                                  size: sc_width * 0.28 * 0.15 * 0.7),
+                              onTap: () => incrementHandler(),
+                            ),
+                          ),
                         ],
-                      )
-                    ]),
-              ),
-            );
-          }),
+                      ),
+                    )
+                  : OutlinedButton(
+                      onPressed: () {
+                        setState(() {
+                          added = true;
+                        });
+                        print(added);
+                      },
+                      child: Text('ADD')),
+            ],
+          ),
+        )
+      ]),
     );
   }
 }

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:your_basket/Widgets/Categories/CategoriesGrid.dart';
 import 'package:your_basket/Widgets/Categories/categoriesSlider.dart';
+import 'package:your_basket/Widgets/Homepage/Carousel.dart';
 import 'package:your_basket/models/product.dart';
 
 class CategoryScreen extends StatelessWidget {
@@ -14,6 +15,7 @@ class CategoryScreen extends StatelessWidget {
 
     /* --------------------------- Screen Intilization -------------------------- */
     final scSize = MediaQuery.of(context).size;
+    final sc_width = scSize.width;
     final scHeight = scSize.height;
 
     /* -------------------------------- Scaffold -------------------------------- */
@@ -23,9 +25,12 @@ class CategoryScreen extends StatelessWidget {
         appBar: AppBar(
             centerTitle: true,
             // ignore: prefer_const_constructors
-            title: Text("Milk And Bakery"),
-            backgroundColor: Colors.redAccent),
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+            title: Text(
+              "Milk And Bakery",
+              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 30),
+            ),
+            backgroundColor: Color.fromARGB(255, 237, 230, 230)),
+        backgroundColor: Color.fromARGB(255, 237, 230, 230),
 
         /* ---------------------------------- body ---------------------------------- */
         body: Container(
@@ -33,12 +38,45 @@ class CategoryScreen extends StatelessWidget {
               child: Column(
             children: [
               /* ---------------------------- Top SLider Bar ---------------------------- */
-              SizedBox(
-                height: 100,
+              Container(
+                height: 50,
+                margin: EdgeInsets.all(8),
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey, spreadRadius: 1, blurRadius: 1)
+                    ],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Row(
+                  children: [
+                    Icon(Icons.search),
+                    Container(
+                      width: 250,
+                      margin: EdgeInsets.only(left: 10),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          hintText: "Search here......",
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                    Icon(Icons.filter_list)
+                  ],
+                ),
+              ),
+              Container(
+                height: 130,
+                alignment: Alignment.center,
+                // width: sc_width * 0.9,
                 child: ListView.separated(
                   separatorBuilder: (context, index) => const SizedBox(
-                    width: 50,
+                    width: 20,
                   ),
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
                   padding: const EdgeInsets.all(10),
                   itemCount: dummyList.length,
                   scrollDirection: Axis.horizontal,
@@ -48,6 +86,7 @@ class CategoryScreen extends StatelessWidget {
                       dummyList[index].name, dummyList[index].image)),
                 ),
               ),
+              // Carousel(),
 
               /* -------------------------------------------------------------------------- */
 

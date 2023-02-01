@@ -12,6 +12,7 @@ class AddToCart extends StatefulWidget {
 
 class _AddToCartState extends State<AddToCart> {
   bool flag = true;
+
   void addHandler() {
     setState(() {
       flag = false;
@@ -27,12 +28,15 @@ class _AddToCartState extends State<AddToCart> {
     final sc_height = sc_size.height;
 
     return AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 800),
         child: flag == true
             ? OutlinedButton(
                 onPressed: () {
                   addHandler();
                 },
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        Colors.purpleAccent.withOpacity(0.3))),
                 child: Text('ADD'))
             : IncrementItem());
   }
