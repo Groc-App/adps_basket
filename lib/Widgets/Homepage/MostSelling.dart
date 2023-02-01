@@ -19,11 +19,13 @@ class MostSelling extends StatelessWidget {
               bottom: BorderSide(width: 5),
               left: BorderSide(width: 5),
               right: BorderSide(width: 5))),
-      height: sc_height * 0.9,
+      height: sc_height,
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
+            height: 0.1 * sc_height,
+            alignment: Alignment(0, 0),
+            // margin: EdgeInsets.symmetric(vertical: 20, horizontal: 0),
             child: Text(
               'Most Selling Products',
               textAlign: TextAlign.center,
@@ -33,51 +35,7 @@ class MostSelling extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-                border: Border(
-                    top: BorderSide(width: 5),
-                    bottom: BorderSide(width: 5),
-                    left: BorderSide(width: 5),
-                    right: BorderSide(width: 5))),
-            height: sc_height * 0.75,
-            child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3, childAspectRatio: 0.7),
-                itemCount: 6,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                        border: Border(
-                            top: BorderSide(width: 5),
-                            bottom: BorderSide(width: 5),
-                            left: BorderSide(width: 5),
-                            right: BorderSide(width: 5))),
-                    child: Card(
-                      color: Colors.amber,
-                      child: Column(children: [
-                        Container(
-                          height: sc_width * 0.25,
-                          child: Image.network(
-                            'https://m.media-amazon.com/images/I/812816L+HkL._SL1500_.jpg',
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ),
-                        Text('Amul Toned Milk'),
-                        Text('500 ml'),
-                        Row(
-                          children: [
-                            Text('Price'),
-                            OutlinedButton(
-                                onPressed: () {}, child: Text('ADD')),
-                          ],
-                        )
-                      ]),
-                    ),
-                  );
-                  ;
-                }),
-          ),
+          ProductItem(),
         ],
       ),
     );
