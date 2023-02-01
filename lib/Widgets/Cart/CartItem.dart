@@ -1,6 +1,6 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class CartItem extends StatefulWidget {
   const CartItem({super.key});
@@ -14,9 +14,9 @@ class _CartItemState extends State<CartItem> {
 
   @override
   Widget build(BuildContext context) {
-    final sc_Size = MediaQuery.of(context).size;
-    final sc_height = sc_Size.height;
-    final sc_width = sc_Size.width - 10 - 4 - 8;
+    final scSize = MediaQuery.of(context).size;
+    final scHeight = scSize.height;
+    final scWidth = scSize.width - 10 - 4 - 8;
 
     void incrementHandler() {
       setState(() {
@@ -35,17 +35,17 @@ class _CartItemState extends State<CartItem> {
     }
 
     return Container(
-        height: sc_height * 0.18,
-        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 4),
-        padding: EdgeInsets.all(5),
+        height: scHeight * 0.18,
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
+        padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
-            boxShadow: [BoxShadow(blurRadius: 5, spreadRadius: 0.5)],
+            boxShadow: const [BoxShadow(blurRadius: 5, spreadRadius: 0.5)],
             borderRadius: BorderRadius.circular(5),
             color: Colors.white),
         child: Row(
           children: [
-            Container(
-              width: sc_width * 0.2,
+            SizedBox(
+              width: scWidth * 0.2,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(100),
                 child: Image.network(
@@ -54,24 +54,24 @@ class _CartItemState extends State<CartItem> {
               ),
             ),
             Container(
-              alignment: Alignment(-1, -1),
-              padding: EdgeInsets.only(left: 10, top: 5),
-              width: sc_width * 0.65,
+              alignment: const Alignment(-1, -1),
+              padding: const EdgeInsets.only(left: 10, top: 5),
+              width: scWidth * 0.65,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Banana',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                   ),
-                  Text(
+                  const Text(
                     '6 pieces',
                     textAlign: TextAlign.left,
                     style: TextStyle(fontSize: 10, fontWeight: FontWeight.w100),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 10),
-                    child: Text(
+                    margin: const EdgeInsets.only(top: 10),
+                    child: const Text(
                       '28\$',
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
@@ -82,28 +82,28 @@ class _CartItemState extends State<CartItem> {
             ),
             Container(
               decoration: BoxDecoration(
-                  border: Border(
+                  border: const Border(
                       top: BorderSide(width: 2),
                       bottom: BorderSide(width: 2),
                       left: BorderSide(width: 2),
                       right: BorderSide(width: 2)),
                   borderRadius: BorderRadius.circular(5)),
-              width: sc_width * 0.15,
+              width: scWidth * 0.15,
               child: Row(children: [
                 MouseRegion(
+                  cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: () => decrementHandler(),
                     child: Icon(
                       Icons.remove,
-                      size: sc_width * 0.15 * 0.3,
+                      size: scWidth * 0.15 * 0.3,
                     ),
                   ),
-                  cursor: SystemMouseCursors.click,
                 ),
-                Container(
-                    width: sc_width * 0.15 * 0.3,
+                SizedBox(
+                    width: scWidth * 0.15 * 0.3,
                     child: Text(
-                      '${counter}',
+                      '$counter',
                       textAlign: TextAlign.center,
                     )),
                 MouseRegion(
@@ -112,7 +112,7 @@ class _CartItemState extends State<CartItem> {
                     onTap: () => incrementHandler(),
                     child: Icon(
                       Icons.add,
-                      size: sc_width * 0.15 * 0.3,
+                      size: scWidth * 0.15 * 0.3,
                     ),
                   ),
                 ),

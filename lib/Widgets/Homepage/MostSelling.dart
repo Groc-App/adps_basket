@@ -1,5 +1,5 @@
 // ignore: file_names
-// ignore_for_file: file_names
+// ignore_for_file: file_names, duplicate_ignore
 
 import 'package:flutter/material.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
@@ -10,7 +10,6 @@ class MostSelling extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scSize = MediaQuery.of(context).size;
-    final scWidth = scSize.width;
     final scHeight = scSize.height;
 
     return Container(
@@ -48,13 +47,13 @@ class MostSelling extends StatelessWidget {
                 itemCount: 6,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         border: Border(
                             top: BorderSide(width: 5),
                             bottom: BorderSide(width: 5),
                             left: BorderSide(width: 5),
                             right: BorderSide(width: 5))),
-                    child: ProductItem(),
+                    child: const ProductItem(),
                   );
                 }),
           ),

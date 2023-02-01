@@ -23,10 +23,6 @@ class _AddToCartState extends State<AddToCart> {
 
   @override
   Widget build(BuildContext context) {
-    final sc_size = MediaQuery.of(context).size;
-    final sc_width = sc_size.width;
-    final sc_height = sc_size.height;
-
     return AnimatedSwitcher(
         duration: const Duration(milliseconds: 800),
         child: flag == true
@@ -37,7 +33,7 @@ class _AddToCartState extends State<AddToCart> {
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
                         Colors.purpleAccent.withOpacity(0.3))),
-                child: Text('ADD'))
-            : IncrementItem());
+                child: const Text('ADD'))
+            : const IncrementItem());
   }
 }

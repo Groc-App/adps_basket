@@ -17,7 +17,7 @@ class CategorySliderItems extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           child: Column(children: [
             Container(
-              margin: EdgeInsets.all(8),
+              margin: const EdgeInsets.all(8),
               width: 50,
               height: 50,
               alignment: Alignment.center,

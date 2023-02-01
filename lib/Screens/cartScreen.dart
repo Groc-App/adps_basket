@@ -1,12 +1,12 @@
+// ignore: file_names
+// ignore: file_names
+// ignore_for_file: implementation_imports, file_names, duplicate_ignore
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:slide_to_act/slide_to_act.dart';
 import '../Widgets/Cart/CartItem.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CartScreen extends StatelessWidget {
   CartScreen({super.key});
@@ -19,17 +19,17 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sc_size = MediaQuery.of(context).size;
-    final sc_width = sc_size.width;
-    final sc_height = sc_size.height;
+    final scSize = MediaQuery.of(context).size;
+    final scWidth = scSize.width;
+    final scHeight = scSize.height;
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 237, 230, 230),
+      backgroundColor: const Color.fromARGB(255, 237, 230, 230),
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         centerTitle: true,
         title: Column(
-          children: [
+          children: const [
             Text(
               'Your Cart',
               style: TextStyle(fontWeight: FontWeight.w400),
@@ -49,26 +49,27 @@ class CartScreen extends StatelessWidget {
                 children: [
                   Column(
                     children: cartItemList.map((e) {
-                      return CartItem();
+                      return const CartItem();
                     }).toList(),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 20, bottom: 20),
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+                    margin: const EdgeInsets.only(top: 20, bottom: 20),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
                     decoration: BoxDecoration(
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(blurRadius: 5, spreadRadius: 0.5)
                         ],
                         borderRadius: BorderRadius.circular(5),
                         color: Colors.white),
-                    width: sc_width * 0.85,
-                    height: min(sc_height * 0.2, 125),
+                    width: scWidth * 0.85,
+                    height: min(scHeight * 0.2, 125),
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
+                            children: const [
                               Text(
                                 'Items Price: ',
                                 style: TextStyle(
@@ -83,7 +84,7 @@ class CartScreen extends StatelessWidget {
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
+                            children: const [
                               Text(
                                 'Delivery Charges: ',
                                 style: TextStyle(
@@ -96,10 +97,10 @@ class CartScreen extends StatelessWidget {
                               )
                             ],
                           ),
-                          Divider(),
+                          const Divider(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
+                            children: const [
                               Text(
                                 'Grand Total: ',
                                 style: TextStyle(
@@ -152,30 +153,28 @@ class CartScreen extends StatelessWidget {
           MouseRegion(
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
-              onTap: () {
-                print('Ordered');
-              },
+              onTap: () {},
               child: Container(
-                  width: sc_width,
-                  height: sc_height * 0.08,
+                  width: scWidth,
+                  height: scHeight * 0.08,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(8),
                           topRight: Radius.circular(8)),
                       color: Colors.deepPurple[300]),
-                  alignment: Alignment(0, 0),
+                  alignment: const Alignment(0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(right: 10),
-                        child: FaIcon(
+                        margin: const EdgeInsets.only(right: 10),
+                        child: const FaIcon(
                           FontAwesomeIcons.basketShopping,
                           size: 23,
                           color: Colors.white,
                         ),
                       ),
-                      Text(
+                      const Text(
                         'Slide to Checkout',
                         style: TextStyle(
                             fontSize: 18,

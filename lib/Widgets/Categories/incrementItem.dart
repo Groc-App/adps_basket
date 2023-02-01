@@ -1,5 +1,5 @@
 // ignore: unused_import
-import 'dart:developer';
+// ignore_for_file: file_names, unused_local_variable
 
 import 'package:flutter/material.dart';
 
@@ -17,9 +17,9 @@ class _incrementItemState extends State<IncrementItem> {
 
   @override
   Widget build(BuildContext context) {
-    final sc_size = MediaQuery.of(context).size;
-    final sc_width = sc_size.width;
-    final sc_height = sc_size.height;
+    final scSize = MediaQuery.of(context).size;
+    final scWidth = scSize.width;
+    final scHeight = scSize.height;
     /* ------------------- To INcrement and Decrement Counter ------------------- */
     void incrementHandler() {
       setState(() {
@@ -37,22 +37,22 @@ class _incrementItemState extends State<IncrementItem> {
     /* ------------------------------ //Making row ------------------------------ */
     return Container(
       // margin: EdgeInsets.only(bottom: sc_height * 0.1),
-      margin: EdgeInsets.only(bottom: 2),
-      width: sc_width * 0.28 * 0.35,
-      height: sc_width * 0.28 * 0.15,
+      margin: const EdgeInsets.only(bottom: 2),
+      width: scWidth * 0.28 * 0.35,
+      height: scWidth * 0.28 * 0.15,
 
-      color: Color.fromARGB(255, 130, 96, 177).withOpacity(0.3),
+      color: const Color.fromARGB(255, 130, 96, 177).withOpacity(0.3),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           GestureDetector(
             onTap: decrementHandler,
-            child: Icon(Icons.remove, size: sc_width * 0.28 * 0.15 * 0.7),
+            child: Icon(Icons.remove, size: scWidth * 0.28 * 0.15 * 0.7),
           ),
           Text('$counter'),
           GestureDetector(
             onTap: incrementHandler,
-            child: Icon(Icons.add, size: sc_width * 0.28 * 0.15 * 0.7),
+            child: Icon(Icons.add, size: scWidth * 0.28 * 0.15 * 0.7),
           )
         ],
       ),

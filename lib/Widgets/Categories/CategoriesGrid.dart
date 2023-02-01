@@ -8,9 +8,8 @@ class CatergoriesGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sc_size = MediaQuery.of(context).size;
-    final sc_width = sc_size.width;
-    final sc_height = sc_size.height;
+    final scSize = MediaQuery.of(context).size;
+    final scWidth = scSize.width;
 
     return Container(
       decoration: BoxDecoration(
@@ -36,19 +35,20 @@ class CatergoriesGrid extends StatelessWidget {
                 children: [
                   Align(
                     alignment: Alignment.center,
-                    child: Container(
-                      height: sc_width * 0.28,
+                    child: SizedBox(
+                      height: scWidth * 0.28,
                       child: Image.network(
                         'https://m.media-amazon.com/images/I/812816L+HkL._SL1500_.jpg',
                         fit: BoxFit.fitWidth,
                       ),
                     ),
                   ),
+                  // ignore: avoid_unnecessary_containers
                   Container(
                     // margin: EdgeInsets.only(left: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: const [
                         Text(
                           'Amul Toned Milk',
                           style: TextStyle(fontWeight: FontWeight.bold),
@@ -61,7 +61,7 @@ class CatergoriesGrid extends StatelessWidget {
                     alignment: Alignment.bottomLeft,
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                        children: const [
                           Text(
                             "20 RS",
                             style: TextStyle(fontWeight: FontWeight.bold),

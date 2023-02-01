@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 class ProductItem extends StatefulWidget {
@@ -13,9 +15,8 @@ class _ProductItemState extends State<ProductItem> {
 
   @override
   Widget build(BuildContext context) {
-    final sc_size = MediaQuery.of(context).size;
-    final sc_width = sc_size.width;
-    final sc_height = sc_size.height;
+    final scSize = MediaQuery.of(context).size;
+    final scWidth = scSize.width;
 
     void incrementHandler() {
       setState(() {
@@ -39,29 +40,29 @@ class _ProductItemState extends State<ProductItem> {
       color: Colors.amber,
       child:
           Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Container(
-          height: sc_width * 0.28,
+        SizedBox(
+          height: scWidth * 0.28,
           child: Image.network(
             'https://e7.pngegg.com/pngimages/195/186/png-clipart-buttermilk-cream-mother-dairy-dairy-products-milk-cream-food.png',
             fit: BoxFit.fitWidth,
           ),
         ),
         Column(
-          children: [
+          children: const [
             Text('Amul Toned Milk'),
             Text('500 ml'),
           ],
         ),
         Container(
-          margin: EdgeInsets.only(bottom: 5),
+          margin: const EdgeInsets.only(bottom: 5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text('Price'),
+              const Text('Price'),
               added == true
                   ? Container(
-                      width: sc_width * 0.28 * 0.36,
-                      height: sc_width * 0.28 * 0.16,
+                      width: scWidth * 0.28 * 0.36,
+                      height: scWidth * 0.28 * 0.16,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         color: Colors.white,
@@ -73,16 +74,16 @@ class _ProductItemState extends State<ProductItem> {
                             cursor: SystemMouseCursors.click,
                             child: GestureDetector(
                               child: Icon(Icons.remove,
-                                  size: sc_width * 0.28 * 0.15 * 0.7),
+                                  size: scWidth * 0.28 * 0.15 * 0.7),
                               onTap: () => decrementHandler(),
                             ),
                           ),
-                          Text('${counter}'),
+                          Text('$counter'),
                           MouseRegion(
                             cursor: SystemMouseCursors.click,
                             child: GestureDetector(
                               child: Icon(Icons.add,
-                                  size: sc_width * 0.28 * 0.15 * 0.7),
+                                  size: scWidth * 0.28 * 0.15 * 0.7),
                               onTap: () => incrementHandler(),
                             ),
                           ),
@@ -94,9 +95,8 @@ class _ProductItemState extends State<ProductItem> {
                         setState(() {
                           added = true;
                         });
-                        print(added);
                       },
-                      child: Text('ADD')),
+                      child: const Text('ADD')),
             ],
           ),
         )
