@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:your_basket/Widgets/Categories/CategoriesGrid.dart';
 import 'package:your_basket/Widgets/Categories/categoriesSlider.dart';

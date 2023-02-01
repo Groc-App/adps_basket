@@ -1,3 +1,4 @@
+// ignore: unused_import
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -16,6 +17,9 @@ class _incrementItemState extends State<IncrementItem> {
 
   @override
   Widget build(BuildContext context) {
+    final sc_size = MediaQuery.of(context).size;
+    final sc_width = sc_size.width;
+    final sc_height = sc_size.height;
     /* ------------------- To INcrement and Decrement Counter ------------------- */
     void incrementHandler() {
       setState(() {
@@ -31,42 +35,24 @@ class _incrementItemState extends State<IncrementItem> {
     }
 
     /* ------------------------------ //Making row ------------------------------ */
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        //Container 1
-        Container(
-          // width: 5,
-          // height: 5,
-          margin: const EdgeInsets.all(2),
-          child: IconButton(
-            icon: const Icon(Icons.remove),
-            onPressed: () {
-              decrementHandler();
-            },
-          ),
-        ),
-
-        // Container 2
-        Container(
-            // width: 5,
-            // height: 5,
-            // margin: EdgeInsets.all(2),
-            child: Text('$counter')),
-
-        // Container 3
-        Container(
-          // width: 5,
-          // height: 5,
-          // margin: EdgeInsets.all(2),
-          child: IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              incrementHandler();
-            },
-          ),
-        )
-      ],
+    return Container(
+      width: sc_width * 0.40 * 0.30,
+      height: sc_width * 0.48 * 0.15,
+      color: Colors.white,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+              onPressed: decrementHandler,
+              icon: Icon(Icons.remove),
+              iconSize: sc_width * 0.35 * 0.15 * 0.7),
+          Text('$counter'),
+          IconButton(
+              onPressed: incrementHandler,
+              icon: Icon(Icons.add),
+              iconSize: sc_width * 0.35 * 0.15 * 0.7),
+        ],
+      ),
     );
   }
 }

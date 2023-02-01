@@ -22,28 +22,18 @@ class _AddToCartState extends State<AddToCart> {
 
   @override
   Widget build(BuildContext context) {
+    final sc_size = MediaQuery.of(context).size;
+    final sc_width = sc_size.width;
+    final sc_height = sc_size.height;
+
     return AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
-        child: SizedBox(
-            // child: AddToCart(),
-            height: 20,
-            width: 64,
-            child: Container(
-              // alignment: Alignment.center,
-              height: 20,
-              // width: 10,
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(8)),
-              child: flag == true
-                  ? ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent),
-                      onPressed: () {
-                        addHandler();
-                      },
-                      child: const Text("ADD"))
-                  : const IncrementItem(),
-            )));
+        child: flag == true
+            ? OutlinedButton(
+                onPressed: () {
+                  addHandler();
+                },
+                child: Text('ADD'))
+            : IncrementItem());
   }
 }
