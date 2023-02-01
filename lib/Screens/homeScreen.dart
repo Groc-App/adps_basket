@@ -2,6 +2,8 @@ import 'dart:math';
 
 import '../Widgets/Homepage/Carousel.dart';
 import '../Widgets/Homepage/BottomNavBar.dart';
+import '../Widgets/Homepage/Categories.dart';
+import '../Widgets/Homepage/MostSelling.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -22,7 +24,15 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
       ),
-      body: Carousel(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Carousel(),
+            Category(),
+            MostSelling(),
+          ],
+        ),
+      ),
       bottomNavigationBar: BotmNavBar(),
     );
   }
