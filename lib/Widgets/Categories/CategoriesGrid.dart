@@ -11,8 +11,6 @@ class CatergoriesGrid extends StatelessWidget {
     return Container(
       /* -------------------------- //Grid Item Container ------------------------- */
       margin: const EdgeInsets.all(10),
-      height: 300,
-      width: 90,
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 180, 47, 47),
         borderRadius: BorderRadius.circular(10),
