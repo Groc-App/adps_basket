@@ -1,9 +1,11 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:your_basket/Widgets/Categories/addItemIcon.dart';
 
 class ProductItemScreen extends StatelessWidget {
+  const ProductItemScreen({super.key});
+
   // const ProductItem({super.key});
 
   @override
@@ -35,8 +37,8 @@ class ProductItemScreen extends StatelessWidget {
                 padding: const EdgeInsets.all((15)),
                 // ignore: prefer_const_constructors
                 decoration: BoxDecoration(
-                  boxShadow: [
-                    const BoxShadow(
+                  boxShadow: const [
+                    BoxShadow(
                         color: Colors.grey, blurRadius: 2, spreadRadius: 2)
                   ],
                   color: Colors.white,
@@ -57,15 +59,15 @@ class ProductItemScreen extends StatelessWidget {
                         child: Row(children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
+                            children: const [
+                              Text(
                                 "BREAD",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 28,
                                     fontWeight: FontWeight.bold),
                               ),
-                              const Text("12pcs")
+                              Text("12pcs")
                             ],
                           ),
                           const Spacer(),
@@ -94,22 +96,22 @@ class ProductItemScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 9),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 9),
                               child: Text(
                                 "Product Details",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 20),
                               ),
                             ),
-                            Text(
+                            const Text(
                               "Description",
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.w500),
                             ),
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.1,
-                              child: Text(
+                              child: const Text(
                                 "Amul Sandwich bread is made out of pure and wholesome ingredients. The soft white bread is perfect for making sandwiches, bread pakoras, butter toast etc. Amul Sandwich bread is made out of pure and wholesome ingredients. The soft white bread is perfect for making sandwiches, bread pakoras, butter toast etc.",
                                 style: TextStyle(fontSize: 14),
                               ),
@@ -117,7 +119,7 @@ class ProductItemScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 5),
                               child: Row(
-                                children: [
+                                children: const [
                                   Text(
                                     "Read more details",
                                     style: TextStyle(color: Colors.purple),
@@ -138,16 +140,16 @@ class ProductItemScreen extends StatelessWidget {
             ],
           )),
         ),
-        backgroundColor: Color.fromARGB(255, 235, 227, 227),
+        backgroundColor: const Color.fromARGB(255, 235, 227, 227),
         bottomNavigationBar: SizedBox(
           height: 60,
           child: Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
               // textColor: Colors.white,
-              child: Text('View Cart'),
+              child: const Text('View Cart'),
             ),
           ),
         ));
