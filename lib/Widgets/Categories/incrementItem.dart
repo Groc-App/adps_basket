@@ -1,25 +1,27 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'dart:developer';
 
-class incrementItem extends StatefulWidget {
+import 'package:flutter/material.dart';
+
+class IncrementItem extends StatefulWidget {
+  const IncrementItem({super.key});
+
   @override
-  State<incrementItem> createState() => _incrementItemState();
+  State<IncrementItem> createState() => _incrementItemState();
 }
 
-class _incrementItemState extends State<incrementItem> {
+// ignore: camel_case_types
+class _incrementItemState extends State<IncrementItem> {
   // const incrementItem({super.key});
   var counter = 1;
 
   @override
   Widget build(BuildContext context) {
+    /* ------------------- To INcrement and Decrement Counter ------------------- */
     void incrementHandler() {
       setState(() {
         counter++;
       });
     }
-
-    ;
 
     void decrementHandler() {
       setState(() {
@@ -28,31 +30,37 @@ class _incrementItemState extends State<incrementItem> {
       });
     }
 
+    /* ------------------------------ //Making row ------------------------------ */
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
+        //Container 1
         Container(
           // width: 5,
           // height: 5,
-          margin: EdgeInsets.all(2),
+          margin: const EdgeInsets.all(2),
           child: IconButton(
-            icon: Icon(Icons.remove),
+            icon: const Icon(Icons.remove),
             onPressed: () {
               decrementHandler();
             },
           ),
         ),
+
+        // Container 2
         Container(
             // width: 5,
             // height: 5,
             // margin: EdgeInsets.all(2),
-            child: Text('${counter}')),
+            child: Text('$counter')),
+
+        // Container 3
         Container(
           // width: 5,
           // height: 5,
           // margin: EdgeInsets.all(2),
           child: IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () {
               incrementHandler();
             },

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:your_basket/Widgets/incrementItem.dart';
+import 'package:your_basket/Widgets/Categories/incrementItem.dart';
 import 'incrementItem.dart';
 
 class AddToCart extends StatefulWidget {
@@ -19,11 +19,13 @@ class _AddToCartState extends State<AddToCart> {
     });
   }
 
+  /* ---------------- To Show Add TO Cart Button And + - button --------------- */
+
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
-        child: Container(
+        child: SizedBox(
             // child: AddToCart(),
             height: 20,
             width: 64,
@@ -42,7 +44,7 @@ class _AddToCartState extends State<AddToCart> {
                         addHandler();
                       },
                       child: Text("ADD"))
-                  : incrementItem(),
+                  : IncrementItem(),
             )));
   }
 }

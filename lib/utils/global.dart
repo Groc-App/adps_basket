@@ -1,6 +1,8 @@
 // class GlobalVar{
 //   static scWidth=
 // }
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/cupertino.dart';
 
 class Globals {

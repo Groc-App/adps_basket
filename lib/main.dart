@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:your_basket/Screens/categoryScreen.dart';
-import 'package:your_basket/Screens/intro_screen.dart';
-import 'package:your_basket/utils/global.dart';
 import 'package:your_basket/utils/theme.dart';
 import 'Screens/homeScreen.dart';
 
@@ -23,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
       routes: {
-        '/homepage': (context) => CategoryScreen(),
+        '/homepage': (context) => const HomeScreen(),
         // '/catalogueScreen'
       },
     );
@@ -39,8 +36,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    // ignore: prefer_const_constructors
     return Scaffold(
-      body: CategoryScreen(),
+      body: const CategoryScreen(),
     );
   }
 }

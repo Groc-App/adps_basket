@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -20,9 +22,9 @@ class _IntroScreenState extends State<IntroScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final sc_size = MediaQuery.of(context).size;
-    final sc_width = sc_size.width;
-    final sc_height = sc_size.height;
+    final scSize = MediaQuery.of(context).size;
+    final scWidth = scSize.width;
+    final scHeight = scSize.height;
 
     // print(_controller.initialPage);
 
@@ -32,10 +34,11 @@ class _IntroScreenState extends State<IntroScreen> {
           controller: _controller,
           onPageChanged: (value) {
             setState(() {
-              if (value == 2)
+              if (value == 2) {
                 last_page = true;
-              else
+              } else {
                 last_page = false;
+              }
             });
           },
           children: [
@@ -45,7 +48,7 @@ class _IntroScreenState extends State<IntroScreen> {
           ],
         ),
         Positioned(
-          bottom: 0.05 * sc_height,
+          bottom: 0.05 * scHeight,
           child: Container(
             height: 50,
             // decoration: BoxDecoration(
@@ -54,8 +57,8 @@ class _IntroScreenState extends State<IntroScreen> {
             //         bottom: BorderSide(width: 5),
             //         left: BorderSide(width: 5),
             //         right: BorderSide(width: 5))),
-            width: sc_width * 0.8,
-            margin: EdgeInsets.only(left: 0.1 * sc_width),
+            width: scWidth * 0.8,
+            margin: EdgeInsets.only(left: 0.1 * scWidth),
             // alignment: Alignment(0, 0.85),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
