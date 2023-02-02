@@ -1,7 +1,7 @@
+// ignore_for_file: deprecated_member_use, avoid_unnecessary_containers, file_names
+
 import 'package:flutter/material.dart';
 
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Content extends StatelessWidget {
@@ -9,13 +9,13 @@ class Content extends StatelessWidget {
 
   Widget iconRow(icn, text) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(children: [
             Container(
-              margin: EdgeInsets.only(right: 6),
+              margin: const EdgeInsets.only(right: 6),
               child: CircleAvatar(
                 radius: 17,
                 backgroundColor: Colors.grey[200],
@@ -28,12 +28,12 @@ class Content extends StatelessWidget {
             ),
             Text(
               text,
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
           ]),
           Container(
-              margin: EdgeInsets.only(right: 5),
-              child: Icon(
+              margin: const EdgeInsets.only(right: 5),
+              child: const Icon(
                 Icons.navigate_next,
                 color: Colors.grey,
               )),
@@ -44,37 +44,31 @@ class Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scSize = MediaQuery.of(context).size;
-    final scHeight = scSize.height;
-
     return Column(
       children: [
-        Container(
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(
-              'Your Information',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
-            ),
-            // Divider(),
-            SizedBox(
-              height: 10,
-            ),
-            iconRow(FontAwesomeIcons.shoppingBag, 'Your Orders'),
-            iconRow(FontAwesomeIcons.addressBook, 'Your Addresses'),
-          ]),
-        ),
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const Text(
+            'Your Information',
+            style: TextStyle(fontSize: 14, color: Colors.grey),
+          ),
+          // Divider(),
+          const SizedBox(
+            height: 10,
+          ),
+          iconRow(FontAwesomeIcons.shoppingBag, 'Your Orders'),
+          iconRow(FontAwesomeIcons.addressBook, 'Your Addresses'),
+        ]),
         Container(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Container(
-                margin: EdgeInsets.only(top: 10),
-                child: Text(
+                margin: const EdgeInsets.only(top: 10),
+                child: const Text(
                   'Other Information',
                   style: TextStyle(fontSize: 14, color: Colors.grey),
                 )),
             // Divider(),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             iconRow(FontAwesomeIcons.share, 'Share the app'),

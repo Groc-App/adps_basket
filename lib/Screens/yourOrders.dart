@@ -2,12 +2,8 @@
 // ignore: file_names
 // ignore_for_file: implementation_imports, file_names, duplicate_ignore
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:your_basket/Widgets/YourOrderes/OrdereItem.dart';
-import '../Widgets/Cart/CartItem.dart';
 
 class YourOrderes extends StatelessWidget {
   YourOrderes({super.key});
@@ -17,16 +13,15 @@ class YourOrderes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scSize = MediaQuery.of(context).size;
-    final scWidth = scSize.width;
     final scHeight = scSize.height;
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 237, 230, 230),
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
-        title: Text('Your Orders'),
+        title: const Text('Your Orders'),
       ),
-      body: yourOrderList.length > 0
+      body: yourOrderList.isNotEmpty
           ? Column(
               children: [
                 SingleChildScrollView(
@@ -46,8 +41,8 @@ class YourOrderes extends StatelessWidget {
                         height: scHeight * 0.4,
                         'https://www.pngfind.com/pngs/m/88-881210_thug-life-pug-transparent-background-png-sad-dog.png'),
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      child: Text(
+                      margin: const EdgeInsets.symmetric(vertical: 10),
+                      child: const Text(
                         'OPPS, you have no past orderes!!!',
                         style: TextStyle(fontSize: 20),
                       ),
@@ -57,7 +52,7 @@ class YourOrderes extends StatelessWidget {
                           Navigator.of(context)
                               .pushReplacementNamed('/homepage');
                         },
-                        child: Text('Shop Now')),
+                        child: const Text('Shop Now')),
                   ]),
             ),
     );

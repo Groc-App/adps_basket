@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:your_basket/Screens/ProfileScreen.dart';
 import 'package:your_basket/Screens/cartScreen.dart';
 import 'package:your_basket/Screens/categoryScreen.dart';
-import 'package:your_basket/Screens/loginScreen.dart';
 import 'package:your_basket/Screens/productItemScreen.dart';
 import 'package:your_basket/Screens/yourOrders.dart';
-import 'package:your_basket/Widgets/Cart/CartItem.dart';
 import 'package:your_basket/utils/theme.dart';
 import 'Screens/homeScreen.dart';
 import 'Screens/searchScreen.dart';
@@ -31,7 +28,7 @@ class MyApp extends StatelessWidget {
         '/categoryScreen': (context) => const CategoryScreen(),
         '/productItemPage': (context) => const ProductItemScreen(),
         '/cartScreen': (context) => CartScreen(),
-        '/searchScreen': (context) => SearchScreen(),
+        '/searchScreen': (context) => const SearchScreen(),
       },
     );
   }

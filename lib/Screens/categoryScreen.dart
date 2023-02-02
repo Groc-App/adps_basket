@@ -7,8 +7,6 @@ import 'package:your_basket/Widgets/Categories/categoriesSlider.dart';
 import 'package:your_basket/Widgets/Categories/searchBar.dart';
 import 'package:your_basket/models/product.dart';
 
-import '../Widgets/Homepage/Carousel.dart';
-
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key});
 
@@ -40,7 +38,7 @@ class CategoryScreen extends StatelessWidget {
             child: Column(
           children: [
             /* ---------------------------- Top SLider Bar ---------------------------- */
-            SearchBar(),
+            const SearchBar(),
             Container(
               height: 130,
               alignment: Alignment.center,

@@ -1,6 +1,5 @@
 // ignore_for_file: file_names, prefer_const_constructors
 
-import '../Widgets/Homepage/Carousel.dart';
 import '../Widgets/Homepage/BottomNavBar.dart';
 import '../Widgets/Homepage/Categories.dart';
 import '../Widgets/Homepage/MostSelling.dart';
