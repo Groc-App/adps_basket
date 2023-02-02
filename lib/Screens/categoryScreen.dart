@@ -4,7 +4,10 @@
 import 'package:flutter/material.dart';
 import 'package:your_basket/Widgets/Categories/CategoriesGrid.dart';
 import 'package:your_basket/Widgets/Categories/categoriesSlider.dart';
+import 'package:your_basket/Widgets/Categories/searchBar.dart';
 import 'package:your_basket/models/product.dart';
+
+import '../Widgets/Homepage/Carousel.dart';
 
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key});
@@ -37,31 +40,7 @@ class CategoryScreen extends StatelessWidget {
             child: Column(
           children: [
             /* ---------------------------- Top SLider Bar ---------------------------- */
-            Container(
-              height: 50,
-              margin: const EdgeInsets.all(8),
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(boxShadow: const [
-                BoxShadow(color: Colors.grey, spreadRadius: 1, blurRadius: 1)
-              ], color: Colors.white, borderRadius: BorderRadius.circular(20)),
-              child: Row(
-                children: [
-                  const Icon(Icons.search),
-                  Container(
-                    width: 250,
-                    margin: const EdgeInsets.only(left: 10),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: "Search here......",
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  const Icon(Icons.filter_list)
-                ],
-              ),
-            ),
+            SearchBar(),
             Container(
               height: 130,
               alignment: Alignment.center,

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:your_basket/Widgets/Categories/addItemIcon.dart';
+import 'package:readmore/readmore.dart';
 
 class ProductItemScreen extends StatelessWidget {
   const ProductItemScreen({super.key});
@@ -32,7 +33,7 @@ class ProductItemScreen extends StatelessWidget {
                             'https://bonn.in/wp-content/uploads/2019/10/brown-dummy-with-sandwich-only.png'))),
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.7,
+                height: MediaQuery.of(context).size.height * 0.53,
                 margin: const EdgeInsets.only(top: 20),
                 padding: const EdgeInsets.all((15)),
                 // ignore: prefer_const_constructors
@@ -109,25 +110,33 @@ class ProductItemScreen extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.w500),
                             ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.1,
-                              child: const Text(
-                                "Amul Sandwich bread is made out of pure and wholesome ingredients. The soft white bread is perfect for making sandwiches, bread pakoras, butter toast etc. Amul Sandwich bread is made out of pure and wholesome ingredients. The soft white bread is perfect for making sandwiches, bread pakoras, butter toast etc.",
-                                style: TextStyle(fontSize: 14),
-                              ),
+                            Container(
+                              // height: 100,
+                              child: ReadMoreText(
+                                  trimLength: 100,
+                                  trimLines: 2,
+                                  colorClickableText: Colors.pink,
+                                  trimMode: TrimMode.Length,
+                                  moreStyle: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                  trimCollapsedText: 'Show more',
+                                  trimExpandedText: 'Show less',
+                                  'Amul Sandwich bread is made out of pure and wholesome ingredients. The soft white bread is perfect for making sandwiches, bread pakoras, butter toast etc. Amul Sandwich bread is made out of pure and wholesome ingredients. The soft white bread is perfect for making sandwiches, bread pakoras, butter toast etc.'),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: Row(
-                                children: const [
-                                  Text(
-                                    "Read more details",
-                                    style: TextStyle(color: Colors.purple),
-                                  ),
-                                  Icon(Icons.arrow_drop_down)
-                                ],
-                              ),
-                            )
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.symmetric(vertical: 5),
+                            //   child: Row(
+                            //     children: const [
+                            //       Text(
+                            //         "Read more details",
+                            //         style: TextStyle(color: Colors.purple),
+                            //       ),
+                            //       Icon(Icons.arrow_drop_down)
+                            //     ],
+                            //   ),
+                            // )
                           ],
                         ),
                       )
@@ -146,7 +155,9 @@ class ProductItemScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed('/cartScreen');
+              },
               style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
               // textColor: Colors.white,
               child: const Text('View Cart'),

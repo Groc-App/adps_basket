@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:your_basket/Screens/cartScreen.dart';
 import 'package:your_basket/Screens/categoryScreen.dart';
+import 'package:your_basket/Screens/loginScreen.dart';
 import 'package:your_basket/Screens/productItemScreen.dart';
+import 'package:your_basket/Screens/searchScreen.dart';
 import 'package:your_basket/utils/theme.dart';
 import 'Screens/homeScreen.dart';
 
@@ -22,7 +25,10 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(),
       routes: {
         '/homepage': (context) => const HomeScreen(),
+        '/categoryScreen': (context) => const CategoryScreen(),
         '/productItemPage': (context) => const ProductItemScreen(),
+        '/cartScreen': (context) => CartScreen(),
+        '/searchScreen': (context) => SearchScreen(),
         // '/catalogueScreen'
       },
     );
@@ -40,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
     return Scaffold(
-      body: const CategoryScreen(),
+      body: const LoginScreen(),
     );
   }
 }
