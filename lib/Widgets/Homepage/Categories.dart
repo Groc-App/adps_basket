@@ -18,11 +18,16 @@ class Category extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: scHeight * 0.25,
-              width: scWidth * 0.66,
-              // color: Colors.black,
-              child: const Card(color: Colors.lightGreen),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed('/categoryScreen');
+              },
+              child: SizedBox(
+                height: scHeight * 0.25,
+                width: scWidth * 0.66,
+                // color: Colors.black,
+                child: const Card(color: Colors.lightGreen),
+              ),
             ),
             SizedBox(
               height: scHeight * 0.25,

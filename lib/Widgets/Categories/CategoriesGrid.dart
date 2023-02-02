@@ -43,6 +43,7 @@ class CatergoriesGrid extends StatelessWidget {
                       ),
                     ),
                   ),
+
                   // ignore: avoid_unnecessary_containers
                   Container(
                     // margin: EdgeInsets.only(left: 10),

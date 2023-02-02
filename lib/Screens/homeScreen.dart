@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           // ignore: prefer_const_literals_to_create_immutables
           children: [
-            Carousel(),
+            // Carousel(),
             Category(),
             MostSelling(),
           ],
