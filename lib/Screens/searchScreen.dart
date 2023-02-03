@@ -1,6 +1,6 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:your_basket/Widgets/Categories/searchBar.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -26,10 +26,10 @@ class SearchScreen extends StatelessWidget {
 
       body: Column(
         children: [
-          SearchBar(),
-          Container(
+          const SearchBar(),
+          SizedBox(
             height: scHeight * 0.8,
-            child: Center(child: Text("Your Items")),
+            child: const Center(child: Text("Your Items")),
           )
         ],
       ),

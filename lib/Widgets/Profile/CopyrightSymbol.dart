@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: file_names
 
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter/material.dart';
 
 class CopyRightSymbol extends StatelessWidget {
   const CopyRightSymbol({super.key});
@@ -10,7 +9,7 @@ class CopyRightSymbol extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
-      children: [
+      children: const [
         Center(
           child: Text(
             'adps',

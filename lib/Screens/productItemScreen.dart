@@ -96,6 +96,7 @@ class ProductItemScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 6),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          // ignore: prefer_const_literals_to_create_immutables
                           children: [
                             const Padding(
                               padding: EdgeInsets.symmetric(vertical: 9),
@@ -110,20 +111,16 @@ class ProductItemScreen extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.w500),
                             ),
-                            Container(
-                              // height: 100,
-                              child: ReadMoreText(
-                                  trimLength: 100,
-                                  trimLines: 2,
-                                  colorClickableText: Colors.pink,
-                                  trimMode: TrimMode.Length,
-                                  moreStyle: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                  trimCollapsedText: 'Show more',
-                                  trimExpandedText: 'Show less',
-                                  'Amul Sandwich bread is made out of pure and wholesome ingredients. The soft white bread is perfect for making sandwiches, bread pakoras, butter toast etc. Amul Sandwich bread is made out of pure and wholesome ingredients. The soft white bread is perfect for making sandwiches, bread pakoras, butter toast etc.'),
-                            ),
+                            const ReadMoreText(
+                                trimLength: 100,
+                                trimLines: 2,
+                                colorClickableText: Colors.pink,
+                                trimMode: TrimMode.Length,
+                                moreStyle: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
+                                trimCollapsedText: 'Show more',
+                                trimExpandedText: 'Show less',
+                                'Amul Sandwich bread is made out of pure and wholesome ingredients. The soft white bread is perfect for making sandwiches, bread pakoras, butter toast etc. Amul Sandwich bread is made out of pure and wholesome ingredients. The soft white bread is perfect for making sandwiches, bread pakoras, butter toast etc.'),
                             // ),
                             // Padding(
                             //   padding: const EdgeInsets.symmetric(vertical: 5),

@@ -1,7 +1,7 @@
+// ignore_for_file: deprecated_member_use, avoid_unnecessary_containers, file_names
+
 import 'package:flutter/material.dart';
 
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:about/about.dart';
 
@@ -87,9 +87,6 @@ class Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scSize = MediaQuery.of(context).size;
-    final scHeight = scSize.height;
-
     return Column(
       children: [
         Container(
@@ -113,13 +110,13 @@ class Content extends StatelessWidget {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Container(
-                margin: EdgeInsets.only(top: 10),
-                child: Text(
+                margin: const EdgeInsets.only(top: 10),
+                child: const Text(
                   'Other Information',
                   style: TextStyle(fontSize: 14, color: Colors.grey),
                 )),
             // Divider(),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             iconRow(FontAwesomeIcons.share, 'Share the app', context, 'share'),

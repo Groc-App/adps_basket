@@ -1,6 +1,6 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -12,23 +12,21 @@ class LoginScreen extends StatelessWidget {
     String imgUrl =
         "https://bonn.in/wp-content/uploads/2019/10/brown-dummy-with-sandwich-only.png";
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       // backgroundColor: const Color.fromARGB(255, 192, 142, 212),
       body: SingleChildScrollView(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Image(height: scHeight * 0.6, image: NetworkImage(imgUrl)),
+              /* ----------------------------- Image Container ---------------------------- */
               Container(
                 // color: Colors.purple,
                 height: scHeight * 0.54,
                 decoration: BoxDecoration(
-                  // border: Border.all(color: Colors.black, width: 5),
-                  // color: Colors.purpleAccent.withOpacity(0.5),
                   // ignore: prefer_const_literals_to_create_immutables
                   boxShadow: [
                     const BoxShadow(
-                        color: Color.fromARGB(255, 255, 255, 104),
+                        color: Color.fromARGB(255, 255, 237, 104),
                         spreadRadius: 15,
                         blurRadius: 15)
                   ],
@@ -36,12 +34,11 @@ class LoginScreen extends StatelessWidget {
                       fit: BoxFit.contain, image: NetworkImage(imgUrl)),
                 ),
               ),
-              // SizedBox(
-              //   height: 50,
-              // ),
+              /* ----------------------------- B
+              ody Container ----------------------------- */
               Container(
-                height: scHeight * 0.46,
-                decoration: BoxDecoration(
+                height: 400,
+                decoration: const BoxDecoration(
                     // border: Border.all(width: 5, color: Colors.black)
                     ),
                 alignment: Alignment.center,
@@ -66,33 +63,30 @@ class LoginScreen extends StatelessWidget {
 
                         /* -------------------------------- TextField ------------------------------- */
                         Container(
-                          margin: EdgeInsets.all(15),
+                          margin: const EdgeInsets.all(15),
                           decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Color.fromARGB(255, 218, 206, 206),
-                                    spreadRadius: 1,
-                                    blurRadius: 8)
-                              ],
-                              border: Border.all(color: Colors.black, width: 1),
+                              border:
+                                  Border.all(color: Colors.black, width: 1.5),
                               borderRadius: BorderRadius.circular(10)),
                           child: Row(
-                            children: [
+                            children: const [
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 6, right: 2),
+                                padding: EdgeInsets.only(left: 6, right: 2),
                                 child: Text(
                                   "+91",
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ),
-                              SizedBox(
-                                width: 10,
-                              ),
+                              // SizedBox(
+                              //   width: 10,
+                              // ),
                               Expanded(
                                   // width: ,
                                   child: TextField(
+                                // style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.white,
                                     border: InputBorder.none,
                                     hintText: "Enter Mobile Number"),
                               ))
@@ -105,13 +99,24 @@ class LoginScreen extends StatelessWidget {
                           width: double.infinity,
                           height: 45,
                           child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text("Continue"),
+                            onPressed: () {
+                              Navigator.of(context).pushNamed('/otpScreen');
+                            },
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green,
+                                backgroundColor:
+                                    const Color.fromARGB(255, 0, 148, 5),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10))),
+                            child: const Text("Continue"),
                           ),
+                        ),
+                        const SizedBox(
+                          height: 80,
+                        ),
+                        const Flexible(
+                          child: Text(
+                              style: TextStyle(fontWeight: FontWeight.w200),
+                              "By continuing you agree to our terms of services and policy"),
                         )
                       ]),
                 ),
