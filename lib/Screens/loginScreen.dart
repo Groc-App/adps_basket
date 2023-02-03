@@ -99,7 +99,9 @@ class LoginScreen extends StatelessWidget {
                           width: double.infinity,
                           height: 45,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).pushNamed('/otpScreen');
+                            },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor:
                                     const Color.fromARGB(255, 0, 148, 5),
