@@ -11,16 +11,13 @@ class MostSelling extends StatelessWidget {
   Widget build(BuildContext context) {
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
+    final scWidth = scSize.width;
+    final tempHeight = scWidth * 0.48 / 0.7 * 3;
 
     return Container(
-      decoration: const BoxDecoration(
-          border: Border(
-              top: BorderSide(width: 5),
-              bottom: BorderSide(width: 5),
-              left: BorderSide(width: 5),
-              right: BorderSide(width: 5))),
-      height: scHeight * 0.9,
+      // height: scWidth * 0.48 / 0.7 * 3,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
@@ -33,26 +30,26 @@ class MostSelling extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            // decoration: BoxDecoration(
-            //     border: Border(
-            //         top: BorderSide(width: 5),
-            //         bottom: BorderSide(width: 5),
-            //         left: BorderSide(width: 5),
-            //         right: BorderSide(width: 5))),
-            // height: sc_height * 0.78,
+          Container(
+            height: scWidth * ((0.48 / 0.7) * 3) + 20,
             child: GridView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 5),
+                physics: NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3, childAspectRatio: 0.7),
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.7,
+                    crossAxisSpacing: 3,
+                    mainAxisSpacing: 3),
                 itemCount: 6,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
-                    decoration: const BoxDecoration(
-                        border: Border(
-                            top: BorderSide(width: 5),
-                            bottom: BorderSide(width: 5),
-                            left: BorderSide(width: 5),
-                            right: BorderSide(width: 5))),
+                    // decoration: const BoxDecoration(
+                    //     border: Border(
+                    //         top: BorderSide(width: 5),
+                    //         bottom: BorderSide(width: 5),
+                    //         left: BorderSide(width: 5),
+                    //         right: BorderSide(width: 5))),
+
                     child: const ProductItem(),
                   );
                 }),

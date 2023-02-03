@@ -40,29 +40,42 @@ class _ProductItemState extends State<ProductItem> {
       color: Colors.amber,
       child:
           Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        SizedBox(
-          height: scWidth * 0.28,
+        Expanded(
+          flex: 3,
           child: Image.network(
             'https://e7.pngegg.com/pngimages/195/186/png-clipart-buttermilk-cream-mother-dairy-dairy-products-milk-cream-food.png',
-            fit: BoxFit.fitWidth,
+            fit: BoxFit.fill,
           ),
         ),
-        Column(
-          children: const [
-            Text('Amul Toned Milk'),
-            Text('500 ml'),
-          ],
+        Expanded(
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Column(
+              children: const [
+                Text(
+                  'Amul Toned Milk',
+                  style: TextStyle(fontSize: 16),
+                ),
+                Text(
+                  '500 ml',
+                  style: TextStyle(fontSize: 14),
+                ),
+              ],
+            ),
+          ),
         ),
-        Container(
-          margin: const EdgeInsets.only(bottom: 5),
+        Expanded(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const Text('Price'),
+              Container(
+                  width: scWidth * 0.48 * 0.18,
+                  child:
+                      FittedBox(fit: BoxFit.fill, child: const Text('23\$'))),
               added == true
                   ? Container(
-                      width: scWidth * 0.28 * 0.36,
-                      height: scWidth * 0.28 * 0.16,
+                      width: scWidth * 0.48 * 0.36,
+                      height: scWidth * 0.48 * 0.16,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         color: Colors.white,
@@ -74,7 +87,7 @@ class _ProductItemState extends State<ProductItem> {
                             cursor: SystemMouseCursors.click,
                             child: GestureDetector(
                               child: Icon(Icons.remove,
-                                  size: scWidth * 0.28 * 0.15 * 0.7),
+                                  size: scWidth * 0.48 * 0.36 * 0.2),
                               onTap: () => decrementHandler(),
                             ),
                           ),
@@ -83,20 +96,25 @@ class _ProductItemState extends State<ProductItem> {
                             cursor: SystemMouseCursors.click,
                             child: GestureDetector(
                               child: Icon(Icons.add,
-                                  size: scWidth * 0.28 * 0.15 * 0.7),
+                                  size: scWidth * 0.48 * 0.36 * 0.2),
                               onTap: () => incrementHandler(),
                             ),
                           ),
                         ],
                       ),
                     )
-                  : OutlinedButton(
-                      onPressed: () {
-                        setState(() {
-                          added = true;
-                        });
-                      },
-                      child: const Text('ADD')),
+                  : Container(
+                      width: scWidth * 0.48 * 0.38,
+                      child: FittedBox(
+                        child: OutlinedButton(
+                            onPressed: () {
+                              setState(() {
+                                added = true;
+                              });
+                            },
+                            child: const Text('ADD')),
+                      ),
+                    ),
             ],
           ),
         )

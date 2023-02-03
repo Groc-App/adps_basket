@@ -54,8 +54,8 @@ class YourOrderes extends StatelessWidget {
                     ),
                     ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacementNamed('/homepage');
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              '/homepage', (Route<dynamic> route) => false);
                         },
                         child: Text('Shop Now')),
                   ]),

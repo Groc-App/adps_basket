@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:your_basket/Screens/OrderSuccess.dart';
 import 'package:your_basket/Screens/ProfileScreen.dart';
 import 'package:your_basket/Screens/cartScreen.dart';
 import 'package:your_basket/Screens/categoryScreen.dart';
@@ -32,6 +33,8 @@ class MyApp extends StatelessWidget {
         '/productItemPage': (context) => const ProductItemScreen(),
         '/cartScreen': (context) => CartScreen(),
         '/searchScreen': (context) => SearchScreen(),
+        '/profileScreen': (context) => ProfileScreen(),
+        '/yourOrderScreen': (context) => YourOrderes(),
       },
     );
   }
@@ -48,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
     return Scaffold(
-      body: YourOrderes(),
+      body: HomeScreen(),
     );
   }
 }

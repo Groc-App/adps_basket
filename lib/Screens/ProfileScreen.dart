@@ -25,18 +25,12 @@ class ProfileScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        // child: Container(
-        //   height: (scHeight - appBarHeight),
-        // decoration:
-        //     BoxDecoration(border: Border.all(color: Colors.black, width: 2)),
-        //   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Column(children: [
           HeadingSupport(),
           Content(),
           CopyRightSymbol(),
         ]),
       ),
-      // ),
     );
   }
 }

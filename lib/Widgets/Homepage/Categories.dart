@@ -13,47 +13,46 @@ class Category extends StatelessWidget {
     final scWidth = scSize.width;
     final scHeight = scSize.height;
 
+    Widget getCategory(wid_th, img_url, nav_url) {
+      return MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed('${nav_url}');
+          },
+          child: Container(
+            height: scHeight * 0.25,
+            width: scWidth * wid_th,
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: Image.network(
+                  'https://www.dairyfoods.com/ext/resources/2022/10/27/Dairy-Products.jpeg?1666879344',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).pushNamed('/categoryScreen');
-              },
-              child: SizedBox(
-                height: scHeight * 0.25,
-                width: scWidth * 0.66,
-                // color: Colors.black,
-                child: const Card(color: Colors.lightGreen),
-              ),
-            ),
-            SizedBox(
-              height: scHeight * 0.25,
-              width: scWidth * 0.33,
-              child: const Card(color: Colors.lightBlue),
-            ),
+            getCategory(0.66, 'img_url', '/categoryScreen'),
+            getCategory(0.33, 'img_url', '/categoryScreen'),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: scHeight * 0.25,
-              width: scWidth * 0.33,
-              child: const Card(color: Colors.lightBlue),
-            ),
-            SizedBox(
-              height: scHeight * 0.25,
-              width: scWidth * 0.33,
-              child: const Card(color: Colors.lightBlue),
-            ),
-            SizedBox(
-              height: scHeight * 0.25,
-              width: scWidth * 0.33,
-              child: const Card(color: Colors.lightBlue),
-            ),
+            getCategory(0.33, 'img_url', '/categoryScreen'),
+            getCategory(0.33, 'img_url', '/categoryScreen'),
+            getCategory(0.33, 'img_url', '/categoryScreen'),
           ],
         )
       ],

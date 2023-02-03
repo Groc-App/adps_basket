@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:your_basket/Widgets/Categories/CategoriesGrid.dart';
 import 'package:your_basket/Widgets/Categories/categoriesSlider.dart';
 import 'package:your_basket/Widgets/Categories/searchBar.dart';
+import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:your_basket/models/product.dart';
 
 import '../Widgets/Homepage/Carousel.dart';
@@ -67,21 +68,24 @@ class CategoryScreen extends StatelessWidget {
             /* ------------------------------Body Pane----------------------------- */
 
             SizedBox(
-              height: scHeight * 0.8,
+              // height: scHeight * 0.8,
               // width: sc_width * 0.s8,
+              // height: double.maxFinite,
 
               /* ---------------------- Building Categories Item Grid --------------------- */
               child: GridView.builder(
-                  padding: const EdgeInsets.all(20),
+                  physics: NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return const CatergoriesGrid();
+                    return const ProductItem();
                   },
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 0.75,
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 40.0,
-                      mainAxisSpacing: 20),
+                    childAspectRatio: 0.7,
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 3,
+                    mainAxisSpacing: 3,
+                  ),
                   itemCount: dummyList.length),
             )
           ],

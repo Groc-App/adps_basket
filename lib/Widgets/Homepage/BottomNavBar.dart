@@ -6,45 +6,49 @@ import 'dart:math';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:your_basket/Screens/ProfileScreen.dart';
+import 'package:your_basket/Screens/cartScreen.dart';
+import 'package:your_basket/Screens/homeScreen.dart';
 
-class BotmNavBar extends StatelessWidget {
+class BotmNavBar extends StatefulWidget {
   const BotmNavBar({super.key});
 
   @override
+  State<BotmNavBar> createState() => _BotmNavBarState();
+}
+
+class _BotmNavBarState extends State<BotmNavBar> {
+  @override
   Widget build(BuildContext context) {
+    int _selectedindex = 0;
+
+    var routes = ['/homepage', '/cartScreen', '/cartScreen', '/profileScreen'];
+
+    void _setIndex(int index) {
+      setState(() {
+        _selectedindex = index;
+      });
+      print(_selectedindex);
+      Navigator.of(context).pushNamed('${routes[index]}');
+    }
+
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
 
-    return CurvedNavigationBar(
-      // ignore: prefer_const_literals_to_create_immutables
+    return BottomNavigationBar(
+      currentIndex: _selectedindex,
+      onTap: _setIndex,
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: Colors.deepPurple,
+      selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.grey,
       items: [
-        const Icon(
-          FontAwesomeIcons.houseChimney,
-          size: 18,
-          // color: Colors.purple,
-        ),
-        const Icon(
-          FontAwesomeIcons.cartShopping,
-          size: 18,
-          // color: Colors.purple,
-        ),
-        const Icon(
-          FontAwesomeIcons.code,
-          size: 18,
-          // color: Colors.purple,
-        ),
-        const Icon(
-          FontAwesomeIcons.user,
-          size: 18,
-          // color: Colors.purple,
-          // fill: 1.0,
-        ),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.shopping_bag), label: 'Cart'),
+        BottomNavigationBarItem(icon: Icon(Icons.local_offer), label: 'Offer'),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.verified_user), label: 'Profile'),
       ],
-      animationDuration: const Duration(milliseconds: 200),
-      height: max(scHeight * 0.08, 50),
-      backgroundColor: Colors.white,
-      color: Theme.of(context).primaryColor,
-      buttonBackgroundColor: Colors.white,
     );
   }
 }
