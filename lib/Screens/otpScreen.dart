@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 // import 'package:pinput/pinput.dart';
+// import 'package:pinput/pinput.dart';
 
 class OtpScreen extends StatelessWidget {
   // const OtpScreen({super.key});
@@ -16,7 +17,6 @@ class OtpScreen extends StatelessWidget {
       appBar: AppBar(
           elevation: 7,
           // centerTitle: true,
-          // ignore: prefer_const_constructors
           title: Text(
             "OTP verification",
             style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),

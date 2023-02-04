@@ -34,14 +34,14 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(),
       routes: {
         '/homepage': (context) => const HomeScreen(),
-        '/categoryScreen': (context) => const CategoryScreen(),
+        '/categoryScreen': (context) => CategoryScreen(),
         '/productItemPage': (context) => const ProductItemScreen(),
         '/cartScreen': (context) => CartScreen(),
         '/searchScreen': (context) => SearchScreen(),
         '/profileScreen': (context) => ProfileScreen(),
         '/yourOrderScreen': (context) => YourOrderes(),
         '/otpScreen': (context) => OtpScreen(),
-        '/addressScreen': (context) => const Address(),
+        '/addressScreen': (context) => Address(),
       },
     );
   }
