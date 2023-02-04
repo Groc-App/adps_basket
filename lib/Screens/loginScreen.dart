@@ -1,9 +1,12 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:your_basket/Screens/otpScreen.dart';
+import 'package:your_basket/Services/api_service.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  // const LoginScreen({super.key});
+  String phoneNumber = "";
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +72,7 @@ class LoginScreen extends StatelessWidget {
                                   Border.all(color: Colors.black, width: 1.5),
                               borderRadius: BorderRadius.circular(10)),
                           child: Row(
-                            children: const [
+                            children: [
                               Padding(
                                 padding: EdgeInsets.only(left: 6, right: 2),
                                 child: Text(
@@ -83,6 +86,11 @@ class LoginScreen extends StatelessWidget {
                               Expanded(
                                   // width: ,
                                   child: TextField(
+                                onChanged: (String value) {
+                                  if (value.length > 9) {
+                                    phoneNumber = value;
+                                  }
+                                },
                                 // style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
                                     filled: true,
@@ -99,8 +107,25 @@ class LoginScreen extends StatelessWidget {
                           width: double.infinity,
                           height: 45,
                           child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).pushNamed('/otpScreen');
+                            onPressed: () async {
+                              if (phoneNumber.length > 9) {
+                                var resp =
+                                    await APIService.otpLogin(phoneNumber);
+                                print("Messssage");
+                                print(resp.data);
+                                if (resp.data != null) {
+                                  // ignore: use_build_context_synchronously
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => OtpScreen(
+                                          otpHash: resp.data,
+                                          phoneNumber: phoneNumber,
+                                        ),
+                                      ),
+                                      (route) => false);
+                                }
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor:

@@ -1,13 +1,17 @@
-// ignore_for_file: file_names, prefer_const_constructors
+// ignore_for_file: file_names, prefer_const_constructors, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
 // import 'package:pinput/pinput.dart';
 
 class OtpScreen extends StatelessWidget {
-  const OtpScreen({super.key});
+  // const OtpScreen({super.key});
+  late final otpHash;
+  late final phoneNumber;
 
+  OtpScreen({this.otpHash, this.phoneNumber});
   @override
   Widget build(BuildContext context) {
+    print("OTP HASH::" + otpHash);
     return Scaffold(
       appBar: AppBar(
           elevation: 7,

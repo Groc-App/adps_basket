@@ -11,9 +11,13 @@ import 'package:your_basket/utils/theme.dart';
 import 'Screens/homeScreen.dart';
 import 'Screens/searchScreen.dart';
 import 'Widgets/Address/address.dart';
+// import 'package:riverpod/riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -36,7 +40,7 @@ class MyApp extends StatelessWidget {
         '/searchScreen': (context) => SearchScreen(),
         '/profileScreen': (context) => ProfileScreen(),
         '/yourOrderScreen': (context) => YourOrderes(),
-        '/otpScreen': (context) => const OtpScreen(),
+        '/otpScreen': (context) => OtpScreen(),
         '/addressScreen': (context) => const Address(),
       },
     );
@@ -54,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
     return Scaffold(
-      body: HomeScreen(),
+      body: LoginScreen(),
     );
   }
 }
