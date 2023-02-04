@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
     return Scaffold(
-      body: AddressBook(),
+      body: CategoryScreen(),
     );
   }
 }
