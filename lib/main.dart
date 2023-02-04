@@ -10,10 +10,12 @@ import 'package:your_basket/Screens/yourOrders.dart';
 import 'package:your_basket/utils/theme.dart';
 import 'Screens/homeScreen.dart';
 import 'Screens/searchScreen.dart';
-import 'Screens/addressScreen.dart';
+import 'Widgets/Address/address.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -36,8 +38,8 @@ class MyApp extends StatelessWidget {
         '/searchScreen': (context) => SearchScreen(),
         '/profileScreen': (context) => ProfileScreen(),
         '/yourOrderScreen': (context) => YourOrderes(),
-        '/otpScreen': (context) => const OtpScreen(),
-        '/addressScreen': (context) => AddressBook(),
+        '/otpScreen': (context) => OtpScreen(),
+        '/addressScreen': (context) => Address(),
       },
     );
   }
