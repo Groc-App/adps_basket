@@ -10,7 +10,7 @@ import 'package:your_basket/Screens/yourOrders.dart';
 import 'package:your_basket/utils/theme.dart';
 import 'Screens/homeScreen.dart';
 import 'Screens/searchScreen.dart';
-import 'Widgets/Address/address.dart';
+import 'Screens/addressScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,14 +30,14 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(),
       routes: {
         '/homepage': (context) => const HomeScreen(),
-        '/categoryScreen': (context) => const CategoryScreen(),
+        '/categoryScreen': (context) => CategoryScreen(),
         '/productItemPage': (context) => const ProductItemScreen(),
         '/cartScreen': (context) => CartScreen(),
         '/searchScreen': (context) => SearchScreen(),
         '/profileScreen': (context) => ProfileScreen(),
         '/yourOrderScreen': (context) => YourOrderes(),
         '/otpScreen': (context) => const OtpScreen(),
-        '/addressScreen': (context) => const Address(),
+        '/addressScreen': (context) => AddressBook(),
       },
     );
   }
@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
     return Scaffold(
-      body: HomeScreen(),
+      body: AddressBook(),
     );
   }
 }
