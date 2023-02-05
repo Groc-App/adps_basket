@@ -8,7 +8,7 @@ import 'package:your_basket/Widgets/Categories/searchBar.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:your_basket/models/product.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/category_provider.dart';
+import '../providers/providers.dart';
 import '../models/category/category.dart';
 
 class CategoryScreen extends ConsumerWidget {
