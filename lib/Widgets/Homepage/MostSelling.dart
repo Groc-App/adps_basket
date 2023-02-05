@@ -43,15 +43,15 @@ class MostSelling extends StatelessWidget {
                 itemCount: 6,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
-                    // decoration: const BoxDecoration(
-                    //     border: Border(
-                    //         top: BorderSide(width: 5),
-                    //         bottom: BorderSide(width: 5),
-                    //         left: BorderSide(width: 5),
-                    //         right: BorderSide(width: 5))),
+                      // decoration: const BoxDecoration(
+                      //     border: Border(
+                      //         top: BorderSide(width: 5),
+                      //         bottom: BorderSide(width: 5),
+                      //         left: BorderSide(width: 5),
+                      //         right: BorderSide(width: 5))),
 
-                    child: const ProductItem(),
-                  );
+                      // child: ProductItem(),
+                      );
                 }),
           ),
         ],

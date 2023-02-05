@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Screens/OrderSuccess.dart';
 import 'package:your_basket/Screens/ProfileScreen.dart';
 import 'package:your_basket/Screens/cartScreen.dart';
@@ -11,10 +12,12 @@ import 'package:your_basket/utils/theme.dart';
 import 'Screens/homeScreen.dart';
 import 'Screens/searchScreen.dart';
 import 'Widgets/Address/address.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
+  child:
   runApp(
-    const MyApp(),
+    ProviderScope(child: const MyApp()),
   );
 }
 

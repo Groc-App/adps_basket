@@ -1,13 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:your_basket/models/category/category.dart';
 import 'package:your_basket/models/otp_login_screen_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config.dart';
 
-final apiService = Provider((ref) => APIService());
+final authApiService = Provider((ref) => APIServiceAuth());
 
-class APIService {
+class APIServiceAuth {
   static var client = http.Client();
 
   static Future<LoginResponseModel> otpLogin(String mobileNo) async {
@@ -29,28 +28,28 @@ class APIService {
     return loginResponseJson(response.body);
   }
 
-  Future<List<Category>?> getCategory() async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
+  // Future<List<Category>?> getCategory() async {
+  //   Map<String, String> requestHeaders = {
+  //     'Content-Type': 'application/json',
+  //   };
 
-    var url = Uri.http(Config.apiURL, Config.getCategoryApi);
+  //   var url = Uri.http(Config.apiURL, Config.getCategoryApi);
 
-    var response = await client.get(
-      url,
-      headers: requestHeaders,
-      // body: jsonEncode({"phone": }),
-    );
+  //   var response = await client.get(
+  //     url,
+  //     headers: requestHeaders,
+  //     // body: jsonEncode({"phone": }),
+  //   );
 
-    print(response.body);
+  //   print(response.body);
 
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      return categoiesFromJson(data['data']);
-    } else {
-      return null;
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     var data = jsonDecode(response.body);
+  //     return categoiesFromJson(data['data']);
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   static Future<LoginResponseModel> verifyOtp(
     String mobileNo,

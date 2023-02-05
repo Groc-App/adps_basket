@@ -3,15 +3,46 @@
 import 'package:flutter/material.dart';
 
 class ProductItem extends StatefulWidget {
-  const ProductItem({super.key});
+  // const ProductItem({super.key});
+  late String imageUrl;
+  late String name;
+  late String desc;
+  late double price;
+  late String quantity;
+
+  ProductItem(
+      {required this.imageUrl,
+      required this.name,
+      required this.desc,
+      required this.price,
+      required this.quantity});
 
   @override
-  State<ProductItem> createState() => _ProductItemState();
+  State<ProductItem> createState() => _ProductItemState(
+      imageUrl: imageUrl,
+      name: name,
+      desc: desc,
+      price: price,
+      quantity: quantity);
 }
 
 class _ProductItemState extends State<ProductItem> {
   bool added = false;
   var counter = 1;
+
+  String imageUrl;
+  String name;
+  String desc;
+  double price;
+  String quantity;
+
+  _ProductItemState({
+    required this.imageUrl,
+    required this.name,
+    required this.desc,
+    required this.price,
+    required this.quantity,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +74,7 @@ class _ProductItemState extends State<ProductItem> {
         Expanded(
           flex: 3,
           child: Image.network(
-            'https://e7.pngegg.com/pngimages/195/186/png-clipart-buttermilk-cream-mother-dairy-dairy-products-milk-cream-food.png',
+            imageUrl,
             fit: BoxFit.fill,
           ),
         ),
@@ -51,13 +82,13 @@ class _ProductItemState extends State<ProductItem> {
           child: FittedBox(
             fit: BoxFit.scaleDown,
             child: Column(
-              children: const [
+              children: [
                 Text(
-                  'Amul Toned Milk',
+                  name,
                   style: TextStyle(fontSize: 16),
                 ),
                 Text(
-                  '500 ml',
+                  quantity,
                   style: TextStyle(fontSize: 14),
                 ),
               ],
@@ -70,8 +101,8 @@ class _ProductItemState extends State<ProductItem> {
             children: [
               Container(
                   width: scWidth * 0.48 * 0.18,
-                  child:
-                      FittedBox(fit: BoxFit.fill, child: const Text('23\$'))),
+                  child: FittedBox(
+                      fit: BoxFit.fill, child: Text(price.toString()))),
               added == true
                   ? Container(
                       width: scWidth * 0.48 * 0.36,

@@ -110,7 +110,7 @@ class LoginScreen extends StatelessWidget {
                             onPressed: () async {
                               if (phoneNumber.length > 9) {
                                 var resp =
-                                    await APIService.otpLogin(phoneNumber);
+                                    await APIServiceAuth.otpLogin(phoneNumber);
                                 print("Messssage");
                                 print(resp.data);
                                 if (resp.data != null) {
