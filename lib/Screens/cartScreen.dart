@@ -7,8 +7,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Widgets/Cart/CartItem.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/providers.dart';
+import '../models/cart/cartitem.dart' as CartItemModel;
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends ConsumerWidget {
   CartScreen({super.key});
 
   final cartItemList = [
@@ -16,8 +19,34 @@ class CartScreen extends StatelessWidget {
     {'idx': '1'},
   ];
 
+  final userid = 'fguigg';
+
+  Widget cartitemList(WidgetRef ref) {
+    final categories = ref.watch(cartItemProvider(userid));
+
+    return categories.when(
+      data: (list) {
+        // return buildCategory(list);
+        print(list);
+        return buildCartItems(list);
+      },
+      error: (_, __) => const Center(child: Text("ERR")),
+      loading: () => const Center(child: CircularProgressIndicator()),
+    );
+  }
+
+  Widget buildCartItems(List<CartItemModel.CartItem>? list) {
+    return list != null
+        ? Column(
+            children: list.map((data) {
+              return const CartItem();
+            }).toList(),
+          )
+        : Container();
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final scSize = MediaQuery.of(context).size;
     final scWidth = scSize.width;
     final scHeight = scSize.height;
@@ -46,11 +75,7 @@ class CartScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Column(
-                    children: cartItemList.map((e) {
-                      return const CartItem();
-                    }).toList(),
-                  ),
+                  cartitemList(ref),
                   Container(
                     margin: const EdgeInsets.only(top: 20, bottom: 20),
                     padding:

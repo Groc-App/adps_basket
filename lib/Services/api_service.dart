@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:your_basket/models/cart/cartitem.dart';
+import 'package:your_basket/models/category/category.dart';
 import 'package:your_basket/models/otp_login_screen_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config.dart';
+import '../models/product/productdetail.dart';
 
 final authApiService = Provider((ref) => APIServiceAuth());
 
@@ -50,6 +53,89 @@ class APIServiceAuth {
   //     return null;
   //   }
   // }
+
+  Future<List<CartItem>?> getCartItem(String userid) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    Map<String, dynamic> querymap = {
+      'id': userid,
+    };
+
+    var url = Uri.http(Config.apiURL, Config.getCartItemApi,
+        {'mapData': jsonEncode(querymap)});
+
+    print(url);
+
+    var response = await client.get(
+      url,
+      headers: requestHeaders,
+      // body: jsonEncode({"phone": }),
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return cartitemFromJson(data['data']);
+    } else {
+      return null;
+    }
+  }
+
+  Future<ProductItem?> getproductDetail(productid) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var ur = Config.getProductByIdApi + '/${productid}';
+
+    var url = Uri.http(Config.apiURL, ur);
+
+    print(url);
+
+    var response = await client.get(
+      url,
+      headers: requestHeaders,
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      print(data["data"]);
+      return productDetailFromJson(data['data']);
+    } else {
+      return null;
+    }
+  }
+
+  void updateCartitemquantity(String cartitemId) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var ur = Config.getProductByIdApi + '/${cartitemId}';
+
+    var url = Uri.http(Config.apiURL, ur);
+
+    print(url);
+
+    var response = await client.get(
+      url,
+      headers: requestHeaders,
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      // var data = jsonDecode(response.body);
+      // return productDetailFromJson(data['data']);
+    } else {
+      // return null;
+    }
+  }
 
   static Future<LoginResponseModel> verifyOtp(
     String mobileNo,

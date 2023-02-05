@@ -10,6 +10,9 @@ class Config {
   /* ---------------------------------- AUth ---------------------------------- */
   static const String otpLoginAPI = '/otpLogin';
   static const String otpVerifyAPI = '/verifyOtp';
+  static const String getCategoryApi = '/category/getAllCategory';
+  static const String getCartItemApi = '/cart/fetchitemsid';
+  static const String getProductByIdApi = '/product/fetchproductcid';
 
   /* ---------------------------- Categories APi's ---------------------------- */
   static const String getAllCategoryApi = '/category/getAllCategory';

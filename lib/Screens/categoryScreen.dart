@@ -6,7 +6,6 @@ import 'package:your_basket/Widgets/Categories/CategoriesGrid.dart';
 import 'package:your_basket/Widgets/Categories/categoriesSlider.dart';
 import 'package:your_basket/Widgets/Categories/searchBar.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
-// import 'package:your_basket/models/product.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/models/product/products.dart';
 import '../providers/providers.dart';

@@ -1,16 +1,23 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CartItem extends StatefulWidget {
+class CartItem extends ConsumerStatefulWidget {
   const CartItem({super.key});
 
   @override
-  State<CartItem> createState() => _CartItemState();
+  ConsumerState<CartItem> createState() => _CartItemState();
 }
 
-class _CartItemState extends State<CartItem> {
+class _CartItemState extends ConsumerState<CartItem> {
   var counter = 1;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +26,21 @@ class _CartItemState extends State<CartItem> {
     final scWidth = scSize.width - 10 - 4 - 8;
 
     void incrementHandler() {
-      setState(() {
-        counter++;
-      });
+      // setState(() {
+      //   counter++;
+      // // });
+      // final ciupdate = ref.watch(cartItemUpdateProvider(cartitemid));
+
+      // ciupdate.when(
+      //   data: (list) {
+      //     // return buildCategory(list);
+      //     // print(list);
+      //     // return buildCartItems(list);
+
+      //   },
+      //   error: (_, __) => const Center(child: Text("ERR")),
+      //   loading: () => const Center(child: CircularProgressIndicator()),
+      // );
     }
 
     void decrementHandler() {
