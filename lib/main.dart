@@ -11,13 +11,11 @@ import 'package:your_basket/utils/theme.dart';
 import 'Screens/homeScreen.dart';
 import 'Screens/searchScreen.dart';
 import 'Widgets/Address/address.dart';
-// import 'package:riverpod/riverpod.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const ProviderScope(
-    child: const MyApp(),
-  ));
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
