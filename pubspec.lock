@@ -344,13 +344,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.1"
-<<<<<<< HEAD
   graphs:
     dependency: transitive
-=======
-  http:
-    dependency: "direct main"
->>>>>>> f39116b02b890408750361984a8d0398ad7edad1
     description:
       name: graphs
       sha256: f9e130f3259f52d26f0cfc0e964513796dafed572fa52e45d2f8d6ca14db39b2
@@ -358,7 +353,7 @@ packages:
     source: hosted
     version: "2.2.0"
   http:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: http
       sha256: "6aa2946395183537c8b880962d935877325d6a09a2867c3970c05c0fed6ac482"
