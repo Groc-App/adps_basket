@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Screens/OrderSuccess.dart';
 import 'package:your_basket/Screens/ProfileScreen.dart';
 import 'package:your_basket/Screens/cartScreen.dart';
@@ -14,7 +15,7 @@ import 'Widgets/Address/address.dart';
 
 void main() {
   runApp(
-    const MyApp(),
+    const ProviderScope(child: MyApp()),
   );
 }
 
@@ -26,14 +27,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // Globals().setContext(context);
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Your Basket',
       theme: MyTheme.lightTheme(context),
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
       routes: {
         '/homepage': (context) => const HomeScreen(),
         '/categoryScreen': (context) => CategoryScreen(),
-        '/productItemPage': (context) => const ProductItemScreen(),
+        '/productItemPage': (context) => ProductItemScreen(),
         '/cartScreen': (context) => CartScreen(),
         '/searchScreen': (context) => SearchScreen(),
         '/profileScreen': (context) => ProfileScreen(),
@@ -56,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
     return Scaffold(
-      body: HomeScreen(),
+      body: ProductItemScreen(),
     );
   }
 }

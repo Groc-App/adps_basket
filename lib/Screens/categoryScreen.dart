@@ -6,7 +6,6 @@ import 'package:your_basket/Widgets/Categories/CategoriesGrid.dart';
 import 'package:your_basket/Widgets/Categories/categoriesSlider.dart';
 import 'package:your_basket/Widgets/Categories/searchBar.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
-import 'package:your_basket/models/product.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/providers.dart';
 import '../models/category/category.dart';
@@ -51,7 +50,7 @@ class CategoryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     /* ------------------------------- dummy Data ------------------------------- */
-    var dummyList = List.generate(20, (index) => Catalog().products[0]);
+    var dummyList = {};
 
     /* --------------------------- Screen Intilization -------------------------- */
     final scSize = MediaQuery.of(context).size;

@@ -4,4 +4,6 @@ class Config {
   static const String otpLoginAPI = '/otpLogin';
   static const String otpVerifyAPI = '/verifyOtp';
   static const String getCategoryApi = '/category/getAllCategory';
+  static const String getCartItemApi = '/cart/fetchitemsid';
+  static const String getProductByIdApi = '/product/fetchproductcid';
 }
