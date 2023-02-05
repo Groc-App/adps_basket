@@ -16,9 +16,9 @@ class CategoryScreen extends ConsumerWidget {
   CategoryScreen({super.key});
 
   // setState(){}
-  var category;
+  var category = "Bread";
   initState() {
-    category = "milk";
+    category = "Bread";
   }
 
   Widget categoriesList(WidgetRef ref) {
@@ -35,7 +35,9 @@ class CategoryScreen extends ConsumerWidget {
   }
 
   Widget productList(WidgetRef ref) {
-    final products = ref.watch(productsByCategoryProvider("Bread"));
+    print("this is category name ..........................||||||||||||");
+    print(category);
+    final products = ref.watch(productsByCategoryProvider(category));
     return products.when(
       data: (list) {
         print(

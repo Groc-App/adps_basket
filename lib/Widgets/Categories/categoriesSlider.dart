@@ -8,11 +8,17 @@ class CategorySliderItems extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
   final catergoryURL;
 
+  void tapHandler() {
+    print("Tapped tapped");
+  }
+
   const CategorySliderItems(this.categoryName, this.catergoryURL, {super.key});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          tapHandler();
+        },
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Column(children: [
