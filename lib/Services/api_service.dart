@@ -29,7 +29,7 @@ class APIService {
     return loginResponseJson(response.body);
   }
 
-  static Future<List<Category>?> getCategory() async {
+  Future<List<Category>?> getCategory() async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -41,6 +41,8 @@ class APIService {
       headers: requestHeaders,
       // body: jsonEncode({"phone": }),
     );
+
+    print(response.body);
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);

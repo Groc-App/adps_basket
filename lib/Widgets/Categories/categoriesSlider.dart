@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class CategorySliderItems extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
-  final categoryName;
+  final String categoryName;
   // ignore: prefer_typing_uninitialized_variables
   final catergoryURL;
 
@@ -22,7 +22,7 @@ class CategorySliderItems extends StatelessWidget {
               height: 50,
               alignment: Alignment.center,
               child: Image.network(
-                'https://swarajdairy.com/images/all_bakery_products.png',
+                catergoryURL,
                 height: 50,
               ),
             ),
@@ -30,8 +30,8 @@ class CategorySliderItems extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text(
-                  "Milk And Bakery",
+                Text(
+                  categoryName,
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                 ),
               ],

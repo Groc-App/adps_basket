@@ -7,12 +7,49 @@ import 'package:your_basket/Widgets/Categories/categoriesSlider.dart';
 import 'package:your_basket/Widgets/Categories/searchBar.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:your_basket/models/product.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/category_provider.dart';
+import '../models/category/category.dart';
 
-class CategoryScreen extends StatelessWidget {
+class CategoryScreen extends ConsumerWidget {
   const CategoryScreen({super.key});
 
+  Widget categoriesList(WidgetRef ref) {
+    final categories = ref.watch(categoriesProvider);
+
+    return categories.when(
+      data: (list) {
+        return buildCategory(list);
+      },
+      error: (_, __) => const Center(child: Text("ERR")),
+      loading: () => const Center(child: CircularProgressIndicator()),
+    );
+  }
+
+  Widget buildCategory(List<Category>? categories) {
+    return Container(
+      height: 130,
+      alignment: Alignment.center,
+      // width: sc_width * 0.9,
+      child: ListView.separated(
+        separatorBuilder: (context, index) => const SizedBox(
+          width: 20,
+        ),
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics(),
+        padding: const EdgeInsets.all(10),
+        itemCount: categories!.length,
+        scrollDirection: Axis.horizontal,
+
+        /* --------------------- Building Slider category Items --------------------- */
+        itemBuilder: ((context, index) => CategorySliderItems(
+            categories[index].categoryName, categories[index].categoryImage)),
+      ),
+    );
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     /* ------------------------------- dummy Data ------------------------------- */
     var dummyList = List.generate(20, (index) => Catalog().products[0]);
 
@@ -40,25 +77,7 @@ class CategoryScreen extends StatelessWidget {
           children: [
             /* ---------------------------- Top SLider Bar ---------------------------- */
             const SearchBar(),
-            Container(
-              height: 130,
-              alignment: Alignment.center,
-              // width: sc_width * 0.9,
-              child: ListView.separated(
-                separatorBuilder: (context, index) => const SizedBox(
-                  width: 20,
-                ),
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-                padding: const EdgeInsets.all(10),
-                itemCount: dummyList.length,
-                scrollDirection: Axis.horizontal,
-
-                /* --------------------- Building Slider category Items --------------------- */
-                itemBuilder: ((context, index) => CategorySliderItems(
-                    dummyList[index].name, dummyList[index].image)),
-              ),
-            ),
+            categoriesList(ref),
             // Carousel(),
 
             /* -------------------------------------------------------------------------- */

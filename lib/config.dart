@@ -3,5 +3,5 @@ class Config {
   static const String apiURL = '127.0.0.1:8000';
   static const String otpLoginAPI = '/otpLogin';
   static const String otpVerifyAPI = '/verifyOtp';
-  static const String getCategoryApi = '/category/getCategory';
+  static const String getCategoryApi = '/category/getAllCategory';
 }
