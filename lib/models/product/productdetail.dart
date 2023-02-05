@@ -2,19 +2,19 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'productdetail.freezed.dart';
 part 'productdetail.g.dart';
 
-Product productDetailFromJson(dynamic str) => Product.fromJson(str);
+ProductItem productDetailFromJson(dynamic str) => ProductItem.fromJson(str);
 
 @freezed
-abstract class Product with _$Product {
-  factory Product({
+abstract class ProductItem with _$ProductItem {
+  factory ProductItem({
     required String Name,
     required String Price,
     required String Description,
     required String Quantity,
     required String Company,
     required String ImageUrl,
-  }) = _Product;
+  }) = _ProductItem;
 
-  factory Product.fromJson(Map<String, dynamic> json) =>
-      _$ProductFromJson(json);
+  factory ProductItem.fromJson(Map<String, dynamic> json) =>
+      _$ProductItemFromJson(json);
 }

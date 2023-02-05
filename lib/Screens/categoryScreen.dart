@@ -7,22 +7,70 @@ import 'package:your_basket/Widgets/Categories/categoriesSlider.dart';
 import 'package:your_basket/Widgets/Categories/searchBar.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/models/product/products.dart';
 import '../providers/providers.dart';
 import '../models/category/category.dart';
 
 class CategoryScreen extends ConsumerWidget {
-  const CategoryScreen({super.key});
+  CategoryScreen({super.key});
+
+  // setState(){}
+  var category;
+  initState() {
+    category = "milk";
+  }
 
   Widget categoriesList(WidgetRef ref) {
     final categories = ref.watch(categoriesProvider);
 
     return categories.when(
       data: (list) {
+        // print("Thisssssssssssssssssss is list" + '${list}');
         return buildCategory(list);
       },
       error: (_, __) => const Center(child: Text("ERR")),
       loading: () => const Center(child: CircularProgressIndicator()),
     );
+  }
+
+  Widget productList(WidgetRef ref) {
+    final products = ref.watch(productsByCategoryProvider("Bread"));
+    return products.when(
+      data: (list) {
+        print(
+            "Thisssssssssssssssssss is list of products::::::::::::::::::::::::::::" +
+                '${list}');
+
+        return buildProducts(list);
+      },
+      error: (_, __) => const Center(child: Text("ERR")),
+      loading: () => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
+  Widget buildProducts(List<Product>? products) {
+    return GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return ProductItem(
+            imageUrl: products[index].ImageUrl,
+            name: products[index].Name,
+            desc: products[index].Description,
+            price: products[index].Price,
+            quantity: products[index].Quantity,
+          );
+        },
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          childAspectRatio: 0.7,
+          crossAxisCount: 2,
+          crossAxisSpacing: 3,
+          mainAxisSpacing: 3,
+        ),
+        itemCount: products!.length);
   }
 
   Widget buildCategory(List<Category>? categories) {
@@ -42,7 +90,7 @@ class CategoryScreen extends ConsumerWidget {
 
         /* --------------------- Building Slider category Items --------------------- */
         itemBuilder: ((context, index) => CategorySliderItems(
-            categories[index].categoryName, categories[index].categoryImage)),
+            categories[index].Name, categories[index].imageurl)),
       ),
     );
   }
@@ -50,7 +98,7 @@ class CategoryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     /* ------------------------------- dummy Data ------------------------------- */
-    var dummyList = {};
+    // var dummyList = List.generate(20, (index) => Catalog().products[0]);
 
     /* --------------------------- Screen Intilization -------------------------- */
     final scSize = MediaQuery.of(context).size;
@@ -84,26 +132,12 @@ class CategoryScreen extends ConsumerWidget {
             /* ------------------------------Body Pane----------------------------- */
 
             SizedBox(
-              // height: scHeight * 0.8,
-              // width: sc_width * 0.s8,
-              // height: double.maxFinite,
+                // height: scHeight * 0.8,
+                // width: sc_width * 0.s8,
+                // height: double.maxFinite,
 
-              /* ---------------------- Building Categories Item Grid --------------------- */
-              child: GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return const ProductItem();
-                  },
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: 0.7,
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 3,
-                    mainAxisSpacing: 3,
-                  ),
-                  itemCount: dummyList.length),
-            )
+                /* ---------------------- Building Categories Item Grid --------------------- */
+                child: productList(ref))
           ],
         )));
   }

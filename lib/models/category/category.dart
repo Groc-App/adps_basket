@@ -8,9 +8,9 @@ List<Category> categoiesFromJson(dynamic str) =>
 @freezed
 abstract class Category with _$Category {
   factory Category(
-      {required String categoryName,
+      {required String Name,
       required String categoryId,
-      required String categoryImage}) = _Category;
+      required String imageurl}) = _Category;
 
   factory Category.fromJson(Map<String, dynamic> json) =>
       _$CategoryFromJson(json);

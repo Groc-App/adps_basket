@@ -20,9 +20,9 @@ Category _$CategoryFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Category {
-  String get categoryName => throw _privateConstructorUsedError;
+  String get Name => throw _privateConstructorUsedError;
   String get categoryId => throw _privateConstructorUsedError;
-  String get categoryImage => throw _privateConstructorUsedError;
+  String get imageurl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +35,7 @@ abstract class $CategoryCopyWith<$Res> {
   factory $CategoryCopyWith(Category value, $Res Function(Category) then) =
       _$CategoryCopyWithImpl<$Res, Category>;
   @useResult
-  $Res call({String categoryName, String categoryId, String categoryImage});
+  $Res call({String Name, String categoryId, String imageurl});
 }
 
 /// @nodoc
@@ -51,22 +51,22 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? categoryName = null,
+    Object? Name = null,
     Object? categoryId = null,
-    Object? categoryImage = null,
+    Object? imageurl = null,
   }) {
     return _then(_value.copyWith(
-      categoryName: null == categoryName
-          ? _value.categoryName
-          : categoryName // ignore: cast_nullable_to_non_nullable
+      Name: null == Name
+          ? _value.Name
+          : Name // ignore: cast_nullable_to_non_nullable
               as String,
       categoryId: null == categoryId
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
               as String,
-      categoryImage: null == categoryImage
-          ? _value.categoryImage
-          : categoryImage // ignore: cast_nullable_to_non_nullable
+      imageurl: null == imageurl
+          ? _value.imageurl
+          : imageurl // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -79,7 +79,7 @@ abstract class _$$_CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
       __$$_CategoryCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String categoryName, String categoryId, String categoryImage});
+  $Res call({String Name, String categoryId, String imageurl});
 }
 
 /// @nodoc
@@ -93,22 +93,22 @@ class __$$_CategoryCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? categoryName = null,
+    Object? Name = null,
     Object? categoryId = null,
-    Object? categoryImage = null,
+    Object? imageurl = null,
   }) {
     return _then(_$_Category(
-      categoryName: null == categoryName
-          ? _value.categoryName
-          : categoryName // ignore: cast_nullable_to_non_nullable
+      Name: null == Name
+          ? _value.Name
+          : Name // ignore: cast_nullable_to_non_nullable
               as String,
       categoryId: null == categoryId
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
               as String,
-      categoryImage: null == categoryImage
-          ? _value.categoryImage
-          : categoryImage // ignore: cast_nullable_to_non_nullable
+      imageurl: null == imageurl
+          ? _value.imageurl
+          : imageurl // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -118,23 +118,21 @@ class __$$_CategoryCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Category implements _Category {
   _$_Category(
-      {required this.categoryName,
-      required this.categoryId,
-      required this.categoryImage});
+      {required this.Name, required this.categoryId, required this.imageurl});
 
   factory _$_Category.fromJson(Map<String, dynamic> json) =>
       _$$_CategoryFromJson(json);
 
   @override
-  final String categoryName;
+  final String Name;
   @override
   final String categoryId;
   @override
-  final String categoryImage;
+  final String imageurl;
 
   @override
   String toString() {
-    return 'Category(categoryName: $categoryName, categoryId: $categoryId, categoryImage: $categoryImage)';
+    return 'Category(Name: $Name, categoryId: $categoryId, imageurl: $imageurl)';
   }
 
   @override
@@ -142,18 +140,16 @@ class _$_Category implements _Category {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Category &&
-            (identical(other.categoryName, categoryName) ||
-                other.categoryName == categoryName) &&
+            (identical(other.Name, Name) || other.Name == Name) &&
             (identical(other.categoryId, categoryId) ||
                 other.categoryId == categoryId) &&
-            (identical(other.categoryImage, categoryImage) ||
-                other.categoryImage == categoryImage));
+            (identical(other.imageurl, imageurl) ||
+                other.imageurl == imageurl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, categoryName, categoryId, categoryImage);
+  int get hashCode => Object.hash(runtimeType, Name, categoryId, imageurl);
 
   @JsonKey(ignore: true)
   @override
@@ -171,18 +167,18 @@ class _$_Category implements _Category {
 
 abstract class _Category implements Category {
   factory _Category(
-      {required final String categoryName,
+      {required final String Name,
       required final String categoryId,
-      required final String categoryImage}) = _$_Category;
+      required final String imageurl}) = _$_Category;
 
   factory _Category.fromJson(Map<String, dynamic> json) = _$_Category.fromJson;
 
   @override
-  String get categoryName;
+  String get Name;
   @override
   String get categoryId;
   @override
-  String get categoryImage;
+  String get imageurl;
   @override
   @JsonKey(ignore: true)
   _$$_CategoryCopyWith<_$_Category> get copyWith =>

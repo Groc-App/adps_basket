@@ -12,10 +12,12 @@ import 'package:your_basket/utils/theme.dart';
 import 'Screens/homeScreen.dart';
 import 'Screens/searchScreen.dart';
 import 'Widgets/Address/address.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
+  child:
   runApp(
-    const ProviderScope(child: MyApp()),
+    ProviderScope(child: const MyApp()),
   );
 }
 

@@ -7,9 +7,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config.dart';
 import '../models/product/productdetail.dart';
 
-final apiService = Provider((ref) => APIService());
+final authApiService = Provider((ref) => APIServiceAuth());
 
-class APIService {
+class APIServiceAuth {
   static var client = http.Client();
 
   static Future<LoginResponseModel> otpLogin(String mobileNo) async {
@@ -31,28 +31,28 @@ class APIService {
     return loginResponseJson(response.body);
   }
 
-  Future<List<Category>?> getCategory() async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
+  // Future<List<Category>?> getCategory() async {
+  //   Map<String, String> requestHeaders = {
+  //     'Content-Type': 'application/json',
+  //   };
 
-    var url = Uri.http(Config.apiURL, Config.getCategoryApi);
+  //   var url = Uri.http(Config.apiURL, Config.getCategoryApi);
 
-    var response = await client.get(
-      url,
-      headers: requestHeaders,
-      // body: jsonEncode({"phone": }),
-    );
+  //   var response = await client.get(
+  //     url,
+  //     headers: requestHeaders,
+  //     // body: jsonEncode({"phone": }),
+  //   );
 
-    print(response.body);
+  //   print(response.body);
 
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      return categoiesFromJson(data['data']);
-    } else {
-      return null;
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     var data = jsonDecode(response.body);
+  //     return categoiesFromJson(data['data']);
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   Future<List<CartItem>?> getCartItem(String userid) async {
     Map<String, String> requestHeaders = {
@@ -84,7 +84,7 @@ class APIService {
     }
   }
 
-  Future<Product?> getproductDetail(productid) async {
+  Future<ProductItem?> getproductDetail(productid) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };

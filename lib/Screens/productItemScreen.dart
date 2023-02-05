@@ -26,7 +26,7 @@ class ProductItemScreen extends ConsumerWidget {
     );
   }
 
-  Widget buildProduct(Product? Product, BuildContext context) {
+  Widget buildProduct(ProductItem? Product, BuildContext context) {
     return Column(
       children: [
         Container(
