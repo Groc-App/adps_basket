@@ -9,11 +9,11 @@ import '../Services/category_api_service.dart';
 import '../Services/product_api_service.dart';
 // import 'package:your_basket/Services/category_api_service.dart';
 
-final categoriesProvider = FutureProvider<List<Category>?>(
-  (ref) {
+final categoriesProvider = FutureProvider.family<List<Category>?, String>(
+  (ref, mainCategoryId) {
     final apiRespository = ref.watch(categoryApiService);
 
-    return apiRespository.getCategory();
+    return apiRespository.getCategory(mainCategoryId);
   },
 );
 
@@ -41,10 +41,10 @@ final productByidProvider = FutureProvider.family<ProductItem?, String>(
 //   },
 // );
 final productsByCategoryProvider =
-    FutureProvider.family<List<Product>?, String>(
-  (ref, String name) {
+    FutureProvider.family<List<Product>?, Map<String, String>>(
+  (ref, map) {
+    print("\n\nIn the product providerrrrrrrrrrrrrrrrr");
     final productApiRepository = ref.watch(productApiService);
-    print("In the product provider");
-    return productApiRepository.getAllProdcutsByCategory(name);
+    return productApiRepository.getAllProdcutsByCategory(map);
   },
 );

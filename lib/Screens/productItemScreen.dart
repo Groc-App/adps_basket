@@ -8,16 +8,17 @@ import 'package:your_basket/models/product/productdetail.dart';
 import 'package:your_basket/providers/providers.dart';
 
 class ProductItemScreen extends ConsumerWidget {
-  // const ProductItemScreen({super.key});
+  ProductItemScreen({super.key});
 
   String productid = '63e008bdb56990c02866bbae';
 
   Widget productdetail(WidgetRef ref, BuildContext context) {
     final prdct = ref.watch(productByidProvider(productid));
-
+    print(prdct);
     return prdct.when(
       data: (dt) {
         // return buildCategory(list);
+        print("this is Productt||||||||||||||");
         print(dt);
         return buildProduct(dt, context);
       },

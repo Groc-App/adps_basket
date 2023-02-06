@@ -12,29 +12,42 @@ final productApiService = Provider((ref) => APIServiceProducts());
 class APIServiceProducts {
   static var client = http.Client();
 
-  Future<List<Product>?> getAllProdcutsByCategory(String category) async {
+  Future<List<Product>?> getAllProdcutsByCategory(
+      Map<String, String> map) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
 
-    // final queryParameter = {'category': category};
-    String ur = Config.getProductsByCategoriesApi + '/${category}';
-    var url = Uri.http(Config.apiURL, ur);
-    print("This is url");
+    final queryParameter = map;
+
+    // final queryParameter = {
+    //   'mainCategoryId': map['mainCategoryId'],
+    //   'subCategoryId': map['subCategoryId']
+    // };
+    // String ur = + '/${category}';
+    var url = Uri.http(
+        Config.apiURL, Config.getProductsByCategoriesApi, queryParameter);
+    print("\n\n\nThis is url:");
     print(url);
     var response = await client.get(
       url,
       headers: requestHeaders,
       // body: jsonEncode({"phone": }),
     );
+
     Map<String, dynamic> prdcts;
     if (response.statusCode == 200) {
+      print("\n\n\nProduct response::");
+      print(response.statusCode);
       var data = jsonDecode(response.body);
-      prdcts = data['data'];
+      print("\n\n\nProduct response::");
 
-      print("Product response::");
-      print(prdcts['Products']);
-      return productsFromJson(prdcts['Products']);
+      print(data['data']);
+      // prdcts = data['data'];
+
+      // print("\nProduct response::");
+      // print(prdcts['Products']);
+      return productsFromJson(data['data']);
     } else {
       return null;
     }

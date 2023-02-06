@@ -9,23 +9,24 @@ final categoryApiService = Provider((ref) => APIServiceCategory());
 class APIServiceCategory {
   static var client = http.Client();
 
-  Future<List<Category>?> getCategory() async {
+  Future<List<Category>?> getCategory(String mainCategoryId) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
 
-    var url = Uri.http(Config.apiURL, Config.getAllCategoryApi);
+    String ur = Config.getAllCategoryByMainCategory + '/${mainCategoryId}';
+    var url = Uri.http(Config.apiURL, ur);
 
     var response = await client.get(
       url,
       headers: requestHeaders,
       // body: jsonEncode({"phone": }),
     );
-    // print("Category");
-    // print(response.body);
+    print("\nThis is Category");
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
+      print(data['data']);
       return categoiesFromJson(data['data']);
     } else {
       return null;

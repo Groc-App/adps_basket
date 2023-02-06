@@ -20,12 +20,15 @@ ProductItem _$ProductItemFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ProductItem {
+  String get productId => throw _privateConstructorUsedError;
   String get Name => throw _privateConstructorUsedError;
-  String get Price => throw _privateConstructorUsedError;
-  String get Description => throw _privateConstructorUsedError;
+  double get Price => throw _privateConstructorUsedError;
+  String get ImageUrl => throw _privateConstructorUsedError;
   String get Quantity => throw _privateConstructorUsedError;
   String get Company => throw _privateConstructorUsedError;
-  String get ImageUrl => throw _privateConstructorUsedError;
+  String get Description => throw _privateConstructorUsedError;
+  Object get MainCategory => throw _privateConstructorUsedError;
+  Object get Category => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,12 +43,15 @@ abstract class $ProductItemCopyWith<$Res> {
       _$ProductItemCopyWithImpl<$Res, ProductItem>;
   @useResult
   $Res call(
-      {String Name,
-      String Price,
-      String Description,
+      {String productId,
+      String Name,
+      double Price,
+      String ImageUrl,
       String Quantity,
       String Company,
-      String ImageUrl});
+      String Description,
+      Object MainCategory,
+      Object Category});
 }
 
 /// @nodoc
@@ -61,14 +67,21 @@ class _$ProductItemCopyWithImpl<$Res, $Val extends ProductItem>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? productId = null,
     Object? Name = null,
     Object? Price = null,
-    Object? Description = null,
+    Object? ImageUrl = null,
     Object? Quantity = null,
     Object? Company = null,
-    Object? ImageUrl = null,
+    Object? Description = null,
+    Object? MainCategory = null,
+    Object? Category = null,
   }) {
     return _then(_value.copyWith(
+      productId: null == productId
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
+              as String,
       Name: null == Name
           ? _value.Name
           : Name // ignore: cast_nullable_to_non_nullable
@@ -76,10 +89,10 @@ class _$ProductItemCopyWithImpl<$Res, $Val extends ProductItem>
       Price: null == Price
           ? _value.Price
           : Price // ignore: cast_nullable_to_non_nullable
-              as String,
-      Description: null == Description
-          ? _value.Description
-          : Description // ignore: cast_nullable_to_non_nullable
+              as double,
+      ImageUrl: null == ImageUrl
+          ? _value.ImageUrl
+          : ImageUrl // ignore: cast_nullable_to_non_nullable
               as String,
       Quantity: null == Quantity
           ? _value.Quantity
@@ -89,10 +102,12 @@ class _$ProductItemCopyWithImpl<$Res, $Val extends ProductItem>
           ? _value.Company
           : Company // ignore: cast_nullable_to_non_nullable
               as String,
-      ImageUrl: null == ImageUrl
-          ? _value.ImageUrl
-          : ImageUrl // ignore: cast_nullable_to_non_nullable
+      Description: null == Description
+          ? _value.Description
+          : Description // ignore: cast_nullable_to_non_nullable
               as String,
+      MainCategory: null == MainCategory ? _value.MainCategory : MainCategory,
+      Category: null == Category ? _value.Category : Category,
     ) as $Val);
   }
 }
@@ -106,12 +121,15 @@ abstract class _$$_ProductItemCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String Name,
-      String Price,
-      String Description,
+      {String productId,
+      String Name,
+      double Price,
+      String ImageUrl,
       String Quantity,
       String Company,
-      String ImageUrl});
+      String Description,
+      Object MainCategory,
+      Object Category});
 }
 
 /// @nodoc
@@ -125,14 +143,21 @@ class __$$_ProductItemCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? productId = null,
     Object? Name = null,
     Object? Price = null,
-    Object? Description = null,
+    Object? ImageUrl = null,
     Object? Quantity = null,
     Object? Company = null,
-    Object? ImageUrl = null,
+    Object? Description = null,
+    Object? MainCategory = null,
+    Object? Category = null,
   }) {
     return _then(_$_ProductItem(
+      productId: null == productId
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
+              as String,
       Name: null == Name
           ? _value.Name
           : Name // ignore: cast_nullable_to_non_nullable
@@ -140,10 +165,10 @@ class __$$_ProductItemCopyWithImpl<$Res>
       Price: null == Price
           ? _value.Price
           : Price // ignore: cast_nullable_to_non_nullable
-              as String,
-      Description: null == Description
-          ? _value.Description
-          : Description // ignore: cast_nullable_to_non_nullable
+              as double,
+      ImageUrl: null == ImageUrl
+          ? _value.ImageUrl
+          : ImageUrl // ignore: cast_nullable_to_non_nullable
               as String,
       Quantity: null == Quantity
           ? _value.Quantity
@@ -153,10 +178,12 @@ class __$$_ProductItemCopyWithImpl<$Res>
           ? _value.Company
           : Company // ignore: cast_nullable_to_non_nullable
               as String,
-      ImageUrl: null == ImageUrl
-          ? _value.ImageUrl
-          : ImageUrl // ignore: cast_nullable_to_non_nullable
+      Description: null == Description
+          ? _value.Description
+          : Description // ignore: cast_nullable_to_non_nullable
               as String,
+      MainCategory: null == MainCategory ? _value.MainCategory : MainCategory,
+      Category: null == Category ? _value.Category : Category,
     ));
   }
 }
@@ -165,32 +192,41 @@ class __$$_ProductItemCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ProductItem implements _ProductItem {
   _$_ProductItem(
-      {required this.Name,
+      {required this.productId,
+      required this.Name,
       required this.Price,
-      required this.Description,
+      required this.ImageUrl,
       required this.Quantity,
       required this.Company,
-      required this.ImageUrl});
+      required this.Description,
+      required this.MainCategory,
+      required this.Category});
 
   factory _$_ProductItem.fromJson(Map<String, dynamic> json) =>
       _$$_ProductItemFromJson(json);
 
   @override
+  final String productId;
+  @override
   final String Name;
   @override
-  final String Price;
+  final double Price;
   @override
-  final String Description;
+  final String ImageUrl;
   @override
   final String Quantity;
   @override
   final String Company;
   @override
-  final String ImageUrl;
+  final String Description;
+  @override
+  final Object MainCategory;
+  @override
+  final Object Category;
 
   @override
   String toString() {
-    return 'ProductItem(Name: $Name, Price: $Price, Description: $Description, Quantity: $Quantity, Company: $Company, ImageUrl: $ImageUrl)';
+    return 'ProductItem(productId: $productId, Name: $Name, Price: $Price, ImageUrl: $ImageUrl, Quantity: $Quantity, Company: $Company, Description: $Description, MainCategory: $MainCategory, Category: $Category)';
   }
 
   @override
@@ -198,21 +234,35 @@ class _$_ProductItem implements _ProductItem {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ProductItem &&
+            (identical(other.productId, productId) ||
+                other.productId == productId) &&
             (identical(other.Name, Name) || other.Name == Name) &&
             (identical(other.Price, Price) || other.Price == Price) &&
-            (identical(other.Description, Description) ||
-                other.Description == Description) &&
+            (identical(other.ImageUrl, ImageUrl) ||
+                other.ImageUrl == ImageUrl) &&
             (identical(other.Quantity, Quantity) ||
                 other.Quantity == Quantity) &&
             (identical(other.Company, Company) || other.Company == Company) &&
-            (identical(other.ImageUrl, ImageUrl) ||
-                other.ImageUrl == ImageUrl));
+            (identical(other.Description, Description) ||
+                other.Description == Description) &&
+            const DeepCollectionEquality()
+                .equals(other.MainCategory, MainCategory) &&
+            const DeepCollectionEquality().equals(other.Category, Category));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, Name, Price, Description, Quantity, Company, ImageUrl);
+      runtimeType,
+      productId,
+      Name,
+      Price,
+      ImageUrl,
+      Quantity,
+      Company,
+      Description,
+      const DeepCollectionEquality().hash(MainCategory),
+      const DeepCollectionEquality().hash(Category));
 
   @JsonKey(ignore: true)
   @override
@@ -230,28 +280,37 @@ class _$_ProductItem implements _ProductItem {
 
 abstract class _ProductItem implements ProductItem {
   factory _ProductItem(
-      {required final String Name,
-      required final String Price,
-      required final String Description,
+      {required final String productId,
+      required final String Name,
+      required final double Price,
+      required final String ImageUrl,
       required final String Quantity,
       required final String Company,
-      required final String ImageUrl}) = _$_ProductItem;
+      required final String Description,
+      required final Object MainCategory,
+      required final Object Category}) = _$_ProductItem;
 
   factory _ProductItem.fromJson(Map<String, dynamic> json) =
       _$_ProductItem.fromJson;
 
   @override
+  String get productId;
+  @override
   String get Name;
   @override
-  String get Price;
+  double get Price;
   @override
-  String get Description;
+  String get ImageUrl;
   @override
   String get Quantity;
   @override
   String get Company;
   @override
-  String get ImageUrl;
+  String get Description;
+  @override
+  Object get MainCategory;
+  @override
+  Object get Category;
   @override
   @JsonKey(ignore: true)
   _$$_ProductItemCopyWith<_$_ProductItem> get copyWith =>

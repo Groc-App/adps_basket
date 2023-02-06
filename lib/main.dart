@@ -35,7 +35,9 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(),
       routes: {
         '/homepage': (context) => const HomeScreen(),
-        '/categoryScreen': (context) => CategoryScreen(),
+        '/categoryScreen': (context) => CategoryScreen(
+              mainCategoryId: "63e00827b56990c02866bba5",
+            ),
         '/productItemPage': (context) => ProductItemScreen(),
         '/cartScreen': (context) => CartScreen(),
         '/searchScreen': (context) => SearchScreen(),
@@ -59,7 +61,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
     return Scaffold(
-      body: ProductItemScreen(),
+      body: CategoryScreen(
+        mainCategoryId: "63e00827b56990c02866bba5",
+      ),
     );
   }
 }

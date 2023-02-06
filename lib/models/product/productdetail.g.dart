@@ -8,20 +8,26 @@ part of 'productdetail.dart';
 
 _$_ProductItem _$$_ProductItemFromJson(Map<String, dynamic> json) =>
     _$_ProductItem(
+      productId: json['productId'] as String,
       Name: json['Name'] as String,
-      Price: json['Price'] as String,
-      Description: json['Description'] as String,
+      Price: (json['Price'] as num).toDouble(),
+      ImageUrl: json['ImageUrl'] as String,
       Quantity: json['Quantity'] as String,
       Company: json['Company'] as String,
-      ImageUrl: json['ImageUrl'] as String,
+      Description: json['Description'] as String,
+      MainCategory: json['MainCategory'] as Object,
+      Category: json['Category'] as Object,
     );
 
 Map<String, dynamic> _$$_ProductItemToJson(_$_ProductItem instance) =>
     <String, dynamic>{
+      'productId': instance.productId,
       'Name': instance.Name,
       'Price': instance.Price,
-      'Description': instance.Description,
+      'ImageUrl': instance.ImageUrl,
       'Quantity': instance.Quantity,
       'Company': instance.Company,
-      'ImageUrl': instance.ImageUrl,
+      'Description': instance.Description,
+      'MainCategory': instance.MainCategory,
+      'Category': instance.Category,
     };
