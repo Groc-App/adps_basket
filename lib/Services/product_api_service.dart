@@ -39,4 +39,35 @@ class APIServiceProducts {
       return null;
     }
   }
+
+  Future<List<Product>?> getAllProdcutsMostSelling() async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var url = Uri.http(Config.apiURL, Config.getProductsMostSellingApi);
+    print("This is url");
+    print(url);
+    var response = await client.get(
+      url,
+      headers: requestHeaders,
+      // body: jsonEncode({"phone": }),
+    );
+
+    print(response.body);
+    Map<String, dynamic> prdcts;
+    if (response.statusCode == 200) {
+      print('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+      var data = jsonDecode(response.body);
+      prdcts = data["data"];
+
+      print("Product response::");
+      print(prdcts['Products']);
+
+      print('byeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+      return productsFromJson(prdcts['Products']);
+    } else {
+      return null;
+    }
+  }
 }

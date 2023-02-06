@@ -20,4 +20,9 @@ class Config {
   /* ------------------------------ Products Api ------------------------------ */
   static const String getProductsByCategoriesApi =
       '/product/fetchproductcategory';
+
+  static const String getProductsMostSellingApi =
+      '/product/fetchproductcmostselling';
+
+  static const String getAllmainCategoryApi = 'category/getallmaincategory';
 }

@@ -71,11 +71,12 @@ class _ProductItemState extends State<ProductItem> {
       color: Colors.amber,
       child:
           Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Expanded(
+        Flexible(
+          fit: FlexFit.loose,
           flex: 3,
           child: Image.network(
             imageUrl,
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
           ),
         ),
         Expanded(

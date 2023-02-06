@@ -2,10 +2,64 @@
 // ignore_for_file: file_names, duplicate_ignore
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
+import 'package:your_basket/providers/providers.dart';
+
+import '../../models/product/products.dart';
 
 class MostSelling extends StatelessWidget {
   const MostSelling({super.key});
+
+  Widget productList(WidgetRef ref, scWidth) {
+    final categories = ref.watch(mostsellingproductProvider);
+
+    return categories.when(
+      data: (list) {
+        // print("Thisssssssssssssssssss is list" + '${list}');
+        return buildproduct(list, scWidth);
+      },
+      error: (_, __) => const Center(child: Text("ERR")),
+      loading: () => const Center(child: CircularProgressIndicator()),
+    );
+  }
+
+  Widget buildproduct(List<Product>? list, scWidth) {
+    return Container(
+      height: scWidth * ((0.48 / 0.7) * 3) + 20,
+      child: GridView.builder(
+          padding: EdgeInsets.symmetric(horizontal: 5),
+          physics: NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 0.7,
+              crossAxisSpacing: 3,
+              mainAxisSpacing: 3),
+          itemCount: list != null ? list.length : 0,
+          itemBuilder: (BuildContext context, int index) {
+            final data = list != null
+                ? list[index]
+                : Product(
+                    productId: '',
+                    Name: '',
+                    Price: 0,
+                    ImageUrl: '',
+                    Quantity: '',
+                    Company: '',
+                    Description: '',
+                    MainCategory: '',
+                    Category: '');
+            return Container(
+              child: ProductItem(
+                  name: data.Name,
+                  desc: data.Description,
+                  price: data.Price,
+                  quantity: data.Quantity,
+                  imageUrl: data.ImageUrl),
+            );
+          }),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,30 +84,9 @@ class MostSelling extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            height: scWidth * ((0.48 / 0.7) * 3) + 20,
-            child: GridView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 5),
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.7,
-                    crossAxisSpacing: 3,
-                    mainAxisSpacing: 3),
-                itemCount: 6,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                      // decoration: const BoxDecoration(
-                      //     border: Border(
-                      //         top: BorderSide(width: 5),
-                      //         bottom: BorderSide(width: 5),
-                      //         left: BorderSide(width: 5),
-                      //         right: BorderSide(width: 5))),
-
-                      // child: ProductItem(),
-                      );
-                }),
-          ),
+          Consumer(builder: (context, ref, child) {
+            return productList(ref, scWidth);
+          }),
         ],
       ),
     );

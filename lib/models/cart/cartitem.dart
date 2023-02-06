@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:your_basket/models/product/productdetail.dart';
 part 'cartitem.freezed.dart';
 part 'cartitem.g.dart';
 
@@ -7,10 +8,8 @@ List<CartItem> cartitemFromJson(dynamic str) =>
 
 @freezed
 abstract class CartItem with _$CartItem {
-  factory CartItem(
-      {required String categoryName,
-      required String categoryId,
-      required String categoryImage}) = _CartItem;
+  factory CartItem({required ProductItem Item, required int ItemCount}) =
+      _CartItem;
 
   factory CartItem.fromJson(Map<String, dynamic> json) =>
       _$CartItemFromJson(json);

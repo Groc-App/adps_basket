@@ -20,9 +20,8 @@ CartItem _$CartItemFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CartItem {
-  String get categoryName => throw _privateConstructorUsedError;
-  String get categoryId => throw _privateConstructorUsedError;
-  String get categoryImage => throw _privateConstructorUsedError;
+  ProductItem get Item => throw _privateConstructorUsedError;
+  int get ItemCount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +34,9 @@ abstract class $CartItemCopyWith<$Res> {
   factory $CartItemCopyWith(CartItem value, $Res Function(CartItem) then) =
       _$CartItemCopyWithImpl<$Res, CartItem>;
   @useResult
-  $Res call({String categoryName, String categoryId, String categoryImage});
+  $Res call({ProductItem Item, int ItemCount});
+
+  $ProductItemCopyWith<$Res> get Item;
 }
 
 /// @nodoc
@@ -51,24 +52,27 @@ class _$CartItemCopyWithImpl<$Res, $Val extends CartItem>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? categoryName = null,
-    Object? categoryId = null,
-    Object? categoryImage = null,
+    Object? Item = null,
+    Object? ItemCount = null,
   }) {
     return _then(_value.copyWith(
-      categoryName: null == categoryName
-          ? _value.categoryName
-          : categoryName // ignore: cast_nullable_to_non_nullable
-              as String,
-      categoryId: null == categoryId
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
-              as String,
-      categoryImage: null == categoryImage
-          ? _value.categoryImage
-          : categoryImage // ignore: cast_nullable_to_non_nullable
-              as String,
+      Item: null == Item
+          ? _value.Item
+          : Item // ignore: cast_nullable_to_non_nullable
+              as ProductItem,
+      ItemCount: null == ItemCount
+          ? _value.ItemCount
+          : ItemCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ProductItemCopyWith<$Res> get Item {
+    return $ProductItemCopyWith<$Res>(_value.Item, (value) {
+      return _then(_value.copyWith(Item: value) as $Val);
+    });
   }
 }
 
@@ -79,7 +83,10 @@ abstract class _$$_CartItemCopyWith<$Res> implements $CartItemCopyWith<$Res> {
       __$$_CartItemCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String categoryName, String categoryId, String categoryImage});
+  $Res call({ProductItem Item, int ItemCount});
+
+  @override
+  $ProductItemCopyWith<$Res> get Item;
 }
 
 /// @nodoc
@@ -93,23 +100,18 @@ class __$$_CartItemCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? categoryName = null,
-    Object? categoryId = null,
-    Object? categoryImage = null,
+    Object? Item = null,
+    Object? ItemCount = null,
   }) {
     return _then(_$_CartItem(
-      categoryName: null == categoryName
-          ? _value.categoryName
-          : categoryName // ignore: cast_nullable_to_non_nullable
-              as String,
-      categoryId: null == categoryId
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
-              as String,
-      categoryImage: null == categoryImage
-          ? _value.categoryImage
-          : categoryImage // ignore: cast_nullable_to_non_nullable
-              as String,
+      Item: null == Item
+          ? _value.Item
+          : Item // ignore: cast_nullable_to_non_nullable
+              as ProductItem,
+      ItemCount: null == ItemCount
+          ? _value.ItemCount
+          : ItemCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -117,24 +119,19 @@ class __$$_CartItemCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_CartItem implements _CartItem {
-  _$_CartItem(
-      {required this.categoryName,
-      required this.categoryId,
-      required this.categoryImage});
+  _$_CartItem({required this.Item, required this.ItemCount});
 
   factory _$_CartItem.fromJson(Map<String, dynamic> json) =>
       _$$_CartItemFromJson(json);
 
   @override
-  final String categoryName;
+  final ProductItem Item;
   @override
-  final String categoryId;
-  @override
-  final String categoryImage;
+  final int ItemCount;
 
   @override
   String toString() {
-    return 'CartItem(categoryName: $categoryName, categoryId: $categoryId, categoryImage: $categoryImage)';
+    return 'CartItem(Item: $Item, ItemCount: $ItemCount)';
   }
 
   @override
@@ -142,18 +139,14 @@ class _$_CartItem implements _CartItem {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CartItem &&
-            (identical(other.categoryName, categoryName) ||
-                other.categoryName == categoryName) &&
-            (identical(other.categoryId, categoryId) ||
-                other.categoryId == categoryId) &&
-            (identical(other.categoryImage, categoryImage) ||
-                other.categoryImage == categoryImage));
+            (identical(other.Item, Item) || other.Item == Item) &&
+            (identical(other.ItemCount, ItemCount) ||
+                other.ItemCount == ItemCount));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, categoryName, categoryId, categoryImage);
+  int get hashCode => Object.hash(runtimeType, Item, ItemCount);
 
   @JsonKey(ignore: true)
   @override
@@ -171,18 +164,15 @@ class _$_CartItem implements _CartItem {
 
 abstract class _CartItem implements CartItem {
   factory _CartItem(
-      {required final String categoryName,
-      required final String categoryId,
-      required final String categoryImage}) = _$_CartItem;
+      {required final ProductItem Item,
+      required final int ItemCount}) = _$_CartItem;
 
   factory _CartItem.fromJson(Map<String, dynamic> json) = _$_CartItem.fromJson;
 
   @override
-  String get categoryName;
+  ProductItem get Item;
   @override
-  String get categoryId;
-  @override
-  String get categoryImage;
+  int get ItemCount;
   @override
   @JsonKey(ignore: true)
   _$$_CartItemCopyWith<_$_CartItem> get copyWith =>

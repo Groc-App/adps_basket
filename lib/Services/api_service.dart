@@ -54,36 +54,6 @@ class APIServiceAuth {
   //   }
   // }
 
-  Future<List<CartItem>?> getCartItem(String userid) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
-
-    Map<String, dynamic> querymap = {
-      'id': userid,
-    };
-
-    var url = Uri.http(Config.apiURL, Config.getCartItemApi,
-        {'mapData': jsonEncode(querymap)});
-
-    print(url);
-
-    var response = await client.get(
-      url,
-      headers: requestHeaders,
-      // body: jsonEncode({"phone": }),
-    );
-
-    print(response.body);
-
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      return cartitemFromJson(data['data']);
-    } else {
-      return null;
-    }
-  }
-
   Future<ProductItem?> getproductDetail(productid) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -108,32 +78,6 @@ class APIServiceAuth {
       return productDetailFromJson(data['data']);
     } else {
       return null;
-    }
-  }
-
-  void updateCartitemquantity(String cartitemId) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
-
-    var ur = Config.getProductByIdApi + '/${cartitemId}';
-
-    var url = Uri.http(Config.apiURL, ur);
-
-    print(url);
-
-    var response = await client.get(
-      url,
-      headers: requestHeaders,
-    );
-
-    print(response.body);
-
-    if (response.statusCode == 200) {
-      // var data = jsonDecode(response.body);
-      // return productDetailFromJson(data['data']);
-    } else {
-      // return null;
     }
   }
 

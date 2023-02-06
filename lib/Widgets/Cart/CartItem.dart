@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../providers/providers.dart';
+
 class CartItem extends ConsumerStatefulWidget {
   const CartItem({super.key});
 
@@ -26,10 +28,11 @@ class _CartItemState extends ConsumerState<CartItem> {
     final scWidth = scSize.width - 10 - 4 - 8;
 
     void incrementHandler() {
-      // setState(() {
-      //   counter++;
-      // // });
-      // final ciupdate = ref.watch(cartItemUpdateProvider(cartitemid));
+      setState(() {
+        counter++;
+      });
+      final ciupdate =
+          ref.read(cartItemUpdateProvider({'id': '', 'quantity': counter}));
 
       // ciupdate.when(
       //   data: (list) {
@@ -50,6 +53,9 @@ class _CartItemState extends ConsumerState<CartItem> {
         setState(() {
           counter--;
         });
+
+        final ciupdate =
+            ref.read(cartItemUpdateProvider({'id': '', 'quantity': counter}));
       }
     }
 

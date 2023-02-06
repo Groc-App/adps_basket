@@ -100,6 +100,10 @@ class CategoryScreen extends ConsumerWidget {
     /* ------------------------------- dummy Data ------------------------------- */
     // var dummyList = List.generate(20, (index) => Catalog().products[0]);
 
+    var categ = (ModalRoute.of(context)?.settings.arguments ??
+        <String, dynamic>{}) as Map;
+    print(categ['maincategoryid']);
+
     /* --------------------------- Screen Intilization -------------------------- */
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
