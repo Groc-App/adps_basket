@@ -12,20 +12,26 @@ import '../providers/providers.dart';
 import '../models/category/category.dart';
 
 class CategoryScreen extends ConsumerWidget {
-  CategoryScreen({super.key});
+  // CategoryScreen({super.key});
 
   // setState(){}
-  var category;
-  initState() {
-    category = "milk";
-  }
+  // var category = "Bread";
+  late String mainCategoryId;
 
-  Widget categoriesList(WidgetRef ref) {
-    final categories = ref.watch(categoriesProvider);
+  Map<String, String> mapp = {
+    "mainCategoryId": "63e00827b56990c02866bba5",
+    "subCategoryId": "null"
+  };
+
+  // ignore: use_key_in_widget_constructors
+  CategoryScreen({required this.mainCategoryId});
+
+  Widget categoriesList(WidgetRef ref, String mainCategoryId) {
+    final categories = ref.watch(categoriesProvider(mainCategoryId));
 
     return categories.when(
       data: (list) {
-        // print("Thisssssssssssssssssss is list" + '${list}');
+        print("\nThisssssssssssssssssss is list" + '${list}');
         return buildCategory(list);
       },
       error: (_, __) => const Center(child: Text("ERR")),
@@ -33,12 +39,14 @@ class CategoryScreen extends ConsumerWidget {
     );
   }
 
-  Widget productList(WidgetRef ref) {
-    final products = ref.watch(productsByCategoryProvider("Bread"));
+  Widget productList(WidgetRef ref, Map<String, String> map) {
+    print("\nthis is category name ..........................||||||||||||");
+    print(map);
+    final products = ref.watch(productsByCategoryProvider(map));
     return products.when(
       data: (list) {
         print(
-            "Thisssssssssssssssssss is list of products::::::::::::::::::::::::::::" +
+            "\n\n\n\n\n\n\nThisssssssssssssssssss is list of products::::::::::::::::::::::::::::" +
                 '${list}');
 
         return buildProducts(list);
@@ -90,19 +98,29 @@ class CategoryScreen extends ConsumerWidget {
 
         /* --------------------- Building Slider category Items --------------------- */
         itemBuilder: ((context, index) => CategorySliderItems(
-            categories[index].Name, categories[index].imageurl)),
+              map: mapp,
+              categoryId: categories[index].categoryId,
+              catergoryURL: categories[index].imageurl,
+              categoryName: categories[index].Name,
+              mainCategoryId: mainCategoryId,
+            )),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    /* ------------------------------- dummy Data ------------------------------- */
-    // var dummyList = List.generate(20, (index) => Catalog().products[0]);
-
     var categ = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
-    print(categ['maincategoryid']);
+
+    // mapp['mainCategoryId'] = categ['maincategoryid'];
+    // mapp['categoryId'] = "null";
+
+    Map<String, String> map = ref.watch(categoryProvider);
+    print("\n||||||||This is update cateogry ||||||||");
+    print(map);
+    /* ------------------------------- dummy Data ------------------------------- */
+    // var dummyList = List.generate(20, (index) => Catalog().products[0]);
 
     /* --------------------------- Screen Intilization -------------------------- */
     final scSize = MediaQuery.of(context).size;
@@ -128,7 +146,7 @@ class CategoryScreen extends ConsumerWidget {
           children: [
             /* ---------------------------- Top SLider Bar ---------------------------- */
             const SearchBar(),
-            categoriesList(ref),
+            categoriesList(ref, mainCategoryId),
             // Carousel(),
 
             /* -------------------------------------------------------------------------- */
@@ -141,7 +159,7 @@ class CategoryScreen extends ConsumerWidget {
                 // height: double.maxFinite,
 
                 /* ---------------------- Building Categories Item Grid --------------------- */
-                child: productList(ref))
+                child: productList(ref, map))
           ],
         )));
   }

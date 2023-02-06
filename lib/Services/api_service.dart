@@ -70,12 +70,12 @@ class APIServiceAuth {
       headers: requestHeaders,
     );
 
-    print(response.body);
+    // print(response.body);
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      print(data["data"]);
-      return productDetailFromJson(data['data']);
+      print(response.body);
+      return productDetailFromJson(data);
     } else {
       return null;
     }

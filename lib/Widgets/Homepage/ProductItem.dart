@@ -103,7 +103,8 @@ class _ProductItemState extends State<ProductItem> {
               Container(
                   width: scWidth * 0.48 * 0.18,
                   child: FittedBox(
-                      fit: BoxFit.fill, child: Text(price.toString()))),
+                      fit: BoxFit.fill,
+                      child: Text('\u{20B9}${price.toString()}'))),
               added == true
                   ? Container(
                       width: scWidth * 0.48 * 0.36,

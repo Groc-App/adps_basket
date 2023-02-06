@@ -1,18 +1,50 @@
 // ignore_for_file: file_names, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CategorySliderItems extends StatelessWidget {
+// late Map<String, String> map;
+final categoryProvider = StateProvider<Map<String, String>>((ref) => {
+      "mainCategoryId": "63e00827b56990c02866bba5",
+      "subCategoryId": "63e00827b56990c02866bba7"
+    });
+
+class CategorySliderItems extends ConsumerWidget {
   // ignore: prefer_typing_uninitialized_variables
+  Map<String, String> map;
+
   final String categoryName;
-  // ignore: prefer_typing_uninitialized_variables
-  final catergoryURL;
 
-  const CategorySliderItems(this.categoryName, this.catergoryURL, {super.key});
+  // ignore: prefer_typing_uninitialized_variables
+  final String catergoryURL;
+
+  String categoryId;
+
+  final String mainCategoryId;
+
+  void tapHandler(WidgetRef ref, String val, String catId) {
+    print("Tapped tapped");
+    print(categoryName);
+    print(categoryId);
+
+    // String mainCategoryId=map['mainCategoryId'];
+    map = {'mainCategoryId': mainCategoryId, 'subCategoryId': catId};
+    ref.read(categoryProvider.notifier).update((state) => map);
+  }
+
+  CategorySliderItems(
+      {required this.map,
+      required this.categoryName,
+      required this.catergoryURL,
+      required this.categoryId,
+      required this.mainCategoryId});
+  //  category=categoryName;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          tapHandler(ref, categoryName, categoryId);
+        },
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Column(children: [
@@ -32,7 +64,8 @@ class CategorySliderItems extends StatelessWidget {
               children: [
                 Text(
                   categoryName,
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 12, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
