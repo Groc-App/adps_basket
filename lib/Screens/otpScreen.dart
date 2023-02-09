@@ -152,7 +152,11 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
               ],
             ),
-            ElevatedButton(onPressed: () {}, child: Text('Verify OTP')),
+            Container(
+                margin: EdgeInsets.only(top: 10),
+                alignment: Alignment(0, 0),
+                child: ElevatedButton(
+                    onPressed: () {}, child: Text('Verify OTP'))),
           ],
         ));
   }
