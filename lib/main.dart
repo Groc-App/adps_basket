@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Screens/OrderSuccess.dart';
 import 'package:your_basket/Screens/ProfileScreen.dart';
+import 'package:your_basket/Screens/addressScreen.dart';
 import 'package:your_basket/Screens/cartScreen.dart';
 import 'package:your_basket/Screens/categoryScreen.dart';
 import 'package:your_basket/Screens/loginScreen.dart';
+import 'package:your_basket/Screens/offerScreen.dart';
 import 'package:your_basket/Screens/otpScreen.dart';
 import 'package:your_basket/Screens/productItemScreen.dart';
 import 'package:your_basket/Screens/yourOrders.dart';
@@ -44,7 +46,9 @@ class MyApp extends StatelessWidget {
         '/profileScreen': (context) => ProfileScreen(),
         '/yourOrderScreen': (context) => YourOrderes(),
         '/otpScreen': (context) => OtpScreen(),
-        '/addressScreen': (context) => Address(),
+        '/addressScreen': (context) => AddressBook(),
+        '/offerScreen': (context) => OfferScreen(),
+        '/ordersuccessScreen': (context) => OrderSuuccess(),
       },
     );
   }

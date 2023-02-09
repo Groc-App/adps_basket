@@ -103,7 +103,7 @@ class Content extends StatelessWidget {
             iconRow(FontAwesomeIcons.shoppingBag, 'Your Orders', context,
                 '/yourOrderScreen'),
             iconRow(FontAwesomeIcons.addressBook, 'Your Addresses', context,
-                '/yourOrderScreen'),
+                '/addressScreen'),
           ]),
         ),
         Container(

@@ -26,4 +26,6 @@ class Config {
 
   static const String getAllmainCategoryApi = 'category/getallmaincategory';
   static const String getProductsByCategoriesApi = '/product/fetchProducts';
+  static const String getOrderbyIdApi = '/order/fetchordersid';
+  static const String placeorderApi = '/order/createorder';
 }

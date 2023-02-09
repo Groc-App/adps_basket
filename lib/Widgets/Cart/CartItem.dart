@@ -2,23 +2,48 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/models/cart/cartitem.dart';
 
 import '../../providers/providers.dart';
 
+final counterProvider = StateProvider<int>(
+  // We return the default sort type, here name.
+  (ref) => 0,
+);
+
 class CartItem extends ConsumerStatefulWidget {
-  const CartItem({super.key});
+  int quantity = 0;
+
+  CartItem({required this.quantity});
 
   @override
-  ConsumerState<CartItem> createState() => _CartItemState();
+  _CartItemState createState() => _CartItemState(quan: quantity);
 }
 
 class _CartItemState extends ConsumerState<CartItem> {
-  var counter = 1;
+  int quan;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
+  _CartItemState({required this.quan});
+  void incrementHandler() {
+    setState(() {
+      quan++;
+    });
+    ref.read(counterProvider.notifier).update((state) => state + 1);
+    final ciupdate = ref
+        .read(cartItemUpdateProvider({'id': '', 'quantity': counterProvider}));
+  }
+
+  void decrementHandler() {
+    if (counterProvider == 1) {
+      // delete vali api bna kr call marni h
+
+      return;
+    } else {
+      quan--;
+      final ciupdate = ref.read(
+          cartItemUpdateProvider({'id': '', 'quantity': counterProvider}));
+      ref.read(counterProvider.notifier).update((state) => state + 1);
+    }
   }
 
   @override
@@ -26,38 +51,6 @@ class _CartItemState extends ConsumerState<CartItem> {
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
     final scWidth = scSize.width - 10 - 4 - 8;
-
-    void incrementHandler() {
-      setState(() {
-        counter++;
-      });
-      final ciupdate =
-          ref.read(cartItemUpdateProvider({'id': '', 'quantity': counter}));
-
-      // ciupdate.when(
-      //   data: (list) {
-      //     // return buildCategory(list);
-      //     // print(list);
-      //     // return buildCartItems(list);
-
-      //   },
-      //   error: (_, __) => const Center(child: Text("ERR")),
-      //   loading: () => const Center(child: CircularProgressIndicator()),
-      // );
-    }
-
-    void decrementHandler() {
-      if (counter == 1) {
-        return;
-      } else {
-        setState(() {
-          counter--;
-        });
-
-        final ciupdate =
-            ref.read(cartItemUpdateProvider({'id': '', 'quantity': counter}));
-      }
-    }
 
     return Container(
         height: scHeight * 0.18,
@@ -128,7 +121,7 @@ class _CartItemState extends ConsumerState<CartItem> {
                 SizedBox(
                     width: scWidth * 0.15 * 0.3,
                     child: Text(
-                      '$counter',
+                      '${quan}',
                       textAlign: TextAlign.center,
                     )),
                 MouseRegion(

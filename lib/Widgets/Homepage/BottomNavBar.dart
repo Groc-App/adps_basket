@@ -22,7 +22,7 @@ class _BotmNavBarState extends State<BotmNavBar> {
   Widget build(BuildContext context) {
     int _selectedindex = 0;
 
-    var routes = ['/homepage', '/cartScreen', '/cartScreen', '/profileScreen'];
+    var routes = ['/homepage', '/cartScreen', '/offerScreen', '/profileScreen'];
 
     void _setIndex(int index) {
       setState(() {

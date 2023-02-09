@@ -6,7 +6,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../Widgets/Cart/CartItem.dart';
+import 'package:your_basket/Widgets/Cart/Noitems.dart';
+import '../Widgets/Cart/CartItem.dart' as CartItemWidget;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/providers.dart';
 import '../models/cart/cartitem.dart' as CartItemModel;
@@ -14,12 +15,11 @@ import '../models/cart/cartitem.dart' as CartItemModel;
 class CartScreen extends ConsumerWidget {
   CartScreen({super.key});
 
-  final cartItemList = [
-    {'idx': '1'},
-    {'idx': '1'},
-  ];
-
   final userid = 'fguigg';
+  double pricetotal = 0.0;
+  bool emptylist = false;
+  int listsize = 0;
+  var datalist;
 
   Widget cartitemList(WidgetRef ref) {
     final categories = ref.watch(cartItemProvider(userid));
@@ -27,6 +27,16 @@ class CartScreen extends ConsumerWidget {
     return categories.when(
       data: (list) {
         // return buildCategory(list);
+        if (list != null) {
+          listsize = list.length;
+          datalist = list;
+          for (int i = 0; i < list.length; i++) {
+            pricetotal += list[i].ItemCount * list[i].Item.Price;
+          }
+        } else {
+          emptylist = true;
+          print('list null hai');
+        }
         print(list);
         return buildCartItems(list);
       },
@@ -39,7 +49,9 @@ class CartScreen extends ConsumerWidget {
     return list != null
         ? Column(
             children: list.map((data) {
-              return const CartItem();
+              return CartItemWidget.CartItem(
+                quantity: (data.ItemCount == null ? 0 : data.ItemCount),
+              );
             }).toList(),
           )
         : Container();
@@ -51,21 +63,24 @@ class CartScreen extends ConsumerWidget {
     final scWidth = scSize.width;
     final scHeight = scSize.height;
 
+    ref.watch(CartItemWidget.counterProvider);
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 237, 230, 230),
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         centerTitle: true,
         title: Column(
-          children: const [
+          children: [
             Text(
               'Your Cart',
               style: TextStyle(fontWeight: FontWeight.w400),
             ),
-            Text(
-              '3 items',
-              style: TextStyle(fontSize: 10, fontWeight: FontWeight.w100),
-            )
+            if (listsize != 0)
+              Text(
+                '${listsize} items',
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w100),
+              )
           ],
         ),
       ),
@@ -76,69 +91,82 @@ class CartScreen extends ConsumerWidget {
               child: Column(
                 children: [
                   cartitemList(ref),
-                  Container(
-                    margin: const EdgeInsets.only(top: 20, bottom: 20),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-                    decoration: BoxDecoration(
-                        boxShadow: const [
-                          BoxShadow(blurRadius: 5, spreadRadius: 0.5)
-                        ],
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.white),
-                    width: scWidth * 0.85,
-                    height: min(scHeight * 0.2, 125),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text(
-                                'Items Price: ',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600),
-                              ),
-                              Text(
-                                '500\$',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600),
-                              )
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text(
-                                'Delivery Charges: ',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600),
-                              ),
-                              Text(
-                                'Free',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600),
-                              )
-                            ],
-                          ),
-                          const Divider(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text(
-                                'Grand Total: ',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600),
-                              ),
-                              Text(
-                                '500\$',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600),
-                              )
-                            ],
-                          )
-                        ]),
-                  )
+                  emptylist == false
+                      ? Container(
+                          margin: const EdgeInsets.only(top: 20, bottom: 20),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 9),
+                          decoration: BoxDecoration(
+                              boxShadow: const [
+                                BoxShadow(blurRadius: 5, spreadRadius: 0.5)
+                              ],
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.white),
+                          width: scWidth * 0.85,
+                          height: min(scHeight * 0.2, 125),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Items Price: ',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    Text(
+                                      "₹${pricetotal}",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: const [
+                                    Text(
+                                      'Delivery Charges: ',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    Text(
+                                      'Free',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                    )
+                                  ],
+                                ),
+                                const Divider(),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Grand Total",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    Text(
+                                      "₹${pricetotal}",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                    )
+                                  ],
+                                )
+                              ]),
+                        )
+                      : NoItems(
+                          noitemtext: 'Your Cart is Empty!!!!',
+                        )
                 ],
               ),
             ),
@@ -174,41 +202,54 @@ class CartScreen extends ConsumerWidget {
 
           // ----------         Button to checkout     --------
 
-          MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              onTap: () {},
-              child: Container(
-                  width: scWidth,
-                  height: scHeight * 0.08,
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(8),
-                          topRight: Radius.circular(8)),
-                      color: Colors.deepPurple[300]),
-                  alignment: const Alignment(0, 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(right: 10),
-                        child: const FaIcon(
-                          FontAwesomeIcons.basketShopping,
-                          size: 23,
-                          color: Colors.white,
+          if (emptylist == false)
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: () {
+                  var map = {'totalAmnt': pricetotal, 'productlist': datalist};
+                  var data = ref.read(placeorderProvider(map));
+                  data.when(data: (msg) {
+                    Navigator.of(context).pushNamed('/ordersuccessScreen');
+                  }, error: (_, __) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Order Failed')),
+                    );
+                  }, loading: () {
+                    CircularProgressIndicator();
+                  });
+                },
+                child: Container(
+                    width: scWidth,
+                    height: scHeight * 0.08,
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8)),
+                        color: Colors.deepPurple[300]),
+                    alignment: const Alignment(0, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(right: 10),
+                          child: const FaIcon(
+                            FontAwesomeIcons.basketShopping,
+                            size: 23,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      const Text(
-                        'Slide to Checkout',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                    ],
-                  )),
-            ),
-          )
+                        const Text(
+                          'Slide to Checkout',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ],
+                    )),
+              ),
+            )
         ],
       ),
     );

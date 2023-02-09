@@ -6,18 +6,133 @@ class AddressBook extends StatelessWidget {
 
   var savedAdresses = [{}, {}, {}, {}];
 
-  void bottomsheet(context) {
+  void bottomsheet(context, scHeight) {
+    final _formKey = GlobalKey<FormState>();
     showModalBottomSheet(
+        isScrollControlled: true,
         context: context,
         builder: (BuildContext context) {
           return SizedBox(
-            height: 400,
+            height: scHeight * 0.7,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          child: Text(
+                            'Enter Details',
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 10),
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: 'Recepient\'s name',
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 10),
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: 'Flat/House number',
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 10),
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: 'Street/Society',
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 10),
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: 'City',
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 10),
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: 'Pincode',
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                Navigator.pop(context);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Processing Data')),
+                                );
+                              }
+                            },
+                            child: const Text('Submit'),
+                          ),
+                        ),
+                      ],
+                    )),
+              ),
+            ),
           );
         });
   }
 
   @override
   Widget build(BuildContext context) {
+    final scSize = MediaQuery.of(context).size;
+    final scHeight = scSize.height;
+
     return Scaffold(
       /* --------------------------------- appBar --------------------------------- */
       appBar: AppBar(
@@ -35,7 +150,7 @@ class AddressBook extends StatelessWidget {
             /* -------------------------------------------------------------------------- */
             child: GestureDetector(
               onTap: (() {
-                bottomsheet(context);
+                bottomsheet(context, scHeight);
               }),
               child: const Row(
                 children: [
