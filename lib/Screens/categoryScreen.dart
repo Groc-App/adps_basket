@@ -7,6 +7,8 @@ import 'package:your_basket/Widgets/Categories/categoriesSlider.dart';
 import 'package:your_basket/Widgets/Categories/searchBar.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/data/product.dart';
+import 'package:your_basket/data/productsdata.dart';
 import 'package:your_basket/models/product/products.dart';
 import '../providers/providers.dart';
 import '../models/category/category.dart';
@@ -57,6 +59,10 @@ class CategoryScreen extends ConsumerWidget {
       ),
     );
   }
+  // Widget searchBar(WidgetRef ref)
+  // {
+  //   final productsList
+  // }
 
   Widget buildProducts(List<Product>? products) {
     return GridView.builder(
@@ -128,31 +134,35 @@ class CategoryScreen extends ConsumerWidget {
 
     /* -------------------------------- Scaffold -------------------------------- */
     return Scaffold(
+      /* --------------------------------- appBar --------------------------------- */
+      appBar: AppBar(
+          centerTitle: true,
+          // ignore: prefer_const_constructors
+          title: Text(
+            "Milk And Bakery",
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 30),
+          ),
+          backgroundColor: const Color.fromARGB(255, 237, 230, 230)),
+      backgroundColor: const Color.fromARGB(255, 237, 230, 230),
 
-        /* --------------------------------- appBar --------------------------------- */
-        appBar: AppBar(
-            centerTitle: true,
-            // ignore: prefer_const_constructors
-            title: Text(
-              "Milk And Bakery",
-              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 30),
-            ),
-            backgroundColor: const Color.fromARGB(255, 237, 230, 230)),
-        backgroundColor: const Color.fromARGB(255, 237, 230, 230),
-
-        /* ---------------------------------- body ---------------------------------- */
-        body: SingleChildScrollView(
-            child: Column(
+      /* ---------------------------------- body ---------------------------------- */
+      body: SingleChildScrollView(
+        child: Column(
           children: [
             /* ---------------------------- Top SLider Bar ---------------------------- */
-            const SearchBar(),
+            GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed('/searchScreen');
+                },
+                child: SearchBar()),
             categoriesList(ref, mainCategoryId),
             // Carousel(),
 
             /* -------------------------------------------------------------------------- */
 
             /* ------------------------------Body Pane----------------------------- */
-
+            // ProductData(),2
+            // ProductDataWidgets(),
             SizedBox(
                 // height: scHeight * 0.8,
                 // width: sc_width * 0.s8,
@@ -161,6 +171,8 @@ class CategoryScreen extends ConsumerWidget {
                 /* ---------------------- Building Categories Item Grid --------------------- */
                 child: productList(ref, map))
           ],
-        )));
+        ),
+      ),
+    );
   }
 }

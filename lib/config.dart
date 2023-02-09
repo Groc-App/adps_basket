@@ -15,6 +15,7 @@ class Config {
   static const String getProductByIdApi = '/product/fetchproductcid';
 
   /* ---------------------------- Categories APi's ---------------------------- */
+  static const String getAllmainCategoryApi = 'category/getallmaincategory';
   static const String getAllCategoryApi = '/category/getAllCategory';
   static const String getAllCategoryByMainCategory =
       '/category/getCategoryByMainCategory';
@@ -24,6 +25,6 @@ class Config {
   static const String getProductsMostSellingApi =
       '/product/fetchproductcmostselling';
 
-  static const String getAllmainCategoryApi = 'category/getallmaincategory';
   static const String getProductsByCategoriesApi = '/product/fetchProducts';
+  static const String getAllProducts = 'product/fetchAllProduct';
 }

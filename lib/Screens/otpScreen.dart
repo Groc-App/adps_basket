@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, prefer_const_constructors, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 // import 'package:pinput/pinput.dart';
 // import 'package:pinput/pinput.dart';
 
@@ -39,6 +40,8 @@ class OtpScreen extends StatelessWidget {
             ),
 
             /* --------------------------------- PINPUT --------------------------------- */
+            PinCodeTextField(
+                appContext: context, length: 4, onChanged: (value) {}),
             // Pinput(),
             const SizedBox(
               height: 25,

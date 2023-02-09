@@ -22,11 +22,11 @@ class APIServiceCategory {
       headers: requestHeaders,
       // body: jsonEncode({"phone": }),
     );
-    print("\nThis is Category");
+    // print("\nThis is Category");
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      print(data['data']);
+      // print(data['data']);
       return categoiesFromJson(data['data']);
     } else {
       return null;
