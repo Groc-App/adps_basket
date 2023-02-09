@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:your_basket/models/category/category.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/models/product/products.dart';
 import '../config.dart';
@@ -12,6 +11,25 @@ final productApiService = Provider((ref) => APIServiceProducts());
 class APIServiceProducts {
   static var client = http.Client();
 
+  Future<List<Product>?> getAllProduct() async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var url = Uri.http(Config.apiURL, Config.getAllProducts);
+    print("\nThis is productData URL::");
+    print(url);
+    var response = await client.get(
+      url,
+      headers: requestHeaders,
+    );
+    var data = jsonDecode(response.body);
+    print("\n\Response Product data:");
+    print(data['data']);
+
+    return productsFromJson(data['data']);
+  }
+
   Future<List<Product>?> getAllProdcutsByCategory(
       Map<String, String> map) async {
     Map<String, String> requestHeaders = {
@@ -19,12 +37,6 @@ class APIServiceProducts {
     };
 
     final queryParameter = map;
-
-    // final queryParameter = {
-    //   'mainCategoryId': map['mainCategoryId'],
-    //   'subCategoryId': map['subCategoryId']
-    // };
-    // String ur = + '/${category}';
     var url = Uri.http(
         Config.apiURL, Config.getProductsByCategoriesApi, queryParameter);
     print("\n\n\nThis is url:");
@@ -37,12 +49,12 @@ class APIServiceProducts {
 
     Map<String, dynamic> prdcts;
     if (response.statusCode == 200) {
-      print("\n\n\nProduct response::");
-      print(response.statusCode);
+      // print("\n\n\nProduct response::");
+      // print(response.statusCode);
       var data = jsonDecode(response.body);
-      print("\n\n\nProduct response::");
+      // print("\n\n\nProduct response::");
 
-      print(data['data']);
+      // print(data['data']);
       // prdcts = data['data'];
 
       // print("\nProduct response::");

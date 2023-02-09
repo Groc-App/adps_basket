@@ -39,14 +39,16 @@ class OtpScreen extends StatelessWidget {
             ),
 
             /* --------------------------------- PINPUT --------------------------------- */
-            // Pinput(),
-            const SizedBox(
-              height: 25,
-            ),
-            const Text(
-              'Resend OTP',
-              style: TextStyle(color: Colors.green),
-            ),
+            // PinCodeTextField(
+            //     appContext: context, length: 4, onChanged: (value) {}),
+            // // Pinput(),
+            // const SizedBox(
+            //   height: 25,
+            // ),
+            // const Text(
+            //   'Resend OTP',
+            //   style: TextStyle(color: Colors.green),
+            // ),
           ]),
         ),
       ),

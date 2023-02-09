@@ -105,3 +105,11 @@ final productsByCategoryProvider =
     return productApiRepository.getAllProdcutsByCategory(map);
   },
 );
+
+final allProductProvider = FutureProvider<List<Product>?>(
+  (ref) {
+    final apiRespository = ref.watch(productApiService);
+
+    return apiRespository.getAllProduct();
+  },
+);

@@ -1,10 +1,68 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:your_basket/Widgets/Categories/searchBar.dart';
+import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
+import 'package:your_basket/data/productsdata.dart';
+import 'package:your_basket/models/product/products.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
+
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  List<Map<String, dynamic>> foundUser = [];
+
+  Widget buildProducts(List<Map<String, dynamic>> products) {
+    return GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return ProductItem(
+            imageUrl: products[index]['ImageUrl'],
+            name: products[index]['Name'],
+            desc: products[index]['Description'],
+            price: products[index]['Price'],
+            quantity: products[index]['Quantity'],
+          );
+        },
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          childAspectRatio: 0.7,
+          crossAxisCount: 2,
+          crossAxisSpacing: 3,
+          mainAxisSpacing: 3,
+        ),
+        itemCount: products.length);
+  }
+
+  @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   // foundUser = data;
+  //   super.initState();
+  // }
+
+  void runFilter(String enteredKeyword) {
+    List<Map<String, dynamic>> results = [];
+    if (enteredKeyword.isEmpty) {
+      // if the search field is empty or only contains white-space, we'll display all users
+      // results = _allUsers;
+    } else {
+      results = data
+          .where((user) =>
+              user["Name"].toLowerCase().contains(enteredKeyword.toLowerCase()))
+          .toList();
+      // we use the toLowerCase() method to make it case-insensitive
+    }
+
+    // Refresh the UI
+    setState(() {
+      foundUser = results;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +82,114 @@ class SearchScreen extends StatelessWidget {
 
       /* ---------------------------------- BODY ---------------------------------- */
 
-      body: Column(
-        children: [
-          const SearchBar(),
-          SizedBox(
-            height: scHeight * 0.8,
-            child: const Center(child: Text("Your Items")),
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            /* ---------------------------- Top SLider Bar ---------------------------- */
+            Container(
+              height: 50,
+              margin: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(boxShadow: const [
+                BoxShadow(color: Colors.grey, spreadRadius: 1, blurRadius: 1)
+              ], color: Colors.white, borderRadius: BorderRadius.circular(20)),
+              child: Row(
+                children: [
+                  const Icon(Icons.search),
+                  Container(
+                    width: 250,
+                    margin: const EdgeInsets.only(left: 10),
+                    child: TextFormField(
+                      onChanged: (value) {
+                        runFilter(value);
+                      },
+                      decoration: const InputDecoration(
+                        hintText: "Search here......",
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            foundUser.isEmpty
+                ? SizedBox(
+                    height: scHeight * 0.8,
+                    child: const Center(child: Text("Your Items")),
+                  )
+                : SizedBox(
+                    /* ---------------------- Building Categories Item Grid --------------------- */
+                    child: buildProducts(foundUser))
+          ],
+        ),
       ),
     );
   }
 }
+
+
+//  /* --------------------------- Screen Intilization -------------------------- */
+//     final scSize = MediaQuery.of(context).size;
+//     final scHeight = scSize.height;
+
+//     /* -------------------------------- Scaffold -------------------------------- */
+//     return Scaffold(
+
+//         /* --------------------------------- appBar --------------------------------- */
+//         appBar: AppBar(
+//             centerTitle: true,
+//             // ignore: prefer_const_constructors
+//             title: Text(
+//               "Milk And Bakery",
+//               style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 30),
+//             ),
+//             backgroundColor: const Color.fromARGB(255, 237, 230, 230)),
+//         backgroundColor: const Color.fromARGB(255, 237, 230, 230),
+
+//         /* ---------------------------------- body ---------------------------------- */
+//         body: SingleChildScrollView(
+//             child: Column(
+//           children: [
+//             /* ---------------------------- Top SLider Bar ---------------------------- */
+//             Container(
+//             height: 50,
+//             margin: const EdgeInsets.all(8),
+//             padding: const EdgeInsets.all(10),
+//             decoration: BoxDecoration(boxShadow: const [
+//               BoxShadow(color: Colors.grey, spreadRadius: 1, blurRadius: 1)
+//             ], color: Colors.white, borderRadius: BorderRadius.circular(20)),
+//             child: Row(
+//               children: [
+//                 const Icon(Icons.search),
+//                 Container(
+//                   width: 250,
+//                   margin: const EdgeInsets.only(left: 10),
+//                   child: TextFormField(
+//                     onChanged: (value) {
+//                       runFilter(value);
+//                     },
+//                     decoration: const InputDecoration(
+//                       hintText: "Search here......",
+//                       border: InputBorder.none,
+//                     ),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//           foundUser.length == 0
+//               ? SizedBox(
+//                   height: scHeight * 0.8,
+//                   child: const Center(child: Text("Your Items")),
+//                 )
+//               :  SizedBox(
+//                 // height: scHeight * 0.8,
+//                 // width: sc_width * 0.s8,
+//                 // height: double.maxFinite,
+
+//                 /* ---------------------- Building Categories Item Grid --------------------- */
+//                 child: productList(foundUser))
+//         ],
+//       ),
+//           ],
+//         )));
