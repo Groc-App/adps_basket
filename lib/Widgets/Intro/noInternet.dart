@@ -14,18 +14,18 @@ class InternetConnection extends StatelessWidget {
           Container(
             height: 200,
             width: 200,
-            margin: EdgeInsets.fromLTRB(0, 0, 0, 25),
-            decoration: BoxDecoration(
+            margin: const EdgeInsets.fromLTRB(0, 0, 0, 25),
+            decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/'),
+                image: AssetImage('assets/images/noInternet.jpg'),
               ),
             ),
           ),
-          Text(
+          const Text(
             "No Internet Connection",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(15),
             child: Text(
               "Could not connect to the Internet. Please chech your network.",

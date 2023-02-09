@@ -4,48 +4,12 @@ import 'package:your_basket/Services/api_service.dart';
 import 'package:your_basket/models/category/category.dart';
 import '../Services/cart_api_service.dart';
 import '../models/cart/cartitem.dart';
-import '../models/orders/orders.dart';
 import '../models/product/productdetail.dart';
 import 'package:your_basket/models/product/products.dart';
 import '../Services/category_api_service.dart';
 import '../Services/product_api_service.dart';
-import '../Services/order_api_service.dart';
+import 'connectivityProvider.dart';
 // import 'package:your_basket/Services/category_api_service.dart';
-
-// class Counter extends Notifier<int> {
-//   @override
-//   int build() {
-//     return 1;
-//   }
-
-//   void increment() {
-//     state++;
-//   }
-
-//   void decrement() {
-//     state--;
-//   }
-// }
-
-// final counterProvider = NotifierProvider<Counter, int>(() {
-//   return Counter();
-// });
-
-final yourordersProvider = FutureProvider.family<List<Orders>?, String>(
-  (ref, userid) {
-    final apiRespository = ref.watch(orderApiService);
-
-    return apiRespository.getOrdersbyId(userid);
-  },
-);
-
-final placeorderProvider = FutureProvider.family<String?, Map<String, dynamic>>(
-  (ref, obj) {
-    final apiRespository = ref.watch(orderApiService);
-
-    return apiRespository.placeorder(obj);
-  },
-);
 
 final mostsellingproductProvider = FutureProvider<List<Product>?>(
   (ref) {
@@ -113,3 +77,9 @@ final allProductProvider = FutureProvider<List<Product>?>(
     return apiRespository.getAllProduct();
   },
 );
+
+// final connectivity Provider
+final connectivityProvider =
+    ChangeNotifierProvider<ConnectivityProvider>((ref) {
+  return ConnectivityProvider();
+});
