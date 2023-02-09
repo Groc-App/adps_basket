@@ -119,9 +119,9 @@ class LoginScreen extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => OtpScreen(
-                                          otpHash: resp.data,
-                                          phoneNumber: phoneNumber,
-                                        ),
+                                            // otpHash: resp.data,
+                                            // phoneNumber: phoneNumber,
+                                            ),
                                       ),
                                       (route) => false);
                                 }
