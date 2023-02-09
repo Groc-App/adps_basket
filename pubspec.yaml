@@ -54,6 +54,8 @@ dependencies:
   flutter_cache_manager: ^3.3.0
   pin_code_fields: ^7.4.0
   connectivity_plus: ^3.0.2
+  firebase_core: ^2.5.0
+  firebase_auth: ^4.2.6
 
   # pinput: ^2.2.0
 

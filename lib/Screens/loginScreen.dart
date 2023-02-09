@@ -1,6 +1,8 @@
 // ignore_for_file: file_names, prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:your_basket/Screens/otpScreen.dart';
 import 'package:your_basket/Services/api_service.dart';
 
@@ -80,24 +82,23 @@ class LoginScreen extends StatelessWidget {
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ),
-                              // SizedBox(
-                              //   width: 10,
-                              // ),
                               Expanded(
-                                  // width: ,
-                                  child: TextField(
-                                onChanged: (String value) {
-                                  if (value.length > 9) {
+                                // width: ,
+                                child: TextFormField(
+                                  onChanged: (value) {
                                     phoneNumber = value;
-                                  }
-                                },
-                                // style: TextStyle(color: Colors.white),
-                                decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    border: InputBorder.none,
-                                    hintText: "Enter Mobile Number"),
-                              ))
+                                  },
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(10),
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
+                                  decoration: InputDecoration(
+                                    hintText: 'Phone Number',
+                                    border: null,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -108,24 +109,17 @@ class LoginScreen extends StatelessWidget {
                           height: 45,
                           child: ElevatedButton(
                             onPressed: () async {
-                              if (phoneNumber.length > 9) {
-                                var resp =
-                                    await APIServiceAuth.otpLogin(phoneNumber);
-                                print("Messssage");
-                                print(resp.data);
-                                if (resp.data != null) {
-                                  // ignore: use_build_context_synchronously
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => OtpScreen(
-                                            // otpHash: resp.data,
-                                            // phoneNumber: phoneNumber,
-                                            ),
-                                      ),
-                                      (route) => false);
-                                }
-                              }
+                              await FirebaseAuth.instance.verifyPhoneNumber(
+                                phoneNumber: '+91${phoneNumber}',
+                                verificationCompleted:
+                                    (PhoneAuthCredential credential) {},
+                                verificationFailed:
+                                    (FirebaseAuthException e) {},
+                                codeSent: (String verificationId,
+                                    int? resendToken) {},
+                                codeAutoRetrievalTimeout:
+                                    (String verificationId) {},
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor:
