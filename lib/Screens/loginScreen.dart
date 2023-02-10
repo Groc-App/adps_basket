@@ -109,17 +109,25 @@ class LoginScreen extends StatelessWidget {
                           height: 45,
                           child: ElevatedButton(
                             onPressed: () async {
-                              await FirebaseAuth.instance.verifyPhoneNumber(
-                                phoneNumber: '+91${phoneNumber}',
-                                verificationCompleted:
-                                    (PhoneAuthCredential credential) {},
-                                verificationFailed:
-                                    (FirebaseAuthException e) {},
-                                codeSent: (String verificationId,
-                                    int? resendToken) {},
-                                codeAutoRetrievalTimeout:
-                                    (String verificationId) {},
-                              );
+                              try {
+                                await FirebaseAuth.instance.verifyPhoneNumber(
+                                  phoneNumber: '+91${phoneNumber}',
+                                  verificationCompleted:
+                                      (PhoneAuthCredential credential) {},
+                                  verificationFailed:
+                                      (FirebaseAuthException e) {},
+                                  codeSent: (String verificationId,
+                                      int? resendToken) {
+                                    Navigator.of(context).pushNamed(
+                                        '/otpScreen',
+                                        arguments: {'otp': verificationId});
+                                  },
+                                  codeAutoRetrievalTimeout:
+                                      (String verificationId) {},
+                                );
+                              } catch (e) {
+                                print(e);
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor:

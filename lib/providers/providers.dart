@@ -12,24 +12,7 @@ import '../Services/product_api_service.dart';
 import '../Services/order_api_service.dart';
 // import 'package:your_basket/Services/category_api_service.dart';
 
-// class Counter extends Notifier<int> {
-//   @override
-//   int build() {
-//     return 1;
-//   }
-
-//   void increment() {
-//     state++;
-//   }
-
-//   void decrement() {
-//     state--;
-//   }
-// }
-
-// final counterProvider = NotifierProvider<Counter, int>(() {
-//   return Counter();
-// });
+final authCheckProvider = StateProvider<String?>((ref) => null);
 
 final yourordersProvider = FutureProvider.family<List<Orders>?, String>(
   (ref, userid) {
