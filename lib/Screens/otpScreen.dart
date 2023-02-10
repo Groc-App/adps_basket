@@ -31,133 +31,146 @@ class _OtpScreenState extends State<OtpScreen> {
               style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
             ),
             backgroundColor: const Color.fromARGB(255, 243, 243, 243)),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('We have sent the verification code to'),
-            Row(
-              children: [
-                Text('$phoneNumber'),
-                GestureDetector(
-                    onTap: () {}, child: Text('Change Phone Number?')),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(
-                  height: 60,
-                  width: 40,
-                  child: TextFormField(
-                    onTap: () {
-                      setState(() {
-                        hint = '';
-                      });
-                    },
-                    onChanged: (value) {
-                      if (value.length == 1) {
-                        FocusScope.of(context).nextFocus();
-                      }
-                      // if (value.length == 0) {
-                      //   FocusScope.of(context).previousFocus();
-                      // }
-                    },
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(1),
-                      FilteringTextInputFormatter.digitsOnly
-                    ],
-                    decoration: InputDecoration(
-                        hintText: hint,
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8)))),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('We have sent the verification code to'),
+              Row(
+                children: [
+                  Text(
+                    '$phoneNumber   ',
+                    style: TextStyle(fontWeight: FontWeight.w500),
                   ),
-                ),
-                SizedBox(
-                  height: 60,
-                  width: 40,
-                  child: TextFormField(
-                    onChanged: (value) {
-                      if (value.length == 1) {
-                        FocusScope.of(context).nextFocus();
-                      }
-                      if (value.length == 0) {
-                        FocusScope.of(context).previousFocus();
-                      }
-                    },
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(1),
-                      FilteringTextInputFormatter.digitsOnly
-                    ],
-                    decoration: InputDecoration(
-                        hintText: hint,
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8)))),
-                  ),
-                ),
-                SizedBox(
-                  height: 60,
-                  width: 40,
-                  child: TextFormField(
-                    onChanged: (value) {
-                      if (value.length == 1) {
-                        FocusScope.of(context).nextFocus();
-                      }
-                      if (value.length == 0) {
-                        FocusScope.of(context).previousFocus();
-                      }
-                    },
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(1),
-                      FilteringTextInputFormatter.digitsOnly
-                    ],
-                    decoration: InputDecoration(
-                        hintText: hint,
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8)))),
-                  ),
-                ),
-                SizedBox(
-                  height: 60,
-                  width: 40,
-                  child: TextFormField(
-                    onChanged: (value) {
-                      // if (value.length == 1) {
-                      //   FocusScope.of(context).nextFocus();
-                      // }
-                      if (value.length == 0) {
-                        FocusScope.of(context).previousFocus();
-                      }
-                    },
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(1),
-                      FilteringTextInputFormatter.digitsOnly
-                    ],
-                    decoration: InputDecoration(
-                        hintText: hint,
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8)))),
-                  ),
-                ),
-              ],
-            ),
-            Container(
+                  GestureDetector(
+                      onTap: () {},
+                      child: Text(
+                        'Change Phone Number?',
+                        style: TextStyle(color: Colors.blue),
+                      )),
+                ],
+              ),
+              Container(
                 margin: EdgeInsets.only(top: 10),
-                alignment: Alignment(0, 0),
-                child: ElevatedButton(
-                    onPressed: () {}, child: Text('Verify OTP'))),
-          ],
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      height: 60,
+                      width: 40,
+                      child: TextFormField(
+                        onTap: () {
+                          setState(() {
+                            hint = '';
+                          });
+                        },
+                        onChanged: (value) {
+                          if (value.length == 1) {
+                            FocusScope.of(context).nextFocus();
+                          }
+                          // if (value.length == 0) {
+                          //   FocusScope.of(context).previousFocus();
+                          // }
+                        },
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(1),
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        decoration: InputDecoration(
+                            hintText: hint,
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8)))),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 60,
+                      width: 40,
+                      child: TextFormField(
+                        onChanged: (value) {
+                          if (value.length == 1) {
+                            FocusScope.of(context).nextFocus();
+                          }
+                          if (value.length == 0) {
+                            FocusScope.of(context).previousFocus();
+                          }
+                        },
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(1),
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        decoration: InputDecoration(
+                            hintText: hint,
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8)))),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 60,
+                      width: 40,
+                      child: TextFormField(
+                        onChanged: (value) {
+                          if (value.length == 1) {
+                            FocusScope.of(context).nextFocus();
+                          }
+                          if (value.length == 0) {
+                            FocusScope.of(context).previousFocus();
+                          }
+                        },
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(1),
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        decoration: InputDecoration(
+                            hintText: hint,
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8)))),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 60,
+                      width: 40,
+                      child: TextFormField(
+                        onChanged: (value) {
+                          // if (value.length == 1) {
+                          //   FocusScope.of(context).nextFocus();
+                          // }
+                          if (value.length == 0) {
+                            FocusScope.of(context).previousFocus();
+                          }
+                        },
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(1),
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        decoration: InputDecoration(
+                            hintText: hint,
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8)))),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.only(top: 10),
+                  alignment: Alignment(0, 0),
+                  child: ElevatedButton(
+                      onPressed: () {}, child: Text('Verify OTP'))),
+            ],
+          ),
         ));
   }
 }
