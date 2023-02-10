@@ -1,18 +1,19 @@
 // ignore_for_file: file_names, prefer_const_constructors, prefer_typing_uninitialized_variables
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:pinput/pinput.dart';
-// import 'package:pinput/pinput.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/providers.dart';
 
-class OtpScreen extends StatefulWidget {
+class OtpScreen extends ConsumerStatefulWidget {
   @override
-  State<OtpScreen> createState() => _OtpScreenState();
+  ConsumerState<OtpScreen> createState() => _OtpScreenState();
 }
 
-class _OtpScreenState extends State<OtpScreen> {
+class _OtpScreenState extends ConsumerState<OtpScreen> {
   // const OtpScreen({super.key});
-  late final otpHash = '';
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   late final phoneNumber = '7982733943';
 
@@ -21,7 +22,18 @@ class _OtpScreenState extends State<OtpScreen> {
   // OtpScreen({this.otpHash, this.phoneNumber});
   @override
   Widget build(BuildContext context) {
-    print("OTP HASH::" + otpHash);
+    var opthash = (ModalRoute.of(context)?.settings.arguments ??
+        <String, dynamic>{}) as Map;
+    var otp = opthash['otp'];
+    print('otp issssssssss:   $otp');
+    TextEditingController pin1 = TextEditingController();
+    // TextEditingController pin2 = TextEditingController();
+    // TextEditingController pin3 = TextEditingController();
+    // TextEditingController pin4 = TextEditingController();
+    // TextEditingController pin5 = TextEditingController();
+    // TextEditingController pin6 = TextEditingController();
+
+    // print("OTP HASH::" + otpHash);
     return Scaffold(
         appBar: AppBar(
             elevation: 7,
@@ -58,25 +70,18 @@ class _OtpScreenState extends State<OtpScreen> {
                   children: [
                     SizedBox(
                       height: 60,
-                      width: 40,
+                      width: 300,
                       child: TextFormField(
-                        onTap: () {
-                          setState(() {
-                            hint = '';
-                          });
-                        },
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          }
-                          // if (value.length == 0) {
-                          //   FocusScope.of(context).previousFocus();
-                          // }
-                        },
+                        controller: pin1,
+                        // onChanged: (value) {
+                        //   if (value.length == 1) {
+                        //     FocusScope.of(context).nextFocus();
+                        //   }
+                        // },
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.number,
                         inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
+                          LengthLimitingTextInputFormatter(10),
                           FilteringTextInputFormatter.digitsOnly
                         ],
                         decoration: InputDecoration(
@@ -86,89 +91,169 @@ class _OtpScreenState extends State<OtpScreen> {
                                     BorderRadius.all(Radius.circular(8)))),
                       ),
                     ),
-                    SizedBox(
-                      height: 60,
-                      width: 40,
-                      child: TextFormField(
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          }
-                          if (value.length == 0) {
-                            FocusScope.of(context).previousFocus();
-                          }
-                        },
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        decoration: InputDecoration(
-                            hintText: hint,
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8)))),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 60,
-                      width: 40,
-                      child: TextFormField(
-                        onChanged: (value) {
-                          if (value.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                          }
-                          if (value.length == 0) {
-                            FocusScope.of(context).previousFocus();
-                          }
-                        },
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        decoration: InputDecoration(
-                            hintText: hint,
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8)))),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 60,
-                      width: 40,
-                      child: TextFormField(
-                        onChanged: (value) {
-                          // if (value.length == 1) {
-                          //   FocusScope.of(context).nextFocus();
-                          // }
-                          if (value.length == 0) {
-                            FocusScope.of(context).previousFocus();
-                          }
-                        },
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        decoration: InputDecoration(
-                            hintText: hint,
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8)))),
-                      ),
-                    ),
+                    // SizedBox(
+                    //   height: 60,
+                    //   width: 40,
+                    //   child: TextFormField(
+                    //     controller: pin2,
+                    //     onChanged: (value) {
+                    //       if (value.length == 1) {
+                    //         FocusScope.of(context).nextFocus();
+                    //       }
+                    //       if (value.length == 0) {
+                    //         FocusScope.of(context).previousFocus();
+                    //       }
+                    //     },
+                    //     textAlign: TextAlign.center,
+                    //     keyboardType: TextInputType.number,
+                    //     inputFormatters: [
+                    //       LengthLimitingTextInputFormatter(1),
+                    //       FilteringTextInputFormatter.digitsOnly
+                    //     ],
+                    //     decoration: InputDecoration(
+                    //         hintText: hint,
+                    //         border: OutlineInputBorder(
+                    //             borderRadius:
+                    //                 BorderRadius.all(Radius.circular(8)))),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 60,
+                    //   width: 40,
+                    //   child: TextFormField(
+                    //     controller: pin3,
+                    //     onChanged: (value) {
+                    //       if (value.length == 1) {
+                    //         FocusScope.of(context).nextFocus();
+                    //       }
+                    //       if (value.length == 0) {
+                    //         FocusScope.of(context).previousFocus();
+                    //       }
+                    //     },
+                    //     textAlign: TextAlign.center,
+                    //     keyboardType: TextInputType.number,
+                    //     inputFormatters: [
+                    //       LengthLimitingTextInputFormatter(1),
+                    //       FilteringTextInputFormatter.digitsOnly
+                    //     ],
+                    //     decoration: InputDecoration(
+                    //         hintText: hint,
+                    //         border: OutlineInputBorder(
+                    //             borderRadius:
+                    //                 BorderRadius.all(Radius.circular(8)))),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 60,
+                    //   width: 40,
+                    //   child: TextFormField(
+                    //     controller: pin4,
+                    //     onChanged: (value) {
+                    //       if (value.length == 1) {
+                    //         FocusScope.of(context).nextFocus();
+                    //       }
+                    //       if (value.length == 0) {
+                    //         FocusScope.of(context).previousFocus();
+                    //       }
+                    //     },
+                    //     textAlign: TextAlign.center,
+                    //     keyboardType: TextInputType.number,
+                    //     inputFormatters: [
+                    //       LengthLimitingTextInputFormatter(1),
+                    //       FilteringTextInputFormatter.digitsOnly
+                    //     ],
+                    //     decoration: InputDecoration(
+                    //         hintText: hint,
+                    //         border: OutlineInputBorder(
+                    //             borderRadius:
+                    //                 BorderRadius.all(Radius.circular(8)))),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 60,
+                    //   width: 40,
+                    //   child: TextFormField(
+                    //     controller: pin5,
+                    //     onChanged: (value) {
+                    //       if (value.length == 1) {
+                    //         FocusScope.of(context).nextFocus();
+                    //       }
+                    //       if (value.length == 0) {
+                    //         FocusScope.of(context).previousFocus();
+                    //       }
+                    //     },
+                    //     textAlign: TextAlign.center,
+                    //     keyboardType: TextInputType.number,
+                    //     inputFormatters: [
+                    //       LengthLimitingTextInputFormatter(1),
+                    //       FilteringTextInputFormatter.digitsOnly
+                    //     ],
+                    //     decoration: InputDecoration(
+                    //         hintText: hint,
+                    //         border: OutlineInputBorder(
+                    //             borderRadius:
+                    //                 BorderRadius.all(Radius.circular(8)))),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 60,
+                    //   width: 40,
+                    //   child: TextField(
+                    //     controller: pin6,
+                    //     onChanged: (value) {
+                    //       if (value.length == 0) {
+                    //         FocusScope.of(context).previousFocus();
+                    //       }
+                    //     },
+                    //     textAlign: TextAlign.center,
+                    //     keyboardType: TextInputType.number,
+                    //     inputFormatters: [
+                    //       LengthLimitingTextInputFormatter(1),
+                    //       FilteringTextInputFormatter.digitsOnly
+                    //     ],
+                    //     decoration: InputDecoration(
+                    //         hintText: hint,
+                    //         border: OutlineInputBorder(
+                    //             borderRadius:
+                    //                 BorderRadius.all(Radius.circular(8)))),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
               Container(
                   margin: EdgeInsets.only(top: 10),
                   alignment: Alignment(0, 0),
-                  child: ElevatedButton(
-                      onPressed: () {}, child: Text('Verify OTP'))),
+                  child: TextButton(
+                      onPressed: () async {
+                        try {
+                          print('${pin1.text} iiiiiiiiiiiiii');
+                          var smsCoded = pin1.text;
+                          print(smsCoded);
+                          PhoneAuthCredential credential =
+                              PhoneAuthProvider.credential(
+                                  verificationId: otp,
+                                  smsCode: smsCoded.toString().trim());
+
+                          // Sign the user in (or link) with the credential
+                          var cred =
+                              await auth.signInWithCredential(credential);
+                          print('iiiiiiiiiiiiiii ${cred.user}');
+                          ref
+                              .read(authCheckProvider.notifier)
+                              .update((state) => cred.user.toString());
+                          Navigator.pushNamed(context, '/homepage',
+                              arguments: {'userid': cred.user});
+                        } catch (e) {
+                          if (e == null) {
+                            print(' shiiiiiiiiiiiii hh     ');
+                          } else {
+                            print('error m');
+                            print('galat hhhhhhhhhhhhhhhhhhh $e');
+                          }
+                        }
+                      },
+                      child: Text('Verify OTP'))),
             ],
           ),
         ));

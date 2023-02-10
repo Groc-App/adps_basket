@@ -1,12 +1,22 @@
 // ignore_for_file: file_names
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../providers/providers.dart';
 
-class HeadingSupport extends StatelessWidget {
+final FirebaseAuth auth = FirebaseAuth.instance;
+final User? user = auth.currentUser;
+final uid = user?.uid;
+
+class HeadingSupport extends ConsumerWidget {
   const HeadingSupport({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var authBool = ref.read(authCheckProvider);
+    print(authBool);
+    print(authBool?[5]);
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       child: Row(
@@ -20,7 +30,13 @@ class HeadingSupport extends StatelessWidget {
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
-            const Text('7982733943'),
+            authBool != null
+                ? const Text('7982733943')
+                : Text(
+                    'LogIn to view Profile',
+                    style: TextStyle(
+                        color: Colors.blue, fontWeight: FontWeight.w500),
+                  ),
           ]),
           Column(
             children: const [

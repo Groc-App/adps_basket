@@ -14,6 +14,11 @@ import 'package:your_basket/models/orders/orders.dart';
 
 // import 'package:your_basket/Services/category_api_service.dart';
 
+<<<<<<< HEAD
+=======
+final authCheckProvider = StateProvider<String?>((ref) => null);
+
+>>>>>>> 124f985bdeaab8c725f8978a1dc2670fb5a0aceb
 final yourordersProvider = FutureProvider.family<List<Orders>?, String>(
   (ref, userid) {
     final apiRespository = ref.watch(orderApiService);
