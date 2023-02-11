@@ -26,11 +26,26 @@ final createuserProvider = FutureProvider.family<void, String?>(
   },
 );
 
+// final yourordersProvider = FutureProvider.family<List<Orders>?, String>(
+//   (ref, userid) {
+//     print("\nInside api repo");
+//     final apiRespository = ref.watch(orderApiService);
+
+//     return apiRespository.getOrdersbyId(userid);
+//   },
+// );
 final yourordersProvider = FutureProvider.family<List<Orders>?, String>(
   (ref, userid) {
     final apiRespository = ref.watch(orderApiService);
 
     return apiRespository.getOrdersbyId(userid);
+  },
+);
+final categoriesProvider = FutureProvider.family<List<Category>?, String>(
+  (ref, mainCategoryId) {
+    final apiRespository = ref.watch(categoryApiService);
+
+    return apiRespository.getCategory(mainCategoryId);
   },
 );
 
@@ -55,14 +70,6 @@ final maincategorylistProvider = FutureProvider<List<Category>?>(
     final apiRespository = ref.watch(categoryApiService);
 
     return apiRespository.getmainCategory();
-  },
-);
-
-final categoriesProvider = FutureProvider.family<List<Category>?, String>(
-  (ref, mainCategoryId) {
-    final apiRespository = ref.watch(categoryApiService);
-
-    return apiRespository.getCategory(mainCategoryId);
   },
 );
 

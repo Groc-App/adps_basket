@@ -13,35 +13,43 @@ class YourOrderes extends ConsumerWidget {
   YourOrderes({super.key});
 
   bool islistempty = false;
-  String userid = 'dsufhjf';
+  String userid = '63e808bfdba90e428e7d9864';
 
   Widget orderList(WidgetRef ref, BuildContext context, double scHeight) {
+    print("\nInside orderList");
     final data = ref.watch(yourordersProvider(userid));
+    print("\nInside orderList");
 
     return data.when(
       data: (list) {
-        print("Thisssssssssssssssssss is list" + '${list}');
+        print("Thisssssssssssssssssss is list ${list}");
 
         if (list == null) islistempty = true;
+        print("\n\n\nThis is list $islistempty");
         return orderlistbuilder(list, context, scHeight);
       },
-      error: (_, __) => const Center(child: Text("ERR")),
+      error: (_, __) => const Center(child: Text("ERRRRRRRRRRR")),
       loading: () => const Center(child: CircularProgressIndicator()),
     );
   }
 
   Widget orderlistbuilder(list, contex, scHeight) {
-    return Column(
-      children: [
-        SingleChildScrollView(
-          child: Column(
-            children: list.map((e) {
-              return const OrdereItem();
-            }).toList(),
-          ),
-        ),
-      ],
-    );
+    return list == null
+        ? NoItems(
+            noitemtext: 'You have no past orders!!!',
+            pageroute: 'homescreen',
+          )
+        : Column(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  children: list.map((e) {
+                    return const OrdereItem();
+                  }).toList(),
+                ),
+              ),
+            ],
+          );
   }
 
   @override
@@ -58,15 +66,12 @@ class YourOrderes extends ConsumerWidget {
           backgroundColor: Theme.of(context).primaryColor,
           title: const Text('Your Orders'),
         ),
-        body: authInfo == null
-            ? NoItems(
-                noitemtext: 'Login/Signup first',
-                pageroute: 'loginpage',
-              )
-            : islistempty == false
-                ? orderList(ref, context, scHeight)
-                : NoItems(
-                    noitemtext: 'You have no past orders!!!',
-                  ));
+        body:
+            //  authInfo == null ?
+            // NoItems(
+            //       noitemtext: 'Login/Signup first',
+            //       pageroute: 'loginpage',
+            //     ) :
+            orderList(ref, context, scHeight));
   }
 }
