@@ -3,15 +3,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Screens/otpScreen.dart';
 import 'package:your_basket/Services/api_service.dart';
 
-class LoginScreen extends StatelessWidget {
+import '../providers/providers.dart';
+
+class LoginScreen extends ConsumerWidget {
   // const LoginScreen({super.key});
   String phoneNumber = "";
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
     String imgUrl =

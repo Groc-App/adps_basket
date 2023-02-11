@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class NoItems extends StatelessWidget {
   // const NoItems({super.key});
   final noitemtext;
+  final pageroute;
 
-  NoItems({this.noitemtext});
+  NoItems({this.noitemtext, this.pageroute});
 
   @override
   Widget build(BuildContext context) {
+    print(pageroute);
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
 
@@ -23,12 +25,18 @@ class NoItems extends StatelessWidget {
             style: TextStyle(fontSize: 20),
           ),
         ),
-        ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/homepage', (Route<dynamic> route) => false);
-            },
-            child: const Text('Shop Now')),
+        pageroute == 'loginpage'
+            ? ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/loginScreen');
+                },
+                child: Text('Login'))
+            : ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/homepage', (Route<dynamic> route) => false);
+                },
+                child: const Text('Shop Now')),
       ]),
     );
   }

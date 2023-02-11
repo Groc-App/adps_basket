@@ -46,6 +46,9 @@ class YourOrderes extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var authInfo = ref.watch(authCheckProvider);
+    print(authInfo?.uid);
+
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
 
@@ -55,10 +58,15 @@ class YourOrderes extends ConsumerWidget {
           backgroundColor: Theme.of(context).primaryColor,
           title: const Text('Your Orders'),
         ),
-        body: islistempty == false
-            ? orderList(ref, context, scHeight)
-            : NoItems(
-                noitemtext: 'You have no past orders!!!',
-              ));
+        body: authInfo == null
+            ? NoItems(
+                noitemtext: 'Login/Signup first',
+                pageroute: 'loginpage',
+              )
+            : islistempty == false
+                ? orderList(ref, context, scHeight)
+                : NoItems(
+                    noitemtext: 'You have no past orders!!!',
+                  ));
   }
 }

@@ -5,20 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/providers.dart';
 
-final FirebaseAuth auth = FirebaseAuth.instance;
-final User? user = auth.currentUser;
-final uid = user?.uid;
-
 class HeadingSupport extends ConsumerWidget {
   const HeadingSupport({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var authBool = ref.read(authCheckProvider);
-    print(authBool);
-    print(authBool?[5]);
+    // Cheching user login info
+
+    var authInfo = ref.watch(authCheckProvider);
+    print(authInfo?.uid);
+
     return Container(
-      margin: const EdgeInsets.only(bottom: 20),
+      margin: EdgeInsets.only(bottom: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -30,12 +28,17 @@ class HeadingSupport extends ConsumerWidget {
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
-            authBool != null
-                ? const Text('7982733943')
-                : Text(
-                    'LogIn to view Profile',
-                    style: TextStyle(
-                        color: Colors.blue, fontWeight: FontWeight.w500),
+            authInfo != null
+                ? Text('${authInfo.phoneNumber}')
+                : GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed('/loginScreen');
+                    },
+                    child: Text(
+                      'LogIn to view Profile',
+                      style: TextStyle(
+                          color: Colors.blue, fontWeight: FontWeight.w500),
+                    ),
                   ),
           ]),
           Column(

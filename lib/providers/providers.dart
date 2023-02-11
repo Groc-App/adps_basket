@@ -3,6 +3,7 @@ import 'package:your_basket/Services/api_service.dart';
 // import 'package:your_basket/Services/product_api_service.dart';
 import 'package:your_basket/models/category/category.dart';
 import '../Services/cart_api_service.dart';
+import '../Services/user_api_service.dart';
 import '../models/cart/cartitem.dart';
 import '../models/product/productdetail.dart';
 import 'package:your_basket/models/product/products.dart';
@@ -11,10 +12,19 @@ import '../Services/product_api_service.dart';
 import 'connectivityProvider.dart';
 import '../Services/order_api_service.dart';
 import 'package:your_basket/models/orders/orders.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 // import 'package:your_basket/Services/category_api_service.dart';
 
-final authCheckProvider = StateProvider<String?>((ref) => null);
+final authCheckProvider = StateProvider<User?>((ref) => null);
+
+final createuserProvider = FutureProvider.family<void, String?>(
+  (ref, number) {
+    final apiRespository = ref.watch(userApiService);
+
+    return apiRespository.createuserifnotexist(number);
+  },
+);
 
 final yourordersProvider = FutureProvider.family<List<Orders>?, String>(
   (ref, userid) {

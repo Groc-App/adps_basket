@@ -1,18 +1,23 @@
 // ignore_for_file: deprecated_member_use, avoid_unnecessary_containers, file_names
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:about/about.dart';
 
-class Content extends StatelessWidget {
+import '../../providers/providers.dart';
+
+class Content extends ConsumerWidget {
   const Content({super.key});
 
   void navigation(context, navi_url) {
     Navigator.of(context).pushNamed('${navi_url}');
   }
 
-  Widget iconRow(icn, text, context, navi_url) {
+  Widget iconRow(icn, text, context, navi_url, WidgetRef ref) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
@@ -45,6 +50,10 @@ class Content extends StatelessWidget {
                 ),
               ),
             );
+          } else if (navi_url == 'logout') {
+            FirebaseAuth auth = FirebaseAuth.instance;
+            auth.signOut();
+            ref.read(authCheckProvider.notifier).update((state) => null);
           } else {
             navigation(context, navi_url);
           }
@@ -86,7 +95,12 @@ class Content extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Cheching user login info
+
+    var authInfo = ref.watch(authCheckProvider);
+    print(authInfo?.uid);
+
     return Column(
       children: [
         Container(
@@ -101,9 +115,9 @@ class Content extends StatelessWidget {
               height: 10,
             ),
             iconRow(FontAwesomeIcons.shoppingBag, 'Your Orders', context,
-                '/yourOrderScreen'),
+                '/yourOrderScreen', ref),
             iconRow(FontAwesomeIcons.addressBook, 'Your Addresses', context,
-                '/addressScreen'),
+                '/addressScreen', ref),
           ]),
         ),
         Container(
@@ -119,12 +133,14 @@ class Content extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            iconRow(FontAwesomeIcons.share, 'Share the app', context, 'share'),
-            iconRow(FontAwesomeIcons.info, 'About us', context, 'about'),
+            iconRow(
+                FontAwesomeIcons.share, 'Share the app', context, 'share', ref),
+            iconRow(FontAwesomeIcons.info, 'About us', context, 'about', ref),
             iconRow(FontAwesomeIcons.star, 'Rate us on Play Store', context,
-                '/yourOrderScreen'),
-            iconRow(FontAwesomeIcons.signOut, 'Logout', context,
-                '/yourOrderScreen'),
+                '/yourOrderScreen', ref),
+            if (authInfo != null)
+              iconRow(
+                  FontAwesomeIcons.signOut, 'Logout', context, 'logout', ref),
           ]),
         ),
       ],
