@@ -123,8 +123,8 @@ class CategoryScreen extends ConsumerWidget {
 
     // mapp['mainCategoryId'] = categ['maincategoryid'];
     // mapp['categoryId'] = "null";
-    ConnectivityProvider connect =
-        ref.watch(connectivityProvider).startMonitoring();
+    // ConnectivityProvider connect =
+    //     ref.watch(connectivityProvider).startMonitoring();
 
     Map<String, String> map = ref.watch(categoryProvider);
     print("\n||||||||This is update cateogry ||||||||");
@@ -151,34 +151,35 @@ class CategoryScreen extends ConsumerWidget {
 
       /* ---------------------------------- body ---------------------------------- */
       body: SingleChildScrollView(
-        child: connect.isOnline != null
-            ? Column(
-                children: [
-                  /* ---------------------------- Top SLider Bar ---------------------------- */
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pushNamed('/searchScreen');
-                      },
-                      child: SearchBar()),
-                  categoriesList(ref, mainCategoryId),
-                  // Carousel(),
+          child:
+              // connect.isOnline != null ?
+              Column(
+        children: [
+          /* ---------------------------- Top SLider Bar ---------------------------- */
+          GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed('/searchScreen');
+              },
+              child: SearchBar()),
+          categoriesList(ref, mainCategoryId),
+          // Carousel(),
 
-                  /* -------------------------------------------------------------------------- */
+          /* -------------------------------------------------------------------------- */
 
-                  /* ------------------------------Body Pane----------------------------- */
-                  // ProductData(),2
-                  // ProductDataWidgets(),
-                  SizedBox(
-                      // height: scHeight * 0.8,
-                      // width: sc_width * 0.s8,
-                      // height: double.maxFinite,
+          /* ------------------------------Body Pane----------------------------- */
+          // ProductData(),2
+          // ProductDataWidgets(),
+          SizedBox(
+              // height: scHeight * 0.8,
+              // width: sc_width * 0.s8,
+              // height: double.maxFinite,
 
-                      /* ---------------------- Building Categories Item Grid --------------------- */
-                      child: productList(ref, map))
-                ],
-              )
-            : InternetConnection(),
-      ),
+              /* ---------------------- Building Categories Item Grid --------------------- */
+              child: productList(ref, map))
+        ],
+      )
+          // : InternetConnection(),
+          ),
     );
   }
 }
