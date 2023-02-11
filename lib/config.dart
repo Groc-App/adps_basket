@@ -28,5 +28,7 @@ class Config {
   static const String getProductsByCategoriesApi = '/product/fetchProducts';
   static const String getOrderbyIdApi = '/order/fetchordersid';
   static const String placeorderApi = '/order/createorder';
-  static const String getAllProducts = 'product/fetchAllProduct';
+  static const String getAllProducts = '/product/fetchAllProduct';
+
+  static const String createuserApi = '/user/createuserifnotexist';
 }

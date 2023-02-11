@@ -47,7 +47,7 @@ class APIServiceCategory {
       headers: requestHeaders,
       // body: jsonEncode({"phone": }),
     );
-    // print("Category");
+    print("Category");
     print(response.body);
 
     if (response.statusCode == 200) {

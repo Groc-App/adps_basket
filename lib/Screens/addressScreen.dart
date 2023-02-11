@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Address/address.dart';
 
-class AddressBook extends StatelessWidget {
+import '../Widgets/Cart/Noitems.dart';
+import '../providers/providers.dart';
+
+class AddressBook extends ConsumerWidget {
   AddressBook({super.key});
 
   var savedAdresses = [{}, {}, {}, {}];
@@ -129,9 +133,12 @@ class AddressBook extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
+
+    var authInfo = ref.watch(authCheckProvider);
+    print(authInfo?.uid);
 
     return Scaffold(
       /* --------------------------------- appBar --------------------------------- */
@@ -142,45 +149,51 @@ class AddressBook extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
           ),
           backgroundColor: const Color.fromARGB(255, 243, 243, 243)),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            /* -------------------------------------------------------------------------- */
-            child: GestureDetector(
-              onTap: (() {
-                bottomsheet(context, scHeight);
-              }),
-              child: const Row(
-                children: [
-                  Icon(Icons.add),
-                  SizedBox(
-                    width: 5,
+      body: authInfo == null
+          ? NoItems(
+              noitemtext: 'Login/Signup first',
+              pageroute: 'loginpage',
+            )
+          : SingleChildScrollView(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(children: [
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  /* -------------------------------------------------------------------------- */
+                  child: GestureDetector(
+                    onTap: (() {
+                      bottomsheet(context, scHeight);
+                    }),
+                    child: const Row(
+                      children: [
+                        Icon(Icons.add),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          "Add New Address",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 18, 180, 23)),
+                        )
+                      ],
+                    ),
                   ),
-                  Text(
-                    "Add New Address",
-                    style: TextStyle(color: Color.fromARGB(255, 18, 180, 23)),
-                  )
-                ],
-              ),
-            ),
-          ),
-          const Divider(),
-          /* -------------------------------------------------------------------------- */
+                ),
+                const Divider(),
+                /* -------------------------------------------------------------------------- */
 
-          Column(
-            children: savedAdresses.map((index) {
-              return Column(
-                children: [
-                  Address(),
-                  Divider(),
-                ],
-              );
-            }).toList(),
-          ),
-        ]),
-      ),
+                Column(
+                  children: savedAdresses.map((index) {
+                    return Column(
+                      children: [
+                        Address(),
+                        Divider(),
+                      ],
+                    );
+                  }).toList(),
+                ),
+              ]),
+            ),
     );
   }
 }

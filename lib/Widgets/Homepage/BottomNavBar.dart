@@ -29,7 +29,11 @@ class _BotmNavBarState extends State<BotmNavBar> {
         _selectedindex = index;
       });
       print(_selectedindex);
-      Navigator.of(context).pushNamed('${routes[index]}');
+      if (index == 0) {
+        return null;
+      } else {
+        Navigator.of(context).pushNamed('${routes[index]}');
+      }
     }
 
     final scSize = MediaQuery.of(context).size;

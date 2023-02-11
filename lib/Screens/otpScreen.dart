@@ -238,12 +238,16 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                           // Sign the user in (or link) with the credential
                           var cred =
                               await auth.signInWithCredential(credential);
-                          print('iiiiiiiiiiiiiii ${cred.user}');
+                          print('iiiiiiiiiiiiiii ${cred.user?.phoneNumber}');
+
+                          final User? user = cred.user;
+                          print(user);
                           ref
                               .read(authCheckProvider.notifier)
-                              .update((state) => cred.user.toString());
-                          Navigator.pushNamed(context, '/homepage',
-                              arguments: {'userid': cred.user});
+                              .update((state) => user);
+                          ref.read(createuserProvider(user?.phoneNumber));
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              '/homepage', (Route<dynamic> route) => false);
                         } catch (e) {
                           if (e == null) {
                             print(' shiiiiiiiiiiiii hh     ');
