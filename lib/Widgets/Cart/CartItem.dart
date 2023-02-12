@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/models/cart/cartitem.dart';
+import 'package:your_basket/models/product/productdetail.dart';
 
 import '../../providers/providers.dart';
 
@@ -13,37 +14,57 @@ final counterProvider = StateProvider<int>(
 
 class CartItem extends ConsumerStatefulWidget {
   int quantity = 0;
+  ProductItem item;
+  String userid;
 
-  CartItem({required this.quantity});
+  CartItem({required this.quantity, required this.item, required this.userid});
 
   @override
-  _CartItemState createState() => _CartItemState(quan: quantity);
+  _CartItemState createState() =>
+      _CartItemState(quan: quantity, item: item, userid: userid);
 }
 
 class _CartItemState extends ConsumerState<CartItem> {
+  ProductItem item;
   int quan;
+  String userid;
 
-  _CartItemState({required this.quan});
+  _CartItemState(
+      {required this.quan, required this.item, required this.userid});
   void incrementHandler() {
     setState(() {
       quan++;
     });
+    final ciupdate = ref.read(updatecartitem({
+      'id': item.productId,
+      'quantity': quan.toString(),
+      'userid': userid,
+    }));
+
+    // to notify changes in cart screen
+
     ref.read(counterProvider.notifier).update((state) => state + 1);
-    final ciupdate = ref
-        .read(cartItemUpdateProvider({'id': '', 'quantity': counterProvider}));
   }
 
   void decrementHandler() {
-    if (counterProvider == 1) {
-      // delete vali api bna kr call marni h
+    // if (counterProvider == 1) {
+    //   // delete vali api bna kr call marni h
 
-      return;
-    } else {
+    //   return;
+    // } else {
+    setState(() {
       quan--;
-      final ciupdate = ref.read(
-          cartItemUpdateProvider({'id': '', 'quantity': counterProvider}));
-      ref.read(counterProvider.notifier).update((state) => state + 1);
-    }
+    });
+    final ciupdate = ref.read(updatecartitem({
+      'id': item.productId,
+      'quantity': quan.toString(),
+      'userid': userid,
+    }));
+
+    // to notify changes in cart screen
+
+    ref.read(counterProvider.notifier).update((state) => state + 1);
+    // }
   }
 
   @override

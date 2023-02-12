@@ -51,6 +51,7 @@ class MostSelling extends StatelessWidget {
                     Category: '');
             return Container(
               child: ProductItem(
+                  id: data.productId,
                   name: data.Name,
                   desc: data.Description,
                   price: data.Price,

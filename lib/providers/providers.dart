@@ -25,6 +25,14 @@ final createuserProvider = FutureProvider.family<void, String?>(
   },
 );
 
+final updatecartitem = FutureProvider.family<void, Map<String, String>>(
+  (ref, mp) {
+    final apiRespository = ref.watch(cartApiService);
+
+    return apiRespository.addorupdateProduct(mp);
+  },
+);
+
 final yourordersProvider = FutureProvider.family<List<Orders>?, String>(
   (ref, userid) {
     final apiRespository = ref.watch(orderApiService);
@@ -65,7 +73,7 @@ final categoriesProvider = FutureProvider.family<List<Category>?, String>(
   },
 );
 
-final cartItemProvider = FutureProvider.family<List<CartItem>?, String>(
+final cartItemProvider = FutureProvider.family<List<CartItem>?, String?>(
   (ref, userid) {
     final apiRespository = ref.watch(cartApiService);
 

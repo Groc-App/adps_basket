@@ -41,6 +41,7 @@ class APIServiceCategory {
     };
 
     var url = Uri.http(Config.apiURL, Config.getAllmainCategoryApi);
+    print(url);
 
     var response = await client.get(
       url,
