@@ -7,9 +7,11 @@ import 'package:your_basket/Widgets/Categories/categoriesSlider.dart';
 import 'package:your_basket/Widgets/Categories/searchBar.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/Widgets/Intro/noInternet.dart';
 import 'package:your_basket/data/product.dart';
 import 'package:your_basket/data/productsdata.dart';
 import 'package:your_basket/models/product/products.dart';
+import 'package:your_basket/providers/connectivityProvider.dart';
 import '../providers/providers.dart';
 import '../models/category/category.dart';
 
@@ -122,6 +124,8 @@ class CategoryScreen extends ConsumerWidget {
 
     // mapp['mainCategoryId'] = categ['maincategoryid'];
     // mapp['categoryId'] = "null";
+    // ConnectivityProvider connect =
+    //     ref.watch(connectivityProvider).startMonitoring();
 
     Map<String, String> map = ref.watch(categoryProvider);
     print("\n||||||||This is update cateogry ||||||||");
@@ -148,32 +152,35 @@ class CategoryScreen extends ConsumerWidget {
 
       /* ---------------------------------- body ---------------------------------- */
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            /* ---------------------------- Top SLider Bar ---------------------------- */
-            GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed('/searchScreen');
-                },
-                child: SearchBar()),
-            categoriesList(ref, mainCategoryId),
-            // Carousel(),
+          child:
+              // connect.isOnline != null ?
+              Column(
+        children: [
+          /* ---------------------------- Top SLider Bar ---------------------------- */
+          GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed('/searchScreen');
+              },
+              child: SearchBar()),
+          categoriesList(ref, mainCategoryId),
+          // Carousel(),
 
-            /* -------------------------------------------------------------------------- */
+          /* -------------------------------------------------------------------------- */
 
-            /* ------------------------------Body Pane----------------------------- */
-            // ProductData(),2
-            // ProductDataWidgets(),
-            SizedBox(
-                // height: scHeight * 0.8,
-                // width: sc_width * 0.s8,
-                // height: double.maxFinite,
+          /* ------------------------------Body Pane----------------------------- */
+          // ProductData(),2
+          // ProductDataWidgets(),
+          SizedBox(
+              // height: scHeight * 0.8,
+              // width: sc_width * 0.s8,
+              // height: double.maxFinite,
 
-                /* ---------------------- Building Categories Item Grid --------------------- */
-                child: productList(ref, map))
-          ],
-        ),
-      ),
+              /* ---------------------- Building Categories Item Grid --------------------- */
+              child: productList(ref, map))
+        ],
+      )
+          // : InternetConnection(),
+          ),
     );
   }
 }

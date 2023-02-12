@@ -21,7 +21,7 @@ class CartScreen extends ConsumerWidget {
   var datalist;
 
   Widget cartitemList(WidgetRef ref, String? userid) {
-    final categories = ref.watch(cartItemProvider(userid));
+    final categories = ref.watch(cartItemProvider(userid!));
 
     return categories.when(
       data: (list) {
