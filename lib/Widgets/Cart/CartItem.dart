@@ -31,27 +31,23 @@ class _CartItemState extends ConsumerState<CartItem> {
 
   _CartItemState(
       {required this.quan, required this.item, required this.userid});
+
   void incrementHandler() {
     setState(() {
       quan++;
     });
-    final ciupdate = ref.read(updatecartitem({
+    final ciupdate = ref.watch(updatecartitem({
       'id': item.productId,
       'quantity': quan.toString(),
       'userid': userid,
     }));
 
-    // to notify changes in cart screen
-
-    ref.watch(counterProvider.notifier).update((state) => state + 1);
+    Future.delayed(const Duration(milliseconds: 800), () {
+      ref.watch(counterProvider.notifier).update((state) => quan);
+    });
   }
 
   void decrementHandler() {
-    // if (counterProvider == 1) {
-    //   // delete vali api bna kr call marni h
-
-    //   return;
-    // } else {
     setState(() {
       quan--;
     });
@@ -60,11 +56,12 @@ class _CartItemState extends ConsumerState<CartItem> {
       'quantity': quan.toString(),
       'userid': userid,
     }));
+    // .whenData((value) =>
+    //     ref.watch(counterProvider.notifier).update((state) => quan));
 
-    // to notify changes in cart screen
-
-    ref.watch(counterProvider.notifier).update((state) => state + 1);
-    // }
+    Future.delayed(const Duration(milliseconds: 800), () {
+      ref.watch(counterProvider.notifier).update((state) => quan);
+    });
   }
 
   @override
@@ -95,7 +92,7 @@ class _CartItemState extends ConsumerState<CartItem> {
             Container(
               alignment: const Alignment(-1, -1),
               padding: const EdgeInsets.only(left: 10, top: 5),
-              width: scWidth * 0.65,
+              width: scWidth * 0.55,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -127,7 +124,8 @@ class _CartItemState extends ConsumerState<CartItem> {
                       left: BorderSide(width: 2),
                       right: BorderSide(width: 2)),
                   borderRadius: BorderRadius.circular(5)),
-              width: scWidth * 0.15,
+              width: scWidth * 0.25,
+              height: scWidth * 0.25 * 0.4,
               child: Row(children: [
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
@@ -135,12 +133,12 @@ class _CartItemState extends ConsumerState<CartItem> {
                     onTap: () => decrementHandler(),
                     child: Icon(
                       Icons.remove,
-                      size: scWidth * 0.15 * 0.3,
+                      size: scWidth * 0.25 * 0.3,
                     ),
                   ),
                 ),
                 SizedBox(
-                    width: scWidth * 0.15 * 0.3,
+                    width: scWidth * 0.25 * 0.3,
                     child: Text(
                       '${quan}',
                       textAlign: TextAlign.center,
@@ -151,7 +149,7 @@ class _CartItemState extends ConsumerState<CartItem> {
                     onTap: () => incrementHandler(),
                     child: Icon(
                       Icons.add,
-                      size: scWidth * 0.15 * 0.3,
+                      size: scWidth * 0.25 * 0.3,
                     ),
                   ),
                 ),
