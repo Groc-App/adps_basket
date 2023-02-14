@@ -1,5 +1,7 @@
 // ignore_for_file: file_names, prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 
 import '../Widgets/Homepage/Carousel.dart';
@@ -8,6 +10,8 @@ import '../Widgets/Homepage/Categories.dart';
 import '../Widgets/Homepage/MostSelling.dart';
 
 import 'package:flutter/material.dart';
+
+import '../providers/providers.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
