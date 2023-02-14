@@ -117,7 +117,6 @@ final allProductProvider = FutureProvider<List<Product>?>(
 );
 
 // final connectivity Provider
-final connectivityProvider =
-    ChangeNotifierProvider<ConnectivityProvider>((ref) {
+final connectivityProvider = ChangeNotifierProvider((ref) {
   return ConnectivityProvider();
 });
