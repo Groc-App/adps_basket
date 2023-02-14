@@ -73,6 +73,7 @@ class CategoryScreen extends ConsumerWidget {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return ProductItem(
+            id: products[index].productId,
             imageUrl: products[index].ImageUrl,
             name: products[index].Name,
             desc: products[index].Description,
@@ -125,6 +126,7 @@ class CategoryScreen extends ConsumerWidget {
     // mapp['categoryId'] = "null";
     // ConnectivityProvider connect =
     //     ref.watch(connectivityProvider).startMonitoring();
+    var connectivityStatusProvider = ref.watch(connectivityStatusProviders);
 
     Map<String, String> map = ref.watch(categoryProvider);
     print("\n||||||||This is update cateogry ||||||||");
@@ -161,6 +163,9 @@ class CategoryScreen extends ConsumerWidget {
                 Navigator.of(context).pushNamed('/searchScreen');
               },
               child: SearchBar()),
+          Text(connectivityStatusProvider == ConnectivityStatus.isConnected
+              ? 'Is Connected to Internet'
+              : 'Is Disconnected from Internet'),
           categoriesList(ref, mainCategoryId),
           // Carousel(),
 

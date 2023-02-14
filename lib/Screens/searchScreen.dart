@@ -22,6 +22,7 @@ class _SearchScreenState extends State<SearchScreen> {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return ProductItem(
+            id: products[index]['productId'],
             imageUrl: products[index]['ImageUrl'],
             name: products[index]['Name'],
             desc: products[index]['Description'],

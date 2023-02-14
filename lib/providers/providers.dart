@@ -2,8 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Services/api_service.dart';
 // import 'package:your_basket/Services/product_api_service.dart';
 import 'package:your_basket/models/category/category.dart';
+import '../Services/address_api_service.dart';
 import '../Services/cart_api_service.dart';
 import '../Services/user_api_service.dart';
+import '../models/address/address.dart';
 import '../models/cart/cartitem.dart';
 import '../models/product/productdetail.dart';
 import 'package:your_basket/models/product/products.dart';
@@ -18,6 +20,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 final authCheckProvider = StateProvider<User?>((ref) => null);
 
+final addressListProvider = FutureProvider.family<List<Address>?, String?>(
+  (ref, number) {
+    final apiRespository = ref.watch(addressApiService);
+
+    return apiRespository.fetchalladdressbyid(number);
+  },
+);
+
 final createuserProvider = FutureProvider.family<void, String?>(
   (ref, number) {
     final apiRespository = ref.watch(userApiService);
@@ -26,26 +36,19 @@ final createuserProvider = FutureProvider.family<void, String?>(
   },
 );
 
-// final yourordersProvider = FutureProvider.family<List<Orders>?, String>(
-//   (ref, userid) {
-//     print("\nInside api repo");
-//     final apiRespository = ref.watch(orderApiService);
+final updatecartitem = FutureProvider.family<void, Map<String, String>>(
+  (ref, mp) {
+    final apiRespository = ref.watch(cartApiService);
 
-//     return apiRespository.getOrdersbyId(userid);
-//   },
-// );
+    return apiRespository.addorupdateProduct(mp);
+  },
+);
+
 final yourordersProvider = FutureProvider.family<List<Orders>?, String>(
   (ref, userid) {
     final apiRespository = ref.watch(orderApiService);
 
     return apiRespository.getOrdersbyId(userid);
-  },
-);
-final categoriesProvider = FutureProvider.family<List<Category>?, String>(
-  (ref, mainCategoryId) {
-    final apiRespository = ref.watch(categoryApiService);
-
-    return apiRespository.getCategory(mainCategoryId);
   },
 );
 
@@ -73,7 +76,15 @@ final maincategorylistProvider = FutureProvider<List<Category>?>(
   },
 );
 
-final cartItemProvider = FutureProvider.family<List<CartItem>?, String>(
+final categoriesProvider = FutureProvider.family<List<Category>?, String>(
+  (ref, mainCategoryId) {
+    final apiRespository = ref.watch(categoryApiService);
+
+    return apiRespository.getCategory(mainCategoryId);
+  },
+);
+
+final cartItemProvider = FutureProvider.family<List<CartItem>?, String?>(
   (ref, userid) {
     final apiRespository = ref.watch(cartApiService);
 
@@ -117,6 +128,7 @@ final allProductProvider = FutureProvider<List<Product>?>(
 );
 
 // final connectivity Provider
-final connectivityProvider = ChangeNotifierProvider((ref) {
-  return ConnectivityProvider();
-});
+// final connect = ChangeNotifierProvider((ref) {
+//   final connectivityRepo = ref.watch(connectService);
+//   return connectivityRepo.startMonitoring();
+// });

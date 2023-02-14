@@ -1,14 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Address/address.dart';
-
 import '../Widgets/Cart/Noitems.dart';
 import '../providers/providers.dart';
+import '../models/address/address.dart' as AddressModel;
 
 class AddressBook extends ConsumerWidget {
   AddressBook({super.key});
 
-  var savedAdresses = [{}, {}, {}, {}];
+  Widget addressList(WidgetRef ref, String? phonenumber) {
+    final addresses = ref.watch(addressListProvider(phonenumber));
+
+    return addresses.when(
+      data: (list) {
+        print("\nThisssssssssssssssssss is list" + '${list}');
+        return buildAddress(list);
+      },
+      error: (_, __) => const Center(child: Text("ERR")),
+      loading: () => const Center(child: CircularProgressIndicator()),
+    );
+  }
+
+  Widget buildAddress(List<AddressModel.Address>? list) {
+    return Column(
+      children: list!.map((index) {
+        return Column(
+          children: [
+            Address(),
+            Divider(),
+          ],
+        );
+      }).toList(),
+    );
+  }
+
+  // var savedAdresses = [{}, {}, {}, {}];
 
   void bottomsheet(context, scHeight) {
     final _formKey = GlobalKey<FormState>();
@@ -181,17 +207,7 @@ class AddressBook extends ConsumerWidget {
                 ),
                 const Divider(),
                 /* -------------------------------------------------------------------------- */
-
-                Column(
-                  children: savedAdresses.map((index) {
-                    return Column(
-                      children: [
-                        Address(),
-                        Divider(),
-                      ],
-                    );
-                  }).toList(),
-                ),
+                addressList(ref, authInfo.phoneNumber),
               ]),
             ),
     );

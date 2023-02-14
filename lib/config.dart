@@ -11,7 +11,7 @@ class Config {
   static const String otpLoginAPI = '/otpLogin';
   static const String otpVerifyAPI = '/verifyOtp';
   static const String getCategoryApi = '/category/getAllCategory';
-  static const String getCartItemApi = '/cart/fetchitemsid';
+  static const String getCartItemApi = '/user/fetchAllItem';
   static const String getProductByIdApi = '/product/fetchproductcid';
 
   /* ---------------------------- Categories APi's ---------------------------- */
@@ -31,4 +31,7 @@ class Config {
   static const String getAllProducts = '/product/fetchAllProduct';
 
   static const String createuserApi = '/user/createuserifnotexist';
+  static const String addorupdatecartitemApi = '/user/createorupdatecartitem';
+
+  static const String getalladdressbyid = '/user/getalladdress';
 }

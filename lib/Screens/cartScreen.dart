@@ -15,13 +15,12 @@ import '../models/cart/cartitem.dart' as CartItemModel;
 class CartScreen extends ConsumerWidget {
   CartScreen({super.key});
 
-  final userid = 'fguigg';
   double pricetotal = 0.0;
   bool emptylist = false;
   int listsize = 0;
   var datalist;
 
-  Widget cartitemList(WidgetRef ref) {
+  Widget cartitemList(WidgetRef ref, String? userid) {
     final categories = ref.watch(cartItemProvider(userid));
 
     return categories.when(
@@ -38,19 +37,21 @@ class CartScreen extends ConsumerWidget {
           print('list null hai');
         }
         print(list);
-        return buildCartItems(list);
+        return buildCartItems(list, userid);
       },
       error: (_, __) => const Center(child: Text("ERR")),
       loading: () => const Center(child: CircularProgressIndicator()),
     );
   }
 
-  Widget buildCartItems(List<CartItemModel.CartItem>? list) {
+  Widget buildCartItems(List<CartItemModel.CartItem>? list, String? userid) {
     return list != null
         ? Column(
             children: list.map((data) {
               return CartItemWidget.CartItem(
                 quantity: (data.ItemCount == null ? 0 : data.ItemCount),
+                item: data.Item,
+                userid: userid ?? '',
               );
             }).toList(),
           )
@@ -98,7 +99,7 @@ class CartScreen extends ConsumerWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        cartitemList(ref),
+                        cartitemList(ref, authInfo.phoneNumber),
                         emptylist == false
                             ? Container(
                                 margin:
