@@ -28,6 +28,7 @@ class CartScreen extends ConsumerWidget {
       data: (list) {
         // return buildCategory(list);
         if (list != null) {
+          pricetotal = 0.0;
           listsize = list.length;
           datalist = list;
           for (int i = 0; i < list.length; i++) {
@@ -68,8 +69,8 @@ class CartScreen extends ConsumerWidget {
     ref.watch(CartItemWidget.counterProvider);
     ref.watch(ProductItemcounterProvider);
 
-    var authInfo = ref.watch(authCheckProvider);
-    print(authInfo?.uid);
+    // var authInfo = ref.watch(authCheckProvider);
+    // print(authInfo?.uid);
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 237, 230, 230),
@@ -90,186 +91,182 @@ class CartScreen extends ConsumerWidget {
           ],
         ),
       ),
-      body: authInfo == null
-          ? NoItems(
-              noitemtext: 'Login/Signup first',
-              pageroute: 'loginpage',
-            )
-          : Column(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        cartitemList(ref, authInfo.phoneNumber),
-                        emptylist == false
-                            ? Container(
-                                margin:
-                                    const EdgeInsets.only(top: 20, bottom: 20),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 9),
-                                decoration: BoxDecoration(
-                                    boxShadow: const [
-                                      BoxShadow(
-                                          blurRadius: 5, spreadRadius: 0.5)
-                                    ],
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Colors.white),
-                                width: scWidth * 0.85,
-                                height: min(scHeight * 0.2, 125),
-                                child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Items Price: ',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          Text(
-                                            "₹${pricetotal}",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w600),
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: const [
-                                          Text(
-                                            'Delivery Charges: ',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          Text(
-                                            'Free',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w600),
-                                          )
-                                        ],
-                                      ),
-                                      const Divider(),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Grand Total",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          Text(
-                                            "₹${pricetotal}",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w600),
-                                          )
-                                        ],
-                                      )
-                                    ]),
-                              )
-                            : NoItems(
-                                noitemtext: 'Your Cart is Empty!!!!',
-                              )
-                      ],
-                    ),
-                  ),
-                ),
+      body:
+          // authInfo == null
+          //     ? NoItems(
+          //         noitemtext: 'Login/Signup first',
+          //         pageroute: 'loginpage',
+          //       )
+          //     :
+          Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  // cartitemList(ref, authInfo.phoneNumber),
+                  cartitemList(ref, '+917982733943'),
+                  emptylist == false
+                      ? Container(
+                          margin: const EdgeInsets.only(top: 20, bottom: 20),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 9),
+                          decoration: BoxDecoration(
+                              boxShadow: const [
+                                BoxShadow(blurRadius: 5, spreadRadius: 0.5)
+                              ],
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.white),
+                          width: scWidth * 0.85,
+                          height: min(scHeight * 0.2, 125),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Items Price: ',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    Text(
+                                      "₹${pricetotal}",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: const [
+                                    Text(
+                                      'Delivery Charges: ',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    Text(
+                                      'Free',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                    )
+                                  ],
+                                ),
+                                const Divider(),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Grand Total",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    Text(
+                                      "₹${pricetotal}",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                    )
+                                  ],
+                                )
+                              ]),
+                        )
+                      : NoItems(
+                          noitemtext: 'Your Cart is Empty!!!!',
+                        )
+                ],
+              ),
+            ),
+          ),
 
 //        ------               Slide to pay           ------
 
-                // Container(
-                //   width: sc_width,
-                //   height: sc_height * 0.08,
-                //   // color: Colors.black,
-                //   child: SlideAction(
-                //     onSubmit: () {},
-                //     height: sc_height * 0.08,
-                //     text: 'Slide to Checkout',
-                //     innerColor: Colors.deepPurple,
-                //     outerColor: Colors.deepPurple[300],
-                //     sliderButtonIcon: FaIcon(
-                //       FontAwesomeIcons.basketShopping,
-                //       // size: 20,
-                //       color: Colors.white,
-                //     ),
-                //     sliderButtonIconSize: 23,
-                //     sliderButtonIconPadding: 8,
-                //     borderRadius: 10,
-                //     sliderButtonYOffset: -4,
-                // textStyle: TextStyle(
-                //     fontSize: 18,
-                //     fontWeight: FontWeight.bold,
-                //     color: Colors.white),
-                //   ),
-                // )
+          // Container(
+          //   width: sc_width,
+          //   height: sc_height * 0.08,
+          //   // color: Colors.black,
+          //   child: SlideAction(
+          //     onSubmit: () {},
+          //     height: sc_height * 0.08,
+          //     text: 'Slide to Checkout',
+          //     innerColor: Colors.deepPurple,
+          //     outerColor: Colors.deepPurple[300],
+          //     sliderButtonIcon: FaIcon(
+          //       FontAwesomeIcons.basketShopping,
+          //       // size: 20,
+          //       color: Colors.white,
+          //     ),
+          //     sliderButtonIconSize: 23,
+          //     sliderButtonIconPadding: 8,
+          //     borderRadius: 10,
+          //     sliderButtonYOffset: -4,
+          // textStyle: TextStyle(
+          //     fontSize: 18,
+          //     fontWeight: FontWeight.bold,
+          //     color: Colors.white),
+          //   ),
+          // )
 
-                // ----------         Button to checkout     --------
+          // ----------         Button to checkout     --------
 
-                if (emptylist == false)
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () {
-                        var map = {
-                          'totalAmnt': pricetotal,
-                          'productlist': datalist
-                        };
-                        var data = ref.read(placeorderProvider(map));
-                        data.when(data: (msg) {
-                          Navigator.of(context)
-                              .pushNamed('/ordersuccessScreen');
-                        }, error: (_, __) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Order Failed')),
-                          );
-                        }, loading: () {
-                          CircularProgressIndicator();
-                        });
-                      },
-                      child: Container(
-                          width: scWidth,
-                          height: scHeight * 0.08,
-                          decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(8),
-                                  topRight: Radius.circular(8)),
-                              color: Colors.deepPurple[300]),
-                          alignment: const Alignment(0, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(right: 10),
-                                child: const FaIcon(
-                                  FontAwesomeIcons.basketShopping,
-                                  size: 23,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              const Text(
-                                'Slide to Checkout',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ],
-                          )),
-                    ),
-                  )
-              ],
-            ),
+          if (emptylist == false)
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: () {
+                  var map = {'totalAmnt': pricetotal, 'productlist': datalist};
+                  var data = ref.read(placeorderProvider(map));
+                  data.when(data: (msg) {
+                    Navigator.of(context).pushNamed('/ordersuccessScreen');
+                  }, error: (_, __) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Order Failed')),
+                    );
+                  }, loading: () {
+                    CircularProgressIndicator();
+                  });
+                },
+                child: Container(
+                    width: scWidth,
+                    height: scHeight * 0.08,
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8)),
+                        color: Colors.deepPurple[300]),
+                    alignment: const Alignment(0, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(right: 10),
+                          child: const FaIcon(
+                            FontAwesomeIcons.basketShopping,
+                            size: 23,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const Text(
+                          'Slide to Checkout',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ],
+                    )),
+              ),
+            )
+        ],
+      ),
     );
   }
 }

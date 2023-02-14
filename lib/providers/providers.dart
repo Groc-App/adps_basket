@@ -19,6 +19,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:your_basket/Services/category_api_service.dart';
 
 final authCheckProvider = StateProvider<User?>((ref) => null);
+// final authCheckProvider = StateProvider<User?>((ref) => new User());
 
 final addressListProvider = FutureProvider.family<List<Address>?, String?>(
   (ref, number) {

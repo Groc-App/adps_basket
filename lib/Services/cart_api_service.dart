@@ -34,11 +34,12 @@ class APIServiceCart {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
+      print(data);
       var data1 = data['data'];
       var data2 = data1['CartItem'];
       print(data2);
 
-      return cartitemFromJson(data2);
+      return cartitemFromJson(data1['CartItem']);
     } else {
       return null;
     }
