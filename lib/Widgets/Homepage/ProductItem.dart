@@ -76,13 +76,9 @@ class _ProductItemState extends ConsumerState<ProductItem> {
         "userid": '+917982733943',
         // "userid": authInfo?.phoneNumber ?? '',
       };
-      ref.read(updatecartitem(mp));
-
-      // to notify changes in cart screen
-
-      ref
-          .read(ProductItemcounterProvider.notifier)
-          .update((state) => state + 1);
+      ref.read(updatecartitem(mp)).whenData((value) => ref
+          .watch(ProductItemcounterProvider.notifier)
+          .update((state) => state + 1));
     }
 
     void decrementHandler() {
@@ -107,14 +103,10 @@ class _ProductItemState extends ConsumerState<ProductItem> {
           "userid": '+917982733943',
           // "userid": authInfo?.phoneNumber ?? '',
         };
-        ref.read(updatecartitem(mp));
+        ref.read(updatecartitem(mp)).whenData((value) => ref
+            .watch(ProductItemcounterProvider.notifier)
+            .update((state) => state + 1));
       }
-
-      // to notify changes in cart screen
-
-      ref
-          .read(ProductItemcounterProvider.notifier)
-          .update((state) => state + 1);
     }
 
     return Card(
@@ -225,13 +217,11 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                                   "userid": '+917982733943',
                                   // "userid": authInfo?.phoneNumber ?? '',
                                 };
-                                ref.read(updatecartitem(mp));
-
-                                // to notify changes in cart screen
-
-                                ref
-                                    .watch(ProductItemcounterProvider.notifier)
-                                    .update((state) => state + 1);
+                                ref.read(updatecartitem(mp)).whenData((value) =>
+                                    ref
+                                        .watch(
+                                            ProductItemcounterProvider.notifier)
+                                        .update((state) => state + 1));
                               });
                             }
                             // }

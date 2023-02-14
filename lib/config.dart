@@ -1,7 +1,7 @@
 class Config {
   /* -------------------------------- app setup ------------------------------- */
   static const String GrocApp = 'GrocApp';
-  static const String apiURL = '192.168.1.10:8000';
+  static const String apiURL = '192.168.1.15:8000';
 
   /* -------------------------------------------------------------------------- */
   /*                                 End Points                                 */

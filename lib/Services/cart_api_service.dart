@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
+import 'package:your_basket/data/productsdata.dart';
 import 'package:your_basket/models/cart/cartitem.dart';
 import 'package:your_basket/models/category/category.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,6 +39,7 @@ class APIServiceCart {
       print(data);
       var data1 = data['data'];
       var data2 = data1['CartItem'];
+      print('yooooooooooooooooooooo');
       print(data2);
 
       return cartitemFromJson(data1['CartItem']);
@@ -70,7 +73,7 @@ class APIServiceCart {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      print("success");
+      print("success in updating");
       return null;
     } else {
       print("failure");

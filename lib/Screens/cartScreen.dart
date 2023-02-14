@@ -22,14 +22,17 @@ class CartScreen extends ConsumerWidget {
   var datalist;
 
   Widget cartitemList(WidgetRef ref, String? userid) {
-    final categories = ref.watch(cartItemProvider(userid));
+    print('Rebild CartItem');
+
+    final categories = ref.refresh(cartItemProvider(userid));
 
     return categories.when(
       data: (list) {
-        // return buildCategory(list);
+        print('\nlist is::::::::::::::::\n$list');
         if (list != null) {
           pricetotal = 0.0;
           listsize = list.length;
+          if (listsize == 0) emptylist = true;
           datalist = list;
           for (int i = 0; i < list.length; i++) {
             pricetotal += list[i].ItemCount * list[i].Item.Price;
@@ -38,7 +41,6 @@ class CartScreen extends ConsumerWidget {
           emptylist = true;
           print('list null hai');
         }
-        print(list);
         return buildCartItems(list, userid);
       },
       error: (_, __) => const Center(child: Text("ERR")),
@@ -66,8 +68,10 @@ class CartScreen extends ConsumerWidget {
     final scWidth = scSize.width;
     final scHeight = scSize.height;
 
+    print("Rebild");
     ref.watch(CartItemWidget.counterProvider);
-    ref.watch(ProductItemcounterProvider);
+    final data = ref.watch(ProductItemcounterProvider);
+    print(data);
 
     // var authInfo = ref.watch(authCheckProvider);
     // print(authInfo?.uid);
