@@ -2,8 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Services/api_service.dart';
 // import 'package:your_basket/Services/product_api_service.dart';
 import 'package:your_basket/models/category/category.dart';
+import '../Services/address_api_service.dart';
 import '../Services/cart_api_service.dart';
 import '../Services/user_api_service.dart';
+import '../models/address/address.dart';
 import '../models/cart/cartitem.dart';
 import '../models/product/productdetail.dart';
 import 'package:your_basket/models/product/products.dart';
@@ -17,6 +19,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:your_basket/Services/category_api_service.dart';
 
 final authCheckProvider = StateProvider<User?>((ref) => null);
+
+final addressListProvider = FutureProvider.family<List<Address>?, String?>(
+  (ref, number) {
+    final apiRespository = ref.watch(addressApiService);
+
+    return apiRespository.fetchalladdressbyid(number);
+  },
+);
 
 final createuserProvider = FutureProvider.family<void, String?>(
   (ref, number) {
@@ -74,7 +84,7 @@ final categoriesProvider = FutureProvider.family<List<Category>?, String>(
   },
 );
 
-final cartItemProvider = FutureProvider.family<List<CartItem>?, String>(
+final cartItemProvider = FutureProvider.family<List<CartItem>?, String?>(
   (ref, userid) {
     final apiRespository = ref.watch(cartApiService);
 

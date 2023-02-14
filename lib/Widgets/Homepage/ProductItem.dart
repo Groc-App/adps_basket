@@ -67,7 +67,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
       });
       Map<String, String> mp = {
         "id": id,
-        "quantity": quantity,
+        "quantity": counter.toString(),
         "userid": authInfo?.phoneNumber ?? '',
       };
       ref.read(updatecartitem(mp));
@@ -78,17 +78,23 @@ class _ProductItemState extends ConsumerState<ProductItem> {
         setState(() {
           added = false;
         });
+        Map<String, String> mp = {
+          "id": id,
+          "quantity": '0',
+          "userid": authInfo?.phoneNumber ?? '',
+        };
+        ref.read(updatecartitem(mp));
       } else {
         setState(() {
           counter--;
         });
+        Map<String, String> mp = {
+          "id": id,
+          "quantity": counter.toString(),
+          "userid": authInfo?.phoneNumber ?? '',
+        };
+        ref.read(updatecartitem(mp));
       }
-      Map<String, String> mp = {
-        "id": id,
-        "quantity": quantity,
-        "userid": authInfo?.phoneNumber ?? '',
-      };
-      ref.read(updatecartitem(mp));
     }
 
     return Card(
@@ -170,12 +176,32 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                         child: OutlinedButton(
                             onPressed: () {
                               if (authInfo == null) {
+                                showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: const Text('Login First'),
+                                    content: const Text('Login to Continue'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'Cancel'),
+                                        child: const Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () => Navigator.pushNamed(
+                                            context, '/loginScreen'),
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  ),
+                                );
                               } else {
                                 setState(() {
                                   added = true;
                                   Map<String, String> mp = {
                                     "id": id,
-                                    "quantity": quantity,
+                                    "quantity": counter.toString(),
                                     "userid": authInfo.phoneNumber ?? '',
                                   };
                                   ref.read(updatecartitem(mp));

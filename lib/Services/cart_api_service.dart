@@ -28,10 +28,17 @@ class APIServiceCart {
     );
 
     print(response.body);
+    print('\n\n\n');
+    // var data = response.body;
+    // print(response.body['data']['CartItem']['Item']);
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      return cartitemFromJson(data['data']);
+      var data1 = data['data'];
+      var data2 = data1['CartItem'];
+      print(data2);
+
+      return cartitemFromJson(data2);
     } else {
       return null;
     }
@@ -54,7 +61,7 @@ class APIServiceCart {
       body: jsonEncode({
         "productId": mp['id'],
         "quantity": mp['quantity'],
-        "userId": mp['userid']
+        "phonenumber": mp['userid']
       }),
     );
 

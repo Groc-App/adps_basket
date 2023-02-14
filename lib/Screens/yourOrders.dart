@@ -66,12 +66,11 @@ class YourOrderes extends ConsumerWidget {
           backgroundColor: Theme.of(context).primaryColor,
           title: const Text('Your Orders'),
         ),
-        body:
-            //  authInfo == null ?
-            // NoItems(
-            //       noitemtext: 'Login/Signup first',
-            //       pageroute: 'loginpage',
-            //     ) :
-            orderList(ref, context, scHeight));
+        body: authInfo == null
+            ? NoItems(
+                noitemtext: 'Login/Signup first',
+                pageroute: 'loginpage',
+              )
+            : orderList(ref, context, scHeight));
   }
 }
