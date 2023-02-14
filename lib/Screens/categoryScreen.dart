@@ -126,6 +126,7 @@ class CategoryScreen extends ConsumerWidget {
     // mapp['categoryId'] = "null";
     // ConnectivityProvider connect =
     //     ref.watch(connectivityProvider).startMonitoring();
+    var connectivityStatusProvider = ref.watch(connectivityStatusProviders);
 
     Map<String, String> map = ref.watch(categoryProvider);
     print("\n||||||||This is update cateogry ||||||||");
@@ -162,6 +163,9 @@ class CategoryScreen extends ConsumerWidget {
                 Navigator.of(context).pushNamed('/searchScreen');
               },
               child: SearchBar()),
+          Text(connectivityStatusProvider == ConnectivityStatus.isConnected
+              ? 'Is Connected to Internet'
+              : 'Is Disconnected from Internet'),
           categoriesList(ref, mainCategoryId),
           // Carousel(),
 

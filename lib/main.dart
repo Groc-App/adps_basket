@@ -72,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
-    return HomeScreen();
+    return CategoryScreen(mainCategoryId: "63e00827b56990c02866bba5");
+    // return CategoryScreen();
   }
 }

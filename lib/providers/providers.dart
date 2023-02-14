@@ -128,7 +128,7 @@ final allProductProvider = FutureProvider<List<Product>?>(
 );
 
 // final connectivity Provider
-final connectivityProvider =
-    ChangeNotifierProvider<ConnectivityProvider>((ref) {
-  return ConnectivityProvider();
-});
+// final connect = ChangeNotifierProvider((ref) {
+//   final connectivityRepo = ref.watch(connectService);
+//   return connectivityRepo.startMonitoring();
+// });
