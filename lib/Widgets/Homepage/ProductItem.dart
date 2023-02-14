@@ -63,8 +63,8 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     final scSize = MediaQuery.of(context).size;
     final scWidth = scSize.width;
 
-    var authInfo = ref.watch(authCheckProvider);
-    print(authInfo?.uid);
+    // var authInfo = ref.watch(authCheckProvider);
+    // print(authInfo?.uid);
 
     void incrementHandler() {
       setState(() {
@@ -73,7 +73,8 @@ class _ProductItemState extends ConsumerState<ProductItem> {
       Map<String, String> mp = {
         "id": id,
         "quantity": counter.toString(),
-        "userid": authInfo?.phoneNumber ?? '',
+        "userid": '+917982733943',
+        // "userid": authInfo?.phoneNumber ?? '',
       };
       ref.read(updatecartitem(mp));
 
@@ -92,7 +93,8 @@ class _ProductItemState extends ConsumerState<ProductItem> {
         Map<String, String> mp = {
           "id": id,
           "quantity": '0',
-          "userid": authInfo?.phoneNumber ?? '',
+          "userid": '+917982733943',
+          // "userid": authInfo?.phoneNumber ?? '',
         };
         ref.read(updatecartitem(mp));
       } else {
@@ -102,7 +104,8 @@ class _ProductItemState extends ConsumerState<ProductItem> {
         Map<String, String> mp = {
           "id": id,
           "quantity": counter.toString(),
-          "userid": authInfo?.phoneNumber ?? '',
+          "userid": '+917982733943',
+          // "userid": authInfo?.phoneNumber ?? '',
         };
         ref.read(updatecartitem(mp));
       }
@@ -192,45 +195,47 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                       child: FittedBox(
                         child: OutlinedButton(
                             onPressed: () {
-                              if (authInfo == null) {
-                                showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: const Text('Login First'),
-                                    content: const Text('Login to Continue'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'Cancel'),
-                                        child: const Text('Cancel'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () => Navigator.pushNamed(
-                                            context, '/loginScreen'),
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              } else {
-                                setState(() {
-                                  added = true;
-                                  Map<String, String> mp = {
-                                    "id": id,
-                                    "quantity": counter.toString(),
-                                    "userid": authInfo.phoneNumber ?? '',
-                                  };
-                                  ref.read(updatecartitem(mp));
+                              // if (authInfo == null) {
+                              //   showDialog<String>(
+                              //     context: context,
+                              //     builder: (BuildContext context) =>
+                              //         AlertDialog(
+                              //       title: const Text('Login First'),
+                              //       content: const Text('Login to Continue'),
+                              //       actions: <Widget>[
+                              //         TextButton(
+                              //           onPressed: () =>
+                              //               Navigator.pop(context, 'Cancel'),
+                              //           child: const Text('Cancel'),
+                              //         ),
+                              //         TextButton(
+                              //           onPressed: () => Navigator.pushNamed(
+                              //               context, '/loginScreen'),
+                              //           child: const Text('OK'),
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   );
+                              // } else {
+                              setState(() {
+                                added = true;
+                                Map<String, String> mp = {
+                                  "id": id,
+                                  "quantity": counter.toString(),
+                                  "userid": '+917982733943',
+                                  // "userid": authInfo?.phoneNumber ?? '',
+                                };
+                                ref.read(updatecartitem(mp));
 
-                                  // to notify changes in cart screen
+                                // to notify changes in cart screen
 
-                                  ref
-                                      .read(ProductItemcounterProvider.notifier)
-                                      .update((state) => state + 1);
-                                });
-                              }
-                            },
+                                ref
+                                    .watch(ProductItemcounterProvider.notifier)
+                                    .update((state) => state + 1);
+                              });
+                            }
+                            // }
+                            ,
                             child: const Text('ADD')),
                       ),
                     ),

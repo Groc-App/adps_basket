@@ -43,7 +43,7 @@ class _CartItemState extends ConsumerState<CartItem> {
 
     // to notify changes in cart screen
 
-    ref.watch(counterProvider.notifier).update((state) => state + 1);
+    ref.watch(counterProvider.notifier).update((state) => quan);
   }
 
   void decrementHandler() {
@@ -63,7 +63,7 @@ class _CartItemState extends ConsumerState<CartItem> {
 
     // to notify changes in cart screen
 
-    ref.watch(counterProvider.notifier).update((state) => state + 1);
+    ref.watch(counterProvider.notifier).update((state) => quan);
     // }
   }
 
