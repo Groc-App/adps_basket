@@ -24,7 +24,7 @@ class CartScreen extends ConsumerWidget {
   Widget cartitemList(WidgetRef ref, String? userid) {
     print('Rebild CartItem');
 
-    final categories = ref.refresh(cartItemProvider(userid));
+    final categories = ref.watch(cartItemProvider(userid));
 
     return categories.when(
       data: (list) {
