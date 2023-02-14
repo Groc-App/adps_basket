@@ -5,6 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../providers/providers.dart';
 
+final ProductItemcounterProvider = StateProvider<int>(
+  // We return the default sort type, here name.
+  (ref) => 0,
+);
+
 class ProductItem extends ConsumerStatefulWidget {
   // const ProductItem({super.key});
 
@@ -71,6 +76,12 @@ class _ProductItemState extends ConsumerState<ProductItem> {
         "userid": authInfo?.phoneNumber ?? '',
       };
       ref.read(updatecartitem(mp));
+
+      // to notify changes in cart screen
+
+      ref
+          .read(ProductItemcounterProvider.notifier)
+          .update((state) => state + 1);
     }
 
     void decrementHandler() {
@@ -95,6 +106,12 @@ class _ProductItemState extends ConsumerState<ProductItem> {
         };
         ref.read(updatecartitem(mp));
       }
+
+      // to notify changes in cart screen
+
+      ref
+          .read(ProductItemcounterProvider.notifier)
+          .update((state) => state + 1);
     }
 
     return Card(
@@ -205,6 +222,12 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                                     "userid": authInfo.phoneNumber ?? '',
                                   };
                                   ref.read(updatecartitem(mp));
+
+                                  // to notify changes in cart screen
+
+                                  ref
+                                      .read(ProductItemcounterProvider.notifier)
+                                      .update((state) => state + 1);
                                 });
                               }
                             },

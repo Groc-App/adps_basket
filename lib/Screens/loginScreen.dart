@@ -67,9 +67,10 @@ class LoginScreen extends ConsumerWidget {
                         ),
                         const SizedBox(height: 10),
                         const Text(
-                            style: TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.w500),
-                            "Login or Signup"),
+                          "Login or Signup",
+                          style: TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.w500),
+                        ),
 
                         /* -------------------------------- TextField ------------------------------- */
                         Container(
@@ -123,9 +124,11 @@ class LoginScreen extends ConsumerWidget {
                                       (FirebaseAuthException e) {},
                                   codeSent: (String verificationId,
                                       int? resendToken) {
-                                    Navigator.of(context).pushNamed(
-                                        '/otpScreen',
-                                        arguments: {'otp': verificationId});
+                                    Navigator.of(context)
+                                        .pushNamed('/otpScreen', arguments: {
+                                      'otp': verificationId,
+                                      'number': phoneNumber
+                                    });
                                   },
                                   codeAutoRetrievalTimeout:
                                       (String verificationId) {},
@@ -147,8 +150,8 @@ class LoginScreen extends ConsumerWidget {
                         ),
                         const Flexible(
                           child: Text(
-                              style: TextStyle(fontWeight: FontWeight.w200),
-                              "By continuing you agree to our terms of services and policy"),
+                              "By continuing you agree to our terms of services and policy",
+                              style: TextStyle(fontWeight: FontWeight.w200)),
                         )
                       ]),
                 ),

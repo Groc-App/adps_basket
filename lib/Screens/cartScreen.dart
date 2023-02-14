@@ -7,6 +7,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:your_basket/Widgets/Cart/Noitems.dart';
+import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import '../Widgets/Cart/CartItem.dart' as CartItemWidget;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/providers.dart';
@@ -65,6 +66,7 @@ class CartScreen extends ConsumerWidget {
     final scHeight = scSize.height;
 
     ref.watch(CartItemWidget.counterProvider);
+    ref.watch(ProductItemcounterProvider);
 
     var authInfo = ref.watch(authCheckProvider);
     print(authInfo?.uid);

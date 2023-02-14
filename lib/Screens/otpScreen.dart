@@ -15,7 +15,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
   // const OtpScreen({super.key});
   FirebaseAuth auth = FirebaseAuth.instance;
 
-  late final phoneNumber = '7982733943';
+  var phoneNumber = '';
 
   var hint = '0';
 
@@ -25,6 +25,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     var opthash = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
     var otp = opthash['otp'];
+    phoneNumber = opthash['number'];
     print('otp issssssssss:   $otp');
     TextEditingController pin1 = TextEditingController();
     // TextEditingController pin2 = TextEditingController();
@@ -56,7 +57,10 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                     style: TextStyle(fontWeight: FontWeight.w500),
                   ),
                   GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            '/loginScreen', (Route<dynamic> route) => false);
+                      },
                       child: Text(
                         'Change Phone Number?',
                         style: TextStyle(color: Colors.blue),
