@@ -5,6 +5,8 @@ import 'package:your_basket/models/category/category.dart';
 import '../Services/address_api_service.dart';
 import '../Services/cart_api_service.dart';
 import '../Services/user_api_service.dart';
+import '../application/notifier/cart_notifier.dart';
+import '../application/state/cart_state.dart';
 import '../models/address/address.dart';
 import '../models/cart/cartitem.dart';
 import '../models/product/productdetail.dart';
@@ -20,6 +22,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 final authCheckProvider = StateProvider<User?>((ref) => null);
 // final authCheckProvider = StateProvider<User?>((ref) => new User());
+
+final cartItemsProvider = StateNotifierProvider<CartNotifier, CartState>(
+  (ref) => CartNotifier(
+    ref.watch(cartApiService),
+  ),
+);
 
 final addressListProvider = FutureProvider.family<List<Address>?, String?>(
   (ref, number) {
@@ -37,13 +45,13 @@ final createuserProvider = FutureProvider.family<void, String?>(
   },
 );
 
-final updatecartitem = FutureProvider.family<void, Map<String, String>>(
-  (ref, mp) {
-    final apiRespository = ref.watch(cartApiService);
+// final updatecartitem = FutureProvider.family<void, Map<String, String>>(
+//   (ref, mp) {
+//     final apiRespository = ref.watch(cartApiService);
 
-    return apiRespository.addorupdateProduct(mp);
-  },
-);
+//     return apiRespository.addorupdateProduct(mp);
+//   },
+// );
 
 final yourordersProvider = FutureProvider.family<List<Orders>?, String>(
   (ref, userid) {
@@ -85,13 +93,13 @@ final categoriesProvider = FutureProvider.family<List<Category>?, String>(
   },
 );
 
-final cartItemProvider = FutureProvider.family<List<CartItem>?, String?>(
-  (ref, userid) {
-    final apiRespository = ref.watch(cartApiService);
+// final cartItemProvider = FutureProvider.family<List<CartItem>?, String?>(
+//   (ref, userid) {
+//     final apiRespository = ref.watch(cartApiService);
 
-    return apiRespository.getCartItem(userid);
-  },
-);
+//     return apiRespository.getCartItem(userid);
+//   },
+// );
 
 final productByidProvider = FutureProvider.family<ProductItem?, String>(
   (ref, productid) {
@@ -101,15 +109,15 @@ final productByidProvider = FutureProvider.family<ProductItem?, String>(
   },
 );
 
-final cartItemUpdateProvider =
-    FutureProvider.family<Product?, Map<String, dynamic>>(
-  (ref, cartitemdet) {
-    final apiRespository = ref.watch(cartApiService);
+// final cartItemUpdateProvider =
+//     FutureProvider.family<Product?, Map<String, dynamic>>(
+//   (ref, cartitemdet) {
+//     final apiRespository = ref.watch(cartApiService);
 
-    apiRespository.updateCartitemquantity(cartitemdet);
-    return null;
-  },
-);
+//     apiRespository.updateCartitemquantity(cartitemdet);
+//     return null;
+//   },
+// );
 
 final productsByCategoryProvider =
     FutureProvider.family<List<Product>?, Map<String, String>>(

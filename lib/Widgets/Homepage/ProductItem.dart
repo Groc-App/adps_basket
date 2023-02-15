@@ -76,18 +76,22 @@ class _ProductItemState extends ConsumerState<ProductItem> {
         "userid": '+917982733943',
         // "userid": authInfo?.phoneNumber ?? '',
       };
-      ref.read(updatecartitem(mp));
+      // ref.read(updatecartitem(mp));
 
-      // to notify changes in cart screen
+      // // to notify changes in cart screen
 
-      ref
-          .read(ProductItemcounterProvider.notifier)
-          .update((state) => state + 1);
+      // ref
+      //     .read(ProductItemcounterProvider.notifier)
+      //     .update((state) => state + 1);
+
+      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      cartViewModel.updateCartItem('+917982733943', counter, id);
     }
 
     void decrementHandler() {
       if (counter == 1) {
         setState(() {
+          counter--;
           added = false;
         });
         Map<String, String> mp = {
@@ -96,7 +100,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
           "userid": '+917982733943',
           // "userid": authInfo?.phoneNumber ?? '',
         };
-        ref.read(updatecartitem(mp));
+        // ref.read(updatecartitem(mp));
       } else {
         setState(() {
           counter--;
@@ -107,14 +111,17 @@ class _ProductItemState extends ConsumerState<ProductItem> {
           "userid": '+917982733943',
           // "userid": authInfo?.phoneNumber ?? '',
         };
-        ref.read(updatecartitem(mp));
+        // ref.read(updatecartitem(mp));
       }
 
       // to notify changes in cart screen
 
-      ref
-          .read(ProductItemcounterProvider.notifier)
-          .update((state) => state + 1);
+      // ref
+      //     .read(ProductItemcounterProvider.notifier)
+      //     .update((state) => state + 1);
+
+      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      cartViewModel.updateCartItem('+917982733943', counter, id);
     }
 
     return Card(
@@ -225,13 +232,18 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                                   "userid": '+917982733943',
                                   // "userid": authInfo?.phoneNumber ?? '',
                                 };
-                                ref.read(updatecartitem(mp));
+                                // ref.read(updatecartitem(mp));
 
-                                // to notify changes in cart screen
+                                // // to notify changes in cart screen
 
-                                ref
-                                    .watch(ProductItemcounterProvider.notifier)
-                                    .update((state) => state + 1);
+                                // ref
+                                //     .watch(ProductItemcounterProvider.notifier)
+                                //     .update((state) => state + 1);
+
+                                final cartViewModel =
+                                    ref.read(cartItemsProvider.notifier);
+                                cartViewModel.updateCartItem(
+                                    '+917982733943', counter, id);
                               });
                             }
                             // }
