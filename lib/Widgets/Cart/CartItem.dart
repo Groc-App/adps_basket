@@ -36,32 +36,38 @@ class _CartItemState extends ConsumerState<CartItem> {
     setState(() {
       quan++;
     });
-    final ciupdate = ref.watch(updatecartitem({
-      'id': item.productId,
-      'quantity': quan.toString(),
-      'userid': userid,
-    }));
+    // final ciupdate = ref.watch(updatecartitem({
+    //   'id': item.productId,
+    //   'quantity': quan.toString(),
+    //   'userid': userid,
+    // }));
 
-    Future.delayed(const Duration(milliseconds: 800), () {
-      ref.watch(counterProvider.notifier).update((state) => quan);
-    });
+    // Future.delayed(const Duration(milliseconds: 800), () {
+    //   ref.watch(counterProvider.notifier).update((state) => quan);
+    // });
+
+    final cartViewModel = ref.read(cartItemsProvider.notifier);
+    cartViewModel.updateCartItem(userid, quan, item.productId);
   }
 
   void decrementHandler() {
     setState(() {
       quan--;
     });
-    final ciupdate = ref.read(updatecartitem({
-      'id': item.productId,
-      'quantity': quan.toString(),
-      'userid': userid,
-    }));
+    // final ciupdate = ref.read(updatecartitem({
+    //   'id': item.productId,
+    //   'quantity': quan.toString(),
+    //   'userid': userid,
+    // }));
     // .whenData((value) =>
     //     ref.watch(counterProvider.notifier).update((state) => quan));
 
-    Future.delayed(const Duration(milliseconds: 800), () {
-      ref.watch(counterProvider.notifier).update((state) => quan);
-    });
+    // Future.delayed(const Duration(milliseconds: 800), () {
+    //   ref.watch(counterProvider.notifier).update((state) => quan);
+    // });
+
+    final cartViewModel = ref.read(cartItemsProvider.notifier);
+    cartViewModel.updateCartItem(userid, quan, item.productId);
   }
 
   @override

@@ -6,16 +6,20 @@ import 'package:your_basket/models/cart/cartitem.dart';
 import 'package:your_basket/models/category/category.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config.dart';
+import '../models/cart/cart.dart';
 
 final cartApiService = Provider((ref) => APIServiceCart());
 
 class APIServiceCart {
   static var client = http.Client();
 
-  Future<List<CartItem>?> getCartItem(String? userid) async {
+  Future<Cart?> getCartitems() async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
+
+    // String userid = authInfo.phoneNumber;
+    String userid = '+917982733943';
 
     var ur = Config.getCartItemApi + '/${userid}';
 
@@ -37,18 +41,15 @@ class APIServiceCart {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       print(data);
-      var data1 = data['data'];
-      var data2 = data1['CartItem'];
-      print('yooooooooooooooooooooo');
-      print(data2);
 
-      return cartitemFromJson(data1['CartItem']);
+      return Cart.fromJson(data['data']);
     } else {
       return null;
     }
   }
 
-  void addorupdateProduct(Map<String, String> mp) async {
+  Future<void> updatecartitem(
+      String number, String qty, String productid) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -62,11 +63,8 @@ class APIServiceCart {
     var response = await client.post(
       url,
       headers: requestHeaders,
-      body: jsonEncode({
-        "productId": mp['id'],
-        "quantity": mp['quantity'],
-        "phonenumber": mp['userid']
-      }),
+      body: jsonEncode(
+          {"productId": productid, "quantity": qty, "phonenumber": number}),
     );
 
     print(response.body);
@@ -81,36 +79,105 @@ class APIServiceCart {
     }
   }
 
-  void updateCartitemquantity(Map<String, dynamic> cartitemdet) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
+  // Future<List<CartItem>?> getCartItem(String? userid) async {
+  //   Map<String, String> requestHeaders = {
+  //     'Content-Type': 'application/json',
+  //   };
 
-    Map<String, dynamic> requestBody = {
-      'id': cartitemdet['id'],
-      'quantity': cartitemdet['quantity'],
-    };
+  //   var ur = Config.getCartItemApi + '/${userid}';
 
-    var url = Uri.http(Config.apiURL, Config.getProductByIdApi);
+  //   var url = Uri.http(Config.apiURL, ur);
 
-    print(url);
+  //   print(url);
 
-    var response = await client.post(
-      url,
-      headers: requestHeaders,
-      body: requestBody,
-    );
+  //   var response = await client.get(
+  //     url,
+  //     headers: requestHeaders,
+  //     // body: jsonEncode({"phone": }),
+  //   );
 
-    print(response.body);
+  //   print(response.body);
+  //   print('\n\n\n');
+  //   // var data = response.body;
+  //   // print(response.body['data']['CartItem']['Item']);
 
-    if (response.statusCode == 200) {
-      print('Success');
-      // var data = jsonDecode(response.body);
-      // return productDetailFromJson(data['data']);
-    } else {
-      print('Failure');
+  //   if (response.statusCode == 200) {
+  //     var data = jsonDecode(response.body);
+  //     print(data);
+  //     var data1 = data['data'];
+  //     var data2 = data1['CartItem'];
+  //     print('yooooooooooooooooooooo');
+  //     print(data2);
 
-      // return null;
-    }
-  }
+  //     return cartitemFromJson(data1['CartItem']);
+  //   } else {
+  //     return null;
+  //   }
+  // }
+
+  // void addorupdateProduct(Map<String, String> mp) async {
+  //   Map<String, String> requestHeaders = {
+  //     'Content-Type': 'application/json',
+  //   };
+
+  //   var ur = Config.addorupdatecartitemApi;
+
+  //   var url = Uri.http(Config.apiURL, ur);
+
+  //   print(url);
+
+  //   var response = await client.post(
+  //     url,
+  //     headers: requestHeaders,
+  //     body: jsonEncode({
+  //       "productId": mp['id'],
+  //       "quantity": mp['quantity'],
+  //       "phonenumber": mp['userid']
+  //     }),
+  //   );
+
+  //   print(response.body);
+
+  //   if (response.statusCode == 200) {
+  //     var data = jsonDecode(response.body);
+  //     print("success in updating");
+  //     return null;
+  //   } else {
+  //     print("failure");
+  //     return null;
+  //   }
+  // }
+
+  // void updateCartitemquantity(Map<String, dynamic> cartitemdet) async {
+  //   Map<String, String> requestHeaders = {
+  //     'Content-Type': 'application/json',
+  //   };
+
+  //   Map<String, dynamic> requestBody = {
+  //     'id': cartitemdet['id'],
+  //     'quantity': cartitemdet['quantity'],
+  //   };
+
+  //   var url = Uri.http(Config.apiURL, Config.getProductByIdApi);
+
+  //   print(url);
+
+  //   var response = await client.post(
+  //     url,
+  //     headers: requestHeaders,
+  //     body: requestBody,
+  //   );
+
+  //   print(response.body);
+
+  //   if (response.statusCode == 200) {
+  //     print('Success');
+  //     // var data = jsonDecode(response.body);
+  //     // return productDetailFromJson(data['data']);
+  //   } else {
+  //     print('Failure');
+
+  //     // return null;
+  //   }
+  // }
 }

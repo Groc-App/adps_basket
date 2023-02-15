@@ -8,47 +8,73 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:your_basket/Widgets/Cart/Noitems.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
+import 'package:your_basket/application/state/cart_state.dart';
 import '../Widgets/Cart/CartItem.dart' as CartItemWidget;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/providers.dart';
 import '../models/cart/cartitem.dart' as CartItemModel;
 
-class CartScreen extends ConsumerWidget {
-  CartScreen({super.key});
+class CartScreen extends ConsumerStatefulWidget {
+  const CartScreen({Key? key}) : super(key: key);
+
+  @override
+  _CartScreenState createState() => _CartScreenState();
+}
+
+class _CartScreenState extends ConsumerState<CartScreen> {
+  // CartScreen({super.key});
 
   double pricetotal = 0.0;
   bool emptylist = false;
   int listsize = 0;
   var datalist;
 
-  Widget cartitemList(WidgetRef ref, String? userid) {
-    print('Rebild CartItem');
+  // Widget cartitemList(String? userid) {
+  //   print('Rebild CartItem');
 
-    final categories = ref.watch(cartItemProvider(userid));
+  //   final categories = ref.watch(cartItemProvider(userid));
 
-    return categories.when(
-      data: (list) {
-        print('\nlist is::::::::::::::::\n$list');
-        if (list != null) {
-          pricetotal = 0.0;
-          listsize = list.length;
-          if (listsize == 0) emptylist = true;
-          datalist = list;
-          for (int i = 0; i < list.length; i++) {
-            pricetotal += list[i].ItemCount * list[i].Item.Price;
-          }
-        } else {
-          emptylist = true;
-          print('list null hai');
-        }
-        return buildCartItems(list, userid);
-      },
-      error: (_, __) => const Center(child: Text("ERR")),
-      loading: () => const Center(child: CircularProgressIndicator()),
-    );
+  //   return categories.when(
+  //     data: (list) {
+  //       print('\nlist is::::::::::::::::\n$list');
+  //       if (list != null) {
+  //         pricetotal = 0.0;
+  //         listsize = list.length;
+  //         if (listsize == 0) emptylist = true;
+  //         datalist = list;
+  //         for (int i = 0; i < list.length; i++) {
+  //           pricetotal += list[i].ItemCount * list[i].Item.Price;
+  //         }
+  //       } else {
+  //         emptylist = true;
+  //         print('list null hai');
+  //       }
+  //       return buildCartItems(list, userid);
+  //     },
+  //     error: (_, __) => const Center(child: Text("ERR")),
+  //     loading: () => const Center(child: CircularProgressIndicator()),
+  //   );
+  // }
+
+  Widget _cartList(WidgetRef ref) {
+    final cartState = ref.watch(cartItemsProvider);
+
+    if (cartState.cartModel == null) {
+      return const LinearProgressIndicator();
+    }
+
+    if (cartState.cartModel!.CartItem.isEmpty) {
+      return NoItems(
+        noitemtext: 'Your Cart is Empty!!!!',
+      );
+    }
+
+    return _buildCartItems(
+        cartState.cartModel!.CartItem.cast<CartItemModel.CartItem>(),
+        '+917982733943');
   }
 
-  Widget buildCartItems(List<CartItemModel.CartItem>? list, String? userid) {
+  Widget _buildCartItems(List<CartItemModel.CartItem>? list, String? userid) {
     return list != null
         ? Column(
             children: list.map((data) {
@@ -63,13 +89,13 @@ class CartScreen extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final scSize = MediaQuery.of(context).size;
     final scWidth = scSize.width;
     final scHeight = scSize.height;
 
     print("Rebild");
-    ref.watch(CartItemWidget.counterProvider);
+    // ref.watch(CartItemWidget.counterProvider);
     final data = ref.watch(ProductItemcounterProvider);
     print(data);
 
@@ -109,7 +135,8 @@ class CartScreen extends ConsumerWidget {
               child: Column(
                 children: [
                   // cartitemList(ref, authInfo.phoneNumber),
-                  cartitemList(ref, '+917982733943'),
+                  // cartitemList('+917982733943'),
+                  _cartList(ref),
                   emptylist == false
                       ? Container(
                           margin: const EdgeInsets.only(top: 20, bottom: 20),
