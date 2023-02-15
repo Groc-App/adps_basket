@@ -1,7 +1,7 @@
 List<Map<String, dynamic>> data = [
   {
     "Name": "Amul Taaza Toned Fresh Milk",
-    "Price": 27,
+    "Price": 27.00,
     "Description":
         "Amul Taaza Toned Milk (Polypack) is pasteurized with a great nutritional value. It can be consumed directly or can be used for preparing tea, coffee, sweets, khoya, curd, buttermilk, ghee etc.",
     "Category": ["63e00827b56990c02866bba7", "63e00827b56990c02866bbaa"],
@@ -14,7 +14,7 @@ List<Map<String, dynamic>> data = [
   },
   {
     "Name": "Amul Gold Full Cream Fresh Milk",
-    "Price": 31,
+    "Price": 31.00,
     "Description":
         "Amul Gold Full Cream Milk (Polypack) Milk is homogenized toned pasteurized milk. Rich and creamy, this milk is an excellent source of vitamin A and vitamin D that enhances growth and development of the body tissues and the brain.",
     "Category": ["63e00827b56990c02866bba7", "63e00827b56990c02866bbaa"],
@@ -27,7 +27,7 @@ List<Map<String, dynamic>> data = [
   },
   {
     "Name": "Amul Buttermilk (Amul Chhach)",
-    "Price": 12,
+    "Price": 12.00,
     "Description":
         "Bringing a pleasant tang to the palate, Amul Buttermilk has been proven to be beneficial and practically useful by incorporating it in many meal preparations and baked goods alike. While it helps build the taste in dishes, Amul Buttermilk (Chaas) is just as much healthy when consumed as it is. Go ahead and buy Amul Buttermilk online today!",
     "Category": ["63e00827b56990c02866bba7"],
@@ -40,7 +40,7 @@ List<Map<String, dynamic>> data = [
   },
   {
     "Name": "Bonn High Fibre Brown Bread",
-    "Price": 45,
+    "Price": 45.00,
     "Description":
         "Made from 100% unprocessed whole wheat flour.A softer, fresher, tastier, and healthier way to stay in shape and be fit.Does not contain trans fat or added color.Make the best of your day by satiating your appetite with the wholesome taste of bread",
     "Category": ["63e012406dd12138c0aa48d7"],
@@ -53,7 +53,7 @@ List<Map<String, dynamic>> data = [
   },
   {
     "Name": "Amul Gold Full Cream Fresh Milk",
-    "Price": 31,
+    "Price": 31.00,
     "Description":
         "Amul Gold Full Cream Milk (Polypack) Milk is homogenized toned pasteurized milk. Rich and creamy, this milk is an excellent source of vitamin A and vitamin D that enhances growth and development of the body tissues and the brain.",
     "Category": ["63e00827b56990c02866bba7", "63e00827b56990c02866bbaa"],
@@ -67,7 +67,7 @@ List<Map<String, dynamic>> data = [
   },
   {
     "Name": "Amul Gold Full Cream Fresh Milk",
-    "Price": 31,
+    "Price": 31.00,
     "Description":
         "Amul Gold Full Cream Milk (Polypack) Milk is homogenized toned pasteurized milk. Rich and creamy, this milk is an excellent source of vitamin A and vitamin D that enhances growth and development of the body tissues and the brain.",
     "Category": [],
@@ -80,7 +80,7 @@ List<Map<String, dynamic>> data = [
   },
   {
     "Name": "Amul Gold Full Cream Fresh Milk",
-    "Price": 31,
+    "Price": 31.00,
     "Description":
         "Amul Gold Full Cream Milk (Polypack) Milk is homogenized toned pasteurized milk. Rich and creamy, this milk is an excellent source of vitamin A and vitamin D that enhances growth and development of the body tissues and the brain.",
     "Category": ["63e00827b56990c02866bba7", "63e00827b56990c02866bbaa"],
@@ -94,7 +94,7 @@ List<Map<String, dynamic>> data = [
   },
   {
     "Name": "Amul Gold Full Cream Fresh Milk",
-    "Price": 31,
+    "Price": 31.00,
     "Description":
         "Amul Gold Full Cream Milk (Polypack) Milk is homogenized toned pasteurized milk. Rich and creamy, this milk is an excellent source of vitamin A and vitamin D that enhances growth and development of the body tissues and the brain.",
     "Category": ["63e00827b56990c02866bba7", "63e00827b56990c02866bbaa"],
@@ -108,7 +108,7 @@ List<Map<String, dynamic>> data = [
   },
   {
     "Name": "Amul Gold Full Cream Fresh Milk",
-    "Price": 31,
+    "Price": 31.00,
     "Description":
         "Amul Gold Full Cream Milk (Polypack) Milk is homogenized toned pasteurized milk. Rich and creamy, this milk is an excellent source of vitamin A and vitamin D that enhances growth and development of the body tissues and the brain.",
     "Category": ["63e00827b56990c02866bba7", "63e00827b56990c02866bbaa"],
@@ -122,7 +122,7 @@ List<Map<String, dynamic>> data = [
   },
   {
     "Name": "Amul Gold Full Cream Fresh Milk",
-    "Price": 31,
+    "Price": 31.00,
     "Description":
         "Amul Gold Full Cream Milk (Polypack) Milk is homogenized toned pasteurized milk. Rich and creamy, this milk is an excellent source of vitamin A and vitamin D that enhances growth and development of the body tissues and the brain.",
     "Category": ["63e00827b56990c02866bba7", "63e00827b56990c02866bbaa"],
@@ -136,7 +136,7 @@ List<Map<String, dynamic>> data = [
   },
   {
     "Name": "Amul Gold Full Cream Fresh Milk",
-    "Price": 31,
+    "Price": 31.00,
     "Description":
         "Amul Gold Full Cream Milk (Polypack) Milk is homogenized toned pasteurized milk. Rich and creamy, this milk is an excellent source of vitamin A and vitamin D that enhances growth and development of the body tissues and the brain.",
     "Category": ["63e00827b56990c02866bba7", "63e00827b56990c02866bbaa"],

@@ -16,13 +16,18 @@ class SearchBar extends StatelessWidget {
         BoxShadow(color: Colors.grey, spreadRadius: 1, blurRadius: 1)
       ], color: Colors.white, borderRadius: BorderRadius.circular(20)),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Icon(Icons.search),
           Container(
+            alignment: Alignment.center,
+            decoration: BoxDecoration(border: Border.all(width: 2)),
             width: 250,
             margin: const EdgeInsets.only(left: 10),
             child: TextFormField(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed('/searchScreen');
+              },
               decoration: const InputDecoration(
                 hintText: "Search here......",
                 border: InputBorder.none,

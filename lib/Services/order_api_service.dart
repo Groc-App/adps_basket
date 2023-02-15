@@ -17,11 +17,15 @@ class APIServiceOrder {
 
     // abhi userid fetch krni h
 
-    var userid = '';
+    var userid = '+917982733943';
 
     var ur = Config.placeorderApi;
 
     var url = Uri.http(Config.apiURL, ur);
+
+    print("\n\nInside Oder Api");
+    print("\n\nObj Received $obj");
+    print("\n\nObj ProductList Received ${obj['productlist']}");
 
     print(url);
 

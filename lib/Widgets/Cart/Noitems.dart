@@ -15,9 +15,9 @@ class NoItems extends StatelessWidget {
 
     return Center(
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Image.network(
-            height: scHeight * 0.4,
-            'https://www.pngfind.com/pngs/m/88-881210_thug-life-pug-transparent-background-png-sad-dog.png'),
+        // Image.network(
+        //     height: scHeight * 0.4,
+        //     'https://www.pngfind.com/pngs/m/88-881210_thug-life-pug-transparent-background-png-sad-dog.png'),
         Container(
           margin: const EdgeInsets.symmetric(vertical: 10),
           child: Text(

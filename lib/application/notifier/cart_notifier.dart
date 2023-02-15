@@ -15,7 +15,7 @@ class CartNotifier extends StateNotifier<CartState> {
     state = state.copyWith(isLoading: true);
 
     final cartdata = await _apiService.getCartitems();
-
+    print("This is cartdata from Cart Notifier $cartdata");
     state = state.copyWith(cartModel: cartdata);
     state = state.copyWith(isLoading: false);
   }
@@ -38,7 +38,7 @@ class CartNotifier extends StateNotifier<CartState> {
 
     // var updatedItems = state.cartModel;
 
-    await _apiService.updatecartitem(number, qty, prductId);
+    await _apiService.updatecartitem(number, qty.toString(), prductId);
     // if(cartItem.quantity > 1)
     // {
     //   CartItem cartProduct = new CartItem(Item: cartItem.Item, ItemCount: cartItem.ItemCount)

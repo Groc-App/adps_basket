@@ -21,7 +21,7 @@ Cart _$CartFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Cart {
   String get Number => throw _privateConstructorUsedError;
-  List<CartItem> get CartItem => throw _privateConstructorUsedError;
+  List<CartItem> get products => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -33,7 +33,7 @@ abstract class $CartCopyWith<$Res> {
   factory $CartCopyWith(Cart value, $Res Function(Cart) then) =
       _$CartCopyWithImpl<$Res, Cart>;
   @useResult
-  $Res call({String Number, List<CartItem> CartItem});
+  $Res call({String Number, List<CartItem> products});
 }
 
 /// @nodoc
@@ -50,16 +50,16 @@ class _$CartCopyWithImpl<$Res, $Val extends Cart>
   @override
   $Res call({
     Object? Number = null,
-    Object? CartItem = null,
+    Object? products = null,
   }) {
     return _then(_value.copyWith(
       Number: null == Number
           ? _value.Number
           : Number // ignore: cast_nullable_to_non_nullable
               as String,
-      CartItem: null == CartItem
-          ? _value.CartItem
-          : CartItem // ignore: cast_nullable_to_non_nullable
+      products: null == products
+          ? _value.products
+          : products // ignore: cast_nullable_to_non_nullable
               as List<CartItem>,
     ) as $Val);
   }
@@ -71,7 +71,7 @@ abstract class _$$_CartCopyWith<$Res> implements $CartCopyWith<$Res> {
       __$$_CartCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String Number, List<CartItem> CartItem});
+  $Res call({String Number, List<CartItem> products});
 }
 
 /// @nodoc
@@ -84,16 +84,16 @@ class __$$_CartCopyWithImpl<$Res> extends _$CartCopyWithImpl<$Res, _$_Cart>
   @override
   $Res call({
     Object? Number = null,
-    Object? CartItem = null,
+    Object? products = null,
   }) {
     return _then(_$_Cart(
       Number: null == Number
           ? _value.Number
           : Number // ignore: cast_nullable_to_non_nullable
               as String,
-      CartItem: null == CartItem
-          ? _value._CartItem
-          : CartItem // ignore: cast_nullable_to_non_nullable
+      products: null == products
+          ? _value._products
+          : products // ignore: cast_nullable_to_non_nullable
               as List<CartItem>,
     ));
   }
@@ -102,24 +102,24 @@ class __$$_CartCopyWithImpl<$Res> extends _$CartCopyWithImpl<$Res, _$_Cart>
 /// @nodoc
 @JsonSerializable()
 class _$_Cart implements _Cart {
-  const _$_Cart({required this.Number, required final List<CartItem> CartItem})
-      : _CartItem = CartItem;
+  _$_Cart({required this.Number, required final List<CartItem> products})
+      : _products = products;
 
   factory _$_Cart.fromJson(Map<String, dynamic> json) => _$$_CartFromJson(json);
 
   @override
   final String Number;
-  final List<CartItem> _CartItem;
+  final List<CartItem> _products;
   @override
-  List<CartItem> get CartItem {
-    if (_CartItem is EqualUnmodifiableListView) return _CartItem;
+  List<CartItem> get products {
+    if (_products is EqualUnmodifiableListView) return _products;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_CartItem);
+    return EqualUnmodifiableListView(_products);
   }
 
   @override
   String toString() {
-    return 'Cart(Number: $Number, CartItem: $CartItem)';
+    return 'Cart(Number: $Number, products: $products)';
   }
 
   @override
@@ -128,13 +128,13 @@ class _$_Cart implements _Cart {
         (other.runtimeType == runtimeType &&
             other is _$_Cart &&
             (identical(other.Number, Number) || other.Number == Number) &&
-            const DeepCollectionEquality().equals(other._CartItem, _CartItem));
+            const DeepCollectionEquality().equals(other._products, _products));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, Number, const DeepCollectionEquality().hash(_CartItem));
+      runtimeType, Number, const DeepCollectionEquality().hash(_products));
 
   @JsonKey(ignore: true)
   @override
@@ -151,16 +151,16 @@ class _$_Cart implements _Cart {
 }
 
 abstract class _Cart implements Cart {
-  const factory _Cart(
+  factory _Cart(
       {required final String Number,
-      required final List<CartItem> CartItem}) = _$_Cart;
+      required final List<CartItem> products}) = _$_Cart;
 
   factory _Cart.fromJson(Map<String, dynamic> json) = _$_Cart.fromJson;
 
   @override
   String get Number;
   @override
-  List<CartItem> get CartItem;
+  List<CartItem> get products;
   @override
   @JsonKey(ignore: true)
   _$$_CartCopyWith<_$_Cart> get copyWith => throw _privateConstructorUsedError;

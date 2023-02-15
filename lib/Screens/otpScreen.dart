@@ -15,7 +15,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
   // const OtpScreen({super.key});
   FirebaseAuth auth = FirebaseAuth.instance;
 
-  var phoneNumber = '';
+  var phoneNumber = '8299073956';
 
   var hint = '0';
 

@@ -243,7 +243,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                                 final cartViewModel =
                                     ref.read(cartItemsProvider.notifier);
                                 cartViewModel.updateCartItem(
-                                    '+917982733943', counter, id);
+                                    '+917982733943', counter.toString(), id);
                               });
                             }
                             // }

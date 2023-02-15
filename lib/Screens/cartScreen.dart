@@ -63,18 +63,19 @@ class _CartScreenState extends ConsumerState<CartScreen> {
       return const LinearProgressIndicator();
     }
 
-    if (cartState.cartModel!.CartItem.isEmpty) {
+    if (cartState.cartModel!.products.isEmpty) {
       return NoItems(
         noitemtext: 'Your Cart is Empty!!!!',
       );
     }
 
     return _buildCartItems(
-        cartState.cartModel!.CartItem.cast<CartItemModel.CartItem>(),
+        cartState.cartModel!.products.cast<CartItemModel.CartItem>(),
         '+917982733943');
   }
 
   Widget _buildCartItems(List<CartItemModel.CartItem>? list, String? userid) {
+    datalist = list;
     return list != null
         ? Column(
             children: list.map((data) {
@@ -97,7 +98,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     print("Rebild");
     // ref.watch(CartItemWidget.counterProvider);
     final data = ref.watch(ProductItemcounterProvider);
-    print(data);
+    print("This is data $data");
 
     // var authInfo = ref.watch(authCheckProvider);
     // print(authInfo?.uid);
@@ -253,9 +254,36 @@ class _CartScreenState extends ConsumerState<CartScreen> {
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
                 onTap: () {
-                  var map = {'totalAmnt': pricetotal, 'productlist': datalist};
-                  var data = ref.read(placeorderProvider(map));
+                  print("Total AMount $pricetotal");
+                  var cartProductsArray = [];
+                  // print("\n\nProduct list ${datalist}");
+                  for (var i = 0; i < datalist.length; i++) {
+                    var cartItem = datalist[i];
+
+                    var map = {
+                      'Product': cartItem.Item.productId,
+                      'Quantity': cartItem.ItemCount
+                    };
+                    cartProductsArray.add(map);
+
+                    print("\nCartItemId:: ${cartItem.Item.productId}");
+                    print("\nCartItemCount:: ${cartItem.ItemCount}");
+                  }
+
+                  print("\nCart Products Array:: ${cartProductsArray}");
+
+                  var map = {
+                    'totalAmnt': pricetotal,
+                    'productlist': cartProductsArray
+                  };
+
+                  print("\nCart Products Map:: ${map}");
+
+                  var data = ref.watch(placeorderProvider(map));
+                  print("\nData reviecds ${data}");
                   data.when(data: (msg) {
+                    print("\n\nInside Data reviecds");
+
                     Navigator.of(context).pushNamed('/ordersuccessScreen');
                   }, error: (_, __) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -264,6 +292,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   }, loading: () {
                     CircularProgressIndicator();
                   });
+                  print("\nData reviecds ${data}");
                 },
                 child: Container(
                     width: scWidth,

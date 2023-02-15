@@ -18,6 +18,7 @@ class APIServiceCart {
       'Content-Type': 'application/json',
     };
 
+    print("\n\nINside Get Cart Items");
     // String userid = authInfo.phoneNumber;
     String userid = '+917982733943';
 
@@ -33,14 +34,14 @@ class APIServiceCart {
       // body: jsonEncode({"phone": }),
     );
 
-    print(response.body);
-    print('\n\n\n');
-    // var data = response.body;
+    var data = response.statusCode;
     // print(response.body['data']['CartItem']['Item']);
+    print("This is data after fetch$data");
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      print(data);
+      print('\n\n\n');
+      print("This is data after fetch$data");
 
       return Cart.fromJson(data['data']);
     } else {

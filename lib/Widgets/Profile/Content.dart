@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:about/about.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../providers/providers.dart';
 
@@ -77,6 +78,10 @@ class Content extends ConsumerWidget {
                         ),
                       ],
                     ));
+          } else if (navi_url == 'share') {
+            print("inside tap");
+            Share.share(
+                'https://play.google.com/store/apps/details?id=com.instructivetech.kidskite');
           } else {
             navigation(context, navi_url);
           }
@@ -158,6 +163,7 @@ class Content extends ConsumerWidget {
             ),
             iconRow(
                 FontAwesomeIcons.share, 'Share the app', context, 'share', ref),
+
             iconRow(FontAwesomeIcons.info, 'About us', context, 'about', ref),
             iconRow(FontAwesomeIcons.star, 'Rate us on Play Store', context,
                 '/yourOrderScreen', ref),
