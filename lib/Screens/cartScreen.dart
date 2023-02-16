@@ -13,6 +13,7 @@ import '../Widgets/Cart/CartItem.dart' as CartItemWidget;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/providers.dart';
 import '../models/cart/cartitem.dart' as CartItemModel;
+import '../models/product/productdetail.dart' as ProductItemModel;
 
 class CartScreen extends ConsumerStatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -61,7 +62,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   return CartItemWidget.CartItem(
                     quantity: (data.ItemCount == null ? 0 : data.ItemCount),
                     item: data.Item,
-                    userid: userid ?? '',
+                    userid: userid ?? ''
                   );
                 }).toList(),
               ),

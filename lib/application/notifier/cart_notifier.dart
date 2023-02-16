@@ -26,15 +26,35 @@ class CartNotifier extends StateNotifier<CartState> {
     await getCartitems();
   }
 
-  Future<void> removeCartItems(productId, qty) async {
-    var cartItem = state.cartModel!.products
-        .firstWhere((element) => element.Item.productId == productId);
+  Future<void> removeCartItems(userid, productid) async {
+    print('inside removeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+    print('inside remove cart item ${productid}');
 
-    var updatedItems = state.cartModel!.products;
+    // var cartItem = state.cartModel!.products
+    //     .firstWhere((element) => element.Item.productId == productid);
 
-    await _apiService.removeCartItem(productId, qty);
+    // var cartItem;
+    // var data = state.cartModel!.products;
+    // for (int i = 0; i < data.length; i++) {
+    //   if (data[i].Item.productId == productid) {
+    //     cartItem = data[i];
+    //     state.cartModel!.products.remove(cartItem);
+    //     break;
+    //   }
+    // }
 
-    updatedItems.remove(cartItem);
+    // var updatedItems = state.cartModel!.products;
+
+    await _apiService.removeCartItem(userid, productid).whenComplete(() async {
+      print('after removingggggggggggggggg');
+      await getCartitems();
+    });
+
+    // Future.delayed(Duration(milliseconds: 800){
+    //
+    // });
+
+    // updatedItems.remove(cartItem);
   }
 
   Future<void> updateCartItem(number, qty, prductId) async {
@@ -44,7 +64,7 @@ class CartNotifier extends StateNotifier<CartState> {
     var updatedItems = state.cartModel!.products;
 
     await _apiService.updatecartitem(number, qty, prductId);
-    CartItem cartProduct = CartItem(Item: cartItem.Item, ItemCount: qty);
+    CartItem cartProduct = CartItem(Item: cartItem.Item, ItemCount: int.parse(qty));
 
     updatedItems.remove(cartItem);
     updatedItems.add(cartProduct);

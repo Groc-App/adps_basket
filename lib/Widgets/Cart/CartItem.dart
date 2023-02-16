@@ -12,7 +12,11 @@ class CartItem extends ConsumerStatefulWidget {
   ProductItem item;
   String userid;
 
-  CartItem({required this.quantity, required this.item, required this.userid});
+  CartItem({
+    required this.quantity,
+    required this.item,
+    required this.userid,
+  });
 
   @override
   _CartItemState createState() =>
@@ -24,30 +28,39 @@ class _CartItemState extends ConsumerState<CartItem> {
   int quan;
   String userid;
 
-  _CartItemState(
-      {required this.quan, required this.item, required this.userid});
+  _CartItemState({
+    required this.quan,
+    required this.item,
+    required this.userid,
+  });
 
   void incrementHandler() {
+    int newquan = quan + 1;
+
+    final cartViewModel = ref.read(cartItemsProvider.notifier);
+    cartViewModel.updateCartItem(userid, newquan.toString(), item.productId);
+
     setState(() {
       quan++;
     });
-
-    final cartViewModel = ref.read(cartItemsProvider.notifier);
-    cartViewModel.updateCartItem(userid, quan.toString(), item.productId);
   }
 
   void decrementHandler() {
-    setState(() {
-      quan--;
-    });
+    int newquan = quan - 1;
 
-    if (quan == 0) {
+    if (newquan == 0) {
+      print('0000000000000000000000000000000000000000000000000000000000000');
+      print('inside cart item ${item.productId}');
       final cartViewModel = ref.read(cartItemsProvider.notifier);
       cartViewModel.removeCartItems(userid, item.productId);
     } else {
       final cartViewModel = ref.read(cartItemsProvider.notifier);
-      cartViewModel.updateCartItem(userid, quan.toString(), item.productId);
+      cartViewModel.updateCartItem(userid, newquan.toString(), item.productId);
     }
+
+    setState(() {
+      quan--;
+    });
   }
 
   @override

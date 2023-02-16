@@ -114,6 +114,9 @@ class APIServiceCart {
       'Content-Type': 'application/json',
     };
 
+    print('inside cart item ${productid}');
+
+
     var ur = Config.removeCartItem;
 
     var url = Uri.http(Config.apiURL, ur);

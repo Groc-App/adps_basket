@@ -42,15 +42,15 @@ class _ProductItemState extends ConsumerState<ProductItem> {
   //   // TODO: implement initState
   //   super.initState();
 
-  //   // final cartState = ref.read(cartItemsProvider);
-  //   // final data = cartState.cartModel!.products;
-  //   // print('dataitem\n');
-  //   // for (var i = 0; i < data.length; i++) {
-  //   //   if (data[i].Item.productId == id) {
-  //   //     counter = data[i].ItemCount;
-  //   //     break;
-  //   //   }
-  //   // }
+  //   final cartState = ref.read(cartItemsProvider);
+  //   final data = cartState.cartModel!.products;
+  //   print('dataitem\n');
+  //   for (var i = 0; i < data.length; i++) {
+  //     if (data[i].Item.productId == id) {
+  //       counter = data[i].ItemCount;
+  //       break;
+  //     }
+  //   }
   // }
 
   String id;
