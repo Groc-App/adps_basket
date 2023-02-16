@@ -14,36 +14,41 @@ class CartNotifier extends StateNotifier<CartState> {
   Future<void> getCartitems() async {
     state = state.copyWith(isLoading: true);
 
-    final cartdata = await _apiService.getCartitems();
+    final cartdata = await _apiService.getCartitemsApi();
     print("This is cartdata from Cart Notifier $cartdata");
     state = state.copyWith(cartModel: cartdata);
     state = state.copyWith(isLoading: false);
   }
 
-  // Future<void> addCartItems(productId, qty) async {
-  //   await _apiService.addCartItem(productId, qty);
-
-  //   await getCartitems();
-  // }
-
-  // Future<void> removeCartItems(productId, qty) async {
-  //   await _apiService.removeCartItem(productId, qty);
-
-  //   await getCartitems();
-  // }
-
-  Future<void> updateCartItem(number, qty, prductId) async {
-    // var cartItem = state.cartModel!.CartItem
-    //     .firstWhere((element) => element.Item.productId == prductId);
-
-    // var updatedItems = state.cartModel;
-
-    await _apiService.updatecartitem(number, qty.toString(), prductId);
-    // if(cartItem.quantity > 1)
-    // {
-    //   CartItem cartProduct = new CartItem(Item: cartItem.Item, ItemCount: cartItem.ItemCount)
-    // }
+  Future<void> addCartItems(number, productId) async {
+    await _apiService.addCartItem(number, productId);
 
     await getCartitems();
+  }
+
+  Future<void> removeCartItems(productId, qty) async {
+    var cartItem = state.cartModel!.products
+        .firstWhere((element) => element.Item.productId == productId);
+
+    var updatedItems = state.cartModel!.products;
+
+    await _apiService.removeCartItem(productId, qty);
+
+    updatedItems.remove(cartItem);
+  }
+
+  Future<void> updateCartItem(number, qty, prductId) async {
+    var cartItem = state.cartModel!.products
+        .firstWhere((element) => element.Item.productId == prductId);
+
+    var updatedItems = state.cartModel!.products;
+
+    await _apiService.updatecartitem(number, qty, prductId);
+    CartItem cartProduct = CartItem(Item: cartItem.Item, ItemCount: qty);
+
+    updatedItems.remove(cartItem);
+    updatedItems.add(cartProduct);
+
+    // await getCartitems();
   }
 }

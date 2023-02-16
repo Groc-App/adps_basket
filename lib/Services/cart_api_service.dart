@@ -13,7 +13,7 @@ final cartApiService = Provider((ref) => APIServiceCart());
 class APIServiceCart {
   static var client = http.Client();
 
-  Future<Cart?> getCartitems() async {
+  Future<Cart?> getCartitemsApi() async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -49,6 +49,35 @@ class APIServiceCart {
     }
   }
 
+  Future<void> addCartItem(String number, String productid) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var ur = Config.createcartitemApi;
+
+    var url = Uri.http(Config.apiURL, ur);
+
+    print(url);
+
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({"productId": productid, "phonenumber": number}),
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      print("success in updating");
+      return null;
+    } else {
+      print("failure");
+      return null;
+    }
+  }
+
   Future<void> updatecartitem(
       String number, String qty, String productid) async {
     Map<String, String> requestHeaders = {
@@ -73,6 +102,35 @@ class APIServiceCart {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       print("success in updating");
+      return null;
+    } else {
+      print("failure");
+      return null;
+    }
+  }
+
+  Future<void> removeCartItem(String number, String productid) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var ur = Config.removeCartItem;
+
+    var url = Uri.http(Config.apiURL, ur);
+
+    print(url);
+
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({"productId": productid, "phonenumber": number}),
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      print("success in deleting");
       return null;
     } else {
       print("failure");
