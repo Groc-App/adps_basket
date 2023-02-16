@@ -13,7 +13,7 @@ class YourOrderes extends ConsumerWidget {
   YourOrderes({super.key});
 
   bool islistempty = false;
-  String userid = '63e90285454bfacc4143adbc';
+  String userid = '+917982733943';
 
   Widget orderList(WidgetRef ref, BuildContext context, double scHeight) {
     print("\nInside orderList");
@@ -43,8 +43,11 @@ class YourOrderes extends ConsumerWidget {
             children: [
               SingleChildScrollView(
                 child: Column(
-                  children: list.map((e) {
-                    return const OrdereItem();
+                  children: list.map<Widget>((e) {
+                    return OrdereItem(
+                        orderID: e.OrderId,
+                        // date: e.Date,
+                        totalAmount: e.TotalAmount.toString());
                   }).toList(),
                 ),
               ),
