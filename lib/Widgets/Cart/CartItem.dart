@@ -52,7 +52,7 @@ class _CartItemState extends ConsumerState<CartItem> {
       print('0000000000000000000000000000000000000000000000000000000000000');
       print('inside cart item ${item.productId}');
       final cartViewModel = ref.read(cartItemsProvider.notifier);
-      cartViewModel.removeCartItems(userid, item.productId);
+      cartViewModel.removeCartItems(userid, item.productId).whenComplete(() => Navigator.pushReplacementNamed(context, '/cartScreen'));
     } else {
       final cartViewModel = ref.read(cartItemsProvider.notifier);
       cartViewModel.updateCartItem(userid, newquan.toString(), item.productId);
@@ -68,6 +68,11 @@ class _CartItemState extends ConsumerState<CartItem> {
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
     final scWidth = scSize.width - 10 - 4 - 8;
+
+    print('\ncart itemmmmmmmmmmmmmm rebuild ho rhi hhhhhhhhhhhhhhhhhhhh\n${item.Name}');
+
+    print('\ninside cart itemmmmmmmmmmmmmmmmmmmm\n');
+    print(item);
 
     return Container(
         height: scHeight * 0.18,

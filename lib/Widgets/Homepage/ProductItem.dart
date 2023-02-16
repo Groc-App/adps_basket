@@ -37,21 +37,13 @@ class _ProductItemState extends ConsumerState<ProductItem> {
   // bool added = false;
   var counter = 0;
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
 
-  //   final cartState = ref.read(cartItemsProvider);
-  //   final data = cartState.cartModel!.products;
-  //   print('dataitem\n');
-  //   for (var i = 0; i < data.length; i++) {
-  //     if (data[i].Item.productId == id) {
-  //       counter = data[i].ItemCount;
-  //       break;
-  //     }
-  //   }
-  // }
+
+  }
 
   String id;
   String imageUrl;
@@ -76,6 +68,16 @@ class _ProductItemState extends ConsumerState<ProductItem> {
 
     // var authInfo = ref.watch(authCheckProvider);
     // print(authInfo?.uid);
+
+    // final cartState = ref.read(cartItemsProvider);
+    // final data = cartState.cartModel!.products;
+    // print('dataitem\n');
+    // for (var i = 0; i < data.length; i++) {
+    //   if (data[i].Item.productId == id) {
+    //     counter = data[i].ItemCount;
+    //     break;
+    //   }
+    // }
 
     void incrementHandler() {
       setState(() {

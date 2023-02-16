@@ -42,6 +42,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
       );
     }
 
+    print('dobara bani hhhhhhhhhhhhhhhhhhh\n');
+    print(cartState.cartModel!.products);
+
     return _buildCartItems(
         cartState.cartModel!.products.cast<CartItemModel.CartItem>(),
         '+917982733943',
@@ -53,6 +56,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
       List<CartItemModel.CartItem>? list, String? userid, scHeight, scWidth) {
     datalist = list;
     pricetotal = 0.0;
+    print('\ninside buildcartitemssssssssssssssssss\n');
+    print(list);
+
     return list != null
         ? Column(
             children: [
@@ -60,12 +66,24 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 children: list.map((data) {
                   pricetotal = pricetotal + (data.ItemCount * data.Item.Price);
                   return CartItemWidget.CartItem(
-                    quantity: (data.ItemCount == null ? 0 : data.ItemCount),
-                    item: data.Item,
-                    userid: userid ?? ''
-                  );
+                      quantity: (data.ItemCount == null ? 0 : data.ItemCount),
+                      item: data.Item,
+                      userid: userid ?? '');
                 }).toList(),
               ),
+              // Expanded(
+              //   child: ListView.builder(
+              //     itemBuilder: (context, index) {
+              //       return CartItemWidget.CartItem(
+              //           quantity: (list[index].ItemCount == null
+              //               ? 0
+              //               : list[index].ItemCount),
+              //           item: list[index].Item,
+              //           userid: userid ?? '');
+              //     },
+              //     itemCount: list.length,
+              //   ),
+              // ),
               _totalprice(scHeight, scWidth),
             ],
           )
@@ -168,6 +186,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           Column(
         children: [
           Expanded(
+            // Expanded kr lio
             child: SingleChildScrollView(
               child: _cartList(ref, scHeight, scWidth),
             ),
