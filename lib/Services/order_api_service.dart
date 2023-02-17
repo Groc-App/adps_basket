@@ -3,51 +3,13 @@ import 'package:http/http.dart' as http;
 import 'package:your_basket/models/cart/cartitem.dart';
 import 'package:your_basket/models/orders/orders.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/models/product/productdetail.dart';
 import '../config.dart';
 
 final orderApiService = Provider((ref) => APIServiceOrder());
 
 class APIServiceOrder {
   static var client = http.Client();
-
-  Future<String> placeorder(Map<String, dynamic> obj) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
-
-    // abhi userid fetch krni h
-
-    var userid = '+917982733943';
-
-    var ur = Config.placeorderApi;
-
-    var url = Uri.http(Config.apiURL, ur);
-
-    print("\n\nInside Oder Api");
-    print("\n\nObj Received $obj");
-    print("\n\nObj ProductList Received ${obj['productlist']}");
-
-    print(url);
-
-    var response = await client.post(
-      url,
-      headers: requestHeaders,
-      body: jsonEncode({
-        "userid": userid,
-        "tamount": obj['totalAmnt'],
-        "orderdetail": obj["productlist"]
-      }),
-    );
-
-    print(response.body);
-
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      return "success";
-    } else {
-      return "failure";
-    }
-  }
 
   Future<List<Orders>?> getOrdersbyId(String userid) async {
     Map<String, String> requestHeaders = {

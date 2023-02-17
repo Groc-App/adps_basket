@@ -71,19 +71,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                       userid: userid ?? '');
                 }).toList(),
               ),
-              // Expanded(
-              //   child: ListView.builder(
-              //     itemBuilder: (context, index) {
-              //       return CartItemWidget.CartItem(
-              //           quantity: (list[index].ItemCount == null
-              //               ? 0
-              //               : list[index].ItemCount),
-              //           item: list[index].Item,
-              //           userid: userid ?? '');
-              //     },
-              //     itemCount: list.length,
-              //   ),
-              // ),
               _totalprice(scHeight, scWidth),
             ],
           )
@@ -226,45 +213,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                print("Total AMount $pricetotal");
-                var cartProductsArray = [];
-                // print("\n\nProduct list ${datalist}");
-                for (var i = 0; i < datalist.length; i++) {
-                  var cartItem = datalist[i];
-
-                  var map = {
-                    'Product': cartItem.Item.productId,
-                    'Quantity': cartItem.ItemCount
-                  };
-                  cartProductsArray.add(map);
-
-                  print("\nCartItemId:: ${cartItem.Item.productId}");
-                  print("\nCartItemCount:: ${cartItem.ItemCount}");
-                }
-
-                print("\nCart Products Array:: ${cartProductsArray}");
-
-                var map = {
-                  'totalAmnt': pricetotal,
-                  'productlist': cartProductsArray
-                };
-
-                print("\nCart Products Map:: ${map}");
-
-                var data = ref.watch(placeorderProvider(map));
-                print("\nData reviecds ${data}");
-                data.when(data: (msg) {
-                  print("\n\nInside Data reviecds");
-
-                  Navigator.of(context).pushNamed('/ordersuccessScreen');
-                }, error: (_, __) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Order Failed')),
-                  );
-                }, loading: () {
-                  CircularProgressIndicator();
-                });
-                print("\nData reviecds ${data}");
+                Navigator.pushNamed(context, '/checkoutScreen', arguments: {'number': '+917982733943', 'cartProductList': datalist, 'tamount': pricetotal});
               },
               child: Container(
                   width: scWidth,

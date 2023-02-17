@@ -1,15 +1,22 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CheckoutScreen extends StatelessWidget {
+import '../providers/providers.dart';
+
+class CheckoutScreen extends ConsumerWidget {
   const CheckoutScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
     final scWidth = scSize.width - 10 - 4 - 8;
+
+    var Orderdata = (ModalRoute.of(context)?.settings.arguments ??
+        <String, dynamic>{}) as Map;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Checkout"),
@@ -41,7 +48,37 @@ class CheckoutScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                             elevation: 40,
                             backgroundColor: Color.fromARGB(255, 0, 138, 5)),
-                        onPressed: () {},
+                        onPressed: () {
+                          print('PLace order');
+                          print(Orderdata['number']);
+
+                          var pricetotal = Orderdata['tamount'];
+                          var datalist = Orderdata['cartProductList'];
+
+                          var cartProductsArray = [];
+                          // print("\n\nProduct list ${datalist}");
+                          for (var i = 0; i < datalist.length; i++) {
+                            var cartItem = datalist[i];
+
+                            var map = {
+                              'Product': cartItem.Item.productId,
+                              'Quantity': cartItem.ItemCount
+                            };
+                            cartProductsArray.add(map);
+                          }
+
+                          print("\nCart Products Array:: ${cartProductsArray}");
+
+                          final cartViewModel =
+                              ref.read(cartItemsProvider.notifier);
+                          cartViewModel
+                              .placeOrder(
+                                  Orderdata['number'],
+                                  Orderdata['tamount'].toString(),
+                                  cartProductsArray)
+                              .whenComplete(() => Navigator.pushNamed(
+                                  context, '/ordersuccessScreen'));
+                        },
                         child: Text("Place Order"))),
               ],
             ),

@@ -13,6 +13,51 @@ final cartApiService = Provider((ref) => APIServiceCart());
 class APIServiceCart {
   static var client = http.Client();
 
+  Future<void> placeorder(String number, String tamount, productlist) async {
+    print('Inside Api\n');
+
+    print('$number\n');
+    print('$tamount\n');
+    print('$productlist\n');
+
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    // abhi userid fetch krni h
+
+    // var userid = '+917982733943';
+
+    var ur = Config.placeorderApi;
+
+    var url = Uri.http(Config.apiURL, ur);
+
+    // print("\n\nInside Oder Api");
+    // print("\n\nObj Received $obj");
+    // print("\n\nObj ProductList Received ${obj['productlist']}");
+
+    print(url);
+
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({
+        "userid": number,
+        "tamount": tamount,
+        "orderdetail": productlist
+      }),
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return null;
+    } else {
+      return null;
+    }
+  }
+
   Future<Cart?> getCartitemsApi() async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',

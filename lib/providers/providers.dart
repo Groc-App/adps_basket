@@ -61,14 +61,6 @@ final yourordersProvider = FutureProvider.family<List<Orders>?, String>(
   },
 );
 
-final placeorderProvider = FutureProvider.family<String?, Map<String, dynamic>>(
-  (ref, obj) {
-    final apiRespository = ref.watch(orderApiService);
-
-    return apiRespository.placeorder(obj);
-  },
-);
-
 final mostsellingproductProvider = FutureProvider<List<Product>?>(
   (ref) {
     final apiRespository = ref.watch(productApiService);

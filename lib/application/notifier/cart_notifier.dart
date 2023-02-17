@@ -78,4 +78,31 @@ class CartNotifier extends StateNotifier<CartState> {
 
     state = state.copyWith(cartModel: newcart);
   }
+
+  Future<void> placeOrder(number, tamount, productList) async {
+    print('In place order');
+    print('$number\n');
+    print('$tamount\n');
+    print('$productList\n');
+
+    print('hiii');
+
+    await _apiService.placeorder(number, tamount, productList);
+
+    print('hiii 22');
+
+    var updatedItems = state.cartModel!.products.toList();
+
+    print('before deleting $updatedItems');
+
+    updatedItems.clear();
+
+    print('after deleting $updatedItems');
+
+
+    Cart newcart =
+    new Cart(Number: state.cartModel!.Number, products: updatedItems);
+
+    state = state.copyWith(cartModel: newcart);
+  }
 }
