@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Cart/Noitems.dart';
 import 'package:your_basket/Widgets/YourOrderes/OrdereItem.dart';
+import 'package:your_basket/models/product/productdetail.dart';
 
 import '../providers/providers.dart';
 
@@ -14,6 +15,13 @@ class YourOrderes extends ConsumerWidget {
 
   bool islistempty = false;
   String userid = '+917982733943';
+
+  late final String orderID;
+  late String totalAmount;
+  late String date;
+  late String address;
+  // String imageUrl;
+  late List<Map<String, dynamic>> orderDetails;
 
   Widget orderList(WidgetRef ref, BuildContext context, double scHeight) {
     print("\nInside orderList");
@@ -45,8 +53,11 @@ class YourOrderes extends ConsumerWidget {
                 child: Column(
                   children: list.map<Widget>((e) {
                     return OrdereItem(
+                        orderDetails: e.OrderDetails,
+                        address: e.Address,
                         orderID: e.OrderId,
-                        // date: e.Date,
+                        date: e.Date,
+                        orderStatus: e.OrderStatus,
                         totalAmount: e.TotalAmount.toString());
                   }).toList(),
                 ),

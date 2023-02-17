@@ -12,9 +12,11 @@ List<Orders> ordersFromJson(dynamic str) =>
 abstract class Orders with _$Orders {
   factory Orders(
       {required String OrderId,
+      required String Address,
       required int TotalAmount,
+      required DateTime Date,
       required String OrderStatus,
-      required List<Object> OrderDetails}) = _Order;
+      required List<Map<String, dynamic>> OrderDetails}) = _Order;
 
   factory Orders.fromJson(Map<String, dynamic> json) => _$OrdersFromJson(json);
 }

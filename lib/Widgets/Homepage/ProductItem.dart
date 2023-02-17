@@ -40,9 +40,19 @@ class _ProductItemState extends ConsumerState<ProductItem> {
   @override
   void initState() {
     // TODO: implement initState
+    // final cartState = ref.read(cartItemsProvider);
+    // final data = cartState.cartModel!.products.toList();
+    // print('dataitem\n');
+    // print("\nThis is data inside init state $data");
+    // if (data != null) {
+    //   for (var i = 0; i < data.length; i++) {
+    //     if (data[i].Item.productId == id) {
+    //       counter = data[i].ItemCount;
+    //       break;
+    //     }
+    //   }
+    // }
     super.initState();
-
-
   }
 
   String id;
