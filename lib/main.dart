@@ -7,8 +7,10 @@ import 'package:your_basket/Screens/ProfileScreen.dart';
 import 'package:your_basket/Screens/addressScreen.dart';
 import 'package:your_basket/Screens/cartScreen.dart';
 import 'package:your_basket/Screens/categoryScreen.dart';
+import 'package:your_basket/Screens/checkOutScreen.dart';
 import 'package:your_basket/Screens/loginScreen.dart';
 import 'package:your_basket/Screens/offerScreen.dart';
+import 'package:your_basket/Screens/orderSummary.dart';
 import 'package:your_basket/Screens/otpScreen.dart';
 import 'package:your_basket/Screens/productItemScreen.dart';
 import 'package:your_basket/Screens/yourOrders.dart';
@@ -57,6 +59,8 @@ class MyApp extends StatelessWidget {
         '/offerScreen': (context) => OfferScreen(),
         '/ordersuccessScreen': (context) => OrderSuuccess(),
         '/loginScreen': (context) => LoginScreen(),
+        '/orderSummaryScreen': (context) => OrderSummaryScreen(),
+        '/checkoutScreen': (context) => CheckoutScreen()
       },
     );
   }

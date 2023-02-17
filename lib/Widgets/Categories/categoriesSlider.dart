@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // late Map<String, String> map;
-final categoryProvider = StateProvider<Map<String, String>>((ref) => {
-      "mainCategoryId": "63e00827b56990c02866bba5",
-      "subCategoryId": "63e00827b56990c02866bba7"
-    });
+final categoryProvider = StateProvider.family<Map<String, String>, String>(
+    (ref, String id) => {"mainCategoryId": id, "subCategoryId": "null"});
 
 class CategorySliderItems extends ConsumerWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -29,7 +27,7 @@ class CategorySliderItems extends ConsumerWidget {
 
     // String mainCategoryId=map['mainCategoryId'];
     map = {'mainCategoryId': mainCategoryId, 'subCategoryId': catId};
-    ref.read(categoryProvider.notifier).update((state) => map);
+    ref.read(categoryProvider(mainCategoryId).notifier).update((state) => map);
   }
 
   CategorySliderItems(

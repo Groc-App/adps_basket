@@ -22,20 +22,23 @@ class CategoryScreen extends ConsumerWidget {
   // var category = "Bread";
   late String mainCategoryId;
 
-  Map<String, String> mapp = {
-    "mainCategoryId": "63e00827b56990c02866bba5",
-    "subCategoryId": "null"
-  };
-
   // ignore: use_key_in_widget_constructors
   CategoryScreen({required this.mainCategoryId});
 
+  late Map<String, String> mapp = {
+    "mainCategoryId": mainCategoryId,
+    "subCategoryId": "null"
+  };
+
   Widget categoriesList(WidgetRef ref, String mainCategoryId) {
+    print("Main Category Inside CategoryList Widget $mainCategoryId");
     final categories = ref.watch(categoriesProvider(mainCategoryId));
+
+    print("Main Category Inside CategoryList Widget $categories");
 
     return categories.when(
       data: (list) {
-        print("\nThisssssssssssssssssss is list" + '${list}');
+        print("\nThiss is list of Sub Categories:" + '${list}');
         return buildCategory(list);
       },
       error: (_, __) => const Center(child: Text("ERR")),
@@ -49,9 +52,9 @@ class CategoryScreen extends ConsumerWidget {
     final products = ref.watch(productsByCategoryProvider(map));
     return products.when(
       data: (list) {
-        print(
-            "\n\n\n\n\n\n\nThisssssssssssssssssss is list of products::::::::::::::::::::::::::::" +
-                '${list}');
+        // print(
+        //     "\n\n\n\n\n\n\nThisssssssssssssssssss is list of products::::::::::::::::::::::::::::" +
+        //         '${list}');
 
         return buildProducts(list);
       },
@@ -122,13 +125,18 @@ class CategoryScreen extends ConsumerWidget {
     var categ = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
 
-    // mapp['mainCategoryId'] = categ['maincategoryid'];
+    // ref.read(categoryProvider.notifier).update((state) => mapp);
+
+    mainCategoryId = categ['maincategoryid'];
+    print("Category Id from Homescrreen");
+    print(categ['maincategoryid']);
     // mapp['categoryId'] = "null";
     // ConnectivityProvider connect =
     //     ref.watch(connectivityProvider).startMonitoring();
     var connectivityStatusProvider = ref.watch(connectivityStatusProviders);
 
-    Map<String, String> map = ref.watch(categoryProvider);
+    Map<String, String> map =
+        ref.watch(categoryProvider(categ['maincategoryid']));
     print("\n||||||||This is update cateogry ||||||||");
     print(map);
     /* ------------------------------- dummy Data ------------------------------- */

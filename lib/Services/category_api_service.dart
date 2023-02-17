@@ -22,7 +22,7 @@ class APIServiceCategory {
       headers: requestHeaders,
       // body: jsonEncode({"phone": }),
     );
-    // print("\nThis is Category");
+    print("\nThis is Get All Cateogry URl $url");
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -48,11 +48,11 @@ class APIServiceCategory {
       headers: requestHeaders,
       // body: jsonEncode({"phone": }),
     );
-    print("Category");
-    print(response.body);
+    print("\n(Inside category api service) Categories fetched from api");
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
+      print(data['data']);
       return categoiesFromJson(data['data']);
     } else {
       return null;

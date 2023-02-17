@@ -4,6 +4,7 @@ class Config {
   static const String apiURL = '127.0.0.1:8000';
   // 127.0.0.1:8000
   // 192.168.1.16:8000
+  // static const String apiURL = '192.168.1.43:8000';
 
   /* -------------------------------------------------------------------------- */
   /*                                 End Points                                 */
@@ -34,6 +35,9 @@ class Config {
 
   static const String createuserApi = '/user/createuserifnotexist';
   static const String addorupdatecartitemApi = '/user/createorupdatecartitem';
+  static const String createcartitemApi = '/user/createcartitem';
 
   static const String getalladdressbyid = '/user/getaddresses';
+
+  static const String removeCartItem = '/cart/deleteCartItem';
 }

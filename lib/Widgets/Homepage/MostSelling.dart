@@ -13,7 +13,7 @@ class MostSelling extends StatelessWidget {
 
   Widget productList(WidgetRef ref, scWidth) {
     final categories = ref.watch(mostsellingproductProvider);
-
+    print("Inside Product List of Most selling: $categories");
     return categories.when(
       data: (list) {
         // print("Thisssssssssssssssssss is list" + '${list}');
@@ -35,28 +35,17 @@ class MostSelling extends StatelessWidget {
               childAspectRatio: 0.7,
               crossAxisSpacing: 3,
               mainAxisSpacing: 3),
-          itemCount: list != null ? list.length : 0,
+          itemCount: list!.length,
           itemBuilder: (BuildContext context, int index) {
-            final data = list != null
-                ? list[index]
-                : Product(
-                    productId: '',
-                    Name: '',
-                    Price: 0,
-                    ImageUrl: '',
-                    Quantity: '',
-                    Company: '',
-                    Description: '',
-                    MainCategory: '',
-                    Category: '');
             return Container(
               child: ProductItem(
-                  id: data.productId,
-                  name: data.Name,
-                  desc: data.Description,
-                  price: data.Price,
-                  quantity: data.Quantity,
-                  imageUrl: data.ImageUrl),
+                id: list[index].productId,
+                imageUrl: list[index].ImageUrl,
+                name: list[index].Name,
+                desc: list[index].Description,
+                price: list[index].Price,
+                quantity: list[index].Quantity,
+              ),
             );
           }),
     );

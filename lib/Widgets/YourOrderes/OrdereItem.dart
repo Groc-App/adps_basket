@@ -23,7 +23,7 @@ class OrdereItem extends StatelessWidget {
       // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
       child: ListTile(
         onTap: () {
-          // Navigate.of
+          Navigator.of(context).pushNamed('/orderSummaryScreen');
         },
         leading: CircleAvatar(
           radius: 22,

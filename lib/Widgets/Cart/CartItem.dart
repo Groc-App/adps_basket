@@ -7,13 +7,8 @@ import 'package:your_basket/models/product/productdetail.dart';
 
 import '../../providers/providers.dart';
 
-final counterProvider = StateProvider<int>(
-  // We return the default sort type, here name.
-  (ref) => 0,
-);
-
 class CartItem extends ConsumerStatefulWidget {
-  int quantity = 0;
+  int quantity;
   ProductItem item;
   String userid;
 
@@ -36,38 +31,23 @@ class _CartItemState extends ConsumerState<CartItem> {
     setState(() {
       quan++;
     });
-    // final ciupdate = ref.watch(updatecartitem({
-    //   'id': item.productId,
-    //   'quantity': quan.toString(),
-    //   'userid': userid,
-    // }));
-
-    // Future.delayed(const Duration(milliseconds: 800), () {
-    //   ref.watch(counterProvider.notifier).update((state) => quan);
-    // });
 
     final cartViewModel = ref.read(cartItemsProvider.notifier);
-    cartViewModel.updateCartItem(userid, quan, item.productId);
+    cartViewModel.updateCartItem(userid, quan.toString(), item.productId);
   }
 
   void decrementHandler() {
     setState(() {
       quan--;
     });
-    // final ciupdate = ref.read(updatecartitem({
-    //   'id': item.productId,
-    //   'quantity': quan.toString(),
-    //   'userid': userid,
-    // }));
-    // .whenData((value) =>
-    //     ref.watch(counterProvider.notifier).update((state) => quan));
 
-    // Future.delayed(const Duration(milliseconds: 800), () {
-    //   ref.watch(counterProvider.notifier).update((state) => quan);
-    // });
-
-    final cartViewModel = ref.read(cartItemsProvider.notifier);
-    cartViewModel.updateCartItem(userid, quan, item.productId);
+    if (quan == 0) {
+      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      cartViewModel.removeCartItems(userid, item.productId);
+    } else {
+      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      cartViewModel.updateCartItem(userid, quan.toString(), item.productId);
+    }
   }
 
   @override

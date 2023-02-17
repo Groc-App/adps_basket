@@ -15,9 +15,14 @@ class MainCategory extends ConsumerWidget {
       WidgetRef ref, BuildContext context, double scHeight, double scWidth) {
     final categories = ref.watch(maincategorylistProvider);
 
+    print(
+        "\n:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+
+    print("(Inside Categories.dart list widget) Raw Categories: $categories");
     return categories.when(
       data: (list) {
-        print("Thisssssssssssssssssss is list" + '${list}');
+        print("(Inside Main Categoy List Widget)This is Main Category list " +
+            '${list}');
         return maincategorylistbuilder(list, context, scHeight, scWidth);
       },
       error: (_, __) => const Center(child: Text("ERR")),
@@ -37,7 +42,7 @@ class MainCategory extends ConsumerWidget {
                 0.66,
                 list != null ? list[0].imageurl : '',
                 '/categoryScreen',
-                list != null ? list[2].categoryId : '',
+                list != null ? list[0].categoryId : '',
                 context,
                 scHeight,
                 scWidth),
@@ -46,7 +51,7 @@ class MainCategory extends ConsumerWidget {
                 0.33,
                 list != null ? list[1].imageurl : '',
                 '/categoryScreen',
-                list != null ? list[2].categoryId : '',
+                list != null ? list[1].categoryId : '',
                 context,
                 scHeight,
                 scWidth),
@@ -56,29 +61,29 @@ class MainCategory extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             getCategory(
-                list != null ? list[2].Name : '',
+                list != null ? list[1].Name : '',
                 0.33,
-                list != null ? list[2].imageurl : '',
+                list != null ? list[1].imageurl : '',
                 '/categoryScreen',
-                list != null ? list[2].categoryId : '',
+                list != null ? list[1].categoryId : '',
                 context,
                 scHeight,
                 scWidth),
             getCategory(
-                list != null ? list[3].Name : '',
+                list != null ? list[0].Name : '',
                 0.33,
-                list != null ? list[3].imageurl : '',
+                list != null ? list[0].imageurl : '',
                 '/categoryScreen',
-                list != null ? list[2].categoryId : '',
+                list != null ? list[0].categoryId : '',
                 context,
                 scHeight,
                 scWidth),
             getCategory(
-                list != null ? list[4].Name : '',
+                list != null ? list[1].Name : '',
                 0.33,
-                list != null ? list[4].imageurl : '',
+                list != null ? list[1].imageurl : '',
                 '/categoryScreen',
-                list != null ? list[2].categoryId : '',
+                list != null ? list[1].categoryId : '',
                 context,
                 scHeight,
                 scWidth),
@@ -101,6 +106,7 @@ class MainCategory extends ConsumerWidget {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () {
+          print("\n\nMain Category id:: $maincategoryid");
           Navigator.of(context).pushNamed('${nav_url}',
               arguments: {'maincategoryid': maincategoryid});
         },

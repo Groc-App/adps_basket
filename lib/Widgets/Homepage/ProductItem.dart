@@ -5,11 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../providers/providers.dart';
 
-final ProductItemcounterProvider = StateProvider<int>(
-  // We return the default sort type, here name.
-  (ref) => 0,
-);
-
 class ProductItem extends ConsumerStatefulWidget {
   // const ProductItem({super.key});
 
@@ -39,8 +34,24 @@ class ProductItem extends ConsumerStatefulWidget {
 }
 
 class _ProductItemState extends ConsumerState<ProductItem> {
-  bool added = false;
-  var counter = 1;
+  // bool added = false;
+  var counter = 0;
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+
+  //   // final cartState = ref.read(cartItemsProvider);
+  //   // final data = cartState.cartModel!.products;
+  //   // print('dataitem\n');
+  //   // for (var i = 0; i < data.length; i++) {
+  //   //   if (data[i].Item.productId == id) {
+  //   //     counter = data[i].ItemCount;
+  //   //     break;
+  //   //   }
+  //   // }
+  // }
 
   String id;
   String imageUrl;
@@ -70,58 +81,23 @@ class _ProductItemState extends ConsumerState<ProductItem> {
       setState(() {
         counter++;
       });
-      Map<String, String> mp = {
-        "id": id,
-        "quantity": counter.toString(),
-        "userid": '+917982733943',
-        // "userid": authInfo?.phoneNumber ?? '',
-      };
-      // ref.read(updatecartitem(mp));
-
-      // // to notify changes in cart screen
-
-      // ref
-      //     .read(ProductItemcounterProvider.notifier)
-      //     .update((state) => state + 1);
 
       final cartViewModel = ref.read(cartItemsProvider.notifier);
-      cartViewModel.updateCartItem('+917982733943', counter, id);
+      cartViewModel.updateCartItem('+917982733943', counter.toString(), id);
     }
 
     void decrementHandler() {
-      if (counter == 1) {
-        setState(() {
-          counter--;
-          added = false;
-        });
-        Map<String, String> mp = {
-          "id": id,
-          "quantity": '0',
-          "userid": '+917982733943',
-          // "userid": authInfo?.phoneNumber ?? '',
-        };
-        // ref.read(updatecartitem(mp));
+      setState(() {
+        counter--;
+      });
+
+      if (counter == 0) {
+        final cartViewModel = ref.read(cartItemsProvider.notifier);
+        cartViewModel.removeCartItems('+917982733943', id);
       } else {
-        setState(() {
-          counter--;
-        });
-        Map<String, String> mp = {
-          "id": id,
-          "quantity": counter.toString(),
-          "userid": '+917982733943',
-          // "userid": authInfo?.phoneNumber ?? '',
-        };
-        // ref.read(updatecartitem(mp));
+        final cartViewModel = ref.read(cartItemsProvider.notifier);
+        cartViewModel.updateCartItem('+917982733943', counter.toString(), id);
       }
-
-      // to notify changes in cart screen
-
-      // ref
-      //     .read(ProductItemcounterProvider.notifier)
-      //     .update((state) => state + 1);
-
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
-      cartViewModel.updateCartItem('+917982733943', counter, id);
     }
 
     return Card(
@@ -166,7 +142,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                         style: TextStyle(
                             fontSize: 34, fontWeight: FontWeight.bold),
                       ))),
-              added == true
+              counter != 0
                   ? Container(
                       width: scWidth * 0.48 * 0.36,
                       height: scWidth * 0.48 * 0.16,
@@ -225,26 +201,11 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                               //   );
                               // } else {
                               setState(() {
-                                added = true;
-                                Map<String, String> mp = {
-                                  "id": id,
-                                  "quantity": counter.toString(),
-                                  "userid": '+917982733943',
-                                  // "userid": authInfo?.phoneNumber ?? '',
-                                };
-                                // ref.read(updatecartitem(mp));
-
-                                // // to notify changes in cart screen
-
-                                // ref
-                                //     .watch(ProductItemcounterProvider.notifier)
-                                //     .update((state) => state + 1);
-
-                                final cartViewModel =
-                                    ref.read(cartItemsProvider.notifier);
-                                cartViewModel.updateCartItem(
-                                    '+917982733943', counter.toString(), id);
+                                counter++;
                               });
+                              final cartViewModel =
+                                  ref.read(cartItemsProvider.notifier);
+                              cartViewModel.addCartItems('+917982733943', id);
                             }
                             // }
                             ,
