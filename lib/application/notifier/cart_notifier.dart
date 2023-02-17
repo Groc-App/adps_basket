@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/models/cart/cart.dart';
 import 'package:your_basket/models/cart/cartitem.dart';
 
 import '../../Services/cart_api_service.dart';
@@ -14,7 +15,7 @@ class CartNotifier extends StateNotifier<CartState> {
   Future<void> getCartitems() async {
     state = state.copyWith(isLoading: true);
 
-    final cartdata = await _apiService.getCartitemsApi();
+    var cartdata = await _apiService.getCartitemsApi();
     print("This is cartdata from Cart Notifier $cartdata");
     state = state.copyWith(cartModel: cartdata);
     state = state.copyWith(isLoading: false);
@@ -26,29 +27,55 @@ class CartNotifier extends StateNotifier<CartState> {
     await getCartitems();
   }
 
-  Future<void> removeCartItems(productId, qty) async {
-    var cartItem = state.cartModel!.products
-        .firstWhere((element) => element.Item.productId == productId);
+  Future<void> removeCartItems(userid, productid) async {
+    // print('inside removeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+    // print('inside remove cart item ${productid}');
 
-    var updatedItems = state.cartModel!.products;
+    await _apiService.removeCartItem(userid, productid);
 
-    await _apiService.removeCartItem(productId, qty);
+    var isCartItemExist = state.cartModel!.products
+        .firstWhere((prd) => prd.Item.productId == productid);
 
-    updatedItems.remove(cartItem);
+    // print('\ncartitttttttttttttttttttttttemm');
+    // print(isCartItemExist);
+
+    var updatedItems = state.cartModel!.products.toList();
+    // print('\ndebugginggggggggggggg\n');
+    // print(updatedItems);
+    // print('\ndebugginggggggggggggg doneeeeeeeeeeeeeee\n');
+
+    updatedItems.remove(isCartItemExist);
+    // print('\nafter deletingggggggggggggggggggggggg\n');
+    // print(updatedItems);
+
+    // print('\n brfore doneeeeeeeeeeeeeee\n');
+
+    Cart newcart =
+        new Cart(Number: state.cartModel!.Number, products: updatedItems);
+
+    state = state.copyWith(cartModel: newcart);
+    // print(state.cartModel!.products);
+
   }
 
   Future<void> updateCartItem(number, qty, prductId) async {
-    var cartItem = state.cartModel!.products
-        .firstWhere((element) => element.Item.productId == prductId);
-
-    var updatedItems = state.cartModel!.products;
 
     await _apiService.updatecartitem(number, qty, prductId);
-    CartItem cartProduct = CartItem(Item: cartItem.Item, ItemCount: qty);
 
-    updatedItems.remove(cartItem);
+    var isCartItemExist = state.cartModel!.products
+        .firstWhere((prd) => prd.Item.productId == prductId);
+
+    CartItem cartProduct =
+        CartItem(Item: isCartItemExist.Item, ItemCount: int.parse(qty));
+
+    var updatedItems = state.cartModel!.products.toList();
+
+    updatedItems.remove(isCartItemExist);
     updatedItems.add(cartProduct);
 
-    // await getCartitems();
+    Cart newcart =
+        new Cart(Number: state.cartModel!.Number, products: updatedItems);
+
+    state = state.copyWith(cartModel: newcart);
   }
 }

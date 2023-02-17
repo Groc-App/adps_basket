@@ -12,7 +12,11 @@ class CartItem extends ConsumerStatefulWidget {
   ProductItem item;
   String userid;
 
-  CartItem({required this.quantity, required this.item, required this.userid});
+  CartItem({
+    required this.quantity,
+    required this.item,
+    required this.userid,
+  });
 
   @override
   _CartItemState createState() =>
@@ -24,30 +28,39 @@ class _CartItemState extends ConsumerState<CartItem> {
   int quan;
   String userid;
 
-  _CartItemState(
-      {required this.quan, required this.item, required this.userid});
+  _CartItemState({
+    required this.quan,
+    required this.item,
+    required this.userid,
+  });
 
   void incrementHandler() {
+    int newquan = quan + 1;
+
+    final cartViewModel = ref.read(cartItemsProvider.notifier);
+    cartViewModel.updateCartItem(userid, newquan.toString(), item.productId);
+
     setState(() {
       quan++;
     });
-
-    final cartViewModel = ref.read(cartItemsProvider.notifier);
-    cartViewModel.updateCartItem(userid, quan.toString(), item.productId);
   }
 
   void decrementHandler() {
+    int newquan = quan - 1;
+
+    if (newquan == 0) {
+      print('0000000000000000000000000000000000000000000000000000000000000');
+      print('inside cart item ${item.productId}');
+      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      cartViewModel.removeCartItems(userid, item.productId).whenComplete(() => Navigator.pushReplacementNamed(context, '/cartScreen'));
+    } else {
+      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      cartViewModel.updateCartItem(userid, newquan.toString(), item.productId);
+    }
+
     setState(() {
       quan--;
     });
-
-    if (quan == 0) {
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
-      cartViewModel.removeCartItems(userid, item.productId);
-    } else {
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
-      cartViewModel.updateCartItem(userid, quan.toString(), item.productId);
-    }
   }
 
   @override
@@ -55,6 +68,11 @@ class _CartItemState extends ConsumerState<CartItem> {
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
     final scWidth = scSize.width - 10 - 4 - 8;
+
+    print('\ncart itemmmmmmmmmmmmmm rebuild ho rhi hhhhhhhhhhhhhhhhhhhh\n${item.Name}');
+
+    print('\ninside cart itemmmmmmmmmmmmmmmmmmmm\n');
+    print(item);
 
     return Container(
         height: scHeight * 0.18,
