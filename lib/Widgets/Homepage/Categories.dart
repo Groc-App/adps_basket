@@ -34,6 +34,7 @@ class MainCategory extends ConsumerWidget {
       double scHeight, double scWidth) {
     return Column(
       children: [
+        Text('Categories'),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

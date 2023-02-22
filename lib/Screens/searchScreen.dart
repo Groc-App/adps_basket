@@ -71,57 +71,65 @@ class _SearchScreenState extends State<SearchScreen> {
     final scHeight = scSize.height;
     return Scaffold(
       /* --------------------------------- APP BAR -------------------------------- */
-      appBar: AppBar(
-          centerTitle: true,
-          // ignore: prefer_const_constructors
-          title: Text(
-            "Milk And Bakery",
-            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 28),
-          ),
-          backgroundColor: const Color.fromARGB(255, 237, 230, 230)),
+      // appBar: AppBar(
+      //     centerTitle: true,
+      //     // ignore: prefer_const_constructors
+      //     title: Text(
+      //       "Milk And Bakery",
+      //       style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 28),
+      //     ),
+      //     backgroundColor: const Color.fromARGB(255, 237, 230, 230)),
+
       backgroundColor: const Color.fromARGB(255, 237, 230, 230),
 
       /* ---------------------------------- BODY ---------------------------------- */
 
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            /* ---------------------------- Top SLider Bar ---------------------------- */
-            Container(
-              height: 50,
-              margin: const EdgeInsets.all(8),
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(boxShadow: const [
-                BoxShadow(color: Colors.grey, spreadRadius: 1, blurRadius: 1)
-              ], color: Colors.white, borderRadius: BorderRadius.circular(20)),
-              child: Row(
-                children: [
-                  const Icon(Icons.search),
-                  Container(
-                    width: 250,
-                    margin: const EdgeInsets.only(left: 10),
-                    child: TextFormField(
-                      onChanged: (value) {
-                        runFilter(value);
-                      },
-                      decoration: const InputDecoration(
-                        hintText: "Search here......",
-                        border: InputBorder.none,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          // padding: EdgeInsets.only(top: MediaQuery.of(context).size.),
+          child: Column(
+            children: [
+              /* ---------------------------- Top SLider Bar ---------------------------- */
+              Container(
+                height: 50,
+                margin: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Colors.grey, spreadRadius: 1, blurRadius: 1)
+                    ],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Row(
+                  children: [
+                    const Icon(Icons.search),
+                    Container(
+                      width: 250,
+                      margin: const EdgeInsets.only(left: 10),
+                      child: TextFormField(
+                        autofocus: true,
+                        onChanged: (value) {
+                          runFilter(value);
+                        },
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'Search',
+                        ).copyWith(isDense: true),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            foundUser.isEmpty
-                ? SizedBox(
-                    height: scHeight * 0.8,
-                    child: const Center(child: Text("Your Items")),
-                  )
-                : SizedBox(
-                    /* ---------------------- Building Categories Item Grid --------------------- */
-                    child: buildProducts(foundUser))
-          ],
+              foundUser.isEmpty
+                  ? SizedBox(
+                      height: scHeight * 0.8,
+                      child: const Center(child: Text("Your Items")),
+                    )
+                  : SizedBox(
+                      /* ---------------------- Building Categories Item Grid --------------------- */
+                      child: buildProducts(foundUser))
+            ],
+          ),
         ),
       ),
     );
