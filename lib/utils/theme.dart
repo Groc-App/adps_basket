@@ -14,8 +14,18 @@ class MyTheme {
           toolbarTextStyle: Theme.of(context).textTheme.bodyMedium,
           titleTextStyle: Theme.of(context).textTheme.titleLarge,
         ),
-        primaryColor: Colors.deepPurple[300],
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple)
-            .copyWith(background: const Color.fromARGB(245, 246, 251, 255)),
+
+        primaryColor: const Color.fromRGBO(227, 213, 202, 1),
+        dividerColor: const Color.fromRGBO(214, 204, 194, 1),
+
+        buttonTheme: const ButtonThemeData(
+            buttonColor: Color.fromRGBO(214, 204, 194, 1),
+            hoverColor: Color.fromRGBO(227, 213, 202, 1)),
+        // cardColor: Color.fromRGBO(245, 235, 224, 1),
+
+        cardTheme: const CardTheme(color: Color.fromRGBO(245, 235, 224, 1)),
+
+        backgroundColor: const Color.fromRGBO(237, 237, 233, 1),
+        bottomAppBarColor: const Color.fromRGBO(213, 189, 175, 1),
       );
 }
