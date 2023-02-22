@@ -21,17 +21,15 @@ class SearchBar extends StatelessWidget {
           const Icon(Icons.search),
           Container(
             alignment: Alignment.center,
-            decoration: BoxDecoration(border: Border.all(width: 2)),
             width: 250,
             margin: const EdgeInsets.only(left: 10),
             child: TextFormField(
               onTap: () {
                 Navigator.of(context).pushNamed('/searchScreen');
               },
-              decoration: const InputDecoration(
-                hintText: "Search here......",
-                border: InputBorder.none,
-              ),
+              decoration: InputDecoration.collapsed(
+                hintText: 'Search here',
+              ).copyWith(isDense: true),
             ),
           ),
         ],

@@ -24,12 +24,20 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
+        title: Text('SpeedGrocery'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/searchScreen');
+              },
+              icon: Icon(Icons.search))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
           // ignore: prefer_const_literals_to_create_immutables
           children: [
-            // Carousel(),
+            Carousel(),
             MainCategory(),
             MostSelling(),
           ],
