@@ -38,6 +38,7 @@ class Config {
   static const String createcartitemApi = '/user/createcartitem';
 
   static const String getalladdressbyid = '/user/getaddresses';
+  static const String getselectedaddress = '/user/fetchselectedaddress';
 
   static const String removeCartItem = '/cart/deleteCartItem';
 }

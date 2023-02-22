@@ -8,6 +8,7 @@ import '../Services/user_api_service.dart';
 import '../application/notifier/cart_notifier.dart';
 import '../application/state/cart_state.dart';
 import '../models/address/address.dart';
+import '../models/address/selectedaddress.dart';
 import '../models/cart/cartitem.dart';
 import '../models/product/productdetail.dart';
 import 'package:your_basket/models/product/products.dart';
@@ -34,6 +35,15 @@ final addressListProvider = FutureProvider.family<List<Address>?, String?>(
     final apiRespository = ref.watch(addressApiService);
 
     return apiRespository.fetchalladdressbyid(number);
+  },
+);
+
+final selectedAddressProvider =
+    FutureProvider.family<SelectedAddress?, String?>(
+  (ref, number) {
+    final apiRespository = ref.watch(addressApiService);
+
+    return apiRespository.fetchselectedaddress(number);
   },
 );
 

@@ -27,7 +27,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
   double pricetotal = 0.0;
   int listsize = 0;
-  var datalist;
+  List<CartItemModel.CartItem>? datalist;
 
   Widget _cartList(WidgetRef ref, scHeight, scWidth) {
     final cartState = ref.watch(cartItemsProvider);
@@ -213,7 +213,11 @@ class _CartScreenState extends ConsumerState<CartScreen> {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/checkoutScreen', arguments: {'number': '+917982733943', 'cartProductList': datalist, 'tamount': pricetotal});
+                Navigator.pushNamed(context, '/checkoutScreen', arguments: {
+                  'number': '+917982733943',
+                  'cartProductList': datalist,
+                  'tamount': pricetotal
+                });
               },
               child: Container(
                   width: scWidth,

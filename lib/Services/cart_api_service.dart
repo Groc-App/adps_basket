@@ -13,7 +13,8 @@ final cartApiService = Provider((ref) => APIServiceCart());
 class APIServiceCart {
   static var client = http.Client();
 
-  Future<void> placeorder(String number, String tamount, productlist) async {
+  Future<void> placeorder(
+      String number, String tamount, productlist, addressmap) async {
     print('Inside Api\n');
 
     print('$number\n');
@@ -44,7 +45,8 @@ class APIServiceCart {
       body: jsonEncode({
         "userid": number,
         "tamount": tamount,
-        "orderdetail": productlist
+        "orderdetail": productlist,
+        "address": addressmap,
       }),
     );
 
@@ -160,7 +162,6 @@ class APIServiceCart {
     };
 
     print('inside cart item ${productid}');
-
 
     var ur = Config.removeCartItem;
 

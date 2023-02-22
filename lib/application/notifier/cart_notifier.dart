@@ -55,11 +55,9 @@ class CartNotifier extends StateNotifier<CartState> {
 
     state = state.copyWith(cartModel: newcart);
     // print(state.cartModel!.products);
-
   }
 
   Future<void> updateCartItem(number, qty, prductId) async {
-
     await _apiService.updatecartitem(number, qty, prductId);
 
     var isCartItemExist = state.cartModel!.products
@@ -79,7 +77,7 @@ class CartNotifier extends StateNotifier<CartState> {
     state = state.copyWith(cartModel: newcart);
   }
 
-  Future<void> placeOrder(number, tamount, productList) async {
+  Future<void> placeOrder(number, tamount, productList, addressmap) async {
     print('In place order');
     print('$number\n');
     print('$tamount\n');
@@ -87,7 +85,7 @@ class CartNotifier extends StateNotifier<CartState> {
 
     print('hiii');
 
-    await _apiService.placeorder(number, tamount, productList);
+    await _apiService.placeorder(number, tamount, productList, addressmap);
 
     print('hiii 22');
 
@@ -99,9 +97,8 @@ class CartNotifier extends StateNotifier<CartState> {
 
     print('after deleting $updatedItems');
 
-
     Cart newcart =
-    new Cart(Number: state.cartModel!.Number, products: updatedItems);
+        new Cart(Number: state.cartModel!.Number, products: updatedItems);
 
     state = state.copyWith(cartModel: newcart);
   }
