@@ -1,20 +1,27 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:your_basket/models/product/products.dart';
+import 'package:your_basket/models/product/productdetail.dart';
 
 class OrdereItem extends StatelessWidget {
   // const OrdereItem({super.key});
 
   final String orderID;
   String totalAmount;
+  DateTime date;
+  String address;
+  String orderStatus;
   // String imageUrl;
-  // String date;
+  List<Map<String, dynamic>> orderDetails;
 
   OrdereItem(
       {required this.orderID,
-      // required this.date,
-      // required this.imageUrl,
-      required this.totalAmount});
+      required this.date,
+      required this.address,
+      required this.orderDetails,
+      required this.totalAmount,
+      required this.orderStatus});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +30,16 @@ class OrdereItem extends StatelessWidget {
       // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
       child: ListTile(
         onTap: () {
-          Navigator.of(context).pushNamed('/orderSummaryScreen');
+          print("OrderDetails Inside Order Item Build:::");
+          print("$orderID, $orderID,$orderDetails, $totalAmount, $date");
+          Navigator.of(context).pushNamed('/orderSummaryScreen', arguments: {
+            'orderID': orderID,
+            'date': date,
+            'address': address,
+            'totalAmount': totalAmount,
+            'orderDetails': orderDetails,
+            'orderStatus': orderStatus
+          });
         },
         leading: CircleAvatar(
           radius: 22,

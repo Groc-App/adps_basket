@@ -73,7 +73,7 @@ class APIServiceCart {
 
     var url = Uri.http(Config.apiURL, ur);
 
-    print(url);
+    // print("This is url of Cart api service $url");
 
     var response = await client.get(
       url,
@@ -83,12 +83,12 @@ class APIServiceCart {
 
     var data = response.statusCode;
     // print(response.body['data']['CartItem']['Item']);
-    print("This is data after fetch$data");
+    // print("This is data after fetch$data");
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      print('\n\n\n');
-      print("This is data after fetch$data");
+      // print('\n\n\n');
+      // print("This is data after fetch$data");
 
       return Cart.fromJson(data['data']);
     } else {

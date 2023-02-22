@@ -14,12 +14,12 @@ class ProductItemScreen extends ConsumerWidget {
 
   Widget productdetail(WidgetRef ref, BuildContext context) {
     final prdct = ref.watch(productByidProvider(productid));
-    print(prdct);
+    // print(prdct);
     return prdct.when(
       data: (dt) {
         // return buildCategory(list);
-        print("this is Productt||||||||||||||");
-        print(dt);
+        // print("this is Productt||||||||||||||");
+        // print(dt);
         return buildProduct(dt, context);
       },
       error: (_, __) => const Center(child: Text("ERR")),

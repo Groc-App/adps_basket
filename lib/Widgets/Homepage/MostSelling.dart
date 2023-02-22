@@ -13,7 +13,7 @@ class MostSelling extends StatelessWidget {
 
   Widget productList(WidgetRef ref, scWidth) {
     final categories = ref.watch(mostsellingproductProvider);
-    print("Inside Product List of Most selling: $categories");
+    // print("Inside Product List of Most selling: $categories");
     return categories.when(
       data: (list) {
         // print("Thisssssssssssssssssss is list" + '${list}');

@@ -21,9 +21,12 @@ Orders _$OrdersFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Orders {
   String get OrderId => throw _privateConstructorUsedError;
+  String get Address => throw _privateConstructorUsedError;
   int get TotalAmount => throw _privateConstructorUsedError;
+  DateTime get Date => throw _privateConstructorUsedError;
   String get OrderStatus => throw _privateConstructorUsedError;
-  List<Object> get OrderDetails => throw _privateConstructorUsedError;
+  List<Map<String, dynamic>> get OrderDetails =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,9 +40,11 @@ abstract class $OrdersCopyWith<$Res> {
   @useResult
   $Res call(
       {String OrderId,
+      String Address,
       int TotalAmount,
+      DateTime Date,
       String OrderStatus,
-      List<Object> OrderDetails});
+      List<Map<String, dynamic>> OrderDetails});
 }
 
 /// @nodoc
@@ -56,7 +61,9 @@ class _$OrdersCopyWithImpl<$Res, $Val extends Orders>
   @override
   $Res call({
     Object? OrderId = null,
+    Object? Address = null,
     Object? TotalAmount = null,
+    Object? Date = null,
     Object? OrderStatus = null,
     Object? OrderDetails = null,
   }) {
@@ -65,10 +72,18 @@ class _$OrdersCopyWithImpl<$Res, $Val extends Orders>
           ? _value.OrderId
           : OrderId // ignore: cast_nullable_to_non_nullable
               as String,
+      Address: null == Address
+          ? _value.Address
+          : Address // ignore: cast_nullable_to_non_nullable
+              as String,
       TotalAmount: null == TotalAmount
           ? _value.TotalAmount
           : TotalAmount // ignore: cast_nullable_to_non_nullable
               as int,
+      Date: null == Date
+          ? _value.Date
+          : Date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       OrderStatus: null == OrderStatus
           ? _value.OrderStatus
           : OrderStatus // ignore: cast_nullable_to_non_nullable
@@ -76,7 +91,7 @@ class _$OrdersCopyWithImpl<$Res, $Val extends Orders>
       OrderDetails: null == OrderDetails
           ? _value.OrderDetails
           : OrderDetails // ignore: cast_nullable_to_non_nullable
-              as List<Object>,
+              as List<Map<String, dynamic>>,
     ) as $Val);
   }
 }
@@ -89,9 +104,11 @@ abstract class _$$_OrderCopyWith<$Res> implements $OrdersCopyWith<$Res> {
   @useResult
   $Res call(
       {String OrderId,
+      String Address,
       int TotalAmount,
+      DateTime Date,
       String OrderStatus,
-      List<Object> OrderDetails});
+      List<Map<String, dynamic>> OrderDetails});
 }
 
 /// @nodoc
@@ -104,7 +121,9 @@ class __$$_OrderCopyWithImpl<$Res> extends _$OrdersCopyWithImpl<$Res, _$_Order>
   @override
   $Res call({
     Object? OrderId = null,
+    Object? Address = null,
     Object? TotalAmount = null,
+    Object? Date = null,
     Object? OrderStatus = null,
     Object? OrderDetails = null,
   }) {
@@ -113,10 +132,18 @@ class __$$_OrderCopyWithImpl<$Res> extends _$OrdersCopyWithImpl<$Res, _$_Order>
           ? _value.OrderId
           : OrderId // ignore: cast_nullable_to_non_nullable
               as String,
+      Address: null == Address
+          ? _value.Address
+          : Address // ignore: cast_nullable_to_non_nullable
+              as String,
       TotalAmount: null == TotalAmount
           ? _value.TotalAmount
           : TotalAmount // ignore: cast_nullable_to_non_nullable
               as int,
+      Date: null == Date
+          ? _value.Date
+          : Date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       OrderStatus: null == OrderStatus
           ? _value.OrderStatus
           : OrderStatus // ignore: cast_nullable_to_non_nullable
@@ -124,7 +151,7 @@ class __$$_OrderCopyWithImpl<$Res> extends _$OrdersCopyWithImpl<$Res, _$_Order>
       OrderDetails: null == OrderDetails
           ? _value._OrderDetails
           : OrderDetails // ignore: cast_nullable_to_non_nullable
-              as List<Object>,
+              as List<Map<String, dynamic>>,
     ));
   }
 }
@@ -134,9 +161,11 @@ class __$$_OrderCopyWithImpl<$Res> extends _$OrdersCopyWithImpl<$Res, _$_Order>
 class _$_Order implements _Order {
   _$_Order(
       {required this.OrderId,
+      required this.Address,
       required this.TotalAmount,
+      required this.Date,
       required this.OrderStatus,
-      required final List<Object> OrderDetails})
+      required final List<Map<String, dynamic>> OrderDetails})
       : _OrderDetails = OrderDetails;
 
   factory _$_Order.fromJson(Map<String, dynamic> json) =>
@@ -145,12 +174,16 @@ class _$_Order implements _Order {
   @override
   final String OrderId;
   @override
+  final String Address;
+  @override
   final int TotalAmount;
   @override
-  final String OrderStatus;
-  final List<Object> _OrderDetails;
+  final DateTime Date;
   @override
-  List<Object> get OrderDetails {
+  final String OrderStatus;
+  final List<Map<String, dynamic>> _OrderDetails;
+  @override
+  List<Map<String, dynamic>> get OrderDetails {
     if (_OrderDetails is EqualUnmodifiableListView) return _OrderDetails;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_OrderDetails);
@@ -158,7 +191,7 @@ class _$_Order implements _Order {
 
   @override
   String toString() {
-    return 'Orders(OrderId: $OrderId, TotalAmount: $TotalAmount, OrderStatus: $OrderStatus, OrderDetails: $OrderDetails)';
+    return 'Orders(OrderId: $OrderId, Address: $Address, TotalAmount: $TotalAmount, Date: $Date, OrderStatus: $OrderStatus, OrderDetails: $OrderDetails)';
   }
 
   @override
@@ -167,8 +200,10 @@ class _$_Order implements _Order {
         (other.runtimeType == runtimeType &&
             other is _$_Order &&
             (identical(other.OrderId, OrderId) || other.OrderId == OrderId) &&
+            (identical(other.Address, Address) || other.Address == Address) &&
             (identical(other.TotalAmount, TotalAmount) ||
                 other.TotalAmount == TotalAmount) &&
+            (identical(other.Date, Date) || other.Date == Date) &&
             (identical(other.OrderStatus, OrderStatus) ||
                 other.OrderStatus == OrderStatus) &&
             const DeepCollectionEquality()
@@ -177,8 +212,8 @@ class _$_Order implements _Order {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, OrderId, TotalAmount,
-      OrderStatus, const DeepCollectionEquality().hash(_OrderDetails));
+  int get hashCode => Object.hash(runtimeType, OrderId, Address, TotalAmount,
+      Date, OrderStatus, const DeepCollectionEquality().hash(_OrderDetails));
 
   @JsonKey(ignore: true)
   @override
@@ -197,20 +232,26 @@ class _$_Order implements _Order {
 abstract class _Order implements Orders {
   factory _Order(
       {required final String OrderId,
+      required final String Address,
       required final int TotalAmount,
+      required final DateTime Date,
       required final String OrderStatus,
-      required final List<Object> OrderDetails}) = _$_Order;
+      required final List<Map<String, dynamic>> OrderDetails}) = _$_Order;
 
   factory _Order.fromJson(Map<String, dynamic> json) = _$_Order.fromJson;
 
   @override
   String get OrderId;
   @override
+  String get Address;
+  @override
   int get TotalAmount;
+  @override
+  DateTime get Date;
   @override
   String get OrderStatus;
   @override
-  List<Object> get OrderDetails;
+  List<Map<String, dynamic>> get OrderDetails;
   @override
   @JsonKey(ignore: true)
   _$$_OrderCopyWith<_$_Order> get copyWith =>

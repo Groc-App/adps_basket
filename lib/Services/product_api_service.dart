@@ -24,8 +24,8 @@ class APIServiceProducts {
       headers: requestHeaders,
     );
     var data = jsonDecode(response.body);
-    print("\n\Response Product data:");
-    print(data['data']);
+    // print("\n\Response Product data:");
+    // print(data['data']);
 
     return productsFromJson(data['data']);
   }
@@ -79,17 +79,17 @@ class APIServiceProducts {
       // body: jsonEncode({"phone": }),
     );
 
-    print(response.body);
+    // print(response.body);
     Map<String, dynamic> prdcts;
     if (response.statusCode == 200) {
-      print('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+      // print('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
       var data = jsonDecode(response.body);
       prdcts = data["data"];
 
-      print("Product response::");
-      print(prdcts['Products']);
+      // print("Product response::");
+      // print(prdcts['Products']);
 
-      print('byeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+      // print('byeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
       return productsFromJson(prdcts['Products']);
     } else {
       return null;

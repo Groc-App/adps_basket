@@ -15,14 +15,14 @@ class MainCategory extends ConsumerWidget {
       WidgetRef ref, BuildContext context, double scHeight, double scWidth) {
     final categories = ref.watch(maincategorylistProvider);
 
-    print(
-        "\n:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+    // print(
+    //     "\n:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
 
-    print("(Inside Categories.dart list widget) Raw Categories: $categories");
+    // print("(Inside Categories.dart list widget) Raw Categories: $categories");
     return categories.when(
       data: (list) {
-        print("(Inside Main Categoy List Widget)This is Main Category list " +
-            '${list}');
+        // print("(Inside Main Categoy List Widget)This is Main Category list " +
+        //     '${list}');
         return maincategorylistbuilder(list, context, scHeight, scWidth);
       },
       error: (_, __) => const Center(child: Text("ERR")),

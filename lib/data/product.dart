@@ -18,13 +18,13 @@ class ProductData extends ConsumerWidget {
   Widget setData(WidgetRef ref) {
     final productsData = ref.watch(allProductProvider);
 
-    print("\n\nInside productData function");
+    // print("\n\nInside productData function");
     print(product_list);
     return productsData.when(data: (list) {
-      print("\n\nInside productData list");
+      // print("\n\nInside productData list");
       // product_list = list;
-      print("\n\n\n\nThis is listttt");
-      print(list);
+      // print("\n\n\n\nThis is listttt");
+      // print(list);
       return Text("");
     }, error: (_, __) {
       print("\n\nInside productData error");
@@ -37,7 +37,7 @@ class ProductData extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print("\n\nInside productData widget");
+    // print("\n\nInside productData widget");
     setData(ref);
 
     return Container();

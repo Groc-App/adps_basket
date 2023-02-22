@@ -38,7 +38,7 @@ class CategoryScreen extends ConsumerWidget {
 
     return categories.when(
       data: (list) {
-        print("\nThiss is list of Sub Categories:" + '${list}');
+        // print("\nThiss is list of Sub Categories:" + '${list}');
         return buildCategory(list);
       },
       error: (_, __) => const Center(child: Text("ERR")),
@@ -47,8 +47,8 @@ class CategoryScreen extends ConsumerWidget {
   }
 
   Widget productList(WidgetRef ref, Map<String, String> map) {
-    print("\nthis is category name ..........................||||||||||||");
-    print(map);
+    // print("\nthis is category name ..........................||||||||||||");
+    // print(map);
     final products = ref.watch(productsByCategoryProvider(map));
     return products.when(
       data: (list) {
@@ -137,8 +137,8 @@ class CategoryScreen extends ConsumerWidget {
 
     Map<String, String> map =
         ref.watch(categoryProvider(categ['maincategoryid']));
-    print("\n||||||||This is update cateogry ||||||||");
-    print(map);
+    // print("\n||||||||This is update cateogry ||||||||");
+    // print(map);
     /* ------------------------------- dummy Data ------------------------------- */
     // var dummyList = List.generate(20, (index) => Catalog().products[0]);
 

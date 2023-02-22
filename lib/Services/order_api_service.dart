@@ -30,11 +30,11 @@ class APIServiceOrder {
       // body: jsonEncode({"phone": }),
     );
 
-    print(response.body);
+    // print(response.body);
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      print("This is data ${data['data']['Order']}");
+      // print("This is data ${data['data']['Order']}");
       return ordersFromJson(data['data']['Order']);
     } else {
       return null;
