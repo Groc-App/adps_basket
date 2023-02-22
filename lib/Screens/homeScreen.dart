@@ -24,6 +24,7 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
+        // iconTheme: IconThemeData(),
         title: Text('SpeedGrocery'),
         actions: [
           IconButton(

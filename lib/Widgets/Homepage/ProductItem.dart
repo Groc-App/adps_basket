@@ -113,7 +113,6 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     }
 
     return Card(
-      color: Colors.amber,
       child:
           Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Flexible(
