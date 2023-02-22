@@ -112,6 +112,7 @@ class MainCategory extends ConsumerWidget {
               arguments: {'maincategoryid': maincategoryid});
         },
         child: Container(
+          decoration: BoxDecoration(color: Color.fromRGBO(244, 235, 247, 0.7)),
           height: scHeight * 0.25,
           width: scWidth * wid_th,
           child: Container(
