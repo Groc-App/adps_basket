@@ -112,6 +112,7 @@ class MainCategory extends ConsumerWidget {
               arguments: {'maincategoryid': maincategoryid});
         },
         child: Container(
+          // decoration: BoxDecoration(color: Color.fromRGBO(229, 206, 237, 0.76)),
           height: scHeight * 0.25,
           width: scWidth * wid_th,
           child: Container(
@@ -119,17 +120,21 @@ class MainCategory extends ConsumerWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: Container(
+                // ignore: prefer_const_constructors
                 decoration: BoxDecoration(
-                  image: new DecorationImage(
-                    image: new AssetImage("assets/images/MilkPng.png"),
+                  color: Color.fromARGB(255, 178, 193, 202),
+                  // ignore: prefer_const_constructors
+                  image: DecorationImage(
+                    image: const AssetImage("assets/images/MilkPng.png"),
                     fit: BoxFit.fill,
                   ),
                 ),
-                alignment: Alignment(0, 1),
+                alignment: const Alignment(0, 1),
                 child: FittedBox(
                   child: Text(
                     name,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                 ),
               ),
