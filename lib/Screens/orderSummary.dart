@@ -48,8 +48,6 @@ class OrderSummaryScreen extends StatelessWidget {
               /* ------------------------- Order Summary Container ------------------------ */
               /* -------------------------------------------------------------------------- */
               Container(
-                // height: min(scHeight * 0.4, 400),
-                // height: 200,
                 padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                     boxShadow: [BoxShadow(blurRadius: 2)],
@@ -112,10 +110,7 @@ class OrderSummaryScreen extends StatelessWidget {
 
                             double price = orderDetails[i]['Product']['Price'] *
                                 orderDetails[i]['Quantity'];
-                            // print(
-                            //     "Data type of:: ${orderDetails[i]['Product']['Price'].runtimeType}");
-                            // print(
-                            //     "Data type of:: ${orderDetails[i]['Product']['Quantity'].runtimeType}");
+
                             return ListTile(
                               leading: ClipRRect(
                                 borderRadius: BorderRadius.all(Radius.circular(
