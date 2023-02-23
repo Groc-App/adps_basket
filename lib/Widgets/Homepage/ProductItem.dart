@@ -113,7 +113,8 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     }
 
     return Card(
-      color: Colors.amber,
+      // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      // color: Colors.white,
       child:
           Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Flexible(
