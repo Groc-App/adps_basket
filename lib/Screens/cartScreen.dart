@@ -147,7 +147,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 237, 230, 230),
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
+        // backgroundColor: Tsheme.of(context).primaryColor,
         centerTitle: true,
         title: Column(
           children: [

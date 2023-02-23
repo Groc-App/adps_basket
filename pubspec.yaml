@@ -89,6 +89,10 @@ flutter:
     - assets/images/MilkPng.png
     - assets\images\noInternet.jpg
     - assets/images/Dairy-Products-Png.png
+    - assets/images/c1.jpg
+    - assets/images/c2.jpg
+    - assets/images/c3.jpg
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

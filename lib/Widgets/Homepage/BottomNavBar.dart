@@ -43,15 +43,17 @@ class _BotmNavBarState extends State<BotmNavBar> {
       currentIndex: _selectedindex,
       onTap: _setIndex,
       type: BottomNavigationBarType.fixed,
-      backgroundColor: Colors.deepPurple,
-      selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.grey,
+      // backgroundColor: Colors.deepPurple,
+      // selectedItemColor: Colors.white,
+      // unselectedItemColor: Colors.grey,
       items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.shopping_bag), label: 'Cart'),
-        BottomNavigationBarItem(icon: Icon(Icons.local_offer), label: 'Offer'),
+        BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.verified_user), label: 'Profile'),
+            icon: Icon(Icons.shopping_bag_outlined), label: 'Cart'),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.local_offer_outlined), label: 'Offer'),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.person_2_outlined), label: 'Profile'),
       ],
     );
   }

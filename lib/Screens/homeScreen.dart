@@ -21,11 +21,16 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
+        // backgroundColor: Colors.deepPurple,
         // iconTheme: IconThemeData(),
+        leading: Icon(
+          Icons.shopping_cart_outlined,
+          color: Color.fromRGBO(83, 177, 117, 1),
+        ),
         title: Text('SpeedGrocery'),
+        centerTitle: true,
         actions: [
           IconButton(
               onPressed: () {

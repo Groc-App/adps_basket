@@ -26,18 +26,30 @@ class Carousel extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               color: Colors.red,
+              image: DecorationImage(
+                image: const AssetImage("assets/images/c1.jpg"),
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               color: Colors.blue,
+              image: DecorationImage(
+                image: const AssetImage("assets/images/c2.jpg"),
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               color: Colors.green,
+              image: DecorationImage(
+                image: const AssetImage("assets/images/c2.jpg"),
+                fit: BoxFit.fill,
+              ),
             ),
           ),
         ],
