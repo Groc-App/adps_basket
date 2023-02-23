@@ -8,25 +8,32 @@ import '../models/address/address.dart' as AddressModel;
 class AddressBook extends ConsumerWidget {
   AddressBook({super.key});
 
-  Widget addressList(WidgetRef ref, String? phonenumber) {
-    final addresses = ref.watch(addressListProvider(phonenumber));
+  Widget _addressList(WidgetRef ref) {
+    final AddressBookState = ref.watch(addressBokkProvider);
 
-    return addresses.when(
-      data: (list) {
-        print("\nThisssssssssssssssssss is list" + '${list}');
-        return buildAddress(list);
-      },
-      error: (_, __) => const Center(child: Text("ERR")),
-      loading: () => const Center(child: CircularProgressIndicator()),
-    );
+    if (AddressBookState.AddressBookModel == null) {
+      return const LinearProgressIndicator();
+    }
+
+    if (AddressBookState.AddressBookModel!.addresses.isEmpty) {
+      return NoItems(
+        noitemtext: 'Your Address Book is Empty!!!!',
+      );
+    }
+
+    print('dobara bani hhhhhhhhhhhhhhhhhhh\n');
+    print(AddressBookState.AddressBookModel!.addresses);
+
+    return _buildAddressList(AddressBookState.AddressBookModel!.addresses
+        .cast<AddressModel.Address>());
   }
 
-  Widget buildAddress(List<AddressModel.Address>? list) {
+  Widget _buildAddressList(List<AddressModel.Address>? list) {
     return Column(
-      children: list!.map((index) {
+      children: list!.map((value) {
         return Column(
           children: [
-            Address(),
+            Address(data: value),
             Divider(),
           ],
         );
@@ -34,10 +41,11 @@ class AddressBook extends ConsumerWidget {
     );
   }
 
-  // var savedAdresses = [{}, {}, {}, {}];
-
-  void bottomsheet(context, scHeight) {
+  void bottomsheet(WidgetRef ref, BuildContext context, String phonenumber,
+      double scHeight) {
     final _formKey = GlobalKey<FormState>();
+    String? name, flatnumber, society, city, pincode;
+
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -63,6 +71,7 @@ class AddressBook extends ConsumerWidget {
                         Container(
                           margin: EdgeInsets.only(bottom: 10),
                           child: TextFormField(
+                            onSaved: (value) => name = value,
                             decoration: const InputDecoration(
                               border: UnderlineInputBorder(),
                               labelText: 'Recepient\'s name',
@@ -78,6 +87,7 @@ class AddressBook extends ConsumerWidget {
                         Container(
                           margin: EdgeInsets.only(bottom: 10),
                           child: TextFormField(
+                            onSaved: (value) => flatnumber = value,
                             decoration: const InputDecoration(
                               border: UnderlineInputBorder(),
                               labelText: 'Flat/House number',
@@ -93,6 +103,7 @@ class AddressBook extends ConsumerWidget {
                         Container(
                           margin: EdgeInsets.only(bottom: 10),
                           child: TextFormField(
+                            onSaved: (value) => society = value,
                             decoration: const InputDecoration(
                               border: UnderlineInputBorder(),
                               labelText: 'Street/Society',
@@ -108,6 +119,7 @@ class AddressBook extends ConsumerWidget {
                         Container(
                           margin: EdgeInsets.only(bottom: 10),
                           child: TextFormField(
+                            onSaved: (value) => city = value,
                             decoration: const InputDecoration(
                               border: UnderlineInputBorder(),
                               labelText: 'City',
@@ -123,6 +135,7 @@ class AddressBook extends ConsumerWidget {
                         Container(
                           margin: EdgeInsets.only(bottom: 10),
                           child: TextFormField(
+                            onSaved: (value) => pincode = value,
                             decoration: const InputDecoration(
                               border: UnderlineInputBorder(),
                               labelText: 'Pincode',
@@ -140,11 +153,24 @@ class AddressBook extends ConsumerWidget {
                           child: ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                Navigator.pop(context);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Processing Data')),
-                                );
+                                _formKey.currentState!.save();
+                                Map<String, String?> mp = {
+                                  "number": phonenumber,
+                                  "Recipients_Name": name,
+                                  "Flat_FLoor_Tower": flatnumber,
+                                  "Street_Society": society,
+                                  "City": city,
+                                  "Pincode": pincode
+                                };
+                                final addressModel =
+                                    ref.read(addressBokkProvider.notifier);
+                                addressModel.addNewAddress(mp).whenComplete(() {
+                                  Navigator.pop(context);
+                                });
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                //   const SnackBar(
+                                //       content: Text('Processing Data')),
+                                // );
                               }
                             },
                             child: const Text('Submit'),
@@ -163,8 +189,8 @@ class AddressBook extends ConsumerWidget {
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
 
-    var authInfo = ref.watch(authCheckProvider);
-    print(authInfo?.uid);
+    // var authInfo = ref.watch(authCheckProvider);
+    // print(authInfo?.uid);
 
     return Scaffold(
       /* --------------------------------- appBar --------------------------------- */
@@ -175,41 +201,43 @@ class AddressBook extends ConsumerWidget {
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
           ),
           backgroundColor: const Color.fromARGB(255, 243, 243, 243)),
-      body: authInfo == null
-          ? NoItems(
-              noitemtext: 'Login/Signup first',
-              pageroute: 'loginpage',
-            )
-          : SingleChildScrollView(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  /* -------------------------------------------------------------------------- */
-                  child: GestureDetector(
-                    onTap: (() {
-                      bottomsheet(context, scHeight);
-                    }),
-                    child: const Row(
-                      children: [
-                        Icon(Icons.add),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          "Add New Address",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 18, 180, 23)),
-                        )
-                      ],
-                    ),
+      body:
+          // authInfo == null
+          //     ?
+          // NoItems(
+          //     noitemtext: 'Login/Signup first',
+          //     pageroute: 'loginpage',
+          //   )
+          // :
+          SingleChildScrollView(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(children: [
+          Padding(
+            padding: const EdgeInsets.all(10),
+            /* -------------------------------------------------------------------------- */
+            child: GestureDetector(
+              onTap: (() {
+                bottomsheet(ref, context, '+917982733943', scHeight);
+              }),
+              child: const Row(
+                children: [
+                  Icon(Icons.add),
+                  SizedBox(
+                    width: 5,
                   ),
-                ),
-                const Divider(),
-                /* -------------------------------------------------------------------------- */
-                addressList(ref, authInfo.phoneNumber),
-              ]),
+                  Text(
+                    "Add New Address",
+                    style: TextStyle(color: Color.fromARGB(255, 18, 180, 23)),
+                  )
+                ],
+              ),
             ),
+          ),
+          const Divider(),
+          /* -------------------------------------------------------------------------- */
+          _addressList(ref),
+        ]),
+      ),
     );
   }
 }

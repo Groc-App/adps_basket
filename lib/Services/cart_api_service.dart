@@ -17,9 +17,11 @@ class APIServiceCart {
       String number, String tamount, productlist, addressmap) async {
     print('Inside Api\n');
 
-    print('$number\n');
-    print('$tamount\n');
-    print('$productlist\n');
+    // print('$number\n');
+    // print('$tamount\n');
+    // print('$productlist\n');
+
+    print('Address map::::::::::::    ${addressmap}');
 
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
