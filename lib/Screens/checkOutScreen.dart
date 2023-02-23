@@ -93,7 +93,8 @@ class CheckoutScreen extends ConsumerWidget {
                 'Pincode': value.Pincode
               };
 
-              print("\nCart Products Array:: ${cartProductsArray}");
+              // print("\nCart Products Array:: ${cartProductsArray}");
+              print('Address map::::::::::::    ${addressmap}');
 
               final cartViewModel = ref.read(cartItemsProvider.notifier);
               cartViewModel
