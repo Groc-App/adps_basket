@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
+import 'package:your_basket/Widgets/Homepage/Quote.dart';
 
 import '../Widgets/Homepage/Carousel.dart';
 import '../Widgets/Homepage/BottomNavBar.dart';
@@ -43,6 +44,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           // ignore: prefer_const_literals_to_create_immutables
           children: [
+            Quote(),
             Carousel(),
             MainCategory(),
             MostSelling(),

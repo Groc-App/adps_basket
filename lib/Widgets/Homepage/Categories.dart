@@ -131,10 +131,11 @@ class MainCategory extends ConsumerWidget {
           height: scHeight * 0.25,
           width: scWidth * wid_th,
           child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+            margin: EdgeInsets.symmetric(horizontal: 3, vertical: 4),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 0),
                 // ignore: prefer_const_constructors
                 decoration: BoxDecoration(
                   // boxShadow: [BoxShadow(blurRadius: 1)],
@@ -149,12 +150,12 @@ class MainCategory extends ConsumerWidget {
                     fit: BoxFit.fitWidth,
                   ),
                 ),
-                alignment: const Alignment(0, 1),
+                alignment: const Alignment(0, -0.9),
                 child: FittedBox(
                   child: Text(
                     name,
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20),
+                        fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                 ),
               ),
@@ -171,6 +172,9 @@ class MainCategory extends ConsumerWidget {
     final scWidth = scSize.width;
     final scHeight = scSize.height;
 
-    return maincategoryList(ref, context, scHeight, scWidth);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: maincategoryList(ref, context, scHeight, scWidth - 16),
+    );
   }
 }

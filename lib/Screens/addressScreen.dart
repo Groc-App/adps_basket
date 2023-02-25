@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Address/address.dart';
-import '../Widgets/Cart/Noitems.dart';
 import '../providers/providers.dart';
 import '../models/address/address.dart' as AddressModel;
 
@@ -16,8 +15,8 @@ class AddressBook extends ConsumerWidget {
     }
 
     if (AddressBookState.AddressBookModel!.addresses.isEmpty) {
-      return NoItems(
-        noitemtext: 'Your Address Book is Empty!!!!',
+      return Center(
+        child: Text('No Address Found'),
       );
     }
 
@@ -33,7 +32,8 @@ class AddressBook extends ConsumerWidget {
       children: list!.map((value) {
         return Column(
           children: [
-            Address(data: value),
+            Address(
+                data: value, userId: '+917982733943', bottomsheet: bottomsheet),
             Divider(),
           ],
         );
@@ -42,7 +42,7 @@ class AddressBook extends ConsumerWidget {
   }
 
   void bottomsheet(WidgetRef ref, BuildContext context, String phonenumber,
-      double scHeight) {
+      double scHeight, String functionality, String addressId) {
     final _formKey = GlobalKey<FormState>();
     String? name, flatnumber, society, city, pincode;
 
@@ -162,15 +162,24 @@ class AddressBook extends ConsumerWidget {
                                   "City": city,
                                   "Pincode": pincode
                                 };
-                                final addressModel =
-                                    ref.read(addressBokkProvider.notifier);
-                                addressModel.addNewAddress(mp).whenComplete(() {
-                                  Navigator.pop(context);
-                                });
-                                // ScaffoldMessenger.of(context).showSnackBar(
-                                //   const SnackBar(
-                                //       content: Text('Processing Data')),
-                                // );
+
+                                if (functionality == 'addAddress') {
+                                  final addressModel =
+                                      ref.read(addressBokkProvider.notifier);
+                                  addressModel
+                                      .addNewAddress(mp)
+                                      .whenComplete(() {
+                                    Navigator.pop(context);
+                                  });
+                                } else if (functionality == 'updateAddress') {
+                                  final addressModel =
+                                      ref.read(addressBokkProvider.notifier);
+                                  addressModel
+                                      .updateAddress(mp, addressId)
+                                      .whenComplete(() {
+                                    Navigator.pop(context);
+                                  });
+                                }
                               }
                             },
                             child: const Text('Submit'),
@@ -217,7 +226,8 @@ class AddressBook extends ConsumerWidget {
             /* -------------------------------------------------------------------------- */
             child: GestureDetector(
               onTap: (() {
-                bottomsheet(ref, context, '+917982733943', scHeight);
+                bottomsheet(
+                    ref, context, '+917982733943', scHeight, 'addAddress', '');
               }),
               child: const Row(
                 children: [

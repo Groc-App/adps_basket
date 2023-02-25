@@ -1,26 +1,66 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/Screens/addressScreen.dart';
 import 'package:your_basket/models/address/address.dart';
 // import 'pa';
 import '../../models/address/address.dart' as Addresmodel;
+import '../../providers/providers.dart';
 
-class Address extends StatelessWidget {
+class Address extends ConsumerWidget {
   // const Address({super.key});
   Addresmodel.Address data;
+  String userId;
+  Function bottomsheet;
 
-  Address({super.key, required this.data});
+  Address(
+      {super.key,
+      required this.data,
+      required this.userId,
+      required this.bottomsheet});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final scSize = MediaQuery.of(context).size;
     final scWidth = scSize.width;
+    final scHeight = scSize.height;
 
     return Row(
       children: [
-        Container(
-          // width: scWidth * 0.16,
-          child: Icon(Icons.home),
+        GestureDetector(
+          onTap: () {
+            if (data.defaultAddress == true) {
+            } else {
+              final addressModel = ref.read(addressBokkProvider.notifier);
+              addressModel.setSelectedAddress(userId, data.addressId);
+              // .whenComplete(() => Navigator.pushReplacement(
+              //       context,
+              //       PageRouteBuilder(
+              //         pageBuilder: (BuildContext context,
+              //             Animation<double> animation1,
+              //             Animation<double> animation2) {
+              //           return AddressBook();
+              //         },
+              //         transitionDuration: Duration.zero,
+              //         reverseTransitionDuration: Duration.zero,
+              //       ),
+              //     ));
+            }
+          },
+          child: Container(
+            padding: EdgeInsets.all(4),
+            decoration:
+                BoxDecoration(color: Colors.grey[300], shape: BoxShape.circle),
+            width: scWidth * 0.065,
+            height: scWidth * 0.065,
+            child: Container(
+              decoration: BoxDecoration(
+                  color:
+                      data.defaultAddress == true ? Colors.black : Colors.white,
+                  shape: BoxShape.circle),
+            ),
+          ),
         ),
         SizedBox(
           width: 15,
@@ -39,12 +79,23 @@ class Address extends StatelessWidget {
           ),
         ),
         Spacer(),
-        Container(child: Icon(Icons.edit)),
+        GestureDetector(
+            onTap: () {
+              bottomsheet(ref, context, userId, scHeight, 'updateAddress',
+                  data.addressId);
+            },
+            child: Container(child: Icon(Icons.edit))),
         SizedBox(
           width: 10,
         ),
-        Container(
-          child: Icon(Icons.delete),
+        GestureDetector(
+          onTap: () {
+            final addressModel = ref.read(addressBokkProvider.notifier);
+            addressModel.deleteAddress(userId, data.addressId);
+          },
+          child: Container(
+            child: Icon(Icons.delete),
+          ),
         ),
         SizedBox(
           width: 10,

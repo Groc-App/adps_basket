@@ -8,7 +8,9 @@ List<Address> addressFromJson(dynamic str) =>
 @freezed
 abstract class Address with _$Address {
   factory Address(
-      {required String Flat_FLoor_Tower,
+      {required String addressId,
+      required bool defaultAddress,
+      required String Flat_FLoor_Tower,
       required String Street_Society,
       required String Recipients_Name,
       required String City,

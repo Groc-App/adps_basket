@@ -39,19 +39,6 @@ class _ProductItemState extends ConsumerState<ProductItem> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    // final cartState = ref.read(cartItemsProvider);
-    // final data = cartState.cartModel!.products.toList();
-    // print('dataitem\n');
-    // print("\nThis is data inside init state $data");
-    // if (data != null) {
-    //   for (var i = 0; i < data.length; i++) {
-    //     if (data[i].Item.productId == id) {
-    //       counter = data[i].ItemCount;
-    //       break;
-    //     }
-    //   }
-    // }
     super.initState();
   }
 
@@ -71,6 +58,26 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     required this.quantity,
   });
 
+  void addTile() {
+    final CartItemModel = ref.watch(cartItemsProvider);
+
+    // if (CartItemModel.cartModel == null) {
+    //   return const LinearProgressIndicator();
+    // }
+
+    var searchdata = CartItemModel.cartModel!.products;
+
+    for (int i = 0; i < searchdata.length; i++) {
+      var data = searchdata[i];
+      if (id == data.Item.productId) {
+        counter = data.ItemCount;
+        break;
+      }
+    }
+
+    // return buildAddTile();
+  }
+
   @override
   Widget build(BuildContext context) {
     final scSize = MediaQuery.of(context).size;
@@ -78,16 +85,6 @@ class _ProductItemState extends ConsumerState<ProductItem> {
 
     // var authInfo = ref.watch(authCheckProvider);
     // print(authInfo?.uid);
-
-    // final cartState = ref.read(cartItemsProvider);
-    // final data = cartState.cartModel!.products;
-    // print('dataitem\n');
-    // for (var i = 0; i < data.length; i++) {
-    //   if (data[i].Item.productId == id) {
-    //     counter = data[i].ItemCount;
-    //     break;
-    //   }
-    // }
 
     void incrementHandler() {
       setState(() {

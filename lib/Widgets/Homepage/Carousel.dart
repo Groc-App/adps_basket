@@ -57,7 +57,7 @@ class Carousel extends StatelessWidget {
         slideIndicator: CircularSlideIndicator(
             padding: const EdgeInsets.all(10),
             indicatorBackgroundColor: Theme.of(context).primaryColor,
-            currentIndicatorColor: Colors.white),
+            currentIndicatorColor: Colors.black),
         enableAutoSlider: true,
         unlimitedMode: true,
         scrollDirection: Axis.horizontal,
