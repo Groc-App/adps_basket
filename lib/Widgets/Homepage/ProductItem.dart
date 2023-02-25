@@ -58,7 +58,40 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     required this.quantity,
   });
 
-  void addTile() {
+  void incrementHandler() {
+    setState(() {
+      counter++;
+    });
+
+    final cartViewModel = ref.read(cartItemsProvider.notifier);
+    cartViewModel.updateCartItem('+917982733943', counter.toString(), id);
+  }
+
+  void decrementHandler() {
+    if ((counter - 1) == 0) {
+      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      cartViewModel.removeCartItems('+917982733943', id).whenComplete(() {
+        setState(() {
+          counter--;
+        });
+      });
+    } else {
+      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      cartViewModel
+          .updateCartItem('+917982733943', (counter - 1).toString(), id)
+          .whenComplete(() {
+        setState(() {
+          counter--;
+        });
+      });
+    }
+
+    // setState(() {
+    //   counter--;
+    // });
+  }
+
+  Widget addTile(scWidth) {
     final CartItemModel = ref.watch(cartItemsProvider);
 
     // if (CartItemModel.cartModel == null) {
@@ -67,15 +100,97 @@ class _ProductItemState extends ConsumerState<ProductItem> {
 
     var searchdata = CartItemModel.cartModel!.products;
 
+    bool flag = false;
     for (int i = 0; i < searchdata.length; i++) {
       var data = searchdata[i];
       if (id == data.Item.productId) {
-        counter = data.ItemCount;
+        setState(() {
+          counter = data.ItemCount;
+        });
+        flag = true;
         break;
       }
     }
+    if (flag == false) {
+      setState(() {
+        counter = 0;
+      });
+    }
 
-    // return buildAddTile();
+    print('counter is:::::::::::::: $counter\n');
+
+    return buildAddTile(scWidth);
+  }
+
+  Widget buildAddTile(scWidth) {
+    return counter != 0
+        ? Container(
+            width: scWidth * 0.48 * 0.36,
+            height: scWidth * 0.48 * 0.16,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: Colors.white,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    child:
+                        Icon(Icons.remove, size: scWidth * 0.48 * 0.36 * 0.2),
+                    onTap: () => decrementHandler(),
+                  ),
+                ),
+                Text('$counter'),
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    child: Icon(Icons.add, size: scWidth * 0.48 * 0.36 * 0.2),
+                    onTap: () => incrementHandler(),
+                  ),
+                ),
+              ],
+            ),
+          )
+        : Container(
+            width: scWidth * 0.48 * 0.38,
+            child: FittedBox(
+              child: OutlinedButton(
+                  onPressed: () {
+                    // if (authInfo == null) {
+                    //   showDialog<String>(
+                    //     context: context,
+                    //     builder: (BuildContext context) =>
+                    //         AlertDialog(
+                    //       title: const Text('Login First'),
+                    //       content: const Text('Login to Continue'),
+                    //       actions: <Widget>[
+                    //         TextButton(
+                    //           onPressed: () =>
+                    //               Navigator.pop(context, 'Cancel'),
+                    //           child: const Text('Cancel'),
+                    //         ),
+                    //         TextButton(
+                    //           onPressed: () => Navigator.pushNamed(
+                    //               context, '/loginScreen'),
+                    //           child: const Text('OK'),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   );
+                    // } else {
+                    setState(() {
+                      counter++;
+                    });
+                    final cartViewModel = ref.read(cartItemsProvider.notifier);
+                    cartViewModel.addCartItems('+917982733943', id);
+                  }
+                  // }
+                  ,
+                  child: const Text('ADD')),
+            ),
+          );
   }
 
   @override
@@ -85,29 +200,6 @@ class _ProductItemState extends ConsumerState<ProductItem> {
 
     // var authInfo = ref.watch(authCheckProvider);
     // print(authInfo?.uid);
-
-    void incrementHandler() {
-      setState(() {
-        counter++;
-      });
-
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
-      cartViewModel.updateCartItem('+917982733943', counter.toString(), id);
-    }
-
-    void decrementHandler() {
-      setState(() {
-        counter--;
-      });
-
-      if (counter == 0) {
-        final cartViewModel = ref.read(cartItemsProvider.notifier);
-        cartViewModel.removeCartItems('+917982733943', id);
-      } else {
-        final cartViewModel = ref.read(cartItemsProvider.notifier);
-        cartViewModel.updateCartItem('+917982733943', counter.toString(), id);
-      }
-    }
 
     return Card(
       // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -152,76 +244,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                         style: TextStyle(
                             fontSize: 34, fontWeight: FontWeight.bold),
                       ))),
-              counter != 0
-                  ? Container(
-                      width: scWidth * 0.48 * 0.36,
-                      height: scWidth * 0.48 * 0.16,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.white,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: GestureDetector(
-                              child: Icon(Icons.remove,
-                                  size: scWidth * 0.48 * 0.36 * 0.2),
-                              onTap: () => decrementHandler(),
-                            ),
-                          ),
-                          Text('$counter'),
-                          MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: GestureDetector(
-                              child: Icon(Icons.add,
-                                  size: scWidth * 0.48 * 0.36 * 0.2),
-                              onTap: () => incrementHandler(),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  : Container(
-                      width: scWidth * 0.48 * 0.38,
-                      child: FittedBox(
-                        child: OutlinedButton(
-                            onPressed: () {
-                              // if (authInfo == null) {
-                              //   showDialog<String>(
-                              //     context: context,
-                              //     builder: (BuildContext context) =>
-                              //         AlertDialog(
-                              //       title: const Text('Login First'),
-                              //       content: const Text('Login to Continue'),
-                              //       actions: <Widget>[
-                              //         TextButton(
-                              //           onPressed: () =>
-                              //               Navigator.pop(context, 'Cancel'),
-                              //           child: const Text('Cancel'),
-                              //         ),
-                              //         TextButton(
-                              //           onPressed: () => Navigator.pushNamed(
-                              //               context, '/loginScreen'),
-                              //           child: const Text('OK'),
-                              //         ),
-                              //       ],
-                              //     ),
-                              //   );
-                              // } else {
-                              setState(() {
-                                counter++;
-                              });
-                              final cartViewModel =
-                                  ref.read(cartItemsProvider.notifier);
-                              cartViewModel.addCartItems('+917982733943', id);
-                            }
-                            // }
-                            ,
-                            child: const Text('ADD')),
-                      ),
-                    ),
+              addTile(scWidth),
             ],
           ),
         )
