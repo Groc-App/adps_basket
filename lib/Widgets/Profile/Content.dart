@@ -135,8 +135,8 @@ class Content extends ConsumerWidget {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(
-              'Your Information',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+              'YOUR INFORMATION',
+              style: TextStyle(fontSize: 15, color: Colors.grey),
             ),
             // Divider(),
             SizedBox(
@@ -144,6 +144,9 @@ class Content extends ConsumerWidget {
             ),
             iconRow(FontAwesomeIcons.shoppingBag, 'Your Orders', context,
                 '/yourOrderScreen', ref),
+            SizedBox(
+              height: 10,
+            ),
             iconRow(FontAwesomeIcons.addressBook, 'Your Addresses', context,
                 '/addressScreen', ref),
           ]),
@@ -154,8 +157,8 @@ class Content extends ConsumerWidget {
             Container(
                 margin: const EdgeInsets.only(top: 10),
                 child: const Text(
-                  'Other Information',
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                  'OTHER INFORMATION',
+                  style: TextStyle(fontSize: 15, color: Colors.grey),
                 )),
             // Divider(),
             const SizedBox(
@@ -164,7 +167,14 @@ class Content extends ConsumerWidget {
             iconRow(
                 FontAwesomeIcons.share, 'Share the app', context, 'share', ref),
 
+            SizedBox(
+              height: 10,
+            ),
+
             iconRow(FontAwesomeIcons.info, 'About us', context, 'about', ref),
+            SizedBox(
+              height: 10,
+            ),
             iconRow(FontAwesomeIcons.star, 'Rate us on Play Store', context,
                 '/yourOrderScreen', ref),
             if (authInfo != null)

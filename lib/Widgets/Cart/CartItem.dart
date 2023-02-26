@@ -52,7 +52,8 @@ class _CartItemState extends ConsumerState<CartItem> {
       print('0000000000000000000000000000000000000000000000000000000000000');
       print('inside cart item ${item.productId}');
       final cartViewModel = ref.read(cartItemsProvider.notifier);
-      cartViewModel.removeCartItems(userid, item.productId).whenComplete(() => Navigator.pushReplacementNamed(context, '/cartScreen'));
+      cartViewModel.removeCartItems(userid, item.productId).whenComplete(
+          () => Navigator.pushReplacementNamed(context, '/cartScreen'));
     } else {
       final cartViewModel = ref.read(cartItemsProvider.notifier);
       cartViewModel.updateCartItem(userid, newquan.toString(), item.productId);
@@ -79,7 +80,7 @@ class _CartItemState extends ConsumerState<CartItem> {
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
         padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
-            boxShadow: const [BoxShadow(blurRadius: 5, spreadRadius: 0.5)],
+            boxShadow: const [BoxShadow(blurRadius: 2, spreadRadius: 0.5)],
             borderRadius: BorderRadius.circular(5),
             color: Colors.white),
         child: Row(
@@ -122,11 +123,12 @@ class _CartItemState extends ConsumerState<CartItem> {
             ),
             Container(
               decoration: BoxDecoration(
-                  border: const Border(
-                      top: BorderSide(width: 2),
-                      bottom: BorderSide(width: 2),
-                      left: BorderSide(width: 2),
-                      right: BorderSide(width: 2)),
+                  color: Color.fromRGBO(245, 245, 245, 1),
+                  // border: const Border(
+                  //     top: BorderSide(width: 2),
+                  //     bottom: BorderSide(width: 2),
+                  //     left: BorderSide(width: 2),
+                  //     right: BorderSide(width: 2)),
                   borderRadius: BorderRadius.circular(5)),
               width: scWidth * 0.25,
               height: scWidth * 0.25 * 0.4,
@@ -136,6 +138,9 @@ class _CartItemState extends ConsumerState<CartItem> {
                   child: GestureDetector(
                     onTap: () => decrementHandler(),
                     child: Icon(
+                      // Color(value),
+                      color: Color.fromRGBO(83, 177, 117, 1),
+
                       Icons.remove,
                       size: scWidth * 0.25 * 0.3,
                     ),
@@ -152,6 +157,7 @@ class _CartItemState extends ConsumerState<CartItem> {
                   child: GestureDetector(
                     onTap: () => incrementHandler(),
                     child: Icon(
+                      color: Color.fromRGBO(83, 177, 117, 1),
                       Icons.add,
                       size: scWidth * 0.25 * 0.3,
                     ),

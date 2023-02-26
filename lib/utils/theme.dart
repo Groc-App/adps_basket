@@ -42,7 +42,8 @@ class MyTheme {
             color: Colors.white,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
-        scaffoldBackgroundColor: const Color.fromRGBO(245, 245, 245, 1),
+        // scaffoldBackgroundColor: const Color.fromRGBO(245, 245, 245, 1),
+        scaffoldBackgroundColor: Colors.white,
         // backgroundColor: const Color.fromRGBO(237, 237, 233, 1),
         // bottomAppBarTheme:
         // BottomAppBarTheme(color: const Color.fromRGBO(213, 189, 175, 1)),

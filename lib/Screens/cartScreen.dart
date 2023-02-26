@@ -145,7 +145,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     // print(authInfo?.uid);
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 237, 230, 230),
+      // backgroundColor: const Color.fromARGB(255, 237, 230, 230),
       appBar: AppBar(
         // backgroundColor: Tsheme.of(context).primaryColor,
         centerTitle: true,
@@ -153,7 +153,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           children: [
             Text(
               'Your Cart',
-              style: TextStyle(fontWeight: FontWeight.w400),
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
             if (listsize != 0)
               Text(
@@ -226,7 +226,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(8),
                           topRight: Radius.circular(8)),
-                      color: Colors.deepPurple[300]),
+                      color: Color.fromRGBO(83, 177, 117, 1)),
                   alignment: const Alignment(0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
