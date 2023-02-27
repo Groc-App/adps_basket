@@ -60,6 +60,7 @@ dependencies:
   intl: ^0.17.0
   scratcher: ^2.3.0
   confetti: ^0.7.0
+  shimmer: ^2.0.0
 
   # pinput: ^2.2.0
 

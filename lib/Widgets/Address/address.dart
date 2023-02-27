@@ -34,18 +34,6 @@ class Address extends ConsumerWidget {
             } else {
               final addressModel = ref.read(addressBokkProvider.notifier);
               addressModel.setSelectedAddress(userId, data.addressId);
-              // .whenComplete(() => Navigator.pushReplacement(
-              //       context,
-              //       PageRouteBuilder(
-              //         pageBuilder: (BuildContext context,
-              //             Animation<double> animation1,
-              //             Animation<double> animation2) {
-              //           return AddressBook();
-              //         },
-              //         transitionDuration: Duration.zero,
-              //         reverseTransitionDuration: Duration.zero,
-              //       ),
-              //     ));
             }
           },
           child: Container(
