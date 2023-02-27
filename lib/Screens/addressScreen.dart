@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Address/address.dart';
+import 'package:your_basket/Widgets/Address/addresssinner.dart';
 import '../providers/providers.dart';
 import '../models/address/address.dart' as AddressModel;
 
@@ -11,7 +12,16 @@ class AddressBook extends ConsumerWidget {
     final AddressBookState = ref.watch(addressBokkProvider);
 
     if (AddressBookState.AddressBookModel == null) {
-      return const LinearProgressIndicator();
+      return Column(
+        children: [
+          AddressSinner(),
+          SizedBox(height: 10),
+          AddressSinner(),
+          SizedBox(height: 10),
+          AddressSinner(),
+          SizedBox(height: 10),
+        ],
+      );
     }
 
     if (AddressBookState.AddressBookModel!.addresses.isEmpty) {
@@ -246,6 +256,7 @@ class AddressBook extends ConsumerWidget {
           const Divider(),
           /* -------------------------------------------------------------------------- */
           _addressList(ref),
+          // AddressSinner(),
         ]),
       ),
     );
