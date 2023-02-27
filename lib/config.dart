@@ -1,10 +1,10 @@
 class Config {
   /* -------------------------------- app setup ------------------------------- */
   static const String GrocApp = 'GrocApp';
-  // static const String apiURL = '127.0.0.1:8000';
+  static const String apiURL = '127.0.0.1:8000';
   // 127.0.0.1:8000
   // 192.168.1.16:8000
-  static const String apiURL = '192.168.1.10:8000';
+  // static const String apiURL = '192.168.1.10:8000';
   // static const String apiURL = '192.168.1.21:8000';
   // static const String apiURL = '192.168.1.11:8000';
 
@@ -39,10 +39,17 @@ class Config {
   static const String createuserApi = '/user/createuserifnotexist';
   static const String addorupdatecartitemApi = '/user/createorupdatecartitem';
   static const String createcartitemApi = '/user/createcartitem';
+  static const String removeCartItem = '/cart/deleteCartItem';
 
+/* ------------------------------ Addreses API ------------------------------ */
   static const String getalladdressbyid = '/user/getaddresses';
-  static const String addnewaddress = '/address//addAddress';
+  static const String addnewaddress = '/address/addAddress';
+  static const String deleteaddress = '/address/deleteAddress';
+  static const String updateaddress = '/address/updateAddress';
+  static const String setSelectedaddress = '/address/setSelectedAddress';
   static const String getselectedaddress = '/user/fetchselectedaddress';
 
-  static const String removeCartItem = '/cart/deleteCartItem';
+  /* -------------------------------- Offer Api ------------------------------- */
+  static const String getAllOffers = '/offer/getAllOffers';
+  static const String updateOffer = '/offer/updateOffer';
 }

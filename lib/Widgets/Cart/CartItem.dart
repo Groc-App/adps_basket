@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/Screens/cartScreen.dart';
 import 'package:your_basket/models/cart/cartitem.dart';
 import 'package:your_basket/models/product/productdetail.dart';
 
@@ -52,8 +53,20 @@ class _CartItemState extends ConsumerState<CartItem> {
       print('0000000000000000000000000000000000000000000000000000000000000');
       print('inside cart item ${item.productId}');
       final cartViewModel = ref.read(cartItemsProvider.notifier);
-      cartViewModel.removeCartItems(userid, item.productId).whenComplete(
-          () => Navigator.pushReplacementNamed(context, '/cartScreen'));
+      cartViewModel
+          .removeCartItems(userid, item.productId)
+          .whenComplete(() => Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (BuildContext context,
+                      Animation<double> animation1,
+                      Animation<double> animation2) {
+                    return CartScreen();
+                  },
+                  transitionDuration: Duration.zero,
+                  reverseTransitionDuration: Duration.zero,
+                ),
+              ));
     } else {
       final cartViewModel = ref.read(cartItemsProvider.notifier);
       cartViewModel.updateCartItem(userid, newquan.toString(), item.productId);

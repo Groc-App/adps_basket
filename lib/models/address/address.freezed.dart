@@ -20,6 +20,8 @@ Address _$AddressFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Address {
+  String get addressId => throw _privateConstructorUsedError;
+  bool get defaultAddress => throw _privateConstructorUsedError;
   String get Flat_FLoor_Tower => throw _privateConstructorUsedError;
   String get Street_Society => throw _privateConstructorUsedError;
   String get Recipients_Name => throw _privateConstructorUsedError;
@@ -37,7 +39,9 @@ abstract class $AddressCopyWith<$Res> {
       _$AddressCopyWithImpl<$Res, Address>;
   @useResult
   $Res call(
-      {String Flat_FLoor_Tower,
+      {String addressId,
+      bool defaultAddress,
+      String Flat_FLoor_Tower,
       String Street_Society,
       String Recipients_Name,
       String City,
@@ -57,6 +61,8 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? addressId = null,
+    Object? defaultAddress = null,
     Object? Flat_FLoor_Tower = null,
     Object? Street_Society = null,
     Object? Recipients_Name = null,
@@ -64,6 +70,14 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
     Object? Pincode = null,
   }) {
     return _then(_value.copyWith(
+      addressId: null == addressId
+          ? _value.addressId
+          : addressId // ignore: cast_nullable_to_non_nullable
+              as String,
+      defaultAddress: null == defaultAddress
+          ? _value.defaultAddress
+          : defaultAddress // ignore: cast_nullable_to_non_nullable
+              as bool,
       Flat_FLoor_Tower: null == Flat_FLoor_Tower
           ? _value.Flat_FLoor_Tower
           : Flat_FLoor_Tower // ignore: cast_nullable_to_non_nullable
@@ -96,7 +110,9 @@ abstract class _$$_AddressCopyWith<$Res> implements $AddressCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String Flat_FLoor_Tower,
+      {String addressId,
+      bool defaultAddress,
+      String Flat_FLoor_Tower,
       String Street_Society,
       String Recipients_Name,
       String City,
@@ -113,6 +129,8 @@ class __$$_AddressCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? addressId = null,
+    Object? defaultAddress = null,
     Object? Flat_FLoor_Tower = null,
     Object? Street_Society = null,
     Object? Recipients_Name = null,
@@ -120,6 +138,14 @@ class __$$_AddressCopyWithImpl<$Res>
     Object? Pincode = null,
   }) {
     return _then(_$_Address(
+      addressId: null == addressId
+          ? _value.addressId
+          : addressId // ignore: cast_nullable_to_non_nullable
+              as String,
+      defaultAddress: null == defaultAddress
+          ? _value.defaultAddress
+          : defaultAddress // ignore: cast_nullable_to_non_nullable
+              as bool,
       Flat_FLoor_Tower: null == Flat_FLoor_Tower
           ? _value.Flat_FLoor_Tower
           : Flat_FLoor_Tower // ignore: cast_nullable_to_non_nullable
@@ -148,7 +174,9 @@ class __$$_AddressCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Address implements _Address {
   _$_Address(
-      {required this.Flat_FLoor_Tower,
+      {required this.addressId,
+      required this.defaultAddress,
+      required this.Flat_FLoor_Tower,
       required this.Street_Society,
       required this.Recipients_Name,
       required this.City,
@@ -157,6 +185,10 @@ class _$_Address implements _Address {
   factory _$_Address.fromJson(Map<String, dynamic> json) =>
       _$$_AddressFromJson(json);
 
+  @override
+  final String addressId;
+  @override
+  final bool defaultAddress;
   @override
   final String Flat_FLoor_Tower;
   @override
@@ -170,7 +202,7 @@ class _$_Address implements _Address {
 
   @override
   String toString() {
-    return 'Address(Flat_FLoor_Tower: $Flat_FLoor_Tower, Street_Society: $Street_Society, Recipients_Name: $Recipients_Name, City: $City, Pincode: $Pincode)';
+    return 'Address(addressId: $addressId, defaultAddress: $defaultAddress, Flat_FLoor_Tower: $Flat_FLoor_Tower, Street_Society: $Street_Society, Recipients_Name: $Recipients_Name, City: $City, Pincode: $Pincode)';
   }
 
   @override
@@ -178,6 +210,10 @@ class _$_Address implements _Address {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Address &&
+            (identical(other.addressId, addressId) ||
+                other.addressId == addressId) &&
+            (identical(other.defaultAddress, defaultAddress) ||
+                other.defaultAddress == defaultAddress) &&
             (identical(other.Flat_FLoor_Tower, Flat_FLoor_Tower) ||
                 other.Flat_FLoor_Tower == Flat_FLoor_Tower) &&
             (identical(other.Street_Society, Street_Society) ||
@@ -190,8 +226,8 @@ class _$_Address implements _Address {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, Flat_FLoor_Tower, Street_Society,
-      Recipients_Name, City, Pincode);
+  int get hashCode => Object.hash(runtimeType, addressId, defaultAddress,
+      Flat_FLoor_Tower, Street_Society, Recipients_Name, City, Pincode);
 
   @JsonKey(ignore: true)
   @override
@@ -209,7 +245,9 @@ class _$_Address implements _Address {
 
 abstract class _Address implements Address {
   factory _Address(
-      {required final String Flat_FLoor_Tower,
+      {required final String addressId,
+      required final bool defaultAddress,
+      required final String Flat_FLoor_Tower,
       required final String Street_Society,
       required final String Recipients_Name,
       required final String City,
@@ -217,6 +255,10 @@ abstract class _Address implements Address {
 
   factory _Address.fromJson(Map<String, dynamic> json) = _$_Address.fromJson;
 
+  @override
+  String get addressId;
+  @override
+  bool get defaultAddress;
   @override
   String get Flat_FLoor_Tower;
   @override

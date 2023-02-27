@@ -1,38 +1,32 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, sized_box_for_whitespace
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:your_basket/models/address/selectedaddress.dart';
+import 'package:your_basket/models/address/address.dart';
 import 'package:your_basket/models/cart/cartitem.dart';
 
 import '../providers/providers.dart';
 
-class CheckoutScreen extends ConsumerWidget {
+class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen({super.key});
-
-// current address bhejna h abhi order place vali api m
 
   Widget placeordertile(WidgetRef ref, String number, BuildContext context,
       List<CartItem> datalist, pricetotal) {
-    var data = ref.watch(selectedAddressProvider(number));
+    final AddressBookState = ref.watch(addressBokkProvider);
+    var reqData = AddressBookState.AddressBookModel!.addresses
+        .firstWhere((e) => e.defaultAddress == true);
 
-    return data.when(data: (value) {
-      print(value!.Flat_FLoor_Tower);
-
-      return Column(
-        children: [
-          adresstile(context, value),
-          ordertile(datalist, ref, pricetotal, context, number, value),
-        ],
-      );
-    }, error: (_, __) {
-      return Text('Error');
-    }, loading: () {
-      return CircularProgressIndicator();
-    });
+    return Column(
+      children: [
+        adresstile(context, reqData),
+        ordertile(datalist, ref, pricetotal, context, number, reqData),
+      ],
+    );
   }
 
-  Widget adresstile(context, SelectedAddress value) {
+  Widget adresstile(context, Address value) {
     print('value type:::::::::::\n');
     print(value.runtimeType);
     if (value.Flat_FLoor_Tower == '') {
@@ -63,7 +57,7 @@ class CheckoutScreen extends ConsumerWidget {
   }
 
   Widget ordertile(List<CartItem> datalist, WidgetRef ref, double pricetotal,
-      BuildContext context, String number, SelectedAddress value) {
+      BuildContext context, String number, Address value) {
     return Container(
         width: double.infinity,
         child: ElevatedButton(
@@ -107,7 +101,7 @@ class CheckoutScreen extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
     final scWidth = scSize.width - 10 - 4 - 8;
@@ -118,8 +112,6 @@ class CheckoutScreen extends ConsumerWidget {
     String number = Orderdata['number'];
     List<CartItem> datalist = Orderdata['cartProductList'];
     double pricetotal = Orderdata['tamount'];
-
-    // ref.read(selectedAddressProvider(number));
 
     return Scaffold(
       appBar: AppBar(
@@ -135,8 +127,10 @@ class CheckoutScreen extends ConsumerWidget {
               borderRadius: BorderRadius.vertical(top: Radius.circular(40.0))),
           child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child:
-                  placeordertile(ref, number, context, datalist, pricetotal)),
+              child: Consumer(
+                builder: (context, ref, child) =>
+                    placeordertile(ref, number, context, datalist, pricetotal),
+              )),
         ),
       ),
       body: SingleChildScrollView(

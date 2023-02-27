@@ -1,7 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Services/api_service.dart';
+import 'package:your_basket/Services/offer_api_service.dart';
 // import 'package:your_basket/Services/product_api_service.dart';
 import 'package:your_basket/models/category/category.dart';
+import 'package:your_basket/models/offer/offer.dart';
 import '../Services/address_api_service.dart';
 import '../Services/cart_api_service.dart';
 import '../Services/user_api_service.dart';
@@ -153,6 +155,14 @@ final allProductProvider = FutureProvider<List<Product>?>(
     final apiRespository = ref.watch(productApiService);
 
     return apiRespository.getAllProduct();
+  },
+);
+final allOfferProvider =
+    FutureProvider.autoDispose.family<List<Offer>?, Map<String, String>>(
+  (ref, map) {
+    final apiRespository = ref.watch(offerApiService);
+    print("inside all of provider ${apiRespository.getAllOffers(map)}");
+    return apiRespository.getAllOffers(map);
   },
 );
 

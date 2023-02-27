@@ -13,7 +13,7 @@ class MyTheme {
           backgroundColor: const Color.fromARGB(255, 255, 255, 255),
           foregroundColor: const Color.fromRGBO(83, 177, 117, 1),
           // color: Color.fromRGBO(83, 177, 117, 1),
-          elevation: 0.0,
+          elevation: 2.0,
           iconTheme:
               const IconThemeData(color: Color.fromRGBO(83, 177, 117, 1)),
           toolbarTextStyle: Theme.of(context).textTheme.bodyMedium,

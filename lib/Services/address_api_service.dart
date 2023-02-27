@@ -47,6 +47,69 @@ class APIServiceAddress {
     }
   }
 
+  Future<void> deleteaddress(String number, String addressId) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var url = Uri.http(Config.apiURL, Config.deleteaddress);
+
+    print('User id is $number\n addressid is $addressId\n');
+
+    print(url);
+
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({"number": number, "addressid": addressId}),
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return null;
+    } else {
+      return null;
+    }
+  }
+
+  Future<void> updateaddress(
+      Map<String, String?> addressdetail, String addressId) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var url = Uri.http(Config.apiURL, Config.updateaddress);
+
+    print('User id is \n addressid is ${addressId}\n');
+
+    print(url);
+
+    Map<String, String?> address = {
+      "Recipients_Name": addressdetail['Recipients_Name'],
+      "Flat_FLoor_Tower": addressdetail['Flat_FLoor_Tower'],
+      "Street_Society": addressdetail['Street_Society'],
+      "City": addressdetail['City'],
+      "Pincode": addressdetail['Pincode'],
+    };
+
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({"addressId": addressId, "addressinfo": address}),
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return null;
+    } else {
+      return null;
+    }
+  }
+
   Future<AddressBook?> fetchalladdressbyid() async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -95,6 +158,32 @@ class APIServiceAddress {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       return SelectedAddress.fromJson(data['data']);
+    } else {
+      return null;
+    }
+  }
+
+  Future<void> setSelectedaddress(String phonenumber, String addressId) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var url = Uri.http(Config.apiURL, Config.setSelectedaddress);
+
+    print(url);
+
+    var response = await client.post(url,
+        headers: requestHeaders,
+        body: jsonEncode({
+          "number": phonenumber,
+          "addressid": addressId,
+        }));
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return null;
     } else {
       return null;
     }
