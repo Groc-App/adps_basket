@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:your_basket/models/address/address.dart';
 import 'package:your_basket/models/product/products.dart';
 import 'package:your_basket/models/product/productdetail.dart';
 
@@ -10,7 +11,7 @@ class OrdereItem extends StatelessWidget {
   final String orderID;
   String totalAmount;
   DateTime date;
-  String address;
+  Address address;
   String orderStatus;
   // String imageUrl;
   List<Map<String, dynamic>> orderDetails;

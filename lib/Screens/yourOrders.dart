@@ -8,6 +8,7 @@ import 'package:your_basket/Widgets/Cart/Noitems.dart';
 import 'package:your_basket/Widgets/YourOrderes/OrdereItem.dart';
 import 'package:your_basket/models/product/productdetail.dart';
 
+import '../models/orders/orders.dart';
 import '../providers/providers.dart';
 
 class YourOrderes extends ConsumerWidget {
@@ -20,7 +21,6 @@ class YourOrderes extends ConsumerWidget {
   late String totalAmount;
   late String date;
   late String address;
-  // String imageUrl;
   late List<Map<String, dynamic>> orderDetails;
 
   Widget orderList(WidgetRef ref, BuildContext context, double scHeight) {
@@ -32,7 +32,7 @@ class YourOrderes extends ConsumerWidget {
       data: (list) {
         print("Thisssssssssssssssssss is list ${list}");
 
-        if (list == null) islistempty = true;
+        // if (list!.isEmpty == null) islistempty = true;
         print("\n\n\nThis is list $islistempty");
         return orderlistbuilder(list, context, scHeight);
       },
@@ -41,20 +41,24 @@ class YourOrderes extends ConsumerWidget {
     );
   }
 
-  Widget orderlistbuilder(list, contex, scHeight) {
+  Widget orderlistbuilder(List<Orders>? list, contex, scHeight) {
     return list == null
         ? NoItems(
             noitemtext: 'You have no past orders!!!',
             pageroute: 'homescreen',
           )
-        : Column(
+        :
+        // list.isEmpty
+        //     ?
+        //     :
+        Column(
             children: [
               SingleChildScrollView(
                 child: Column(
                   children: list.map<Widget>((e) {
                     return OrdereItem(
                         orderDetails: e.OrderDetails,
-                        address: e.Address,
+                        address: e.Addres,
                         orderID: e.OrderId,
                         date: e.Date,
                         orderStatus: e.OrderStatus,

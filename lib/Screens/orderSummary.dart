@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:your_basket/models/address/address.dart';
 import 'dart:math';
 
 import 'package:your_basket/models/product/productdetail.dart';
@@ -9,10 +10,10 @@ import 'package:your_basket/models/product/productdetail.dart';
 class OrderSummaryScreen extends StatelessWidget {
   OrderSummaryScreen({super.key});
 
-  late final String orderID;
+  late String orderID;
   late String totalAmount;
   late DateTime date;
-  late String address;
+  late Address address;
   late String orderStatus;
   // String imageUrl;
   late List<Map<String, dynamic>> orderDetails;
@@ -108,7 +109,7 @@ class OrderSummaryScreen extends StatelessWidget {
                             print("\n\nProduct Name in OrderDetails::");
                             print(orderDetails[i]['Product']['Name']);
 
-                            double price = orderDetails[i]['Product']['Price'] *
+                            int price = orderDetails[i]['Product']['Price'] *
                                 orderDetails[i]['Quantity'];
 
                             return ListTile(
@@ -259,7 +260,8 @@ class OrderSummaryScreen extends StatelessWidget {
                               fontWeight: FontWeight.normal,
                               color: Color.fromARGB(255, 137, 137, 137)),
                         ),
-                        Text("${address}"),
+                        Text(
+                            "${address.Recipients_Name}, ${address.Flat_FLoor_Tower} ${address.Street_Society} ${address.City} ${address.Pincode} "),
                       ],
                     ),
                     SizedBox(height: 5),
@@ -277,7 +279,7 @@ class OrderSummaryScreen extends StatelessWidget {
                               color: Color.fromARGB(255, 137, 137, 137)),
                         ),
                         Text(
-                            "placed on ${DateFormat('yyyy-MM-dd hh:mm:ss').format(date)}"),
+                            "Placed on ${DateFormat('yyyy-MM-dd').format(date)} at ${DateFormat('hh:mm:ss').format(date)}"),
                       ],
                     ),
                   ],

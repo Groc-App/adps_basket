@@ -14,14 +14,14 @@ class APIServiceCart {
   static var client = http.Client();
 
   Future<void> placeorder(
-      String number, String tamount, productlist, addressmap) async {
+      String number, String tamount, productlist, addressid) async {
     print('Inside Api\n');
 
     // print('$number\n');
     // print('$tamount\n');
     // print('$productlist\n');
 
-    print('Address map::::::::::::    ${addressmap}');
+    // print('Address map::::::::::::    ${addressmap}');
 
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ class APIServiceCart {
         "userid": number,
         "tamount": tamount,
         "orderdetail": productlist,
-        "address": addressmap,
+        "addressid": addressid,
       }),
     );
 

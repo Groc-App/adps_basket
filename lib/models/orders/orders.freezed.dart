@@ -21,7 +21,7 @@ Orders _$OrdersFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Orders {
   String get OrderId => throw _privateConstructorUsedError;
-  String get Address => throw _privateConstructorUsedError;
+  Address get Addres => throw _privateConstructorUsedError;
   int get TotalAmount => throw _privateConstructorUsedError;
   DateTime get Date => throw _privateConstructorUsedError;
   String get OrderStatus => throw _privateConstructorUsedError;
@@ -40,11 +40,13 @@ abstract class $OrdersCopyWith<$Res> {
   @useResult
   $Res call(
       {String OrderId,
-      String Address,
+      Address Addres,
       int TotalAmount,
       DateTime Date,
       String OrderStatus,
       List<Map<String, dynamic>> OrderDetails});
+
+  $AddressCopyWith<$Res> get Addres;
 }
 
 /// @nodoc
@@ -61,7 +63,7 @@ class _$OrdersCopyWithImpl<$Res, $Val extends Orders>
   @override
   $Res call({
     Object? OrderId = null,
-    Object? Address = null,
+    Object? Addres = null,
     Object? TotalAmount = null,
     Object? Date = null,
     Object? OrderStatus = null,
@@ -72,10 +74,10 @@ class _$OrdersCopyWithImpl<$Res, $Val extends Orders>
           ? _value.OrderId
           : OrderId // ignore: cast_nullable_to_non_nullable
               as String,
-      Address: null == Address
-          ? _value.Address
-          : Address // ignore: cast_nullable_to_non_nullable
-              as String,
+      Addres: null == Addres
+          ? _value.Addres
+          : Addres // ignore: cast_nullable_to_non_nullable
+              as Address,
       TotalAmount: null == TotalAmount
           ? _value.TotalAmount
           : TotalAmount // ignore: cast_nullable_to_non_nullable
@@ -94,6 +96,14 @@ class _$OrdersCopyWithImpl<$Res, $Val extends Orders>
               as List<Map<String, dynamic>>,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressCopyWith<$Res> get Addres {
+    return $AddressCopyWith<$Res>(_value.Addres, (value) {
+      return _then(_value.copyWith(Addres: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -104,11 +114,14 @@ abstract class _$$_OrderCopyWith<$Res> implements $OrdersCopyWith<$Res> {
   @useResult
   $Res call(
       {String OrderId,
-      String Address,
+      Address Addres,
       int TotalAmount,
       DateTime Date,
       String OrderStatus,
       List<Map<String, dynamic>> OrderDetails});
+
+  @override
+  $AddressCopyWith<$Res> get Addres;
 }
 
 /// @nodoc
@@ -121,7 +134,7 @@ class __$$_OrderCopyWithImpl<$Res> extends _$OrdersCopyWithImpl<$Res, _$_Order>
   @override
   $Res call({
     Object? OrderId = null,
-    Object? Address = null,
+    Object? Addres = null,
     Object? TotalAmount = null,
     Object? Date = null,
     Object? OrderStatus = null,
@@ -132,10 +145,10 @@ class __$$_OrderCopyWithImpl<$Res> extends _$OrdersCopyWithImpl<$Res, _$_Order>
           ? _value.OrderId
           : OrderId // ignore: cast_nullable_to_non_nullable
               as String,
-      Address: null == Address
-          ? _value.Address
-          : Address // ignore: cast_nullable_to_non_nullable
-              as String,
+      Addres: null == Addres
+          ? _value.Addres
+          : Addres // ignore: cast_nullable_to_non_nullable
+              as Address,
       TotalAmount: null == TotalAmount
           ? _value.TotalAmount
           : TotalAmount // ignore: cast_nullable_to_non_nullable
@@ -161,7 +174,7 @@ class __$$_OrderCopyWithImpl<$Res> extends _$OrdersCopyWithImpl<$Res, _$_Order>
 class _$_Order implements _Order {
   _$_Order(
       {required this.OrderId,
-      required this.Address,
+      required this.Addres,
       required this.TotalAmount,
       required this.Date,
       required this.OrderStatus,
@@ -174,7 +187,7 @@ class _$_Order implements _Order {
   @override
   final String OrderId;
   @override
-  final String Address;
+  final Address Addres;
   @override
   final int TotalAmount;
   @override
@@ -191,7 +204,7 @@ class _$_Order implements _Order {
 
   @override
   String toString() {
-    return 'Orders(OrderId: $OrderId, Address: $Address, TotalAmount: $TotalAmount, Date: $Date, OrderStatus: $OrderStatus, OrderDetails: $OrderDetails)';
+    return 'Orders(OrderId: $OrderId, Addres: $Addres, TotalAmount: $TotalAmount, Date: $Date, OrderStatus: $OrderStatus, OrderDetails: $OrderDetails)';
   }
 
   @override
@@ -200,7 +213,7 @@ class _$_Order implements _Order {
         (other.runtimeType == runtimeType &&
             other is _$_Order &&
             (identical(other.OrderId, OrderId) || other.OrderId == OrderId) &&
-            (identical(other.Address, Address) || other.Address == Address) &&
+            (identical(other.Addres, Addres) || other.Addres == Addres) &&
             (identical(other.TotalAmount, TotalAmount) ||
                 other.TotalAmount == TotalAmount) &&
             (identical(other.Date, Date) || other.Date == Date) &&
@@ -212,7 +225,7 @@ class _$_Order implements _Order {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, OrderId, Address, TotalAmount,
+  int get hashCode => Object.hash(runtimeType, OrderId, Addres, TotalAmount,
       Date, OrderStatus, const DeepCollectionEquality().hash(_OrderDetails));
 
   @JsonKey(ignore: true)
@@ -232,7 +245,7 @@ class _$_Order implements _Order {
 abstract class _Order implements Orders {
   factory _Order(
       {required final String OrderId,
-      required final String Address,
+      required final Address Addres,
       required final int TotalAmount,
       required final DateTime Date,
       required final String OrderStatus,
@@ -243,7 +256,7 @@ abstract class _Order implements Orders {
   @override
   String get OrderId;
   @override
-  String get Address;
+  Address get Addres;
   @override
   int get TotalAmount;
   @override
