@@ -61,6 +61,7 @@ dependencies:
   scratcher: ^2.3.0
   confetti: ^0.7.0
   shimmer: ^2.0.0
+  firebase_storage: ^11.0.14
 
   # pinput: ^2.2.0
 
@@ -99,6 +100,7 @@ flutter:
     - assets/images/rewards_cup_image.jpg
     - assets/images/reward-appbar-bg2.jpg
     - assets/images/reward_appbar_bg.jpg
+    - assets/images/subscriptionCard.jpg
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

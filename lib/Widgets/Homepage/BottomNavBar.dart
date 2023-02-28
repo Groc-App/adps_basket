@@ -22,7 +22,13 @@ class _BotmNavBarState extends State<BotmNavBar> {
   Widget build(BuildContext context) {
     int _selectedindex = 0;
 
-    var routes = ['/homepage', '/cartScreen', '/offerScreen', '/profileScreen'];
+    var routes = [
+      '/homepage',
+      '/cartScreen',
+      '/offerScreen',
+      '/subscriptionScreen',
+      '/profileScreen',
+    ];
 
     void _setIndex(int index) {
       setState(() {
@@ -52,6 +58,8 @@ class _BotmNavBarState extends State<BotmNavBar> {
             icon: Icon(Icons.shopping_bag_outlined), label: 'Cart'),
         BottomNavigationBarItem(
             icon: Icon(Icons.local_offer_outlined), label: 'Offer'),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.local_offer_outlined), label: 'Subscrip'),
         BottomNavigationBarItem(
             icon: Icon(Icons.person_2_outlined), label: 'Profile'),
       ],

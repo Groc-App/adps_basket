@@ -5,12 +5,17 @@ import 'package:confetti/confetti.dart';
 import 'package:scratcher/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/providers/providers.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:your_basket/models/offer/offer.dart';
+
+/* --------------------------- Predefined Constant -------------------------- */
 
 const kExpandedHeight = 200.0;
 const totalOrders = 15;
 const number = '917982733943';
 const map = {'number': number};
+
+/* -------------------------------------------------------------------------- */
 
 class OfferScreen extends ConsumerStatefulWidget {
   // const OfferScreen({Key? key}) : super(key: key);
@@ -20,8 +25,24 @@ class OfferScreen extends ConsumerStatefulWidget {
 }
 
 class _OfferScreenState extends ConsumerState<OfferScreen> {
-  ConfettiController _controller = new ConfettiController(
-    duration: new Duration(seconds: 2),
+  // final storageRef =
+  //     FirebaseStorage.instance.ref().child('Offers/reward_appbar_bg');
+
+  // var imageUrl = storageRef.getDownloadURL();
+  late var imageURL;
+
+  // Future<void> downloadURLExample() async {
+  //   imageURL = await FirebaseStorage.instance
+  //       .ref()
+  //       .child("Offers/reward_appbar_bg")
+  //       .getDownloadURL();
+  //   print("This is the Downloaded URL ${imageURL}");
+  // }
+
+  // final bgImage = storageRef.child('Offers/reward_appbar_bg');
+
+  final ConfettiController _controller = ConfettiController(
+    duration: const Duration(seconds: 2),
   );
 
   // late var offers;
@@ -51,6 +72,8 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   late var scSize;
   late var scHeight;
 
+  /* --------------------------- Scratch Controller --------------------------- */
+
   scratchedController(String id) {
     Map<String, String> map = {"number": number, "offerId": id};
     APIServiceOffer().updateOffer(map);
@@ -65,6 +88,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   Widget build(BuildContext context) {
     scSize = MediaQuery.of(context).size;
     scHeight = scSize.height;
+
     print("\nRebuild");
     return Scaffold(
       body: NestedScrollView(

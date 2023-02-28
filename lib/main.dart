@@ -14,6 +14,7 @@ import 'package:your_basket/Screens/orderSummary.dart';
 import 'package:your_basket/Screens/otpScreen.dart';
 import 'package:your_basket/Screens/productItemScreen.dart';
 import 'package:your_basket/Screens/scratchScreen.dart';
+import 'package:your_basket/Screens/subscriptionScreen.dart';
 import 'package:your_basket/Screens/yourOrders.dart';
 import 'package:your_basket/utils/theme.dart';
 import 'Screens/homeScreen.dart';
@@ -62,6 +63,7 @@ class MyApp extends StatelessWidget {
         '/loginScreen': (context) => LoginScreen(),
         '/orderSummaryScreen': (context) => OrderSummaryScreen(),
         '/checkoutScreen': (context) => CheckoutScreen(),
+        '/subscriptionScreen': (context) => SubscriptionScreen(),
       },
     );
   }

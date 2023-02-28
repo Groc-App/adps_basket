@@ -5,7 +5,7 @@ class Config {
   // 127.0.0.1:8000
   // 192.168.1.16:8000
   // static const String apiURL = '192.168.1.10:8000';
-  // static const String apiURL = '192.168.1.21:8000';
+  // static const String apiURL = '192.168.235.148:8000';
   // static const String apiURL = '192.168.1.11:8000';
 
   /* -------------------------------------------------------------------------- */
@@ -52,4 +52,8 @@ class Config {
   /* -------------------------------- Offer Api ------------------------------- */
   static const String getAllOffers = '/offer/getAllOffers';
   static const String updateOffer = '/offer/updateOffer';
+
+  /* ----------------------------- Subcription APi ---------------------------- */
+  static const String getSubscriptionByUser =
+      '/subscription/fetchSubscriptionByUser';
 }
