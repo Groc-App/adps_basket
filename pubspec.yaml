@@ -58,6 +58,8 @@ dependencies:
   firebase_auth: ^4.2.6
   share_plus: ^6.3.1
   intl: ^0.17.0
+  scratcher: ^2.3.0
+  confetti: ^0.7.0
   shimmer: ^2.0.0
 
   # pinput: ^2.2.0
@@ -87,6 +89,10 @@ flutter:
     - assets/images/c1.jpg
     - assets/images/c2.jpg
     - assets/images/c3.jpg
+    - assets/images/scratch_image.jpg
+    - assets/images/rewards_cup_image.jpg
+    - assets/images/reward-appbar-bg2.jpg
+    - assets/images/reward_appbar_bg.jpg
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

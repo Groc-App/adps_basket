@@ -25,9 +25,8 @@ class Carousel extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
-              color: Colors.red,
-              image: DecorationImage(
-                image: const AssetImage("assets/images/c1.jpg"),
+              image: const DecorationImage(
+                image: AssetImage("assets/images/c1.jpg"),
                 fit: BoxFit.fill,
               ),
             ),
@@ -35,9 +34,8 @@ class Carousel extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
-              color: Colors.blue,
-              image: DecorationImage(
-                image: const AssetImage("assets/images/c2.jpg"),
+              image: const DecorationImage(
+                image: AssetImage("assets/images/c2.jpg"),
                 fit: BoxFit.fill,
               ),
             ),
@@ -45,9 +43,8 @@ class Carousel extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
-              color: Colors.green,
-              image: DecorationImage(
-                image: const AssetImage("assets/images/c2.jpg"),
+              image: const DecorationImage(
+                image: AssetImage("assets/images/c2.jpg"),
                 fit: BoxFit.fill,
               ),
             ),
