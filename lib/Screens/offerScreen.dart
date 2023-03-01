@@ -50,22 +50,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
-
-    // print("Inside init state");
-    // final offers = ref.read(allOfferProvider(map));
-    // offers.when(
-    //   data: (list) {
-    //     list!.map((e) {
-    //       print("TotalReward $totalReward");
-    //       totalReward += e.worth.round();
-    //     });
-    //     // return _buildGridViewCards(list);
-    //   },
-    //   error: (_, __) => const Center(child: Text(" err")),
-    //   loading: () => const Center(child: CircularProgressIndicator()),
-    // );
-
+    // TODO: implement initStat
     super.initState();
   }
 

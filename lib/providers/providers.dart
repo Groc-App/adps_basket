@@ -169,7 +169,7 @@ final allOfferProvider =
 );
 
 final subscriptionByUserProvider =
-    FutureProvider.family<List<Subscription>?, Map<String, String>>(
+    FutureProvider.autoDispose.family<List<Subscription>?, Map<String, String>>(
   (ref, map) {
     final apiRespository = ref.watch(subscriptionApiService);
     // print(

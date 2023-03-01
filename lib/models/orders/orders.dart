@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:your_basket/models/product/productdetail.dart';
 
+import '../address/address.dart';
 import '../product/products.dart';
 part 'orders.freezed.dart';
 part 'orders.g.dart';
@@ -12,7 +12,7 @@ List<Orders> ordersFromJson(dynamic str) =>
 abstract class Orders with _$Orders {
   factory Orders(
       {required String OrderId,
-      required String Address,
+      required Address Addres,
       required int TotalAmount,
       required DateTime Date,
       required String OrderStatus,

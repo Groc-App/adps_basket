@@ -62,4 +62,36 @@ class APIServiceSubscription {
       return null;
     }
   }
+
+  Future<void> cancelSubscription(Map<String, dynamic> map) async {
+    try {
+      Map<String, String> requestHeaders = {
+        'Content-Type': 'application/json',
+      };
+
+      final queryParameter = map;
+
+      var body = json.encode(map);
+
+      var url =
+          Uri.http(Config.apiURL, Config.cancelSubscription, queryParameter);
+
+      // print(url);
+
+      var response = await client.delete(
+        url,
+        headers: requestHeaders,
+      );
+
+      // print(response.body);
+
+      if (response.statusCode == 200) {
+        return null;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
 }

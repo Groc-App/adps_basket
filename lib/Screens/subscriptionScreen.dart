@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/Services/subscription_api_service.dart';
 import 'package:your_basket/providers/providers.dart';
 import 'package:intl/intl.dart';
 
@@ -10,8 +11,25 @@ Map<String, String> map = {"number": number};
 var scHeight;
 var scSize;
 
-class SubscriptionScreen extends ConsumerWidget {
+class SubscriptionScreen extends ConsumerStatefulWidget {
+  // const OfferScreen({Key? key}) : super(key: key);
+
+  @override
+  _SubscriptionScreenState createState() => _SubscriptionScreenState();
+}
+
+class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
   // const SubscriptionScreen({super.key});
+
+  cancelHandler(String subscriptionId) {
+    map = {"subscriptionId": subscriptionId};
+    APIServiceSubscription().cancelSubscription(map);
+    ref.invalidate(subscriptionApiService);
+    ref.invalidate(subscriptionByUserProvider);
+
+    setState(() {});
+    Navigator.pop(context);
+  }
 
   Widget getSubscriptionList(WidgetRef ref) {
     final data = ref.watch(subscriptionByUserProvider(map));
@@ -229,7 +247,9 @@ class SubscriptionScreen extends ConsumerWidget {
                                   ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                           backgroundColor: Colors.red),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        cancelHandler(list[i].subscriptionId);
+                                      },
                                       child: Text("Cancel"))
                                 ],
                               ),
@@ -264,7 +284,7 @@ class SubscriptionScreen extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     print('rebnuild ho rhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/n');
     scSize = MediaQuery.of(context).size;
     scHeight = scSize.height;

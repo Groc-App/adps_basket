@@ -56,4 +56,6 @@ class Config {
   /* ----------------------------- Subcription APi ---------------------------- */
   static const String getSubscriptionByUser =
       '/subscription/fetchSubscriptionByUser';
+  static const String cancelSubscription =
+      '/subscription/cancelSubscriptionByUser';
 }

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Screens/OrderSuccess.dart';
 import 'package:your_basket/Screens/ProfileScreen.dart';
 import 'package:your_basket/Screens/addressScreen.dart';
+import 'package:your_basket/Screens/buySubscriptionScreen.dart';
 import 'package:your_basket/Screens/cartScreen.dart';
 import 'package:your_basket/Screens/categoryScreen.dart';
 import 'package:your_basket/Screens/checkOutScreen.dart';
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
         '/orderSummaryScreen': (context) => OrderSummaryScreen(),
         '/checkoutScreen': (context) => CheckoutScreen(),
         '/subscriptionScreen': (context) => SubscriptionScreen(),
+        '/buySubscriptionScreen': (context) => BuySubscriptionScreen(),
       },
     );
   }

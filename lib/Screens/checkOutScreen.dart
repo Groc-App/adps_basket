@@ -79,21 +79,12 @@ class CheckoutScreen extends StatelessWidget {
                 cartProductsArray.add(map);
               }
 
-              var addressmap = {
-                'Flat_FLoor_Tower': value.Flat_FLoor_Tower,
-                'Street_Society': value.Street_Society,
-                'Recipients_Name': value.Recipients_Name,
-                'City': value.City,
-                'Pincode': value.Pincode
-              };
-
-              // print("\nCart Products Array:: ${cartProductsArray}");
-              print('Address map::::::::::::    ${addressmap}');
+              var addressid = value.addressId;
 
               final cartViewModel = ref.read(cartItemsProvider.notifier);
               cartViewModel
                   .placeOrder(number, pricetotal.toString(), cartProductsArray,
-                      addressmap)
+                      addressid)
                   .whenComplete(() =>
                       Navigator.pushNamed(context, '/ordersuccessScreen'));
             },
@@ -144,7 +135,7 @@ class CheckoutScreen extends StatelessWidget {
                   border: Border.all(),
                   borderRadius: BorderRadius.all(Radius.circular(5)),
                   color: Colors.white),
-              width: double.infinity,
+              width: scWidth,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -252,7 +243,7 @@ class CheckoutScreen extends StatelessWidget {
                   border: Border.all(),
                   borderRadius: const BorderRadius.all(Radius.circular(5)),
                   color: Colors.white),
-              width: double.infinity,
+              width: scWidth,
               child: Column(
                 // mainAxisAlignment: MainA,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -295,6 +286,84 @@ class CheckoutScreen extends StatelessWidget {
                 ],
               ),
             ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              margin: EdgeInsets.only(top: 20),
+              decoration: BoxDecoration(
+                  boxShadow: [const BoxShadow(blurRadius: 2)],
+                  border: Border.all(),
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
+                  color: Colors.white),
+              width: scWidth,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Payment Method',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 10),
+                      child: Row(children: [
+                        Container(
+                          width: 25,
+                          height: 25,
+                          margin: EdgeInsets.only(right: 10),
+                          alignment: Alignment(0, 0),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.green),
+                          child: Icon(
+                            Icons.done,
+                            size: 20,
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'COD',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                            Text('You can also do UPI at the time delivery'),
+                          ],
+                        ),
+                      ]),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 10),
+                      child: Row(children: [
+                        Container(
+                          width: 25,
+                          height: 25,
+                          margin: EdgeInsets.only(right: 10),
+                          alignment: Alignment(0, 0),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.green),
+                          child: Icon(
+                            Icons.done,
+                            size: 20,
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Mobile Wallets/UPI',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                            Text(
+                                // softWrap: true,
+                                // overflow: TextOverflow,
+                                'You can do online Payment at the time of delivery'),
+                          ],
+                        ),
+                      ]),
+                    )
+                  ]),
+            )
           ],
         ),
       ),
