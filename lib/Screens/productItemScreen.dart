@@ -8,18 +8,27 @@ import 'package:your_basket/models/product/productdetail.dart';
 import 'package:your_basket/providers/providers.dart';
 
 class ProductItemScreen extends ConsumerWidget {
-  ProductItemScreen({super.key});
+  // ProductItemScreen({super.key});
+  late String productid;
 
-  String productid = '63e008bdb56990c02866bbae';
+  late ProductItem product;
+
+  // ProductItemScreen({required this.productid});
 
   Widget productdetail(WidgetRef ref, BuildContext context) {
+    var productIdMap = (ModalRoute.of(context)?.settings.arguments ??
+        <String, String>{}) as Map;
+    productid = productIdMap['productId'];
+    print("\ncscscsv:: $productid");
+
     final prdct = ref.watch(productByidProvider(productid));
-    // print(prdct);
+    print(prdct);
     return prdct.when(
       data: (dt) {
         // return buildCategory(list);
         // print("this is Productt||||||||||||||");
         // print(dt);
+        product = dt!;
         return buildProduct(dt, context);
       },
       error: (_, __) => const Center(child: Text("ERR")),
@@ -28,6 +37,10 @@ class ProductItemScreen extends ConsumerWidget {
   }
 
   Widget buildProduct(ProductItem? Product, BuildContext context) {
+    var productIdMap = (ModalRoute.of(context)?.settings.arguments ??
+        <String, String>{}) as Map;
+    productid = productIdMap['productId'];
+    print("\ncscscsv:: $productid");
     return Column(
       children: [
         Container(
@@ -68,15 +81,15 @@ class ProductItemScreen extends ConsumerWidget {
               child: Row(children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
-                      "BREAD",
-                      style: TextStyle(
+                      Product!.Name,
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 28,
                           fontWeight: FontWeight.bold),
                     ),
-                    Text("12pcs")
+                    Text(Product.Quantity)
                   ],
                 ),
                 const Spacer(),
@@ -86,8 +99,8 @@ class ProductItemScreen extends ConsumerWidget {
             Row(
               // ignore: prefer_const_literals_to_create_immutables
               children: [
-                const Text(
-                  "Rs 20",
+                Text(
+                  "Rs ${Product.Price}",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 const Spacer(),
@@ -117,17 +130,17 @@ class ProductItemScreen extends ConsumerWidget {
                     "Description",
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
                   ),
-                  const ReadMoreText(
-                      trimLength: 100,
-                      trimLines: 2,
-                      colorClickableText: Colors.pink,
-                      trimMode: TrimMode.Length,
-                      moreStyle:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                      trimCollapsedText: 'Show more',
-                      trimExpandedText: 'Show less',
-                      'Amul Sandwich bread is made out of pure and wholesome ingredients. The soft white bread is perfect for making sandwiches, bread pakoras, butter toast etc. Amul Sandwich bread is made out of pure and wholesome ingredients. The soft white bread is perfect for making sandwiches, bread pakoras, butter toast etc.'),
-                  // ),
+                  ReadMoreText(
+                    trimLength: 100,
+                    trimLines: 2,
+                    colorClickableText: Colors.pink,
+                    trimMode: TrimMode.Length,
+                    moreStyle:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    trimCollapsedText: 'Show more',
+                    trimExpandedText: 'Show less',
+                    '${Product.Description}',
+                  ),
                   // Padding(
                   //   padding: const EdgeInsets.symmetric(vertical: 5),
                   //   child: Row(
@@ -164,17 +177,34 @@ class ProductItemScreen extends ConsumerWidget {
           child: SingleChildScrollView(child: productdetail(ref, context)),
         ),
         backgroundColor: const Color.fromARGB(255, 235, 227, 227),
-        bottomNavigationBar: SizedBox(
-          height: 60,
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(color: Colors.white),
           child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('/cartScreen');
-              },
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-              // textColor: Colors.white,
-              child: const Text('View Cart'),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/cartScreen');
+                  },
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  // textColor: Colors.white,
+                  child: const Text('View Cart'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/buySubscriptionScreen',
+                        arguments: {
+                          'name': product.Name,
+                          'image': product.ImageUrl
+                        });
+                  },
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  // textColor: Colors.white,
+                  child: const Text('Subscribe'),
+                ),
+              ],
             ),
           ),
         ));

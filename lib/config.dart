@@ -50,4 +50,10 @@ class Config {
   /* -------------------------------- Offer Api ------------------------------- */
   static const String getAllOffers = '/offer/getAllOffers';
   static const String updateOffer = '/offer/updateOffer';
+
+  /* ----------------------------- Subcription APi ---------------------------- */
+  static const String getSubscriptionByUser =
+      '/subscription/fetchSubscriptionByUser';
+  static const String cancelSubscription =
+      '/subscription/cancelSubscriptionByUser';
 }

@@ -206,12 +206,20 @@ class _ProductItemState extends ConsumerState<ProductItem> {
       // color: Colors.white,
       child:
           Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Flexible(
-          fit: FlexFit.loose,
-          flex: 3,
-          child: Image.network(
-            imageUrl,
-            fit: BoxFit.cover,
+        InkWell(
+          onTap: () {
+            print("IIIIIIIID $id");
+            Navigator.of(context).pushNamed('/productItemPage', arguments: {
+              'productId': id,
+            });
+          },
+          child: Flexible(
+            fit: FlexFit.loose,
+            flex: 3,
+            child: Image.network(
+              imageUrl,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         Expanded(

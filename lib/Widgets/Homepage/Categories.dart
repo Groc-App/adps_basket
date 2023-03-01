@@ -153,7 +153,7 @@ class MainCategory extends ConsumerWidget {
                 alignment: const Alignment(0, -0.9),
                 child: FittedBox(
                   child: Text(
-                    name,
+                    "d",
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 17),
                   ),

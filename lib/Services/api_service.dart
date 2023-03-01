@@ -74,8 +74,8 @@ class APIServiceAuth {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      print(response.body);
-      return productDetailFromJson(data);
+      print(data['data']);
+      return productDetailFromJson(data['data']);
     } else {
       return null;
     }
