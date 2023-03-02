@@ -46,17 +46,20 @@ class APIServiceSubscription {
       'Content-Type': 'application/json',
     };
 
+    print("Map: $map");
+
     var body = json.encode(map);
 
-    var url = Uri.http(Config.apiURL, Config.getSubscriptionByUser);
+    print("Body:::::$body");
+    var url = Uri.http(Config.apiURL, Config.createSubscripiotn);
 
     print(url);
 
     var response = await client.post(url, headers: requestHeaders, body: body);
 
-    // print(response.body);
+    print(response.body);
 
-    if (response.statusCode == 200) {
+    if (true) {
       return null;
     } else {
       return null;

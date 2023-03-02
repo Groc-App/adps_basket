@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:your_basket/data/product.dart';
+import 'package:your_basket/models/address/address.dart';
 import 'package:your_basket/models/product/productdetail.dart';
 import '../product/products.dart';
 part 'subscription.freezed.dart';
@@ -12,7 +13,7 @@ List<Subscription> subscriptionFromJson(dynamic str) =>
 abstract class Subscription with _$Subscription {
   factory Subscription({
     required ProductItem product,
-    required Map<String, String> address,
+    required Address address,
     required int quantity,
     required DateTime startDate,
     required DateTime endDate,

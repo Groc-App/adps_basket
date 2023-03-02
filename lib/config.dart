@@ -58,4 +58,5 @@ class Config {
       '/subscription/fetchSubscriptionByUser';
   static const String cancelSubscription =
       '/subscription/cancelSubscriptionByUser';
+  static const String createSubscripiotn = '/subscription/createSubscription';
 }

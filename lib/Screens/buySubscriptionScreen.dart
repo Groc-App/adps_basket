@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Services/subscription_api_service.dart';
 import 'package:your_basket/providers/providers.dart';
 import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import '../models/subscription/subscription.dart';
 
@@ -39,7 +40,31 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
     '10',
   ];
   // const SubscriptionScreen({super.key});
-  submitHandler() {}
+
+  submitHandler(String productId, String number, String stDate, String eDate) {
+    final AddressBookState = ref.watch(addressBokkProvider);
+    var reqData = AddressBookState.AddressBookModel!.addresses
+        .firstWhere((e) => e.defaultAddress == true);
+    print(reqData);
+
+    DateTime startDate =
+        Intl.withLocale('en', () => DateFormat('d/M/y').parse(stDate));
+    DateTime endDate =
+        Intl.withLocale("en", () => DateFormat('d/M/y').parse(eDate));
+
+    Map<String, dynamic> map = {
+      "quantity": dropdownvalue,
+      "productId": productId,
+      "number": number,
+      "startDate": startDate.toIso8601String(),
+      "endDate": endDate.toIso8601String(),
+      "address": reqData.addressId
+    };
+
+    APIServiceSubscription().createsubscription(map).whenComplete(
+        () => Navigator.pushNamed(context, '/ordersuccessScreen'));
+    // setState(() {});
+  }
 
   startDateHandler() async {
     var datepicked = await showDatePicker(
@@ -73,6 +98,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting('en', null);
     print('rebnuild ho rhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/n');
     scSize = MediaQuery.of(context).size;
     scHeight = scSize.height;
@@ -220,7 +246,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                               onPressed: () async {
                                 endDateHandler();
                               },
-                              child: const Text('Select Date ',
+                              child: Text(endDate,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.green)),
@@ -239,7 +265,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                           Container(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 20),
-                            child: const Text("Status",
+                            child: const Text("Address",
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.w500)),
                           ),
@@ -248,10 +274,16 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                               width: scSize.width * 0.6,
                               padding: const EdgeInsets.symmetric(
                                   vertical: 5, horizontal: 10),
-                              child: const Text("Subscribed",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.green))),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pushNamed('/addressScreen');
+                                },
+                                child: const Text("Select Address",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.green)),
+                              )),
                         ],
                       ),
                     ),
@@ -264,7 +296,10 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                 child: ElevatedButton(
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                    onPressed: () {},
+                    onPressed: () {
+                      submitHandler('63ef507a0f5f88744b7814c2', '+917982733943',
+                          startDate, endDate);
+                    },
                     child: const Text("Buy Subscription")),
               )
             ],
