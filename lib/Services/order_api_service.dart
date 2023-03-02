@@ -34,8 +34,9 @@ class APIServiceOrder {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      print("This is data ${data['data']['Order']}");
-      return ordersFromJson(data['data']['Order']);
+      print("This is data ${data['data']}");
+      // var tempdata = data['data'];
+      return ordersFromJson(data['data']);
     } else {
       return null;
     }
