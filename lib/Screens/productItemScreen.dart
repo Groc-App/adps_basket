@@ -2,45 +2,27 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/Screens/buySubscriptionScreen.dart';
 import 'package:your_basket/Widgets/Categories/addItemIcon.dart';
 import 'package:readmore/readmore.dart';
 import 'package:your_basket/models/product/productdetail.dart';
+import 'package:your_basket/models/product/products.dart';
 import 'package:your_basket/providers/providers.dart';
 
-class ProductItemScreen extends ConsumerWidget {
+class ProductItemScreen extends ConsumerStatefulWidget {
+  const ProductItemScreen({super.key});
+
+  @override
+  ConsumerState<ProductItemScreen> createState() => _ProductItemScreenState();
+}
+
+class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
   // ProductItemScreen({super.key});
-  late String productid;
 
-  late ProductItem product;
+  late Product product;
+  int counter = 0;
 
-  // ProductItemScreen({required this.productid});
-
-  Widget productdetail(WidgetRef ref, BuildContext context) {
-    var productIdMap = (ModalRoute.of(context)?.settings.arguments ??
-        <String, String>{}) as Map;
-    productid = productIdMap['productId'];
-    print("\ncscscsv:: $productid");
-
-    final prdct = ref.watch(productByidProvider(productid));
-    print(prdct);
-    return prdct.when(
-      data: (dt) {
-        // return buildCategory(list);
-        // print("this is Productt||||||||||||||");
-        // print(dt);
-        product = dt!;
-        return buildProduct(dt, context);
-      },
-      error: (_, __) => const Center(child: Text("ERR")),
-      loading: () => const Center(child: CircularProgressIndicator()),
-    );
-  }
-
-  Widget buildProduct(ProductItem? Product, BuildContext context) {
-    var productIdMap = (ModalRoute.of(context)?.settings.arguments ??
-        <String, String>{}) as Map;
-    productid = productIdMap['productId'];
-    print("\ncscscsv:: $productid");
+  Widget buildProduct(BuildContext context, double scWidth) {
     return Column(
       children: [
         Container(
@@ -83,13 +65,13 @@ class ProductItemScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      Product!.Name,
+                      product.Name,
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 28,
                           fontWeight: FontWeight.bold),
                     ),
-                    Text(Product.Quantity)
+                    Text(product.Quantity)
                   ],
                 ),
                 const Spacer(),
@@ -100,11 +82,11 @@ class ProductItemScreen extends ConsumerWidget {
               // ignore: prefer_const_literals_to_create_immutables
               children: [
                 Text(
-                  "Rs ${Product.Price}",
+                  "Rs ${product.Price}",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 const Spacer(),
-                const AddToCart()
+                addTile(scWidth),
               ],
             ),
             const Divider(
@@ -139,42 +121,204 @@ class ProductItemScreen extends ConsumerWidget {
                         TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                     trimCollapsedText: 'Show more',
                     trimExpandedText: 'Show less',
-                    '${Product.Description}',
+                    '${product.Description}',
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.symmetric(vertical: 5),
-                  //   child: Row(
-                  //     children: const [
-                  //       Text(
-                  //         "Read more details",
-                  //         style: TextStyle(color: Colors.purple),
-                  //       ),
-                  //       Icon(Icons.arrow_drop_down)
-                  //     ],
-                  //   ),
-                  // )
                 ],
               ),
             )
-            // const Padding(
-            //   padding: EdgeInsets.symmetric(vertical: 20),
-            //   child: ,
-            // )
           ]),
         )
       ],
     );
   }
 
+  void incrementHandler() {
+    setState(() {
+      counter++;
+    });
+
+    final cartViewModel = ref.read(cartItemsProvider.notifier);
+    cartViewModel.updateCartItem(
+        '+917982733943', counter.toString(), product.productId);
+  }
+
+  void decrementHandler() {
+    if ((counter - 1) == 0) {
+      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      cartViewModel
+          .removeCartItems('+917982733943', product.productId)
+          .whenComplete(() {
+        setState(() {
+          counter--;
+        });
+      });
+    } else {
+      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      cartViewModel
+          .updateCartItem(
+              '+917982733943', (counter - 1).toString(), product.productId)
+          .whenComplete(() {
+        setState(() {
+          counter--;
+        });
+      });
+    }
+  }
+
+  Widget addTile(scWidth) {
+    final CartItemModel = ref.watch(cartItemsProvider);
+    var searchdata = CartItemModel.cartModel!.products;
+    bool flag = false;
+    for (int i = 0; i < searchdata.length; i++) {
+      var data = searchdata[i];
+      if (product.productId == data.Item.productId) {
+        setState(() {
+          counter = data.ItemCount;
+        });
+        flag = true;
+        break;
+      }
+    }
+    if (flag == false) {
+      setState(() {
+        counter = 0;
+      });
+    }
+    print('counter is:::::::::::::: $counter\n');
+    return buildAddTile(scWidth);
+  }
+
+  Widget buildAddTile(scWidth) {
+    return counter != 0
+        ? Container(
+            decoration: BoxDecoration(
+                color: Color.fromRGBO(245, 245, 245, 1),
+                // border: const Border(
+                //     top: BorderSide(width: 2),
+                //     bottom: BorderSide(width: 2),
+                //     left: BorderSide(width: 2),
+                //     right: BorderSide(width: 2)),
+                borderRadius: BorderRadius.circular(5)),
+            width: scWidth * 0.25,
+            height: scWidth * 0.25 * 0.4,
+            child: Row(children: [
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () => decrementHandler(),
+                  child: Icon(
+                    // Color(value),
+                    color: Color.fromRGBO(83, 177, 117, 1),
+
+                    Icons.remove,
+                    size: scWidth * 0.25 * 0.3,
+                  ),
+                ),
+              ),
+              SizedBox(
+                  width: scWidth * 0.25 * 0.3,
+                  child: Text(
+                    '${counter}',
+                    textAlign: TextAlign.center,
+                  )),
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () => incrementHandler(),
+                  child: Icon(
+                    color: Color.fromRGBO(83, 177, 117, 1),
+                    Icons.add,
+                    size: scWidth * 0.25 * 0.3,
+                  ),
+                ),
+              ),
+            ]),
+          )
+        // Container(
+        //     width: scWidth * 0.48 * 0.40,
+        //     height: scWidth * 0.48 * 0.20,
+        //     decoration: BoxDecoration(
+        //       borderRadius: BorderRadius.circular(5),
+        //       color: Colors.white,
+        //     ),
+        //     child: Row(
+        //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //       children: [
+        //         MouseRegion(
+        //           cursor: SystemMouseCursors.click,
+        //           child: GestureDetector(
+        //             child: Icon(Icons.remove, size: scWidth * 0.48 * 0.5 * 0.2),
+        //             onTap: () => decrementHandler(),
+        //           ),
+        //         ),
+        //         Text('$counter'),
+        //         MouseRegion(
+        //           cursor: SystemMouseCursors.click,
+        //           child: GestureDetector(
+        //             child: Icon(Icons.add, size: scWidth * 0.48 * 0.5 * 0.2),
+        //             onTap: () => incrementHandler(),
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   )
+        : Container(
+            width: scWidth * 0.48 * 0.5,
+            height: scWidth * 0.25 * 0.4,
+            child: OutlinedButton(
+                onPressed: () {
+                  // if (authInfo == null) {
+                  //   showDialog<String>(
+                  //     context: context,
+                  //     builder: (BuildContext context) =>
+                  //         AlertDialog(
+                  //       title: const Text('Login First'),
+                  //       content: const Text('Login to Continue'),
+                  //       actions: <Widget>[
+                  //         TextButton(
+                  //           onPressed: () =>
+                  //               Navigator.pop(context, 'Cancel'),
+                  //           child: const Text('Cancel'),
+                  //         ),
+                  //         TextButton(
+                  //           onPressed: () => Navigator.pushNamed(
+                  //               context, '/loginScreen'),
+                  //           child: const Text('OK'),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   );
+                  // } else {
+                  setState(() {
+                    counter++;
+                  });
+                  final cartViewModel = ref.read(cartItemsProvider.notifier);
+                  cartViewModel.addCartItems(
+                      '+917982733943', product.productId);
+                }
+                // }
+                ,
+                child: const Text('ADD')),
+          );
+  }
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
+    var scSize = MediaQuery.of(context).size;
+    double scWidth = scSize.width;
+
+    var productIdMap = (ModalRoute.of(context)?.settings.arguments ??
+        <String, String>{}) as Map;
+    product = productIdMap['product'];
+    // counter = productIdMap['counter'];
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 237, 230, 230),
-          title: const Text("Good"),
+          title: Text("${product.Name}"),
         ),
         body: SafeArea(
-          child: SingleChildScrollView(child: productdetail(ref, context)),
+          child: SingleChildScrollView(child: buildProduct(context, scWidth)),
         ),
         backgroundColor: const Color.fromARGB(255, 235, 227, 227),
         bottomNavigationBar: Container(

@@ -2,35 +2,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/models/product/products.dart';
 
 import '../../providers/providers.dart';
 
 class ProductItem extends ConsumerStatefulWidget {
   // const ProductItem({super.key});
 
-  late String id;
-  late String imageUrl;
-  late String name;
-  late String desc;
-  late double price;
-  late String quantity;
+  late Product product;
 
-  ProductItem(
-      {required this.id,
-      required this.imageUrl,
-      required this.name,
-      required this.desc,
-      required this.price,
-      required this.quantity});
+  ProductItem({required this.product});
 
   @override
   ConsumerState<ProductItem> createState() => _ProductItemState(
-      id: id,
-      imageUrl: imageUrl,
-      name: name,
-      desc: desc,
-      price: price,
-      quantity: quantity);
+        product: product,
+      );
 }
 
 class _ProductItemState extends ConsumerState<ProductItem> {
@@ -42,21 +28,9 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     super.initState();
   }
 
-  String id;
-  String imageUrl;
-  String name;
-  String desc;
-  double price;
-  String quantity;
+  Product product;
 
-  _ProductItemState({
-    required this.id,
-    required this.imageUrl,
-    required this.name,
-    required this.desc,
-    required this.price,
-    required this.quantity,
-  });
+  _ProductItemState({required this.product});
 
   void incrementHandler() {
     setState(() {
@@ -64,13 +38,16 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     });
 
     final cartViewModel = ref.read(cartItemsProvider.notifier);
-    cartViewModel.updateCartItem('+917982733943', counter.toString(), id);
+    cartViewModel.updateCartItem(
+        '+917982733943', counter.toString(), product.productId);
   }
 
   void decrementHandler() {
     if ((counter - 1) == 0) {
       final cartViewModel = ref.read(cartItemsProvider.notifier);
-      cartViewModel.removeCartItems('+917982733943', id).whenComplete(() {
+      cartViewModel
+          .removeCartItems('+917982733943', product.productId)
+          .whenComplete(() {
         setState(() {
           counter--;
         });
@@ -78,7 +55,8 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     } else {
       final cartViewModel = ref.read(cartItemsProvider.notifier);
       cartViewModel
-          .updateCartItem('+917982733943', (counter - 1).toString(), id)
+          .updateCartItem(
+              '+917982733943', (counter - 1).toString(), product.productId)
           .whenComplete(() {
         setState(() {
           counter--;
@@ -103,7 +81,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     bool flag = false;
     for (int i = 0; i < searchdata.length; i++) {
       var data = searchdata[i];
-      if (id == data.Item.productId) {
+      if (product.productId == data.Item.productId) {
         setState(() {
           counter = data.ItemCount;
         });
@@ -184,7 +162,8 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                       counter++;
                     });
                     final cartViewModel = ref.read(cartItemsProvider.notifier);
-                    cartViewModel.addCartItems('+917982733943', id);
+                    cartViewModel.addCartItems(
+                        '+917982733943', product.productId);
                   }
                   // }
                   ,
@@ -201,62 +180,64 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     // var authInfo = ref.watch(authCheckProvider);
     // print(authInfo?.uid);
 
-    return Card(
-      // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      // color: Colors.white,
-      child:
-          Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        InkWell(
-          onTap: () {
-            print("IIIIIIIID $id");
-            Navigator.of(context).pushNamed('/productItemPage', arguments: {
-              'productId': id,
-            });
-          },
-          child: Flexible(
-            fit: FlexFit.loose,
-            flex: 3,
-            child: Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        Expanded(
-          child: FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Column(
-              children: [
-                Text(
-                  name,
-                  style: TextStyle(fontSize: 16),
-                ),
-                Text(
-                  quantity,
-                  style: TextStyle(fontSize: 14),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return GestureDetector(
+      onTap: () {
+        // print("IIIIIIIID $prod");
+        Navigator.of(context).pushNamed('/productItemPage', arguments: {
+          'product': product,
+          'counter': counter,
+        });
+      },
+      child: Card(
+        // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        // color: Colors.white,
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                  width: scWidth * 0.48 * 0.18,
-                  child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        '\u{20B9}${price}',
-                        style: TextStyle(
-                            fontSize: 34, fontWeight: FontWeight.bold),
-                      ))),
-              addTile(scWidth),
-            ],
-          ),
-        )
-      ]),
+              Flexible(
+                fit: FlexFit.loose,
+                flex: 3,
+                child: Image.network(
+                  product.ImageUrl,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Expanded(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Column(
+                    children: [
+                      Text(
+                        product.Name,
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Text(
+                        product.Quantity,
+                        style: TextStyle(fontSize: 14),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                        width: scWidth * 0.48 * 0.18,
+                        child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              '\u{20B9}${product.Price}',
+                              style: TextStyle(
+                                  fontSize: 34, fontWeight: FontWeight.bold),
+                            ))),
+                    addTile(scWidth),
+                  ],
+                ),
+              )
+            ]),
+      ),
     );
   }
 }
