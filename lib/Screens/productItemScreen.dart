@@ -66,6 +66,8 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                   children: [
                     Text(
                       product.Name,
+                      softWrap: true,
+                      maxLines: 2,
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 28,
