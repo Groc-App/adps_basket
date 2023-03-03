@@ -13,21 +13,16 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  List<Map<String, dynamic>> foundUser = [];
+  List<Product> foundUser = [];
 
-  Widget buildProducts(List<Map<String, dynamic>> products) {
+  Widget buildProducts(List<Product> products) {
     return GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 5),
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return ProductItem(
-            id: products[index]['productId'],
-            imageUrl: products[index]['ImageUrl'],
-            name: products[index]['Name'],
-            desc: products[index]['Description'],
-            price: products[index]['Price'],
-            quantity: products[index]['Quantity'],
+            product: products[index],
           );
         },
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -47,14 +42,14 @@ class _SearchScreenState extends State<SearchScreen> {
   // }
 
   void runFilter(String enteredKeyword) {
-    List<Map<String, dynamic>> results = [];
+    List<Product> results = [];
     if (enteredKeyword.isEmpty) {
       // if the search field is empty or only contains white-space, we'll display all users
       // results = _allUsers;
     } else {
       results = data
           .where((user) =>
-              user["Name"].toLowerCase().contains(enteredKeyword.toLowerCase()))
+              user.Name.toLowerCase().contains(enteredKeyword.toLowerCase()))
           .toList();
       // we use the toLowerCase() method to make it case-insensitive
     }

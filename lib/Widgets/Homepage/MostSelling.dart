@@ -39,12 +39,7 @@ class MostSelling extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return Container(
               child: ProductItem(
-                id: list[index].productId,
-                imageUrl: list[index].ImageUrl,
-                name: list[index].Name,
-                desc: list[index].Description,
-                price: list[index].Price,
-                quantity: list[index].Quantity,
+                product: list[index],
               ),
             );
           }),

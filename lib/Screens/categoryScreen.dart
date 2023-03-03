@@ -76,12 +76,7 @@ class CategoryScreen extends ConsumerWidget {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return ProductItem(
-            id: products[index].productId,
-            imageUrl: products[index].ImageUrl,
-            name: products[index].Name,
-            desc: products[index].Description,
-            price: products[index].Price,
-            quantity: products[index].Quantity,
+            product: products[index],
           );
         },
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

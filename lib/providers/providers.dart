@@ -120,7 +120,6 @@ final categoriesProvider = FutureProvider.family<List<Category>?, String>(
 // final cartItemProvider = FutureProvider.family<List<CartItem>?, String?>(
 //   (ref, userid) {
 //     final apiRespository = ref.watch(cartApiService);
-
 //     return apiRespository.getCartItem(userid);
 //   },
 // );
@@ -137,7 +136,6 @@ final productByidProvider = FutureProvider.family<ProductItem?, String>(
 //     FutureProvider.family<Product?, Map<String, dynamic>>(
 //   (ref, cartitemdet) {
 //     final apiRespository = ref.watch(cartApiService);
-
 //     apiRespository.updateCartitemquantity(cartitemdet);
 //     return null;
 //   },
@@ -159,6 +157,7 @@ final allProductProvider = FutureProvider<List<Product>?>(
     return apiRespository.getAllProduct();
   },
 );
+
 final allOfferProvider =
     FutureProvider.autoDispose.family<List<Offer>?, Map<String, String>>(
   (ref, map) {
