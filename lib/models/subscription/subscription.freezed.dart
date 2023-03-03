@@ -21,7 +21,7 @@ Subscription _$SubscriptionFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Subscription {
   ProductItem get product => throw _privateConstructorUsedError;
-  Map<String, String> get address => throw _privateConstructorUsedError;
+  Address get address => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
   DateTime get startDate => throw _privateConstructorUsedError;
   DateTime get endDate => throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $SubscriptionCopyWith<$Res> {
   @useResult
   $Res call(
       {ProductItem product,
-      Map<String, String> address,
+      Address address,
       int quantity,
       DateTime startDate,
       DateTime endDate,
@@ -50,6 +50,7 @@ abstract class $SubscriptionCopyWith<$Res> {
       String subscriptionId});
 
   $ProductItemCopyWith<$Res> get product;
+  $AddressCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -81,7 +82,7 @@ class _$SubscriptionCopyWithImpl<$Res, $Val extends Subscription>
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
+              as Address,
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
@@ -112,6 +113,14 @@ class _$SubscriptionCopyWithImpl<$Res, $Val extends Subscription>
       return _then(_value.copyWith(product: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressCopyWith<$Res> get address {
+    return $AddressCopyWith<$Res>(_value.address, (value) {
+      return _then(_value.copyWith(address: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -124,7 +133,7 @@ abstract class _$$_SubscriptionCopyWith<$Res>
   @useResult
   $Res call(
       {ProductItem product,
-      Map<String, String> address,
+      Address address,
       int quantity,
       DateTime startDate,
       DateTime endDate,
@@ -133,6 +142,8 @@ abstract class _$$_SubscriptionCopyWith<$Res>
 
   @override
   $ProductItemCopyWith<$Res> get product;
+  @override
+  $AddressCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -160,9 +171,9 @@ class __$$_SubscriptionCopyWithImpl<$Res>
           : product // ignore: cast_nullable_to_non_nullable
               as ProductItem,
       address: null == address
-          ? _value._address
+          ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
+              as Address,
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
@@ -192,27 +203,20 @@ class __$$_SubscriptionCopyWithImpl<$Res>
 class _$_Subscription implements _Subscription {
   _$_Subscription(
       {required this.product,
-      required final Map<String, String> address,
+      required this.address,
       required this.quantity,
       required this.startDate,
       required this.endDate,
       required this.subscriptionStatus,
-      required this.subscriptionId})
-      : _address = address;
+      required this.subscriptionId});
 
   factory _$_Subscription.fromJson(Map<String, dynamic> json) =>
       _$$_SubscriptionFromJson(json);
 
   @override
   final ProductItem product;
-  final Map<String, String> _address;
   @override
-  Map<String, String> get address {
-    if (_address is EqualUnmodifiableMapView) return _address;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_address);
-  }
-
+  final Address address;
   @override
   final int quantity;
   @override
@@ -235,7 +239,7 @@ class _$_Subscription implements _Subscription {
         (other.runtimeType == runtimeType &&
             other is _$_Subscription &&
             (identical(other.product, product) || other.product == product) &&
-            const DeepCollectionEquality().equals(other._address, _address) &&
+            (identical(other.address, address) || other.address == address) &&
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
             (identical(other.startDate, startDate) ||
@@ -249,15 +253,8 @@ class _$_Subscription implements _Subscription {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      product,
-      const DeepCollectionEquality().hash(_address),
-      quantity,
-      startDate,
-      endDate,
-      subscriptionStatus,
-      subscriptionId);
+  int get hashCode => Object.hash(runtimeType, product, address, quantity,
+      startDate, endDate, subscriptionStatus, subscriptionId);
 
   @JsonKey(ignore: true)
   @override
@@ -276,7 +273,7 @@ class _$_Subscription implements _Subscription {
 abstract class _Subscription implements Subscription {
   factory _Subscription(
       {required final ProductItem product,
-      required final Map<String, String> address,
+      required final Address address,
       required final int quantity,
       required final DateTime startDate,
       required final DateTime endDate,
@@ -289,7 +286,7 @@ abstract class _Subscription implements Subscription {
   @override
   ProductItem get product;
   @override
-  Map<String, String> get address;
+  Address get address;
   @override
   int get quantity;
   @override
