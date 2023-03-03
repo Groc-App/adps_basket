@@ -151,7 +151,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 5, horizontal: 10),
                                             child: Text(
-                                                '${DateFormat.jms().format(list[i].startDate)}',
+                                                '${DateFormat('dd/MM/yyyy').format(list[i].startDate)}',
                                                 style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.green)),
@@ -181,7 +181,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 5, horizontal: 10),
                                             child: Text(
-                                                list[i].endDate.toString(),
+                                                '${DateFormat('dd/MM/yyyy').format(list[i].endDate)}',
                                                 style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.green)),

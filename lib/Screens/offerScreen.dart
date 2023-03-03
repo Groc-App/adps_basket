@@ -7,6 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/providers/providers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:your_basket/models/offer/offer.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 /* --------------------------- Predefined Constant -------------------------- */
 
@@ -28,16 +30,25 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   // final storageRef =
   //     FirebaseStorage.instance.ref().child('Offers/reward_appbar_bg');
 
+  static CacheManager instance = CacheManager(
+    Config(
+      "imagemanager",
+      stalePeriod: const Duration(days: 7),
+      maxNrOfCacheObjects: 20,
+    ),
+  );
   // var imageUrl = storageRef.getDownloadURL();
-  late var imageURL;
+  String? imageURL;
 
-  // Future<void> downloadURLExample() async {
+  // Future<String?> downloadURLExample() async {
   //   imageURL = await FirebaseStorage.instance
   //       .ref()
-  //       .child("Offers/reward_appbar_bg")
+  //       .child("Offers/reward_appbar_bg.jpg")
   //       .getDownloadURL();
   //   print("This is the Downloaded URL ${imageURL}");
-  // }
+  //   return imageURL;
+  // Image m = Image.network(imageURL.toString());
+  // return m;
 
   // final bgImage = storageRef.child('Offers/reward_appbar_bg');
 
@@ -210,13 +221,46 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
             flex: 2,
             child: Stack(
               children: [
-                Image.asset(
-                  // 'assets/images/reward-appbar-bg.jpg',
-                  'assets/images/reward_appbar_bg.jpg',
-                  width: double.infinity,
-                  // height: 200,
-                  fit: BoxFit.cover,
+                CachedNetworkImage(
+                  // cacheManager: instance,
+                  imageUrl:
+                      'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Freward_appbar_bg.jpg?alt=media&token=bf1c3400-ba8e-48c9-8b82-29c2803bd4ee',
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) {
+                    print(error);
+                    return Icon(Icons.error);
+                  },
                 ),
+
+                // FutureBuilder(
+                //   future: downloadURLExample(),
+                //   builder: ((context, snapshot) {
+                //     if (snapshot.connectionState == ConnectionState.done) {
+                //       // return snapshot.data!;
+                //       return CachedNetworkImage(
+                //         cacheManager: instance,
+                //         imageUrl: 'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Freward_appbar_bg.jpg?alt=media&token=bf1c3400-ba8e-48c9-8b82-29c2803bd4ee',
+                //         placeholder: (context, url) =>
+                //             CircularProgressIndicator(),
+                //         errorWidget: (context, url, error) {
+                //           print(error);
+                //           return Icon(Icons.error);
+                //         },
+                //       );
+                //     }
+                //     if (snapshot.connectionState == ConnectionState.waiting) {
+                //       return CircularProgressIndicator();
+                //     }
+                //     return Container();
+                //   }),
+                // ),
+                // Image.asset(
+                //   // 'assets/images/reward-appbar-bg.jpg',
+                //   'assets/images/reward_appbar_bg.jpg',
+                //   width: double.infinity,
+                //   // height: 200,
+                //   fit: BoxFit.cover,
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
