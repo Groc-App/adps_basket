@@ -267,7 +267,23 @@ class CheckoutScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Delivery Charges"),
-                      Text("₹0"),
+                      RichText(
+                        text: TextSpan(
+                          text: 'This item costs ',
+                          children: const <TextSpan>[
+                            TextSpan(
+                              text: '₹40',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                            ),
+                            TextSpan(
+                                text: '  ₹0',
+                                style: TextStyle(color: Colors.black)),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                   SizedBox(height: 8),
@@ -340,9 +356,9 @@ class CheckoutScreen extends StatelessWidget {
                           margin: EdgeInsets.only(right: 10),
                           alignment: Alignment(0, 0),
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.green),
+                              shape: BoxShape.circle, color: Colors.grey),
                           child: Icon(
-                            Icons.done,
+                            Icons.cancel,
                             size: 20,
                           ),
                         ),
@@ -354,10 +370,20 @@ class CheckoutScreen extends StatelessWidget {
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             ),
-                            Text(
-                                // softWrap: true,
-                                // overflow: TextOverflow,
-                                'You can do online Payment at the time of delivery'),
+                            SizedBox(
+                              width: scWidth * 0.8,
+                              child: Text(
+                                'You can do online Payment at the time of delivery',
+                                // style: TextStyle(fontSize: 24),
+                                softWrap: true,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            // Text(
+                            //     // softWrap: true,
+                            //     // overflow: TextOverflow.ellipsis,
+                            //     ''),
                           ],
                         ),
                       ]),

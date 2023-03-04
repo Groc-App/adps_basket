@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Address/address.dart';
-import 'package:your_basket/Widgets/Address/addresssinner.dart';
+import '../Widgets/Sinners/addresssinner.dart';
 import '../providers/providers.dart';
 import '../models/address/address.dart' as AddressModel;
 

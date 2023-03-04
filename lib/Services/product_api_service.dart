@@ -73,10 +73,11 @@ class APIServiceProducts {
     var url = Uri.http(Config.apiURL, Config.getProductsMostSellingApi);
     print("This is url");
     print(url);
-    var response = await client.get(
+
+    var response;
+    response = await client.get(
       url,
       headers: requestHeaders,
-      // body: jsonEncode({"phone": }),
     );
 
     // print(response.body);

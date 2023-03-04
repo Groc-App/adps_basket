@@ -72,6 +72,10 @@ class _ProductItemState extends ConsumerState<ProductItem> {
   Widget addTile(scWidth) {
     final CartItemModel = ref.watch(cartItemsProvider);
 
+    if (CartItemModel.isLoading) {
+      return CircularProgressIndicator();
+    }
+
     // if (CartItemModel.cartModel == null) {
     //   return const LinearProgressIndicator();
     // }

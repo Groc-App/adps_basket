@@ -25,6 +25,7 @@ class CartScreen extends ConsumerStatefulWidget {
 class _CartScreenState extends ConsumerState<CartScreen> {
   // CartScreen({super.key});
 
+  bool iscartempty = false;
   double pricetotal = 0.0;
   int listsize = 0;
   List<CartItemModel.CartItem>? datalist;
@@ -37,6 +38,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     }
 
     if (cartState.cartModel!.products.isEmpty) {
+      iscartempty = true;
       return NoItems(
         noitemtext: 'Your Cart is Empty!!!!',
       );
@@ -209,47 +211,48 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
           // ----------         Button to checkout     --------
 
-          MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/checkoutScreen', arguments: {
-                  'number': '+917982733943',
-                  'cartProductList': datalist,
-                  'tamount': pricetotal
-                });
-              },
-              child: Container(
-                  width: scWidth,
-                  height: scHeight * 0.08,
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(8),
-                          topRight: Radius.circular(8)),
-                      color: Color.fromRGBO(83, 177, 117, 1)),
-                  alignment: const Alignment(0, 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(right: 10),
-                        child: const FaIcon(
-                          FontAwesomeIcons.basketShopping,
-                          size: 23,
-                          color: Colors.white,
+          if (iscartempty == false)
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/checkoutScreen', arguments: {
+                    'number': '+917982733943',
+                    'cartProductList': datalist,
+                    'tamount': pricetotal
+                  });
+                },
+                child: Container(
+                    width: scWidth,
+                    height: scHeight * 0.08,
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8)),
+                        color: Color.fromRGBO(83, 177, 117, 1)),
+                    alignment: const Alignment(0, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(right: 10),
+                          child: const FaIcon(
+                            FontAwesomeIcons.basketShopping,
+                            size: 23,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      const Text(
-                        'Slide to Checkout',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                    ],
-                  )),
-            ),
-          )
+                        const Text(
+                          'Proceed to Checkout',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ],
+                    )),
+              ),
+            )
         ],
       ),
     );

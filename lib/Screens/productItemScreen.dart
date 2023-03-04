@@ -64,12 +64,19 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      product.Name,
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold),
+                    Container(
+                      width: scWidth * 0.8,
+                      child: FittedBox(
+                        child: Text(
+                          product.Name,
+                          softWrap: false,
+                          maxLines: 1,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     ),
                     Text(product.Quantity)
                   ],
@@ -114,13 +121,19 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                   ),
                   ReadMoreText(
                     trimLength: 100,
-                    trimLines: 2,
+                    trimLines: 3,
                     colorClickableText: Colors.pink,
-                    trimMode: TrimMode.Length,
-                    moreStyle:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                    trimCollapsedText: 'Show more',
-                    trimExpandedText: 'Show less',
+                    trimMode: TrimMode.Line,
+                    moreStyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
+                    lessStyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
+                    trimCollapsedText: '\nShow more >>',
+                    trimExpandedText: '\nShow less <<',
                     '${product.Description}',
                   ),
                 ],
@@ -315,7 +328,20 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 237, 230, 230),
-          title: Text("${product.Name}"),
+          title: Row(
+            children: [
+              Expanded(
+                child: FittedBox(
+                  child: Text(
+                    '${product.Name}',
+                    style: TextStyle(fontSize: 58),
+                    softWrap: false,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         body: SafeArea(
           child: SingleChildScrollView(child: buildProduct(context, scWidth)),
