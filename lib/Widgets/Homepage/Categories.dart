@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/Widgets/Sinners/mainCategorySinner.dart';
 
 import '../../models/category/category.dart';
 import '../../providers/providers.dart';
@@ -20,7 +21,7 @@ class MainCategory extends ConsumerWidget {
         return maincategorylistbuilder(list, context, scHeight, scWidth);
       },
       error: (_, __) => const Center(child: Text("ERR")),
-      loading: () => const Center(child: CircularProgressIndicator()),
+      loading: () => MainCategorySinner(),
     );
   }
 

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:your_basket/Widgets/Cart/Noitems.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
+import 'package:your_basket/Widgets/Sinners/CartItemSinner.dart';
 import 'package:your_basket/application/state/cart_state.dart';
 import '../Widgets/Cart/CartItem.dart' as CartItemWidget;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -34,7 +35,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     final cartState = ref.watch(cartItemsProvider);
 
     if (cartState.cartModel == null) {
-      return const LinearProgressIndicator();
+      return const CartItemSinner();
     }
 
     if (cartState.cartModel!.products.isEmpty) {
