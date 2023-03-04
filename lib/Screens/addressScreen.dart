@@ -58,14 +58,18 @@ class AddressBook extends ConsumerWidget {
 
     showModalBottomSheet(
         isScrollControlled: true,
+        enableDrag: true,
         context: context,
         builder: (BuildContext context) {
           return SizedBox(
             height: scHeight * 0.7,
             child: SingleChildScrollView(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                padding: EdgeInsets.only(
+                    left: 15,
+                    right: 15,
+                    top: 10,
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: Form(
                     key: _formKey,
                     child: Column(

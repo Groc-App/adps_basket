@@ -26,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
     String imgUrl =
         "https://bonn.in/wp-content/uploads/2019/10/brown-dummy-with-sandwich-only.png";
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       // backgroundColor: const Color.fromARGB(255, 192, 142, 212),
       body: SingleChildScrollView(
