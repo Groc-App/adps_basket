@@ -22,21 +22,40 @@ class Carousel extends StatelessWidget {
       child: CarouselSlider(
         // ignore: sort_child_properties_last
         children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              image: const DecorationImage(
-                image: AssetImage("assets/images/c1.jpg"),
-                fit: BoxFit.fill,
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed('/categoryScreen',
+                  arguments: {'maincategoryid': '63ef507a0f5f88744b7814c8'});
+            },
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  '/offerScreen',
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  image: const DecorationImage(
+                    image: AssetImage("assets/images/c1.jpg"),
+                    fit: BoxFit.fill,
+                  ),
+                ),
               ),
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              image: const DecorationImage(
-                image: AssetImage("assets/images/c2.jpg"),
-                fit: BoxFit.fill,
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed('/categoryScreen',
+                  arguments: {'maincategoryid': '63ef527f0f5f88744b7814ed'});
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                image: const DecorationImage(
+                  image: AssetImage("assets/images/c2.jpg"),
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
           ),

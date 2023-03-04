@@ -24,16 +24,16 @@ class YourOrderes extends ConsumerWidget {
   late List<Map<String, dynamic>> orderDetails;
 
   Widget orderList(WidgetRef ref, BuildContext context, double scHeight) {
-    print("\nInside orderList");
+    // print("\nInside orderList");
     final data = ref.watch(yourordersProvider(userid));
-    print("\nInside orderList after it");
+    // print("\nInside orderList after it $data");
 
     return data.when(
       data: (list) {
-        print("Thisssssssssssssssssss is list ${list}");
+        // print("Thisssssssssssssssssss is list ${list}");
 
         // if (list!.isEmpty == null) islistempty = true;
-        print("\n\n\nThis is list $islistempty");
+        // print("\n\n\nThis is list $islistempty");
         return orderlistbuilder(list, context, scHeight);
       },
       error: (_, __) => const Center(child: Text("ERRRRRRRRRRR")),

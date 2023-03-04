@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
+
 class Config {
   /* -------------------------------- app setup ------------------------------- */
   static const String GrocApp = 'GrocApp';
@@ -9,6 +12,13 @@ class Config {
   /* -------------------------------------------------------------------------- */
   /*                                 End Points                                 */
   /* -------------------------------------------------------------------------- */
+
+  static Size scSize = WidgetsBinding.instance.window.physicalSize;
+// double width = size.width;
+// double height = size.height;
+//  screenWidth = ui.window.physicalSize.width / ui.window.devicePixelRatio;
+  static double scHeight =
+      ui.window.physicalSize.height / ui.window.devicePixelRatio;
 
   /* ---------------------------------- AUth ---------------------------------- */
   static const String otpLoginAPI = '/otpLogin';

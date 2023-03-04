@@ -12,33 +12,38 @@ class APIServiceOrder {
   static var client = http.Client();
 
   Future<List<Orders>?> getOrdersbyId(String userid) async {
-    print("Get order api");
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
+    try {
+      // print("Get order api");
+      Map<String, String> requestHeaders = {
+        'Content-Type': 'application/json',
+      };
 
-    print("\nInside getORdersbyId");
+      // print("\nInside getORdersbyId");
 
-    var ur = Config.getOrderbyIdApi + '/${userid}';
+      var ur = Config.getOrderbyIdApi + '/${userid}';
 
-    var url = Uri.http(Config.apiURL, ur);
+      var url = Uri.http(Config.apiURL, ur);
 
-    print(url);
+      print(url);
 
-    var response = await client.get(
-      url,
-      headers: requestHeaders,
-      // body: jsonEncode({"phone": }),
-    );
+      var response = await client.get(
+        url,
+        headers: requestHeaders,
+        // body: jsonEncode({"phone": }),
+      );
 
-    print(response.body);
+      // print(response.body);
 
-    var data = jsonDecode(response.body);
-    print("This is data ${data['data']['Order']}");
-    if (response.statusCode != 400) {
-      // var tempdata = data['data'];
-      return ordersFromJson(data['data']['Order']);
-    } else {
+      var data = jsonDecode(response.body);
+      // print("This is data ${data['data']}");
+      if (response.statusCode != 400) {
+        // var tempdata = data['data'];
+        return ordersFromJson(data['data']);
+      } else {
+        return null;
+      }
+    } catch (_) {
+      print(_);
       return null;
     }
   }

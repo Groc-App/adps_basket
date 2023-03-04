@@ -5,12 +5,18 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:lottie/lottie.dart';
 
 class OrderSuuccess extends StatelessWidget {
-  const OrderSuuccess({super.key});
+  OrderSuuccess({super.key});
 
   @override
   Widget build(BuildContext context) {
+    print("Inside order success");
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
+
+    var successTypeMap = (ModalRoute.of(context)?.settings.arguments ??
+        <String, String>{}) as Map;
+    var successType = successTypeMap['type'];
+    print("Success Type::::::: $successType");
 
     return Scaffold(
       body: Center(
@@ -21,15 +27,20 @@ class OrderSuuccess extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                'Order Placed Successfully',
-                style: TextStyle(fontSize: 20),
-              ),
+              successType == 'order'
+                  ? Text(
+                      'Order Placed Successfully',
+                      style: TextStyle(fontSize: 20),
+                    )
+                  : Text(
+                      'Subscription Created Successfully',
+                      style: TextStyle(fontSize: 20),
+                    ),
               SizedBox(
                 height: 3,
               ),
               Text(
-                'It will be delivered by 8 AM tommorrow',
+                'It will be delivered by 8 AM',
                 style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
             ],

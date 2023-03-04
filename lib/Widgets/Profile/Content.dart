@@ -53,31 +53,32 @@ class Content extends ConsumerWidget {
             );
           } else if (navi_url == 'logout') {
             showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                      title: const Text('Logout'),
-                      content: const Text('Are you sure?'),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () => Navigator.pop(context, 'Cancel'),
-                          child: const Text('Cancel'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            FirebaseAuth auth = FirebaseAuth.instance;
-                            auth.signOut();
-                            ref
-                                .read(authCheckProvider.notifier)
-                                .update((state) => null);
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('Logout'),
+                content: const Text('Are you sure?'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      FirebaseAuth auth = FirebaseAuth.instance;
+                      auth.signOut();
+                      ref
+                          .read(authCheckProvider.notifier)
+                          .update((state) => null);
 
-                            Navigator.pop(context, 'Logout');
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                '/homepage', (Route<dynamic> route) => false);
-                          },
-                          child: const Text('Logout'),
-                        ),
-                      ],
-                    ));
+                      Navigator.pop(context, 'Logout');
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/homepage', (Route<dynamic> route) => false);
+                    },
+                    child: const Text('Logout'),
+                  ),
+                ],
+              ),
+            );
           } else if (navi_url == 'share') {
             print("inside tap");
             Share.share(

@@ -40,7 +40,25 @@ class CategoryScreen extends ConsumerWidget {
 
     return categories.when(
       data: (list) {
-        // print("\nThiss is list of Sub Categories:" + '${list}');
+        print("\nThiss is list of Sub Categories:" + '${list}');
+
+        /* --------------------------- All Cateogry Logic --------------------------- */
+
+        Map<String, dynamic> map = {
+          "Name": "All",
+          "categoryId": "null",
+          "imageurl":
+              "https://toppng.com/uploads/preview/milk-png-11554019731zzc03ngzzv.png"
+        };
+
+        Category c = Category.fromJson(map);
+
+        if (list!.elementAt(0) != c) {
+          print("Inside if");
+          list.insert(0, c);
+          print("This is added Cateogry $c");
+        }
+
         return buildCategory(list);
       },
       error: (_, __) => const Center(child: Text("ERR")),
@@ -168,9 +186,9 @@ class CategoryScreen extends ConsumerWidget {
                 Navigator.of(context).pushNamed('/searchScreen');
               },
               child: SearchBar()),
-          Text(connectivityStatusProvider == ConnectivityStatus.isConnected
-              ? 'Is Connected to Internet'
-              : 'Is Disconnected from Internet'),
+          // Text(connectivityStatusProvider == ConnectivityStatus.isConnected
+          //     ? 'Is Connected to Internet'
+          //     : 'Is Disconnected from Internet'),
           categoriesList(ref, mainCategoryId),
           // Carousel(),
 

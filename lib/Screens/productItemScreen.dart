@@ -9,6 +9,7 @@ import 'package:readmore/readmore.dart';
 import 'package:your_basket/models/product/productdetail.dart';
 import 'package:your_basket/models/product/products.dart';
 import 'package:your_basket/providers/providers.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ProductItemScreen extends ConsumerStatefulWidget {
   const ProductItemScreen({super.key});
@@ -83,7 +84,13 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                   ],
                 ),
                 const Spacer(),
-                const Icon(Icons.share),
+                IconButton(
+                    icon: Icon(Icons.share),
+                    onPressed: () {
+                      Share.share(
+                          'https://play.google.com/store/apps/details?id=com.instructivetech.kidskite');
+                    })
+                // const Icon(Icons.share),
               ]),
             ),
             Row(

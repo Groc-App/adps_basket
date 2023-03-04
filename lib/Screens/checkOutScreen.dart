@@ -85,8 +85,9 @@ class CheckoutScreen extends StatelessWidget {
               cartViewModel
                   .placeOrder(number, pricetotal.toString(), cartProductsArray,
                       addressid)
-                  .whenComplete(() =>
-                      Navigator.pushNamed(context, '/ordersuccessScreen'));
+                  .whenComplete(() => Navigator.pushNamed(
+                      context, '/ordersuccessScreen',
+                      arguments: {'type': "order"}));
             },
             child: Text("Place Order")));
   }

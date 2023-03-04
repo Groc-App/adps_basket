@@ -4,12 +4,16 @@ import 'package:your_basket/Services/subscription_api_service.dart';
 import 'package:your_basket/providers/providers.dart';
 import 'package:intl/intl.dart';
 
+import '../Widgets/Subscription/modalSheet/item.dart';
+import '../Widgets/Subscription/summary/summaryCard.dart';
 import '../models/subscription/subscription.dart';
 
 const number = '917982733943';
 Map<String, String> map = {"number": number};
 var scHeight;
 var scSize;
+
+int totalAmount = 0;
 
 class SubscriptionScreen extends ConsumerStatefulWidget {
   // const OfferScreen({Key? key}) : super(key: key);
@@ -22,34 +26,39 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
   // const SubscriptionScreen({super.key});
 
   cancelHandler(String subscriptionId) {
-    map = {"subscriptionId": subscriptionId};
-    APIServiceSubscription().cancelSubscription(map);
-    ref.invalidate(subscriptionApiService);
-    ref.invalidate(subscriptionByUserProvider);
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Cancel'),
+        content: const Text('Are you sure?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('No'),
+          ),
+          TextButton(
+            onPressed: () {
+              map = {"subscriptionId": subscriptionId};
+              APIServiceSubscription().cancelSubscription(map);
+              ref.invalidate(subscriptionApiService);
+              ref.invalidate(subscriptionByUserProvider);
 
-    setState(() {});
-    Navigator.pop(context);
-  }
-
-  Widget getSubscriptionList(WidgetRef ref) {
-    final data = ref.watch(subscriptionByUserProvider(map));
-    print("This is subscription data ${data}");
-
-    return data.when(
-      data: (list) {
-        print("This is subscription list ${list}");
-        return subscriptionListBuilder(list);
-      },
-      error: (_, __) => const Center(child: Text("ERRRRRRRRRRR")),
-      loading: () => const Center(child: CircularProgressIndicator()),
+              setState(() {});
+              Navigator.popUntil(
+                  context, ModalRoute.withName('/subscriptionScreen'));
+            },
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
     );
   }
 
   Widget subscriptionListBuilder(List<Subscription>? list) {
-    print(list);
     return ListView.separated(
         // padding: EdgeInsets.all(10),
         shrinkWrap: true,
+        physics: ClampingScrollPhysics(),
         itemCount: list!.length,
         separatorBuilder: (context, index) => const SizedBox(
               height: 10,
@@ -72,33 +81,10 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                               style: TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.bold),
                             ),
-                            Container(
-                              margin: const EdgeInsets.all(10),
-                              height: scHeight * 0.8 * 0.2,
-                              // width: double.infinit,q
-                              decoration: BoxDecoration(border: Border.all()),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/Dairy-Products-Png.png',
-                                    height: 100,
-                                    width: 100,
-                                    fit: BoxFit.contain,
-                                  ),
-                                  Expanded(
-                                    // fit: BoxFit.scaleDown,
-                                    child: Text(
-                                      list[i].product.Name,
-                                      maxLines: 2,
-                                      softWrap: true,
-                                      style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            ModalItem(
+                                name: list[i].product.Name,
+                                imageURL:
+                                    'assets/images/Dairy-Products-Png.png'),
                             const SizedBox(
                               height: 20,
                             ),
@@ -291,90 +277,64 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
         });
   }
 
+  Widget verificationBuild() {
+    final data = ref.watch(subscriptionByUserProvider(map));
+
+    return data.when(
+      data: (list) {
+        if (list!.isNotEmpty) {
+          list.forEach(
+            (e) {
+              totalAmount += (e.quantity * e.product.Price).toInt();
+            },
+          );
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                SummaryCard(
+                  totalAmount: totalAmount,
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  "My Subscriptions",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  // height: scHeight * 0.7,
+                  padding: const EdgeInsets.all(10),
+                  child: subscriptionListBuilder(list),
+                ),
+              ],
+            ),
+          );
+        } else {
+          return const Center(
+            child: Text(
+              "No Subscription Found",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                  fontStyle: FontStyle.italic),
+            ),
+          );
+        }
+      },
+      error: (_, __) => const Center(child: Text("ERRRRRRRRRRR")),
+      loading: () => const Center(child: CircularProgressIndicator()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    print('rebnuild ho rhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/n');
+    totalAmount = 0;
     scSize = MediaQuery.of(context).size;
     scHeight = scSize.height;
+
     return Scaffold(
-      appBar: AppBar(
-        // leading: const Icon(Icons.arrow_back),
-        title: const Text("Subscriptions"),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: SizedBox(
-                width: double.infinity,
-                height: scHeight * 0.3,
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                  elevation: 20,
-                  // color: Color.fromRGBO(83, 177, 117, 1),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: const DecorationImage(
-                            image: AssetImage(
-                                'assets/images/subscriptionCard.jpg'),
-                            fit: BoxFit.cover)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(right: 50),
-                          height: scHeight * 0.3 * 0.7,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                "₹ 400",
-                                style: TextStyle(
-                                    fontSize: 30, fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 20),
-                              Container(
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: Colors.white),
-                                child: const Text(
-                                  "Daily Expense",
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              "My Subscriptions",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              // height: scHeight * 0.7,
-              padding: const EdgeInsets.all(10),
-              child:
-                  // Column(
-                  //   children: [
-                  getSubscriptionList(ref),
-              // ],
-            ),
-            // )
-          ],
+        appBar: AppBar(
+          title: const Text("Subscriptions"),
         ),
-      ),
-    );
+        body: verificationBuild());
   }
 }

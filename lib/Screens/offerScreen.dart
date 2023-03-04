@@ -57,7 +57,6 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   );
 
   // late var offers;
-  int totalReward = 0;
 
   @override
   void initState() {
@@ -67,6 +66,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
 
   late var scSize;
   late var scHeight;
+  late int totalAmount = 0;
 
   /* --------------------------- Scratch Controller --------------------------- */
 
@@ -80,38 +80,64 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
     setState(() {});
   }
 
+  Widget verificationBuild() {
+    // print("\n\offer list 2");
+
+    final offers = ref.watch(allOfferProvider(map));
+
+    return offers.when(
+      data: (list) {
+        if (list!.isNotEmpty) {
+          print("\nINside list:::::::");
+
+          list.forEach((offer) {
+            print("OFFER:::::::$offer");
+            if (offer.isUserClaimed) {
+              print("Offer Worth ${offer.worth}");
+              totalAmount += offer.worth.toInt();
+            }
+          });
+          return NestedScrollView(
+            body: _buildGridViewContainer(list),
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverAppBar(
+                  centerTitle: true,
+                  leading: IconButton(
+                    color: Colors.black,
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  expandedHeight: kExpandedHeight,
+                  elevation: 5.0,
+                  floating: false,
+                  pinned: true,
+                  title: innerBoxIsScrolled ? const Text('Rewards') : null,
+                  flexibleSpace: FlexibleSpaceBar(
+                      background: _buildSilverAppBarBackground()),
+                ),
+              ];
+            },
+          );
+        } else {}
+        // print("\nThiss is list of Offerrrrrrs:" + '${list}');
+        return _buildGridViewCards(list);
+      },
+      error: (_, __) => const Center(child: Text(" err")),
+      loading: () => const Center(child: CircularProgressIndicator()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     scSize = MediaQuery.of(context).size;
     scHeight = scSize.height;
 
     print("\nRebuild");
-    return Scaffold(
-      body: NestedScrollView(
-        body: _buildGridViewContainer(number, ref),
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              centerTitle: true,
-              leading: IconButton(
-                color: Colors.black,
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              expandedHeight: kExpandedHeight,
-              elevation: 5.0,
-              floating: false,
-              pinned: true,
-              title: innerBoxIsScrolled ? const Text('Rewards') : null,
-              flexibleSpace:
-                  FlexibleSpaceBar(background: _buildSilverAppBarBackground()),
-            ),
-          ];
-        },
-      ),
-    );
+    return Scaffold(body: verificationBuild());
   }
 
   Widget _buildRewardsPoints() {
@@ -125,17 +151,17 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text(
+                const Text(
                   '₹',
                   style: TextStyle(fontSize: 50.0),
                 ),
                 Text(
-                  "${totalReward}",
-                  style: TextStyle(fontSize: 50.0),
+                  "${totalAmount}",
+                  style: const TextStyle(fontSize: 50.0),
                 ),
               ],
             ),
-            Text(
+            const Text(
               'Total Rewards',
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
             )
@@ -153,26 +179,27 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
     ));
   }
 
-  Widget _buildGridViewContainer(String number, WidgetRef ref) {
-    print("\n\nbuildGridViewContainer 1");
+  Widget _buildGridViewContainer(List<Offer>? list) {
+    // print("\n\nbuildGridViewContainer 1");
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(12.0),
+        const Padding(
+          padding: EdgeInsets.all(12.0),
           child: Text(
             "My Rewards",
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
           ),
         ),
-        Expanded(flex: 4, child: Container(child: offerList(number, ref)))
+        Expanded(flex: 4, child: Container(child: _buildGridViewCards(list)))
       ],
     );
   }
 
   Widget offerList(String number, WidgetRef ref) {
-    print("\n\offer list 2");
+    // print("\n
+    //\offer list 2");
 
     final offers = ref.watch(allOfferProvider(map));
 
@@ -187,7 +214,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   }
 
   _buildGridViewCards(List<Offer>? list) {
-    print("\n\ninside build grid view cards 3");
+    // print("\n\ninside build grid view cards 3");
     return GridView.builder(
       itemCount: list!.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -197,7 +224,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
           mainAxisSpacing: 10.0),
       padding: const EdgeInsets.all(10.0),
       itemBuilder: (BuildContext context, int index) {
-        print(list[index].isUserClaimed);
+        // print(list[index].isUserClaimed);
         if (list[index].isUserClaimed) {
           return scratchedContainer(list, index, context);
         } else {
@@ -212,7 +239,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   }
 
   Widget _buildSilverAppBarBackground() {
-    print("\n\nIsid ebuild sliver app bar");
+    // print("\n\nIsid ebuild sliver app bar");
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -225,10 +252,11 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                   // cacheManager: instance,
                   imageUrl:
                       'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Freward_appbar_bg.jpg?alt=media&token=bf1c3400-ba8e-48c9-8b82-29c2803bd4ee',
-                  placeholder: (context, url) => CircularProgressIndicator(),
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
                   errorWidget: (context, url, error) {
                     print(error);
-                    return Icon(Icons.error);
+                    return const Icon(Icons.error);
                   },
                 ),
 
@@ -290,9 +318,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   }
 
   Widget scratchedContainer(List<Offer> list, index, BuildContext context) {
-    print("inside scaratched container");
-    totalReward = totalReward + list[index].worth.round();
-
+    // print("inside scaratched container");
     return Card(
       child: GridTile(
         child: InkWell(
@@ -320,7 +346,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                       flex: 1,
                       child: Text(
                         'Rs ${list[index].worth}',
-                        style: TextStyle(fontSize: 20.0),
+                        style: const TextStyle(fontSize: 20.0),
                       )),
                 ],
               )),
@@ -337,14 +363,14 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Center(
+                          const Center(
                             child: Text(
                               "Already Redeemed",
                               style: TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Center(
@@ -353,7 +379,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                                   backgroundColor:
                                       Colors.black.withOpacity(0.5)),
                               // style: ButtonStyle(backgroundColor: ),
-                              child: Text("Close"),
+                              child: const Text("Close"),
                               onPressed: () {
                                 Navigator.pop(context);
                               },
@@ -459,7 +485,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Center(
@@ -467,7 +493,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                         style: OutlinedButton.styleFrom(
                             backgroundColor: Colors.black.withOpacity(0.5)),
                         // style: ButtonStyle(backgroundColor: ),
-                        child: Text("Close"),
+                        child: const Text("Close"),
                         onPressed: () {
                           Navigator.pop(context);
                         },
@@ -484,7 +510,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   Widget lockedCard(List<Offer> list, index, BuildContext context) {
     return InkResponse(
       child: Container(
-        foregroundDecoration: BoxDecoration(
+        foregroundDecoration: const BoxDecoration(
           color: Colors.grey,
           backgroundBlendMode: BlendMode.saturation,
         ),
@@ -504,7 +530,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
               child: Text(
                 "${(list[index].number - totalOrders).round()} Order More to unlock",
                 softWrap: true,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
             ),
           )

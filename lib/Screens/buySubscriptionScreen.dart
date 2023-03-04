@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Services/subscription_api_service.dart';
+import 'package:your_basket/Widgets/Subscription/modalSheet/item.dart';
 import 'package:your_basket/providers/providers.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -63,8 +64,9 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
       "address": address.addressId
     };
 
-    APIServiceSubscription().createsubscription(map).whenComplete(
-        () => Navigator.pushNamed(context, '/ordersuccessScreen'));
+    APIServiceSubscription().createsubscription(map).whenComplete(() =>
+        Navigator.pushNamed(context, '/ordersuccessScreen',
+            arguments: {'type': "subscription"}));
     // setState(() {});
   }
 
@@ -138,24 +140,8 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                 "Subscription Detail",
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              Container(
-                margin: const EdgeInsets.all(10),
-                height: scHeight * 0.8 * 0.2,
-                decoration: BoxDecoration(border: Border.all()),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'assets/images/Dairy-Products-Png.png',
-                      height: 100,
-                    ),
-                    Text(
-                      name,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    ),
-                  ],
-                ),
-              ),
+              ModalItem(
+                  name: name, imageURL: 'assets/images/Dairy-Products-Png.png'),
               const SizedBox(
                 height: 20,
               ),
