@@ -4,17 +4,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:your_basket/Screens/otpScreen.dart';
-import 'package:your_basket/Services/api_service.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import '../providers/providers.dart';
+class LoginScreen extends StatefulWidget {
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
 
-class LoginScreen extends ConsumerWidget {
+class _LoginScreenState extends State<LoginScreen> {
   // const LoginScreen({super.key});
   String phoneNumber = "";
+  bool _isLoading = false;
+  int? _resendToken;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     FirebaseAuth auth = FirebaseAuth.instance;
 
     final scSize = MediaQuery.of(context).size;
@@ -116,22 +120,53 @@ class LoginScreen extends ConsumerWidget {
                           child: ElevatedButton(
                             onPressed: () async {
                               try {
+                                setState(() {
+                                  _isLoading = true;
+                                });
                                 await FirebaseAuth.instance.verifyPhoneNumber(
                                   phoneNumber: '+91${phoneNumber}',
                                   verificationCompleted:
                                       (PhoneAuthCredential credential) {},
                                   verificationFailed:
-                                      (FirebaseAuthException e) {},
+                                      (FirebaseAuthException e) {
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
+                                    final snackBar = SnackBar(
+                                      content: Text('${e.message}'),
+                                      behavior: SnackBarBehavior.fixed,
+                                      // padding: EdgeInsets.only(
+                                      //     left: scWidth * 0.35, top: 10, bottom: 10),
+                                      backgroundColor: Colors.red,
+                                      closeIconColor: Colors.white,
+                                      duration: Duration(seconds: 5),
+                                      showCloseIcon: true,
+                                    );
+
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
+                                  },
                                   codeSent: (String verificationId,
                                       int? resendToken) {
+                                    setState(() {
+                                      _resendToken = resendToken;
+                                      _isLoading = false;
+                                    });
                                     Navigator.of(context)
                                         .pushNamed('/otpScreen', arguments: {
                                       'otp': verificationId,
-                                      'number': phoneNumber
+                                      'number': phoneNumber,
+                                      'resendtoken': resendToken
                                     });
                                   },
                                   codeAutoRetrievalTimeout:
-                                      (String verificationId) {},
+                                      (String verificationId) {
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
+                                  },
+                                  timeout: Duration(seconds: 30),
+                                  forceResendingToken: _resendToken,
                                 );
                               } catch (e) {
                                 print(e);
@@ -142,7 +177,11 @@ class LoginScreen extends ConsumerWidget {
                                     const Color.fromARGB(255, 0, 148, 5),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10))),
-                            child: const Text("Continue"),
+                            child: _isLoading
+                                ? SpinKitThreeInOut(
+                                    color: Colors.white,
+                                  )
+                                : Text("Continue"),
                           ),
                         ),
                         const SizedBox(
@@ -158,6 +197,23 @@ class LoginScreen extends ConsumerWidget {
               )
             ]),
       ),
+      floatingActionButton: GestureDetector(
+        onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
+            '/homepage', (Route<dynamic> route) => false),
+        child: Container(
+          margin: EdgeInsets.only(top: 2),
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+          decoration: BoxDecoration(
+              // border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.green),
+          child: Text(
+            'Skip for now >>',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
     );
   }
 }

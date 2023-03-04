@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:your_basket/Screens/OrderSuccess.dart';
 import 'package:your_basket/Screens/ProfileScreen.dart';
 import 'package:your_basket/Screens/addressScreen.dart';
@@ -10,19 +11,18 @@ import 'package:your_basket/Screens/buySubscriptionScreen.dart';
 import 'package:your_basket/Screens/cartScreen.dart';
 import 'package:your_basket/Screens/categoryScreen.dart';
 import 'package:your_basket/Screens/checkOutScreen.dart';
+import 'package:your_basket/Screens/intro_screen.dart';
 import 'package:your_basket/Screens/loginScreen.dart';
 import 'package:your_basket/Screens/offerScreen.dart';
 import 'package:your_basket/Screens/orderSummary.dart';
 import 'package:your_basket/Screens/otpScreen.dart';
 import 'package:your_basket/Screens/productItemScreen.dart';
-import 'package:your_basket/Screens/scratchScreen.dart';
 import 'package:your_basket/Screens/subscriptionScreen.dart';
 import 'package:your_basket/Screens/yourOrders.dart';
 import 'package:your_basket/Widgets/Sinners/loadingsinner.dart';
 import 'package:your_basket/utils/theme.dart';
 import 'Screens/homeScreen.dart';
 import 'Screens/searchScreen.dart';
-import 'Widgets/Address/address.dart';
 import 'firebase_options.dart';
 import 'notificationservice/local_notification_service.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -56,8 +56,11 @@ class MyApp extends StatelessWidget {
       title: 'Your Basket',
       theme: MyTheme.lightTheme(context),
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(),
+      // home: const MyHomePage(),
+      initialRoute: '/loginScreen',
       routes: {
+        '/': (context) => MyHomePage(),
+        '/introScreen': (context) => const IntroScreen(),
         '/loading': (context) => const LoadingSinner(),
         '/homepage': (context) => const HomeScreen(),
         '/categoryScreen': (context) => CategoryScreen(
@@ -89,6 +92,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Future checkFirstSeen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool _seen = (prefs.getBool('seen') ?? false);
+
+    if (_seen) {
+      return '/';
+    } else {
+      await prefs.setBool('seen', true);
+      return '/introScreen';
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -142,6 +157,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return HomeScreen();
+    return FutureBuilder(
+        future: checkFirstSeen(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            if (snapshot.data == '/')
+              return HomeScreen();
+            else {
+              return IntroScreen();
+            }
+          }
+        });
+    ;
   }
 }
