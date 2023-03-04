@@ -11,7 +11,7 @@ final productApiService = Provider((ref) => APIServiceProducts());
 class APIServiceProducts {
   static var client = http.Client();
 
-  Future<List<Product>?> getAllProduct() async {
+  Future<List<Product>> getAllProduct() async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -24,8 +24,8 @@ class APIServiceProducts {
       headers: requestHeaders,
     );
     var data = jsonDecode(response.body);
-    // print("\n\Response Product data:");
-    // print(data['data']);
+    print("\n\Response Product data:");
+    print(data['data']);
 
     return productsFromJson(data['data']);
   }
@@ -73,10 +73,11 @@ class APIServiceProducts {
     var url = Uri.http(Config.apiURL, Config.getProductsMostSellingApi);
     print("This is url");
     print(url);
-    var response = await client.get(
+
+    var response;
+    response = await client.get(
       url,
       headers: requestHeaders,
-      // body: jsonEncode({"phone": }),
     );
 
     // print(response.body);

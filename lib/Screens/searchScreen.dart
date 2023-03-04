@@ -1,18 +1,19 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:your_basket/data/productsdata.dart';
 import 'package:your_basket/models/product/products.dart';
 
-class SearchScreen extends StatefulWidget {
+class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  ConsumerState<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _SearchScreenState extends ConsumerState<SearchScreen> {
   List<Product> foundUser = [];
 
   Widget buildProducts(List<Product> products) {
@@ -35,11 +36,15 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   // foundUser = data;
-  //   super.initState();
-  // }
+  void initState() {
+    // TODO: implement initState
+    // foundUser = data;
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+// your code goes here
+      SearchData.initialize(ref);
+    });
+  }
 
   void runFilter(String enteredKeyword) {
     List<Product> results = [];
@@ -47,7 +52,7 @@ class _SearchScreenState extends State<SearchScreen> {
       // if the search field is empty or only contains white-space, we'll display all users
       // results = _allUsers;
     } else {
-      results = data
+      results = SearchData.data
           .where((user) =>
               user.Name.toLowerCase().contains(enteredKeyword.toLowerCase()))
           .toList();

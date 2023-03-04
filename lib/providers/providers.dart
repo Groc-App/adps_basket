@@ -150,7 +150,7 @@ final productsByCategoryProvider =
   },
 );
 
-final allProductProvider = FutureProvider<List<Product>?>(
+final allProductProvider = FutureProvider<List<Product>>(
   (ref) {
     final apiRespository = ref.watch(productApiService);
 

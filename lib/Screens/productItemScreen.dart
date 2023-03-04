@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:your_basket/Screens/buySubscriptionScreen.dart';
 import 'package:your_basket/Widgets/Categories/addItemIcon.dart';
 import 'package:readmore/readmore.dart';
@@ -64,14 +65,19 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      product.Name,
-                      softWrap: true,
-                      maxLines: 2,
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold),
+                    Container(
+                      width: scWidth * 0.8,
+                      child: FittedBox(
+                        child: Text(
+                          product.Name,
+                          softWrap: false,
+                          maxLines: 1,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     ),
                     Text(product.Quantity)
                   ],
@@ -116,13 +122,19 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                   ),
                   ReadMoreText(
                     trimLength: 100,
-                    trimLines: 2,
+                    trimLines: 3,
                     colorClickableText: Colors.pink,
-                    trimMode: TrimMode.Length,
-                    moreStyle:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                    trimCollapsedText: 'Show more',
-                    trimExpandedText: 'Show less',
+                    trimMode: TrimMode.Line,
+                    moreStyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
+                    lessStyle: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
+                    trimCollapsedText: '\nShow more >>',
+                    trimExpandedText: '\nShow less <<',
                     '${product.Description}',
                   ),
                 ],
@@ -169,6 +181,14 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
 
   Widget addTile(scWidth) {
     final CartItemModel = ref.watch(cartItemsProvider);
+    if (CartItemModel.isLoading) {
+      // return CircularProgressIndicator();
+      return SpinKitThreeInOut(
+        size: 38,
+        color: Colors.green,
+      );
+    }
+
     var searchdata = CartItemModel.cartModel!.products;
     bool flag = false;
     for (int i = 0; i < searchdata.length; i++) {
@@ -317,7 +337,20 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 237, 230, 230),
-          title: Text("${product.Name}"),
+          title: Row(
+            children: [
+              Expanded(
+                child: FittedBox(
+                  child: Text(
+                    '${product.Name}',
+                    style: TextStyle(fontSize: 58),
+                    softWrap: false,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         body: SafeArea(
           child: SingleChildScrollView(child: buildProduct(context, scWidth)),

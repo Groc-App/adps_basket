@@ -8,10 +8,12 @@ import 'package:your_basket/Widgets/Categories/searchBar.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Intro/noInternet.dart';
+import 'package:your_basket/Widgets/Sinners/productCategorysinner.dart';
 import 'package:your_basket/data/product.dart';
 import 'package:your_basket/data/productsdata.dart';
 import 'package:your_basket/models/product/products.dart';
 import 'package:your_basket/providers/connectivityProvider.dart';
+import '../Widgets/Sinners/productsinner.dart';
 import '../providers/providers.dart';
 import '../models/category/category.dart';
 
@@ -42,7 +44,7 @@ class CategoryScreen extends ConsumerWidget {
         return buildCategory(list);
       },
       error: (_, __) => const Center(child: Text("ERR")),
-      loading: () => const Center(child: CircularProgressIndicator()),
+      loading: () => const Center(child: ProductCategorySinner()),
     );
   }
 
@@ -60,7 +62,7 @@ class CategoryScreen extends ConsumerWidget {
       },
       error: (_, __) => const Center(child: Text("ERR")),
       loading: () => const Center(
-        child: CircularProgressIndicator(),
+        child: ProductSinner(),
       ),
     );
   }

@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/Widgets/Sinners/mainCategorySinner.dart';
 
 import '../../models/category/category.dart';
 import '../../providers/providers.dart';
@@ -15,18 +16,12 @@ class MainCategory extends ConsumerWidget {
       WidgetRef ref, BuildContext context, double scHeight, double scWidth) {
     final categories = ref.watch(maincategorylistProvider);
 
-    // print(
-    //     "\n:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
-
-    // print("(Inside Categories.dart list widget) Raw Categories: $categories");
     return categories.when(
       data: (list) {
-        // print("(Inside Main Categoy List Widget)This is Main Category list " +
-        //     '${list}');
         return maincategorylistbuilder(list, context, scHeight, scWidth);
       },
       error: (_, __) => const Center(child: Text("ERR")),
-      loading: () => const Center(child: CircularProgressIndicator()),
+      loading: () => MainCategorySinner(),
     );
   }
 
@@ -153,7 +148,7 @@ class MainCategory extends ConsumerWidget {
                 alignment: const Alignment(0, -0.9),
                 child: FittedBox(
                   child: Text(
-                    "d",
+                    "$name",
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 17),
                   ),

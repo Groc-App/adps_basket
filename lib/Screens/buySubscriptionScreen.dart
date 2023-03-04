@@ -26,6 +26,8 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
   // Initial Selected Value
   String dropdownvalue = '1';
 
+  late var address;
+
   // List of items in our dropdown menu
   var items = [
     '1',
@@ -42,10 +44,10 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
   // const SubscriptionScreen({super.key});
 
   submitHandler(String productId, String number, String stDate, String eDate) {
-    final AddressBookState = ref.watch(addressBokkProvider);
-    var reqData = AddressBookState.AddressBookModel!.addresses
-        .firstWhere((e) => e.defaultAddress == true);
-    print(reqData);
+    // final AddressBookState = ref.watch(addressBokkProvider);
+    // var reqData = AddressBookState.AddressBookModel!.addresses
+    //     .firstWhere((e) => e.defaultAddress == true);
+    // print(reqData);
 
     DateTime startDate =
         Intl.withLocale('en', () => DateFormat('d/M/y').parse(stDate));
@@ -58,12 +60,20 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
       "number": number,
       "startDate": startDate.toIso8601String(),
       "endDate": endDate.toIso8601String(),
-      "address": reqData.addressId
+      "address": address.addressId
     };
 
     APIServiceSubscription().createsubscription(map).whenComplete(
         () => Navigator.pushNamed(context, '/ordersuccessScreen'));
     // setState(() {});
+  }
+
+  @override
+  initState() {
+    super.initState();
+
+    // this is called when the class is initialized or called for the first time
+    //  this is the material super constructor for init state to link your instance initState to the global initState context
   }
 
   startDateHandler() async {
@@ -99,6 +109,11 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('en', null);
+
+    final AddressBookState = ref.watch(addressBokkProvider);
+    var reqData = AddressBookState.AddressBookModel!.addresses
+        .firstWhere((e) => e.defaultAddress == true);
+    address = reqData;
     print('rebnuild ho rhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/n');
     scSize = MediaQuery.of(context).size;
     scHeight = scSize.height;
@@ -271,15 +286,21 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                           ),
                           const Spacer(),
                           Container(
+                              decoration: BoxDecoration(color: Colors.white),
                               width: scSize.width * 0.5,
                               padding: const EdgeInsets.symmetric(
                                   vertical: 5, horizontal: 10),
                               child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.white),
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pushNamed('/addressScreen');
                                 },
-                                child: const Text("Select Address",
+                                child: Text(
+                                    "${address.Recipients_Name} ${address.Flat_FLoor_Tower} ${address.Street_Society} ",
+                                    softWrap: false,
+                                    overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.green)),
