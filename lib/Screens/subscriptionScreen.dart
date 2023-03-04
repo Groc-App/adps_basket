@@ -75,18 +75,26 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                             Container(
                               margin: const EdgeInsets.all(10),
                               height: scHeight * 0.8 * 0.2,
+                              // width: double.infinit,q
                               decoration: BoxDecoration(border: Border.all()),
                               child: Row(
                                 children: [
                                   Image.asset(
                                     'assets/images/Dairy-Products-Png.png',
                                     height: 100,
+                                    width: 100,
+                                    fit: BoxFit.contain,
                                   ),
-                                  Text(
-                                    list[i].product.Name,
-                                    style: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500),
+                                  Expanded(
+                                    // fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      list[i].product.Name,
+                                      maxLines: 2,
+                                      softWrap: true,
+                                      style: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -117,7 +125,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                           ),
                                           const Spacer(),
                                           Container(
-                                            width: scSize.width * 0.6,
+                                            width: scSize.width * 0.5,
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 5, horizontal: 10),
                                             child: Text(
@@ -147,11 +155,11 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                           ),
                                           const Spacer(),
                                           Container(
-                                            width: scSize.width * 0.6,
+                                            width: scSize.width * 0.5,
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 5, horizontal: 10),
                                             child: Text(
-                                                '${DateFormat.jms().format(list[i].startDate)}',
+                                                '${DateFormat('dd/MM/yyyy').format(list[i].startDate)}',
                                                 style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.green)),
@@ -177,11 +185,11 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                           ),
                                           const Spacer(),
                                           Container(
-                                            width: scSize.width * 0.6,
+                                            width: scSize.width * 0.5,
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 5, horizontal: 10),
                                             child: Text(
-                                                list[i].endDate.toString(),
+                                                '${DateFormat('dd/MM/yyyy').format(list[i].endDate)}',
                                                 style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.green)),
@@ -207,7 +215,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                           ),
                                           const Spacer(),
                                           Container(
-                                            width: scSize.width * 0.6,
+                                            width: scSize.width * 0.5,
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 5, horizontal: 10),
                                             child: list[i].subscriptionStatus ==

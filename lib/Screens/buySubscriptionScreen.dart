@@ -163,7 +163,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                           ),
                           const Spacer(),
                           Container(
-                            width: scSize.width * 0.6,
+                            width: scSize.width * 0.5,
                             padding: const EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 10),
                             child: Container(
@@ -201,7 +201,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                           ),
                           const Spacer(),
                           Container(
-                            width: scSize.width * 0.6,
+                            width: scSize.width * 0.5,
                             padding: const EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 10),
                             child: ElevatedButton(
@@ -236,7 +236,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                           ),
                           const Spacer(),
                           Container(
-                            width: scSize.width * 0.6,
+                            width: scSize.width * 0.5,
                             padding: const EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 10),
                             child: ElevatedButton(
@@ -271,7 +271,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                           ),
                           const Spacer(),
                           Container(
-                              width: scSize.width * 0.6,
+                              width: scSize.width * 0.5,
                               padding: const EdgeInsets.symmetric(
                                   vertical: 5, horizontal: 10),
                               child: ElevatedButton(

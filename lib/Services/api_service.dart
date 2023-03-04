@@ -12,24 +12,24 @@ final authApiService = Provider((ref) => APIServiceAuth());
 class APIServiceAuth {
   static var client = http.Client();
 
-  static Future<LoginResponseModel> otpLogin(String mobileNo) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
+  // static Future<LoginResponseModel> otpLogin(String mobileNo) async {
+  //   Map<String, String> requestHeaders = {
+  //     'Content-Type': 'application/json',
+  //   };
 
-    var url = Uri.http(Config.apiURL, Config.otpLoginAPI);
+  //   var url = Uri.http(Config.apiURL, Config.otpLoginAPI);
 
-    var response = await client.post(
-      url,
-      headers: requestHeaders,
-      body: jsonEncode({"phone": mobileNo}),
-    );
+  //   var response = await client.post(
+  //     url,
+  //     headers: requestHeaders,
+  //     body: jsonEncode({"phone": mobileNo}),
+  //   );
 
-    print("Rse:");
-    print(response.body);
+  //   print("Rse:");
+  //   print(response.body);
 
-    return loginResponseJson(response.body);
-  }
+  //   return loginResponseJson(response.body);
+  // }
 
   // Future<List<Category>?> getCategory() async {
   //   Map<String, String> requestHeaders = {

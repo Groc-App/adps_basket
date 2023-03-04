@@ -12,6 +12,7 @@ class APIServiceOrder {
   static var client = http.Client();
 
   Future<List<Orders>?> getOrdersbyId(String userid) async {
+    print("Get order api");
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -34,9 +35,9 @@ class APIServiceOrder {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      print("This is data ${data['data']}");
+      print("This is data ${data['data']['Order']}");
       // var tempdata = data['data'];
-      return ordersFromJson(data['data']);
+      return ordersFromJson(data['data']['Order']);
     } else {
       return null;
     }
