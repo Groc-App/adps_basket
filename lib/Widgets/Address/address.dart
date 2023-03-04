@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/Screens/OrderSuccess.dart';
+import 'package:your_basket/Widgets/Sinners/loadingsinner.dart';
 import '../../models/address/address.dart' as Addresmodel;
 import '../../providers/providers.dart';
 
@@ -27,7 +29,28 @@ class Address extends ConsumerWidget {
             if (data.defaultAddress == true) {
             } else {
               final addressModel = ref.read(addressBokkProvider.notifier);
-              addressModel.setSelectedAddress(userId, data.addressId);
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (BuildContext context,
+                      Animation<double> animation1,
+                      Animation<double> animation2) {
+                    return LoadingSinner();
+                  },
+                  transitionDuration: Duration.zero,
+                  reverseTransitionDuration: Duration.zero,
+                ),
+              );
+              addressModel
+                  .setSelectedAddress(userId, data.addressId)
+                  .whenComplete(() => Navigator.pop(
+                      context,
+                      PageRouteBuilder(
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            LoadingSinner(),
+                      )));
             }
           },
           child: Container(

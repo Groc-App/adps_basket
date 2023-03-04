@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:your_basket/models/product/products.dart';
 
 import '../../providers/providers.dart';
@@ -73,7 +74,11 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     final CartItemModel = ref.watch(cartItemsProvider);
 
     if (CartItemModel.isLoading) {
-      return CircularProgressIndicator();
+      // return CircularProgressIndicator();
+      return SpinKitThreeInOut(
+        size: 25,
+        color: Colors.green,
+      );
     }
 
     // if (CartItemModel.cartModel == null) {

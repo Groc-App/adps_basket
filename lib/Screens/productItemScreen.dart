@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:your_basket/Screens/buySubscriptionScreen.dart';
 import 'package:your_basket/Widgets/Categories/addItemIcon.dart';
 import 'package:readmore/readmore.dart';
@@ -180,6 +181,14 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
 
   Widget addTile(scWidth) {
     final CartItemModel = ref.watch(cartItemsProvider);
+    if (CartItemModel.isLoading) {
+      // return CircularProgressIndicator();
+      return SpinKitThreeInOut(
+        size: 38,
+        color: Colors.green,
+      );
+    }
+
     var searchdata = CartItemModel.cartModel!.products;
     bool flag = false;
     for (int i = 0; i < searchdata.length; i++) {

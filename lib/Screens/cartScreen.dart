@@ -106,15 +106,27 @@ class _CartScreenState extends ConsumerState<CartScreen> {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
+          children: [
             Text(
               'Delivery Charges: ',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
-            Text(
-              'Free',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            )
+            Text.rich(
+              TextSpan(children: [
+                TextSpan(
+                  text: '₹40',
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.grey,
+                      decoration: TextDecoration.lineThrough),
+                ),
+                TextSpan(
+                  text: ' Free',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+              ]),
+            ),
           ],
         ),
         const Divider(),
