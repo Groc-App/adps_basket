@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Services/subscription_api_service.dart';
 import 'package:your_basket/Widgets/Subscription/modalSheet/item.dart';
+import 'package:your_basket/models/address/address.dart';
+import 'package:your_basket/models/product/products.dart';
 import 'package:your_basket/providers/providers.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
-import '../models/subscription/subscription.dart';
 
 const number = '917982733943';
 Map<String, String> map = {"number": number};
@@ -26,8 +26,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
 
   // Initial Selected Value
   String dropdownvalue = '1';
-
-  late var address;
+  late Address address;
 
   // List of items in our dropdown menu
   var items = [
@@ -44,7 +43,8 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
   ];
   // const SubscriptionScreen({super.key});
 
-  submitHandler(String productId, String number, String stDate, String eDate) {
+  submitHandler(String productId, String number, String stDate, String eDate,
+      String functiontype, String subsid) {
     // final AddressBookState = ref.watch(addressBokkProvider);
     // var reqData = AddressBookState.AddressBookModel!.addresses
     //     .firstWhere((e) => e.defaultAddress == true);
@@ -55,24 +55,51 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
     DateTime endDate =
         Intl.withLocale("en", () => DateFormat('d/M/y').parse(eDate));
 
-    Map<String, dynamic> map = {
-      "quantity": dropdownvalue,
-      "productId": productId,
-      "number": number,
-      "startDate": startDate.toIso8601String(),
-      "endDate": endDate.toIso8601String(),
-      "address": address.addressId
-    };
+    if (functiontype == 'buy') {
+      Map<String, dynamic> map = {
+        "quantity": dropdownvalue,
+        "productId": productId,
+        "number": number,
+        "startDate": startDate.toIso8601String(),
+        "endDate": endDate.toIso8601String(),
+        "address": address.addressId
+      };
+      APIServiceSubscription().createsubscription(map).whenComplete(() =>
+          Navigator.pushNamed(context, '/ordersuccessScreen',
+              arguments: {'type': "subscription"}));
+    } else {
+      Map<String, dynamic> map = {
+        "quantity": dropdownvalue,
+        "subsid": subsid,
+        "number": number,
+        "startDate": startDate.toIso8601String(),
+        "endDate": endDate.toIso8601String(),
+        "address": address.addressId
+      };
 
-    APIServiceSubscription().createsubscription(map).whenComplete(() =>
-        Navigator.pushNamed(context, '/ordersuccessScreen',
-            arguments: {'type': "subscription"}));
-    // setState(() {});
+      int count = 0;
+      ref.invalidate(subscriptionByUserProvider);
+      APIServiceSubscription().editsubscription(map).whenComplete(
+          () => Navigator.of(context).popUntil((_) => count++ >= 2));
+    }
   }
 
   @override
   initState() {
     super.initState();
+    // WidgetsBinding.instance.addPostFrameCallback((_) async {
+    //   var productMap = (ModalRoute.of(context)?.settings.arguments ??
+    //       <String, String>{}) as Map;
+    //   product = productMap['product'];
+    //   functiontype = productMap['function'];
+    //   subsid = productMap['subsid'];
+    //   Quantity = productMap['quantity'];
+    //   StartDate = productMap['startDate'];
+    //   EndDate = productMap['endDate'];
+    //   if (Quantity != null) dropdownvalue = Quantity!;
+    //   if (StartDate != null) startDate = StartDate!;
+    //   if (EndDate != null) endDate = EndDate!;
+    // });
 
     // this is called when the class is initialized or called for the first time
     //  this is the material super constructor for init state to link your instance initState to the global initState context
@@ -82,7 +109,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
     var datepicked = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
-        firstDate: DateTime(2023),
+        firstDate: DateTime.now(),
         lastDate: DateTime(2024));
     setState(() {
       var date = DateFormat('dd/MM/yyyy').format(datepicked!);
@@ -94,7 +121,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
     var datepicked = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
-        firstDate: DateTime(2023),
+        firstDate: DateTime.now(),
         lastDate: DateTime(2024));
     setState(() {
       var date = DateFormat('dd/MM/yyyy').format(datepicked!);
@@ -123,12 +150,23 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
     var productMap = (ModalRoute.of(context)?.settings.arguments ??
         <String, String>{}) as Map;
 
-    var name = productMap['name'];
+    Product product = productMap['product'];
+    String functiontype = productMap['function'];
+    String subsid = productMap['subsid'];
+    String? Quantity = productMap['quantity'];
+    String? StartDate = productMap['startDate'];
+    String? EndDate = productMap['endDate'];
+
+    // if (Quantity != null) dropdownvalue = Quantity;
+    // if (StartDate != null) startDate = StartDate;
+    // if (EndDate != null) endDate = EndDate;
 
     return Scaffold(
       appBar: AppBar(
         // leading: const Icon(Icons.arrow_back),
-        title: const Text("Buy Subscription"),
+        title: functiontype == 'buy'
+            ? Text("Buy Subscription")
+            : Text('Edit Subscription'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -140,8 +178,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                 "Subscription Detail",
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              ModalItem(
-                  name: name, imageURL: 'assets/images/Dairy-Products-Png.png'),
+              ModalItem(name: product.Name, imageURL: product.ImageUrl),
               const SizedBox(
                 height: 20,
               ),
@@ -297,18 +334,31 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                   ),
                 ],
               ),
-              SizedBox(
-                width: scSize.width * 0.5,
-                height: scHeight * 0.08,
-                child: ElevatedButton(
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                    onPressed: () {
-                      submitHandler('63ef507a0f5f88744b7814c2', '+917982733943',
-                          startDate, endDate);
-                    },
-                    child: const Text("Buy Subscription")),
-              )
+              functiontype == 'buy'
+                  ? SizedBox(
+                      width: scSize.width * 0.5,
+                      height: scHeight * 0.08,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green),
+                          onPressed: () {
+                            submitHandler(product.productId, '+917982733943',
+                                startDate, endDate, 'buy', subsid);
+                          },
+                          child: const Text("Buy Subscription")),
+                    )
+                  : SizedBox(
+                      width: scSize.width * 0.5,
+                      height: scHeight * 0.08,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green),
+                          onPressed: () {
+                            submitHandler(product.productId, '+917982733943',
+                                startDate, endDate, 'edit', subsid);
+                          },
+                          child: const Text("Edit Subscription")),
+                    )
             ],
           ),
         ),

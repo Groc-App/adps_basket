@@ -235,7 +235,25 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.green),
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          var startDate =
+                                              DateFormat('dd/MM/yyyy')
+                                                  .format(list[i].startDate);
+                                          var endDate = DateFormat('dd/MM/yyyy')
+                                              .format(list[i].endDate);
+                                          Navigator.of(context).pushNamed(
+                                              '/buySubscriptionScreen',
+                                              arguments: {
+                                                'product': list[i].product,
+                                                'subsid':
+                                                    list[i].subscriptionId,
+                                                'function': 'edit',
+                                                'quantity':
+                                                    list[i].quantity.toString(),
+                                                'startDate': startDate,
+                                                'endDate': endDate,
+                                              });
+                                        },
                                         child: Text("Edit")),
                                   ),
                                   ElevatedButton(

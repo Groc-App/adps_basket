@@ -8,7 +8,7 @@ part of 'subscription.dart';
 
 _$_Subscription _$$_SubscriptionFromJson(Map<String, dynamic> json) =>
     _$_Subscription(
-      product: ProductItem.fromJson(json['product'] as Map<String, dynamic>),
+      product: Product.fromJson(json['product'] as Map<String, dynamic>),
       address: Address.fromJson(json['address'] as Map<String, dynamic>),
       quantity: json['quantity'] as int,
       startDate: DateTime.parse(json['startDate'] as String),

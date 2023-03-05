@@ -380,11 +380,15 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/buySubscriptionScreen',
-                        arguments: {
-                          'name': product.Name,
-                          'image': product.ImageUrl
-                        });
+                    Navigator.of(context)
+                        .pushNamed('/buySubscriptionScreen', arguments: {
+                      // 'name': product.Name,
+                      // 'image': product.ImageUrl,
+                      // 'productId': product.productId,
+                      'product': product,
+                      'function': 'buy',
+                      'subsid': '',
+                    });
                   },
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                   // textColor: Colors.white,

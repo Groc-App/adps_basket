@@ -20,7 +20,7 @@ Subscription _$SubscriptionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Subscription {
-  ProductItem get product => throw _privateConstructorUsedError;
+  Product get product => throw _privateConstructorUsedError;
   Address get address => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
   DateTime get startDate => throw _privateConstructorUsedError;
@@ -41,7 +41,7 @@ abstract class $SubscriptionCopyWith<$Res> {
       _$SubscriptionCopyWithImpl<$Res, Subscription>;
   @useResult
   $Res call(
-      {ProductItem product,
+      {Product product,
       Address address,
       int quantity,
       DateTime startDate,
@@ -49,7 +49,7 @@ abstract class $SubscriptionCopyWith<$Res> {
       bool subscriptionStatus,
       String subscriptionId});
 
-  $ProductItemCopyWith<$Res> get product;
+  $ProductCopyWith<$Res> get product;
   $AddressCopyWith<$Res> get address;
 }
 
@@ -78,7 +78,7 @@ class _$SubscriptionCopyWithImpl<$Res, $Val extends Subscription>
       product: null == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as ProductItem,
+              as Product,
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -108,8 +108,8 @@ class _$SubscriptionCopyWithImpl<$Res, $Val extends Subscription>
 
   @override
   @pragma('vm:prefer-inline')
-  $ProductItemCopyWith<$Res> get product {
-    return $ProductItemCopyWith<$Res>(_value.product, (value) {
+  $ProductCopyWith<$Res> get product {
+    return $ProductCopyWith<$Res>(_value.product, (value) {
       return _then(_value.copyWith(product: value) as $Val);
     });
   }
@@ -132,7 +132,7 @@ abstract class _$$_SubscriptionCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {ProductItem product,
+      {Product product,
       Address address,
       int quantity,
       DateTime startDate,
@@ -141,7 +141,7 @@ abstract class _$$_SubscriptionCopyWith<$Res>
       String subscriptionId});
 
   @override
-  $ProductItemCopyWith<$Res> get product;
+  $ProductCopyWith<$Res> get product;
   @override
   $AddressCopyWith<$Res> get address;
 }
@@ -169,7 +169,7 @@ class __$$_SubscriptionCopyWithImpl<$Res>
       product: null == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as ProductItem,
+              as Product,
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -214,7 +214,7 @@ class _$_Subscription implements _Subscription {
       _$$_SubscriptionFromJson(json);
 
   @override
-  final ProductItem product;
+  final Product product;
   @override
   final Address address;
   @override
@@ -272,7 +272,7 @@ class _$_Subscription implements _Subscription {
 
 abstract class _Subscription implements Subscription {
   factory _Subscription(
-      {required final ProductItem product,
+      {required final Product product,
       required final Address address,
       required final int quantity,
       required final DateTime startDate,
@@ -284,7 +284,7 @@ abstract class _Subscription implements Subscription {
       _$_Subscription.fromJson;
 
   @override
-  ProductItem get product;
+  Product get product;
   @override
   Address get address;
   @override

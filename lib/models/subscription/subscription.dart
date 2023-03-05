@@ -12,7 +12,7 @@ List<Subscription> subscriptionFromJson(dynamic str) =>
 @freezed
 abstract class Subscription with _$Subscription {
   factory Subscription({
-    required ProductItem product,
+    required Product product,
     required Address address,
     required int quantity,
     required DateTime startDate,

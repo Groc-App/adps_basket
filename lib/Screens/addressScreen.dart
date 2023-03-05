@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Address/address.dart';
 import '../Widgets/Sinners/addresssinner.dart';
@@ -92,7 +93,7 @@ class AddressBook extends ConsumerWidget {
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
+                                return 'Please enter Name';
                               }
                               return null;
                             },
@@ -108,7 +109,7 @@ class AddressBook extends ConsumerWidget {
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
+                                return 'Please enter Flat/House Number';
                               }
                               return null;
                             },
@@ -124,7 +125,7 @@ class AddressBook extends ConsumerWidget {
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
+                                return 'Please enter Street/Society';
                               }
                               return null;
                             },
@@ -140,7 +141,7 @@ class AddressBook extends ConsumerWidget {
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
+                                return 'Please enter City';
                               }
                               return null;
                             },
@@ -150,13 +151,17 @@ class AddressBook extends ConsumerWidget {
                           margin: EdgeInsets.only(bottom: 10),
                           child: TextFormField(
                             onSaved: (value) => pincode = value,
+                            maxLength: 6,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                             decoration: const InputDecoration(
                               border: UnderlineInputBorder(),
                               labelText: 'Pincode',
                             ),
                             validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
+                              if (value == null || value.length != 6) {
+                                return 'Please enter correct Pincode';
                               }
                               return null;
                             },

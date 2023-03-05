@@ -66,6 +66,35 @@ class APIServiceSubscription {
     }
   }
 
+  Future<void> editsubscription(Map<String, dynamic> map) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    // print("Map: $map");
+    var url = Uri.http(Config.apiURL, Config.editSubscripiotn);
+
+    print(url);
+
+    var response = await client.post(url,
+        headers: requestHeaders,
+        body: jsonEncode({
+          'subsid': map['subsid'],
+          'quantity': map['quantity'],
+          'startDate': map['startDate'],
+          'endDate': map['endDate'],
+          'address': map['address'],
+        }));
+
+    print(response.body);
+
+    if (true) {
+      return null;
+    } else {
+      return null;
+    }
+  }
+
   Future<void> cancelSubscription(Map<String, dynamic> map) async {
     try {
       Map<String, String> requestHeaders = {
