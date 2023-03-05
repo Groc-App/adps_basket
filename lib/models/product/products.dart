@@ -15,7 +15,7 @@ abstract class Product with _$Product {
       {required String productId,
       required String Name,
       required double Price,
-      required String ImageUrl,
+      required List<String> ImageUrl,
       required String Quantity,
       required String Company,
       required String Description,

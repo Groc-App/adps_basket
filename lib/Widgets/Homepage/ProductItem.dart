@@ -71,6 +71,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
   }
 
   Widget addTile(scWidth) {
+    print('rebuild times 1/n');
     final CartItemModel = ref.watch(cartItemsProvider);
 
     if (CartItemModel.isLoading) {
@@ -207,7 +208,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                 fit: FlexFit.loose,
                 flex: 3,
                 child: Image.network(
-                  product.ImageUrl,
+                  product.ImageUrl[0],
                   fit: BoxFit.cover,
                 ),
               ),

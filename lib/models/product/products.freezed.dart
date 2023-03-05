@@ -23,7 +23,7 @@ mixin _$Product {
   String get productId => throw _privateConstructorUsedError;
   String get Name => throw _privateConstructorUsedError;
   double get Price => throw _privateConstructorUsedError;
-  String get ImageUrl => throw _privateConstructorUsedError;
+  List<String> get ImageUrl => throw _privateConstructorUsedError;
   String get Quantity => throw _privateConstructorUsedError;
   String get Company => throw _privateConstructorUsedError;
   String get Description => throw _privateConstructorUsedError;
@@ -44,7 +44,7 @@ abstract class $ProductCopyWith<$Res> {
       {String productId,
       String Name,
       double Price,
-      String ImageUrl,
+      List<String> ImageUrl,
       String Quantity,
       String Company,
       String Description,
@@ -91,7 +91,7 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
       ImageUrl: null == ImageUrl
           ? _value.ImageUrl
           : ImageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as List<String>,
       Quantity: null == Quantity
           ? _value.Quantity
           : Quantity // ignore: cast_nullable_to_non_nullable
@@ -121,7 +121,7 @@ abstract class _$$_ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       {String productId,
       String Name,
       double Price,
-      String ImageUrl,
+      List<String> ImageUrl,
       String Quantity,
       String Company,
       String Description,
@@ -163,9 +163,9 @@ class __$$_ProductCopyWithImpl<$Res>
           : Price // ignore: cast_nullable_to_non_nullable
               as double,
       ImageUrl: null == ImageUrl
-          ? _value.ImageUrl
+          ? _value._ImageUrl
           : ImageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as List<String>,
       Quantity: null == Quantity
           ? _value.Quantity
           : Quantity // ignore: cast_nullable_to_non_nullable
@@ -191,12 +191,13 @@ class _$_Product implements _Product {
       {required this.productId,
       required this.Name,
       required this.Price,
-      required this.ImageUrl,
+      required final List<String> ImageUrl,
       required this.Quantity,
       required this.Company,
       required this.Description,
       required this.MainCategory,
-      required this.Category});
+      required this.Category})
+      : _ImageUrl = ImageUrl;
 
   factory _$_Product.fromJson(Map<String, dynamic> json) =>
       _$$_ProductFromJson(json);
@@ -207,8 +208,14 @@ class _$_Product implements _Product {
   final String Name;
   @override
   final double Price;
+  final List<String> _ImageUrl;
   @override
-  final String ImageUrl;
+  List<String> get ImageUrl {
+    if (_ImageUrl is EqualUnmodifiableListView) return _ImageUrl;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_ImageUrl);
+  }
+
   @override
   final String Quantity;
   @override
@@ -234,8 +241,7 @@ class _$_Product implements _Product {
                 other.productId == productId) &&
             (identical(other.Name, Name) || other.Name == Name) &&
             (identical(other.Price, Price) || other.Price == Price) &&
-            (identical(other.ImageUrl, ImageUrl) ||
-                other.ImageUrl == ImageUrl) &&
+            const DeepCollectionEquality().equals(other._ImageUrl, _ImageUrl) &&
             (identical(other.Quantity, Quantity) ||
                 other.Quantity == Quantity) &&
             (identical(other.Company, Company) || other.Company == Company) &&
@@ -253,7 +259,7 @@ class _$_Product implements _Product {
       productId,
       Name,
       Price,
-      ImageUrl,
+      const DeepCollectionEquality().hash(_ImageUrl),
       Quantity,
       Company,
       Description,
@@ -279,7 +285,7 @@ abstract class _Product implements Product {
       {required final String productId,
       required final String Name,
       required final double Price,
-      required final String ImageUrl,
+      required final List<String> ImageUrl,
       required final String Quantity,
       required final String Company,
       required final String Description,
@@ -295,7 +301,7 @@ abstract class _Product implements Product {
   @override
   double get Price;
   @override
-  String get ImageUrl;
+  List<String> get ImageUrl;
   @override
   String get Quantity;
   @override

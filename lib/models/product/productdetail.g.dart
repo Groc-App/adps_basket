@@ -11,7 +11,8 @@ _$_ProductItem _$$_ProductItemFromJson(Map<String, dynamic> json) =>
       productId: json['productId'] as String,
       Name: json['Name'] as String,
       Price: (json['Price'] as num).toDouble(),
-      ImageUrl: json['ImageUrl'] as String,
+      ImageUrl:
+          (json['ImageUrl'] as List<dynamic>).map((e) => e as String).toList(),
       Quantity: json['Quantity'] as String,
       Company: json['Company'] as String,
       Description: json['Description'] as String,

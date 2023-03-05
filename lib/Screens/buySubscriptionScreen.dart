@@ -178,7 +178,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                 "Subscription Detail",
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              ModalItem(name: product.Name, imageURL: product.ImageUrl),
+              ModalItem(name: product.Name, imageURL: product.ImageUrl[0]),
               const SizedBox(
                 height: 20,
               ),

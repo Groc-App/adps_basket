@@ -104,7 +104,7 @@ class _CartItemState extends ConsumerState<CartItem> {
                   borderRadius: BorderRadius.circular(100),
                   child: Image.network(
                     fit: BoxFit.fill,
-                    item.ImageUrl,
+                    item.ImageUrl[0],
                   )),
             ),
             Container(

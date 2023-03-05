@@ -1,6 +1,8 @@
 // ignore_for_file: file_names
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:your_basket/Screens/buySubscriptionScreen.dart';
@@ -24,6 +26,26 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
   late Product product;
   int counter = 0;
 
+  Widget imageslider() {
+    return CarouselSlider(
+      options: CarouselOptions(
+        height: 400.0,
+      ),
+      items: product.ImageUrl.map((e) {
+        return Builder(
+          builder: (BuildContext context) {
+            return Container(
+                width: double.infinity,
+                height: double.infinity,
+                child: CachedNetworkImage(
+                  imageUrl: e,
+                ));
+          },
+        );
+      }).toList(),
+    );
+  }
+
   Widget buildProduct(BuildContext context, double scWidth) {
     return Column(
       children: [
@@ -34,10 +56,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
           height: MediaQuery.of(context).size.height * 0.3,
           width: double.infinity,
           alignment: Alignment.topLeft,
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: NetworkImage(
-                      'https://bonn.in/wp-content/uploads/2019/10/brown-dummy-with-sandwich-only.png'))),
+          child: imageslider(),
         ),
         Container(
           height: MediaQuery.of(context).size.height * 0.53,
@@ -382,9 +401,6 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                   onPressed: () {
                     Navigator.of(context)
                         .pushNamed('/buySubscriptionScreen', arguments: {
-                      // 'name': product.Name,
-                      // 'image': product.ImageUrl,
-                      // 'productId': product.productId,
                       'product': product,
                       'function': 'buy',
                       'subsid': '',
