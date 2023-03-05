@@ -50,54 +50,54 @@ class MainCategory extends ConsumerWidget {
                 scHeight,
                 scWidth,
                 Color.fromRGBO(247, 165, 147, 0.10)),
-            getCategory(
-                list != null ? list[1].Name : '',
-                0.33,
-                list != null ? list[1].imageurl : '',
-                '/categoryScreen',
-                list != null ? list[1].categoryId : '',
-                context,
-                scHeight,
-                scWidth,
-                Color.fromRGBO(83, 177, 117, 0.10)),
+            // getCategory(
+            //     list != null ? list[1].Name : '',
+            //     0.33,
+            //     list != null ? list[1].imageurl : '',
+            //     '/categoryScreen',
+            //     list != null ? list[1].categoryId : '',
+            //     context,
+            //     scHeight,
+            //     scWidth,
+            //     Color.fromRGBO(83, 177, 117, 0.10)),
           ],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            getCategory(
-                list != null ? list[1].Name : '',
-                0.33,
-                list != null ? list[1].imageurl : '',
-                '/categoryScreen',
-                list != null ? list[1].categoryId : '',
-                context,
-                scHeight,
-                scWidth,
-                Color.fromRGBO(211, 176, 224, 0.25)),
-            getCategory(
-                list != null ? list[0].Name : '',
-                0.33,
-                list != null ? list[0].imageurl : '',
-                '/categoryScreen',
-                list != null ? list[0].categoryId : '',
-                context,
-                scHeight,
-                scWidth,
-                Color.fromRGBO(248, 164, 76, 0.1)),
-            getCategory(
-              list != null ? list[1].Name : '',
-              0.33,
-              list != null ? list[1].imageurl : '',
-              '/categoryScreen',
-              list != null ? list[1].categoryId : '',
-              context,
-              scHeight,
-              scWidth,
-              Color.fromRGBO(183, 223, 245, 0.25),
-            )
-          ],
-        )
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     getCategory(
+        //         list != null ? list[1].Name : '',
+        //         0.33,
+        //         list != null ? list[1].imageurl : '',
+        //         '/categoryScreen',
+        //         list != null ? list[1].categoryId : '',
+        //         context,
+        //         scHeight,
+        //         scWidth,
+        //         Color.fromRGBO(211, 176, 224, 0.25)),
+        //     getCategory(
+        //         list != null ? list[0].Name : '',
+        //         0.33,
+        //         list != null ? list[0].imageurl : '',
+        //         '/categoryScreen',
+        //         list != null ? list[0].categoryId : '',
+        //         context,
+        //         scHeight,
+        //         scWidth,
+        //         Color.fromRGBO(248, 164, 76, 0.1)),
+        //     getCategory(
+        //       list != null ? list[1].Name : '',
+        //       0.33,
+        //       list != null ? list[1].imageurl : '',
+        //       '/categoryScreen',
+        //       list != null ? list[1].categoryId : '',
+        //       context,
+        //       scHeight,
+        //       scWidth,
+        //       Color.fromRGBO(183, 223, 245, 0.25),
+        //     )
+        //   ],
+        // )
       ],
     );
   }
@@ -140,9 +140,8 @@ class MainCategory extends ConsumerWidget {
                   // border: Border.all(width: 2, color: clr),
                   // ignore: prefer_const_constructors
                   image: DecorationImage(
-                    image: const AssetImage(
-                        "assets/images/Dairy-Products-Png.png"),
-                    fit: BoxFit.fitWidth,
+                    image: NetworkImage(img_url),
+                    fit: BoxFit.scaleDown,
                   ),
                 ),
                 alignment: const Alignment(0, -0.9),

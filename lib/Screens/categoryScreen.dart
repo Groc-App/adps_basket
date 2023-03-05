@@ -48,15 +48,13 @@ class CategoryScreen extends ConsumerWidget {
           "Name": "All",
           "categoryId": "null",
           "imageurl":
-              "https://toppng.com/uploads/preview/milk-png-11554019731zzc03ngzzv.png"
+              "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Main%20Category%2FDrinks%20%26%20Juices.png?alt=media&token=9e0b9a6b-9759-4e75-864e-06c3ef616417"
         };
 
         Category c = Category.fromJson(map);
 
         if (list!.elementAt(0) != c) {
-          print("Inside if");
           list.insert(0, c);
-          print("This is added Cateogry $c");
         }
 
         return buildCategory(list);
