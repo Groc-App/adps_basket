@@ -31,7 +31,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
   int listsize = 0;
   List<CartItemModel.CartItem>? datalist;
 
-  Widget _cartList(WidgetRef ref, scHeight, scWidth) {
+  Widget _cartList(WidgetRef ref, scHeight, scWidth, phonenumber) {
     final cartState = ref.watch(cartItemsProvider);
 
     if (cartState.cartModel == null) {
@@ -50,7 +50,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
     return _buildCartItems(
         cartState.cartModel!.products.cast<CartItemModel.CartItem>(),
-        '+917982733943',
+        phonenumber,
         scHeight,
         scWidth);
   }
@@ -156,7 +156,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
     print("Rebild");
 
-    // var authInfo = ref.watch(authCheckProvider);
+    var authInfo = ref.watch(authCheckProvider);
     // print(authInfo?.uid);
 
     return Scaffold(
@@ -178,96 +178,96 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           ],
         ),
       ),
-      body:
-          // authInfo == null
-          //     ? NoItems(
-          //         noitemtext: 'Login/Signup first',
-          //         pageroute: 'loginpage',
-          //       )
-          //     :
-          Column(
-        children: [
-          Expanded(
-            // Expanded kr lio
-            child: SingleChildScrollView(
-              child: _cartList(ref, scHeight, scWidth),
-            ),
-          ),
+      body: authInfo == null
+          ? NoItems(
+              noitemtext: 'Login/Signup first',
+              pageroute: 'loginpage',
+            )
+          : Column(
+              children: [
+                Expanded(
+                  // Expanded kr lio
+                  child: SingleChildScrollView(
+                    child:
+                        _cartList(ref, scHeight, scWidth, authInfo.phoneNumber),
+                  ),
+                ),
 
 //        ------               Slide to pay           ------
 
-          // Container(
-          //   width: sc_width,
-          //   height: sc_height * 0.08,
-          //   // color: Colors.black,
-          //   child: SlideAction(
-          //     onSubmit: () {},
-          //     height: sc_height * 0.08,
-          //     text: 'Slide to Checkout',
-          //     innerColor: Colors.deepPurple,
-          //     outerColor: Colors.deepPurple[300],
-          //     sliderButtonIcon: FaIcon(
-          //       FontAwesomeIcons.basketShopping,
-          //       // size: 20,
-          //       color: Colors.white,
-          //     ),
-          //     sliderButtonIconSize: 23,
-          //     sliderButtonIconPadding: 8,
-          //     borderRadius: 10,
-          //     sliderButtonYOffset: -4,
-          // textStyle: TextStyle(
-          //     fontSize: 18,
-          //     fontWeight: FontWeight.bold,
-          //     color: Colors.white),
-          //   ),
-          // )
+                // Container(
+                //   width: sc_width,
+                //   height: sc_height * 0.08,
+                //   // color: Colors.black,
+                //   child: SlideAction(
+                //     onSubmit: () {},
+                //     height: sc_height * 0.08,
+                //     text: 'Slide to Checkout',
+                //     innerColor: Colors.deepPurple,
+                //     outerColor: Colors.deepPurple[300],
+                //     sliderButtonIcon: FaIcon(
+                //       FontAwesomeIcons.basketShopping,
+                //       // size: 20,
+                //       color: Colors.white,
+                //     ),
+                //     sliderButtonIconSize: 23,
+                //     sliderButtonIconPadding: 8,
+                //     borderRadius: 10,
+                //     sliderButtonYOffset: -4,
+                // textStyle: TextStyle(
+                //     fontSize: 18,
+                //     fontWeight: FontWeight.bold,
+                //     color: Colors.white),
+                //   ),
+                // )
 
-          // ----------         Button to checkout     --------
+                // ----------         Button to checkout     --------
 
-          if (iscartempty == false)
-            MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/checkoutScreen', arguments: {
-                    'number': '+917982733943',
-                    'cartProductList': datalist,
-                    'tamount': pricetotal
-                  });
-                },
-                child: Container(
-                    width: scWidth,
-                    height: scHeight * 0.08,
-                    decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(8),
-                            topRight: Radius.circular(8)),
-                        color: Color.fromRGBO(83, 177, 117, 1)),
-                    alignment: const Alignment(0, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(right: 10),
-                          child: const FaIcon(
-                            FontAwesomeIcons.basketShopping,
-                            size: 23,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const Text(
-                          'Proceed to Checkout',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
-                      ],
-                    )),
-              ),
-            )
-        ],
-      ),
+                if (iscartempty == false)
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/checkoutScreen',
+                            arguments: {
+                              'number': authInfo.phoneNumber ?? '',
+                              'cartProductList': datalist,
+                              'tamount': pricetotal
+                            });
+                      },
+                      child: Container(
+                          width: scWidth,
+                          height: scHeight * 0.08,
+                          decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(8),
+                                  topRight: Radius.circular(8)),
+                              color: Color.fromRGBO(83, 177, 117, 1)),
+                          alignment: const Alignment(0, 0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(right: 10),
+                                child: const FaIcon(
+                                  FontAwesomeIcons.basketShopping,
+                                  size: 23,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              const Text(
+                                'Proceed to Checkout',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                            ],
+                          )),
+                    ),
+                  )
+              ],
+            ),
     );
   }
 }

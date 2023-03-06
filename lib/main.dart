@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
       theme: MyTheme.lightTheme(context),
       debugShowCheckedModeBanner: false,
       // home: const MyHomePage(),
-      initialRoute: '/loginScreen',
+      initialRoute: '/',
       routes: {
         '/': (context) => MyHomePage(),
         '/introScreen': (context) => const IntroScreen(),

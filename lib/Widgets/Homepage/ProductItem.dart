@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -33,21 +34,21 @@ class _ProductItemState extends ConsumerState<ProductItem> {
 
   _ProductItemState({required this.product});
 
-  void incrementHandler() {
+  void incrementHandler(phonenumber) {
     setState(() {
       counter++;
     });
 
     final cartViewModel = ref.read(cartItemsProvider.notifier);
     cartViewModel.updateCartItem(
-        '+917982733943', counter.toString(), product.productId);
+        phonenumber, counter.toString(), product.productId);
   }
 
-  void decrementHandler() {
+  void decrementHandler(phonenumber) {
     if ((counter - 1) == 0) {
       final cartViewModel = ref.read(cartItemsProvider.notifier);
       cartViewModel
-          .removeCartItems('+917982733943', product.productId)
+          .removeCartItems(phonenumber, product.productId)
           .whenComplete(() {
         setState(() {
           counter--;
@@ -57,7 +58,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
       final cartViewModel = ref.read(cartItemsProvider.notifier);
       cartViewModel
           .updateCartItem(
-              '+917982733943', (counter - 1).toString(), product.productId)
+              phonenumber, (counter - 1).toString(), product.productId)
           .whenComplete(() {
         setState(() {
           counter--;
@@ -70,7 +71,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     // });
   }
 
-  Widget addTile(scWidth) {
+  Widget addTile(scWidth, User? authInfo) {
     print('rebuild times 1/n');
     final CartItemModel = ref.watch(cartItemsProvider);
 
@@ -107,10 +108,10 @@ class _ProductItemState extends ConsumerState<ProductItem> {
 
     print('counter is:::::::::::::: $counter\n');
 
-    return buildAddTile(scWidth);
+    return buildAddTile(scWidth, authInfo);
   }
 
-  Widget buildAddTile(scWidth) {
+  Widget buildAddTile(scWidth, User? authInfo) {
     return counter != 0
         ? Container(
             width: scWidth * 0.48 * 0.36,
@@ -127,7 +128,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                   child: GestureDetector(
                     child:
                         Icon(Icons.remove, size: scWidth * 0.48 * 0.36 * 0.2),
-                    onTap: () => decrementHandler(),
+                    onTap: () => decrementHandler(authInfo!.phoneNumber ?? ''),
                   ),
                 ),
                 Text('$counter'),
@@ -135,7 +136,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     child: Icon(Icons.add, size: scWidth * 0.48 * 0.36 * 0.2),
-                    onTap: () => incrementHandler(),
+                    onTap: () => incrementHandler(authInfo!.phoneNumber ?? ''),
                   ),
                 ),
               ],
@@ -146,37 +147,35 @@ class _ProductItemState extends ConsumerState<ProductItem> {
             child: FittedBox(
               child: OutlinedButton(
                   onPressed: () {
-                    // if (authInfo == null) {
-                    //   showDialog<String>(
-                    //     context: context,
-                    //     builder: (BuildContext context) =>
-                    //         AlertDialog(
-                    //       title: const Text('Login First'),
-                    //       content: const Text('Login to Continue'),
-                    //       actions: <Widget>[
-                    //         TextButton(
-                    //           onPressed: () =>
-                    //               Navigator.pop(context, 'Cancel'),
-                    //           child: const Text('Cancel'),
-                    //         ),
-                    //         TextButton(
-                    //           onPressed: () => Navigator.pushNamed(
-                    //               context, '/loginScreen'),
-                    //           child: const Text('OK'),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   );
-                    // } else {
-                    setState(() {
-                      counter++;
-                    });
-                    final cartViewModel = ref.read(cartItemsProvider.notifier);
-                    cartViewModel.addCartItems(
-                        '+917982733943', product.productId);
-                  }
-                  // }
-                  ,
+                    if (authInfo == null) {
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Login First'),
+                          content: const Text('Login to Continue'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'Cancel'),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pushNamed(context, '/loginScreen'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      setState(() {
+                        counter++;
+                      });
+                      final cartViewModel =
+                          ref.read(cartItemsProvider.notifier);
+                      cartViewModel.addCartItems(
+                          authInfo.phoneNumber ?? '', product.productId);
+                    }
+                  },
                   child: const Text('ADD')),
             ),
           );
@@ -187,8 +186,8 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     final scSize = MediaQuery.of(context).size;
     final scWidth = scSize.width;
 
-    // var authInfo = ref.watch(authCheckProvider);
-    // print(authInfo?.uid);
+    var authInfo = ref.watch(authCheckProvider);
+    print(authInfo?.uid);
 
     return GestureDetector(
       onTap: () {
@@ -242,7 +241,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                               style: TextStyle(
                                   fontSize: 34, fontWeight: FontWeight.bold),
                             ))),
-                    addTile(scWidth),
+                    addTile(scWidth, authInfo),
                   ],
                 ),
               )

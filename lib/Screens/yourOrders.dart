@@ -15,7 +15,7 @@ class YourOrderes extends ConsumerWidget {
   YourOrderes({super.key});
 
   bool islistempty = false;
-  String userid = '+917982733943';
+  // String userid = '+917982733943';
 
   late final String orderID;
   late String totalAmount;
@@ -23,9 +23,10 @@ class YourOrderes extends ConsumerWidget {
   late String address;
   late List<Map<String, dynamic>> orderDetails;
 
-  Widget orderList(WidgetRef ref, BuildContext context, double scHeight) {
+  Widget orderList(WidgetRef ref, BuildContext context, double scHeight,
+      String phonenumber) {
     // print("\nInside orderList");
-    final data = ref.watch(yourordersProvider(userid));
+    final data = ref.watch(yourordersProvider(phonenumber));
     // print("\nInside orderList after it $data");
 
     return data.when(
@@ -47,11 +48,7 @@ class YourOrderes extends ConsumerWidget {
             noitemtext: 'You have no past orders!!!',
             pageroute: 'homescreen',
           )
-        :
-        // list.isEmpty
-        //     ?
-        //     :
-        Column(
+        : Column(
             children: [
               SingleChildScrollView(
                 child: Column(
@@ -72,8 +69,8 @@ class YourOrderes extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // var authInfo = ref.watch(authCheckProvider);
-    // print(authInfo?.uid);
+    var authInfo = ref.watch(authCheckProvider);
+    print(authInfo?.uid);
 
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
@@ -84,13 +81,11 @@ class YourOrderes extends ConsumerWidget {
           backgroundColor: Theme.of(context).primaryColor,
           title: const Text('Your Orders'),
         ),
-        body:
-            // authInfo == null?
-            //  NoItems(
-            //         noitemtext: 'Login/Signup first',
-            //         pageroute: 'loginpage',
-            //       ),
-            // :
-            orderList(ref, context, scHeight));
+        body: authInfo == null
+            ? NoItems(
+                noitemtext: 'Login/Signup first',
+                pageroute: 'loginpage',
+              )
+            : orderList(ref, context, scHeight, authInfo.phoneNumber ?? ''));
   }
 }

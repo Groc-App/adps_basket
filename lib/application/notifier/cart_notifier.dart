@@ -3,19 +3,21 @@ import 'package:your_basket/models/cart/cart.dart';
 import 'package:your_basket/models/cart/cartitem.dart';
 
 import '../../Services/cart_api_service.dart';
+import '../../providers/providers.dart';
 import '../state/cart_state.dart';
 
 class CartNotifier extends StateNotifier<CartState> {
   final APIServiceCart _apiService;
+  String? phonenumber;
 
-  CartNotifier(this._apiService) : super(const CartState()) {
-    getCartitems();
+  CartNotifier(this._apiService, this.phonenumber) : super(const CartState()) {
+    getCartitems(phonenumber);
   }
 
-  Future<void> getCartitems() async {
+  Future<void> getCartitems(String? number) async {
     state = state.copyWith(isLoading: true);
 
-    var cartdata = await _apiService.getCartitemsApi();
+    var cartdata = await _apiService.getCartitemsApi(number);
     print("This is cartdata from Cart Notifier $cartdata");
     state = state.copyWith(cartModel: cartdata);
     state = state.copyWith(isLoading: false);
@@ -24,7 +26,7 @@ class CartNotifier extends StateNotifier<CartState> {
   Future<void> addCartItems(number, productId) async {
     await _apiService.addCartItem(number, productId);
 
-    await getCartitems();
+    await getCartitems(number);
   }
 
   Future<void> removeCartItems(userid, productid) async {
@@ -59,7 +61,7 @@ class CartNotifier extends StateNotifier<CartState> {
         new Cart(Number: state.cartModel!.Number, products: updatedItems);
     state = state.copyWith(cartModel: newcart);
 
-    await getCartitems();
+    await getCartitems(number);
   }
 
   Future<void> placeOrder(number, tamount, productList, addressmap) async {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Address/address.dart';
+import '../Widgets/Cart/Noitems.dart';
 import '../Widgets/Sinners/addresssinner.dart';
 import '../providers/providers.dart';
 import '../models/address/address.dart' as AddressModel;
@@ -9,7 +10,7 @@ import '../models/address/address.dart' as AddressModel;
 class AddressBook extends ConsumerWidget {
   AddressBook({super.key});
 
-  Widget _addressList(WidgetRef ref) {
+  Widget _addressList(WidgetRef ref, String phonenumber) {
     final AddressBookState = ref.watch(addressBokkProvider);
 
     if (AddressBookState.AddressBookModel == null) {
@@ -34,17 +35,19 @@ class AddressBook extends ConsumerWidget {
     print('dobara bani hhhhhhhhhhhhhhhhhhh\n');
     print(AddressBookState.AddressBookModel!.addresses);
 
-    return _buildAddressList(AddressBookState.AddressBookModel!.addresses
-        .cast<AddressModel.Address>());
+    return _buildAddressList(
+        AddressBookState.AddressBookModel!.addresses
+            .cast<AddressModel.Address>(),
+        phonenumber);
   }
 
-  Widget _buildAddressList(List<AddressModel.Address>? list) {
+  Widget _buildAddressList(
+      List<AddressModel.Address>? list, String phonenumber) {
     return Column(
       children: list!.map((value) {
         return Column(
           children: [
-            Address(
-                data: value, userId: '+917982733943', bottomsheet: bottomsheet),
+            Address(data: value, userId: phonenumber, bottomsheet: bottomsheet),
             Divider(),
           ],
         );
@@ -217,7 +220,7 @@ class AddressBook extends ConsumerWidget {
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
 
-    // var authInfo = ref.watch(authCheckProvider);
+    var authInfo = ref.watch(authCheckProvider);
     // print(authInfo?.uid);
 
     return Scaffold(
@@ -229,45 +232,43 @@ class AddressBook extends ConsumerWidget {
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
           ),
           backgroundColor: const Color.fromARGB(255, 243, 243, 243)),
-      body:
-          // authInfo == null
-          //     ?
-          // NoItems(
-          //     noitemtext: 'Login/Signup first',
-          //     pageroute: 'loginpage',
-          //   )
-          // :
-          SingleChildScrollView(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            /* -------------------------------------------------------------------------- */
-            child: GestureDetector(
-              onTap: (() {
-                bottomsheet(
-                    ref, context, '+917982733943', scHeight, 'addAddress', '');
-              }),
-              child: const Row(
-                children: [
-                  Icon(Icons.add),
-                  SizedBox(
-                    width: 5,
+      body: authInfo == null
+          ? NoItems(
+              noitemtext: 'Login/Signup first',
+              pageroute: 'loginpage',
+            )
+          : SingleChildScrollView(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(children: [
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  /* -------------------------------------------------------------------------- */
+                  child: GestureDetector(
+                    onTap: (() {
+                      bottomsheet(ref, context, authInfo.phoneNumber ?? '',
+                          scHeight, 'addAddress', '');
+                    }),
+                    child: const Row(
+                      children: [
+                        Icon(Icons.add),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          "Add New Address",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 18, 180, 23)),
+                        )
+                      ],
+                    ),
                   ),
-                  Text(
-                    "Add New Address",
-                    style: TextStyle(color: Color.fromARGB(255, 18, 180, 23)),
-                  )
-                ],
-              ),
+                ),
+                const Divider(),
+                /* -------------------------------------------------------------------------- */
+                _addressList(ref, authInfo.phoneNumber ?? ''),
+                // AddressSinner(),
+              ]),
             ),
-          ),
-          const Divider(),
-          /* -------------------------------------------------------------------------- */
-          _addressList(ref),
-          // AddressSinner(),
-        ]),
-      ),
     );
   }
 }

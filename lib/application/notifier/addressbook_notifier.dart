@@ -6,16 +6,18 @@ import '../state/addressbook_state.dart';
 
 class AddressBookNotifier extends StateNotifier<AddressBookState> {
   final APIServiceAddress _apiService;
+  String? number;
 
-  AddressBookNotifier(this._apiService) : super(const AddressBookState()) {
-    getAddresses();
+  AddressBookNotifier(this._apiService, this.number)
+      : super(const AddressBookState()) {
+    getAddresses(number);
   }
 
-  Future<void> getAddresses() async {
+  Future<void> getAddresses(String? number) async {
     state = state.copyWith(isLoading: true);
 
     // Future.delayed(const Duration(seconds: 10), () async {
-    var addbookdata = await _apiService.fetchalladdressbyid();
+    var addbookdata = await _apiService.fetchalladdressbyid(number);
     state = state.copyWith(AddressBookModel: addbookdata);
     state = state.copyWith(isLoading: false);
     // });
@@ -25,7 +27,7 @@ class AddressBookNotifier extends StateNotifier<AddressBookState> {
   Future<void> addNewAddress(mp) async {
     await _apiService.addnewaddress(mp);
 
-    await getAddresses();
+    await getAddresses(mp["number"]);
   }
 
   Future<void> deleteAddress(userid, addressid) async {
@@ -38,7 +40,7 @@ class AddressBookNotifier extends StateNotifier<AddressBookState> {
     // AddressBook newbook = AddressBook(addresses: updatedItems);
     // state = state.copyWith(AddressBookModel: newbook);
 
-    await getAddresses();
+    await getAddresses(userid);
   }
 
   Future<void> updateAddress(
@@ -61,7 +63,7 @@ class AddressBookNotifier extends StateNotifier<AddressBookState> {
     // AddressBook newbook = AddressBook(addresses: updatedItems);
     // state = state.copyWith(AddressBookModel: newbook);
 
-    await getAddresses();
+    await getAddresses(addressdetail["number"]);
   }
 
   Future<void> setSelectedAddress(userid, addressId) async {
@@ -96,7 +98,7 @@ class AddressBookNotifier extends StateNotifier<AddressBookState> {
     // AddressBook newbook = AddressBook(addresses: newupdatesItems);
     // state = state.copyWith(AddressBookModel: newbook);
 
-    await getAddresses();
+    await getAddresses(userid);
   }
 
   Future<SelectedAddress?> getSelectedAddress(phonenumber) async {

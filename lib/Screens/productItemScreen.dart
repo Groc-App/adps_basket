@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -46,7 +47,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
     );
   }
 
-  Widget buildProduct(BuildContext context, double scWidth) {
+  Widget buildProduct(BuildContext context, double scWidth, User? authInfo) {
     return Column(
       children: [
         Container(
@@ -120,7 +121,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 const Spacer(),
-                addTile(scWidth),
+                addTile(scWidth, authInfo),
               ],
             ),
             const Divider(
@@ -172,21 +173,21 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
     );
   }
 
-  void incrementHandler() {
+  void incrementHandler(phonenumber) {
     setState(() {
       counter++;
     });
 
     final cartViewModel = ref.read(cartItemsProvider.notifier);
     cartViewModel.updateCartItem(
-        '+917982733943', counter.toString(), product.productId);
+        phonenumber, counter.toString(), product.productId);
   }
 
-  void decrementHandler() {
+  void decrementHandler(phonenumber) {
     if ((counter - 1) == 0) {
       final cartViewModel = ref.read(cartItemsProvider.notifier);
       cartViewModel
-          .removeCartItems('+917982733943', product.productId)
+          .removeCartItems(phonenumber, product.productId)
           .whenComplete(() {
         setState(() {
           counter--;
@@ -196,7 +197,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
       final cartViewModel = ref.read(cartItemsProvider.notifier);
       cartViewModel
           .updateCartItem(
-              '+917982733943', (counter - 1).toString(), product.productId)
+              phonenumber, (counter - 1).toString(), product.productId)
           .whenComplete(() {
         setState(() {
           counter--;
@@ -205,7 +206,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
     }
   }
 
-  Widget addTile(scWidth) {
+  Widget addTile(scWidth, User? authInfo) {
     final CartItemModel = ref.watch(cartItemsProvider);
     if (CartItemModel.isLoading) {
       // return CircularProgressIndicator();
@@ -233,10 +234,10 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
       });
     }
     print('counter is:::::::::::::: $counter\n');
-    return buildAddTile(scWidth);
+    return buildAddTile(scWidth, authInfo);
   }
 
-  Widget buildAddTile(scWidth) {
+  Widget buildAddTile(scWidth, User? authInfo) {
     return counter != 0
         ? Container(
             decoration: BoxDecoration(
@@ -253,7 +254,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
               MouseRegion(
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
-                  onTap: () => decrementHandler(),
+                  onTap: () => decrementHandler(authInfo!.phoneNumber ?? ''),
                   child: Icon(
                     // Color(value),
                     color: Color.fromRGBO(83, 177, 117, 1),
@@ -272,7 +273,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
               MouseRegion(
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
-                  onTap: () => incrementHandler(),
+                  onTap: () => incrementHandler(authInfo!.phoneNumber ?? ''),
                   child: Icon(
                     color: Color.fromRGBO(83, 177, 117, 1),
                     Icons.add,
@@ -315,37 +316,34 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
             height: scWidth * 0.25 * 0.4,
             child: OutlinedButton(
                 onPressed: () {
-                  // if (authInfo == null) {
-                  //   showDialog<String>(
-                  //     context: context,
-                  //     builder: (BuildContext context) =>
-                  //         AlertDialog(
-                  //       title: const Text('Login First'),
-                  //       content: const Text('Login to Continue'),
-                  //       actions: <Widget>[
-                  //         TextButton(
-                  //           onPressed: () =>
-                  //               Navigator.pop(context, 'Cancel'),
-                  //           child: const Text('Cancel'),
-                  //         ),
-                  //         TextButton(
-                  //           onPressed: () => Navigator.pushNamed(
-                  //               context, '/loginScreen'),
-                  //           child: const Text('OK'),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   );
-                  // } else {
-                  setState(() {
-                    counter++;
-                  });
-                  final cartViewModel = ref.read(cartItemsProvider.notifier);
-                  cartViewModel.addCartItems(
-                      '+917982733943', product.productId);
-                }
-                // }
-                ,
+                  if (authInfo == null) {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Login First'),
+                        content: const Text('Login to Continue'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'Cancel'),
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () =>
+                                Navigator.pushNamed(context, '/loginScreen'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    setState(() {
+                      counter++;
+                    });
+                    final cartViewModel = ref.read(cartItemsProvider.notifier);
+                    cartViewModel.addCartItems(
+                        authInfo.phoneNumber ?? '', product.productId);
+                  }
+                },
                 child: const Text('ADD')),
           );
   }
@@ -359,6 +357,8 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
         <String, String>{}) as Map;
     product = productIdMap['product'];
     // counter = productIdMap['counter'];
+
+    var authInfo = ref.watch(authCheckProvider);
 
     return Scaffold(
         appBar: AppBar(
@@ -379,7 +379,8 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
           ),
         ),
         body: SafeArea(
-          child: SingleChildScrollView(child: buildProduct(context, scWidth)),
+          child: SingleChildScrollView(
+              child: buildProduct(context, scWidth, authInfo)),
         ),
         backgroundColor: const Color.fromARGB(255, 235, 227, 227),
         bottomNavigationBar: Container(

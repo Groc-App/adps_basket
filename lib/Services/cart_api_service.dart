@@ -62,14 +62,14 @@ class APIServiceCart {
     }
   }
 
-  Future<Cart?> getCartitemsApi() async {
+  Future<Cart?> getCartitemsApi(String? number) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
 
     print("\n\nINside Get Cart Items");
     // String userid = authInfo.phoneNumber;
-    String userid = '+917982733943';
+    String? userid = number;
 
     var ur = Config.getCartItemApi + '/${userid}';
 

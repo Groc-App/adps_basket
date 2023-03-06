@@ -32,15 +32,13 @@ final authCheckProvider = StateProvider<User?>((ref) => null);
 
 final cartItemsProvider = StateNotifierProvider<CartNotifier, CartState>(
   (ref) => CartNotifier(
-    ref.watch(cartApiService),
-  ),
+      ref.watch(cartApiService), ref.watch(authCheckProvider)!.phoneNumber),
 );
 
 final addressBokkProvider =
     StateNotifierProvider<AddressBookNotifier, AddressBookState>(
   (ref) => AddressBookNotifier(
-    ref.watch(addressApiService),
-  ),
+      ref.watch(addressApiService), ref.watch(authCheckProvider)!.phoneNumber),
 );
 
 // final addnewaddressProvider =
