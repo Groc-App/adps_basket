@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,7 +14,7 @@ class ProductItem extends ConsumerStatefulWidget {
 
   late Product product;
 
-  ProductItem({required this.product});
+  ProductItem({required this.product, super.key});
 
   @override
   ConsumerState<ProductItem> createState() => _ProductItemState(
@@ -71,7 +72,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     // });
   }
 
-  Widget addTile(scWidth, User? authInfo) {
+  Widget addTile(scWidth, String? number) {
     print('rebuild times 1/n');
     final CartItemModel = ref.watch(cartItemsProvider);
 
@@ -108,10 +109,10 @@ class _ProductItemState extends ConsumerState<ProductItem> {
 
     print('counter is:::::::::::::: $counter\n');
 
-    return buildAddTile(scWidth, authInfo);
+    return buildAddTile(scWidth, number);
   }
 
-  Widget buildAddTile(scWidth, User? authInfo) {
+  Widget buildAddTile(scWidth, String? number) {
     return counter != 0
         ? Container(
             width: scWidth * 0.48 * 0.36,
@@ -128,7 +129,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                   child: GestureDetector(
                     child:
                         Icon(Icons.remove, size: scWidth * 0.48 * 0.36 * 0.2),
-                    onTap: () => decrementHandler(authInfo!.phoneNumber ?? ''),
+                    onTap: () => decrementHandler(number),
                   ),
                 ),
                 Text('$counter'),
@@ -136,7 +137,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     child: Icon(Icons.add, size: scWidth * 0.48 * 0.36 * 0.2),
-                    onTap: () => incrementHandler(authInfo!.phoneNumber ?? ''),
+                    onTap: () => incrementHandler(number),
                   ),
                 ),
               ],
@@ -147,7 +148,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
             child: FittedBox(
               child: OutlinedButton(
                   onPressed: () {
-                    if (authInfo == null) {
+                    if (number == null) {
                       showDialog<String>(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
@@ -172,8 +173,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                       });
                       final cartViewModel =
                           ref.read(cartItemsProvider.notifier);
-                      cartViewModel.addCartItems(
-                          authInfo.phoneNumber ?? '', product.productId);
+                      cartViewModel.addCartItems(number, product.productId);
                     }
                   },
                   child: const Text('ADD')),
@@ -187,7 +187,8 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     final scWidth = scSize.width;
 
     var authInfo = ref.watch(authCheckProvider);
-    print(authInfo?.uid);
+    print('\nauthinfo is::::::::::;;;;\n$authInfo');
+    // print(authInfo?.uid);
 
     return GestureDetector(
       onTap: () {
@@ -206,8 +207,8 @@ class _ProductItemState extends ConsumerState<ProductItem> {
               Flexible(
                 fit: FlexFit.loose,
                 flex: 3,
-                child: Image.network(
-                  product.ImageUrl[0],
+                child: CachedNetworkImage(
+                  imageUrl: product.ImageUrl[0],
                   fit: BoxFit.cover,
                 ),
               ),
@@ -241,7 +242,11 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                               style: TextStyle(
                                   fontSize: 34, fontWeight: FontWeight.bold),
                             ))),
-                    addTile(scWidth, authInfo),
+                    // authInfo == null
+                    //     ? addTile(scWidth, ' ')
+                    // ? Container()
+                    // :
+                    addTile(scWidth, authInfo?.phoneNumber)
                   ],
                 ),
               )

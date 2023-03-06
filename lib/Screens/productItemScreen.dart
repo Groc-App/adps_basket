@@ -47,7 +47,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
     );
   }
 
-  Widget buildProduct(BuildContext context, double scWidth, User? authInfo) {
+  Widget buildProduct(BuildContext context, double scWidth, String number) {
     return Column(
       children: [
         Container(
@@ -121,7 +121,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 const Spacer(),
-                addTile(scWidth, authInfo),
+                addTile(scWidth, number),
               ],
             ),
             const Divider(
@@ -206,7 +206,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
     }
   }
 
-  Widget addTile(scWidth, User? authInfo) {
+  Widget addTile(scWidth, String number) {
     final CartItemModel = ref.watch(cartItemsProvider);
     if (CartItemModel.isLoading) {
       // return CircularProgressIndicator();
@@ -234,10 +234,10 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
       });
     }
     print('counter is:::::::::::::: $counter\n');
-    return buildAddTile(scWidth, authInfo);
+    return buildAddTile(scWidth, number);
   }
 
-  Widget buildAddTile(scWidth, User? authInfo) {
+  Widget buildAddTile(scWidth, String number) {
     return counter != 0
         ? Container(
             decoration: BoxDecoration(
@@ -254,7 +254,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
               MouseRegion(
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
-                  onTap: () => decrementHandler(authInfo!.phoneNumber ?? ''),
+                  onTap: () => decrementHandler(number),
                   child: Icon(
                     // Color(value),
                     color: Color.fromRGBO(83, 177, 117, 1),
@@ -273,7 +273,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
               MouseRegion(
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
-                  onTap: () => incrementHandler(authInfo!.phoneNumber ?? ''),
+                  onTap: () => incrementHandler(number),
                   child: Icon(
                     color: Color.fromRGBO(83, 177, 117, 1),
                     Icons.add,
@@ -316,7 +316,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
             height: scWidth * 0.25 * 0.4,
             child: OutlinedButton(
                 onPressed: () {
-                  if (authInfo == null) {
+                  if (number == '') {
                     showDialog<String>(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
@@ -340,8 +340,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                       counter++;
                     });
                     final cartViewModel = ref.read(cartItemsProvider.notifier);
-                    cartViewModel.addCartItems(
-                        authInfo.phoneNumber ?? '', product.productId);
+                    cartViewModel.addCartItems(number, product.productId);
                   }
                 },
                 child: const Text('ADD')),
@@ -380,7 +379,8 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
         ),
         body: SafeArea(
           child: SingleChildScrollView(
-              child: buildProduct(context, scWidth, authInfo)),
+              child:
+                  buildProduct(context, scWidth, authInfo!.phoneNumber ?? '')),
         ),
         backgroundColor: const Color.fromARGB(255, 235, 227, 227),
         bottomNavigationBar: Container(

@@ -95,6 +95,7 @@ class CategoryScreen extends ConsumerWidget {
         itemBuilder: (context, index) {
           return ProductItem(
             product: products[index],
+            key: Key(products[index].productId),
           );
         },
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -195,13 +196,7 @@ class CategoryScreen extends ConsumerWidget {
           /* ------------------------------Body Pane----------------------------- */
           // ProductData(),2
           // ProductDataWidgets(),
-          SizedBox(
-              // height: scHeight * 0.8,
-              // width: sc_width * 0.s8,
-              // height: double.maxFinite,
-
-              /* ---------------------- Building Categories Item Grid --------------------- */
-              child: productList(ref, map))
+          SizedBox(child: productList(ref, map))
         ],
       )
           // : InternetConnection(),

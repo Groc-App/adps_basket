@@ -89,7 +89,7 @@ class APIServiceProducts {
 
       // print("Product response::");
       // print(prdcts['Products']);
-
+      if (data["data"] == null) return productsFromJson(prdcts);
       // print('byeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
       return productsFromJson(prdcts['Products']);
     } else {

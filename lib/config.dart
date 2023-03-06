@@ -7,7 +7,7 @@ class Config {
   // static const String apiURL = '127.0.0.1:8000';
   // 127.0.0.1:8000
   // 192.168.1.16:8000
-  static const String apiURL = '192.168.1.44:8000';
+  static const String apiURL = '192.168.29.187:8000';
 
   /* -------------------------------------------------------------------------- */
   /*                                 End Points                                 */

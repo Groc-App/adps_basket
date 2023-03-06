@@ -25,6 +25,7 @@ import 'Screens/homeScreen.dart';
 import 'Screens/searchScreen.dart';
 import 'firebase_options.dart';
 import 'notificationservice/local_notification_service.dart';
+import 'package:stack_trace/stack_trace.dart' as stack_trace;
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> backgroundHandler(RemoteMessage message) async {
@@ -33,6 +34,12 @@ Future<void> backgroundHandler(RemoteMessage message) async {
 }
 
 Future<void> main() async {
+  FlutterError.demangleStackTrace = (StackTrace stack) {
+    if (stack is stack_trace.Trace) return stack.vmTrace;
+    if (stack is stack_trace.Chain) return stack.toTrace().vmTrace;
+    return stack;
+  };
+
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
   await Firebase.initializeApp(
@@ -56,10 +63,10 @@ class MyApp extends StatelessWidget {
       title: 'Your Basket',
       theme: MyTheme.lightTheme(context),
       debugShowCheckedModeBanner: false,
-      // home: const MyHomePage(),
-      initialRoute: '/',
+      home: const MyHomePage(),
+      // initialRoute: '/',
       routes: {
-        '/': (context) => MyHomePage(),
+        // '/': (context) => MyHomePage(),
         '/introScreen': (context) => const IntroScreen(),
         '/loading': (context) => const LoadingSinner(),
         '/homepage': (context) => const HomeScreen(),
@@ -92,17 +99,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Future checkFirstSeen() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool _seen = (prefs.getBool('seen') ?? false);
+  // Future checkFirstSeen() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   bool _seen = (prefs.getBool('seen') ?? false);
 
-    if (_seen) {
-      return '/';
-    } else {
-      await prefs.setBool('seen', true);
-      return '/introScreen';
-    }
-  }
+  //   if (_seen) {
+  //     return '/';
+  //   } else {
+  //     await prefs.setBool('seen', true);
+  //     return '/introScreen';
+  //   }
+  // }
 
   @override
   void initState() {
@@ -157,21 +164,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: checkFirstSeen(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            if (snapshot.data == '/')
-              return HomeScreen();
-            else {
-              return IntroScreen();
-            }
-          }
-        });
-    ;
+    // return FutureBuilder(
+    //     future: checkFirstSeen(),
+    //     builder: (context, snapshot) {
+    //       if (snapshot.connectionState == ConnectionState.waiting) {
+    //         return Center(
+    //           child: CircularProgressIndicator(),
+    //         );
+    //       } else {
+    //         if (snapshot.data == '/')
+    //           return HomeScreen();
+    //         else {
+    //           return IntroScreen();
+    //         }
+    //       }
+    //     });
+    return HomeScreen();
   }
 }
