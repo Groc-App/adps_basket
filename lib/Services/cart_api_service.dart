@@ -69,7 +69,8 @@ class APIServiceCart {
 
     print("\n\nINside Get Cart Items");
     // String userid = authInfo.phoneNumber;
-    String? userid = number;
+
+    String userid = number ?? '';
 
     var ur = Config.getCartItemApi + '/${userid}';
 

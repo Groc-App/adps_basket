@@ -8,13 +8,13 @@ import '../state/cart_state.dart';
 
 class CartNotifier extends StateNotifier<CartState> {
   final APIServiceCart _apiService;
-  String? phonenumber;
+  String phonenumber;
 
   CartNotifier(this._apiService, this.phonenumber) : super(const CartState()) {
     getCartitems(phonenumber);
   }
 
-  Future<void> getCartitems(String? number) async {
+  Future<void> getCartitems(String number) async {
     state = state.copyWith(isLoading: true);
 
     var cartdata = await _apiService.getCartitemsApi(number);

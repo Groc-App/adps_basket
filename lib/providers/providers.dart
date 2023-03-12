@@ -31,8 +31,16 @@ final authCheckProvider = StateProvider<User?>((ref) => null);
 // final authCheckProvider = StateProvider<User?>((ref) => new User());
 
 final cartItemsProvider = StateNotifierProvider<CartNotifier, CartState>(
-  (ref) => CartNotifier(
-      ref.watch(cartApiService), ref.watch(authCheckProvider)!.phoneNumber),
+  (ref) {
+    String number;
+    var user = ref.watch(authCheckProvider);
+    if (user == null) {
+      number = '';
+    } else {
+      number = user.phoneNumber!;
+    }
+    return CartNotifier(ref.watch(cartApiService), number);
+  },
 );
 
 final addressBokkProvider =
