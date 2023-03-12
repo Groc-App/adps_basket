@@ -72,42 +72,44 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     // });
   }
 
-  Widget addTile(scWidth, String? number) {
-    print('rebuild times 1/n');
-    final CartItemModel = ref.watch(cartItemsProvider);
+  Widget addTile(scWidth, String number) {
+    // print('rebuild times 1/n');
+    if (number != '') {
+      final CartItemModel = ref.watch(cartItemsProvider);
 
-    if (CartItemModel.isLoading) {
-      // return CircularProgressIndicator();
-      return SpinKitThreeInOut(
-        size: 25,
-        color: Colors.green,
-      );
-    }
+      if (CartItemModel.isLoading) {
+        // return CircularProgressIndicator();
+        return SpinKitThreeInOut(
+          size: 25,
+          color: Colors.green,
+        );
+      }
 
-    // if (CartItemModel.cartModel == null) {
-    //   return const LinearProgressIndicator();
-    // }
+      // if (CartItemModel.cartModel == null) {
+      //   return const LinearProgressIndicator();
+      // }
 
-    var searchdata = CartItemModel.cartModel!.products;
+      var searchdata = CartItemModel.cartModel!.products;
 
-    bool flag = false;
-    for (int i = 0; i < searchdata.length; i++) {
-      var data = searchdata[i];
-      if (product.productId == data.Item.productId) {
+      bool flag = false;
+      for (int i = 0; i < searchdata.length; i++) {
+        var data = searchdata[i];
+        if (product.productId == data.Item.productId) {
+          setState(() {
+            counter = data.ItemCount;
+          });
+          flag = true;
+          break;
+        }
+      }
+      if (flag == false) {
         setState(() {
-          counter = data.ItemCount;
+          counter = 0;
         });
-        flag = true;
-        break;
       }
     }
-    if (flag == false) {
-      setState(() {
-        counter = 0;
-      });
-    }
 
-    print('counter is:::::::::::::: $counter\n');
+    // print('counter is:::::::::::::: $counter\n');
 
     return buildAddTile(scWidth, number);
   }
@@ -148,7 +150,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
             child: FittedBox(
               child: OutlinedButton(
                   onPressed: () {
-                    if (number == null) {
+                    if (number == '') {
                       showDialog<String>(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
@@ -239,14 +241,13 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                             fit: BoxFit.scaleDown,
                             child: Text(
                               '\u{20B9}${product.Price}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 34, fontWeight: FontWeight.bold),
                             ))),
-                    // authInfo == null
-                    //     ? addTile(scWidth, ' ')
-                    // ? Container()
-                    // :
-                    addTile(scWidth, authInfo?.phoneNumber)
+                    authInfo == null
+                        ? addTile(scWidth, '')
+                        : addTile(scWidth, authInfo.phoneNumber!),
+                    // addTile(scWidth, '+917982733943'),
                   ],
                 ),
               )
