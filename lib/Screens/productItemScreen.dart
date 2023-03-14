@@ -33,13 +33,21 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
           return Stack(children: [
             Container(
               height: Config.scHeight,
-              child: Image.network(imageurl),
+              child: InteractiveViewer(
+                  maxScale: 3.0,
+                  panEnabled: true,
+                  child: Image.network(imageurl)),
             ),
             FloatingActionButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Icon(Icons.close),
+              backgroundColor: Colors.white,
+              hoverColor: Color.fromARGB(31, 77, 75, 75),
+              child: Icon(
+                Icons.close,
+                color: Colors.black,
+              ),
             )
           ]);
         });
