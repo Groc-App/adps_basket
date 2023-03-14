@@ -207,31 +207,32 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
   }
 
   Widget addTile(scWidth, String number) {
-    final CartItemModel = ref.watch(cartItemsProvider);
-    if (CartItemModel.isLoading) {
-      // return CircularProgressIndicator();
-      return SpinKitThreeInOut(
-        size: 38,
-        color: Colors.green,
-      );
-    }
-
-    var searchdata = CartItemModel.cartModel!.products;
-    bool flag = false;
-    for (int i = 0; i < searchdata.length; i++) {
-      var data = searchdata[i];
-      if (product.productId == data.Item.productId) {
-        setState(() {
-          counter = data.ItemCount;
-        });
-        flag = true;
-        break;
+    if (number != '') {
+      final CartItemModel = ref.watch(cartItemsProvider);
+      if (CartItemModel.isLoading) {
+        return SpinKitThreeInOut(
+          size: 38,
+          color: Colors.green,
+        );
       }
-    }
-    if (flag == false) {
-      setState(() {
-        counter = 0;
-      });
+
+      var searchdata = CartItemModel.cartModel!.products;
+      bool flag = false;
+      for (int i = 0; i < searchdata.length; i++) {
+        var data = searchdata[i];
+        if (product.productId == data.Item.productId) {
+          setState(() {
+            counter = data.ItemCount;
+          });
+          flag = true;
+          break;
+        }
+      }
+      if (flag == false) {
+        setState(() {
+          counter = 0;
+        });
+      }
     }
     print('counter is:::::::::::::: $counter\n');
     return buildAddTile(scWidth, number);
@@ -379,8 +380,9 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
         ),
         body: SafeArea(
           child: SingleChildScrollView(
-              child:
-                  buildProduct(context, scWidth, authInfo!.phoneNumber ?? '')),
+              child: authInfo == null
+                  ? buildProduct(context, scWidth, '')
+                  : buildProduct(context, scWidth, authInfo.phoneNumber ?? '')),
         ),
         backgroundColor: const Color.fromARGB(255, 235, 227, 227),
         bottomNavigationBar: Container(

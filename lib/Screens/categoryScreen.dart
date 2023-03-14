@@ -107,30 +107,54 @@ class CategoryScreen extends ConsumerWidget {
         itemCount: products!.length);
   }
 
-  Widget buildCategory(List<Category>? categories) {
-    return Container(
-      height: 130,
-      alignment: Alignment.center,
-      // width: sc_width * 0.9,
-      child: ListView.separated(
-        separatorBuilder: (context, index) => const SizedBox(
-          width: 20,
-        ),
-        shrinkWrap: true,
-        physics: const ClampingScrollPhysics(),
-        padding: const EdgeInsets.all(10),
-        itemCount: categories!.length,
-        scrollDirection: Axis.horizontal,
+  final ScrollController _controller = ScrollController();
 
-        /* --------------------- Building Slider category Items --------------------- */
-        itemBuilder: ((context, index) => CategorySliderItems(
-              map: mapp,
-              categoryId: categories[index].categoryId,
-              catergoryURL: categories[index].imageurl,
-              categoryName: categories[index].Name,
-              mainCategoryId: mainCategoryId,
-            )),
-      ),
+  // This is what you're looking for!
+  void _scrollDown() {
+    _controller.animateTo(
+      _controller.position.extentAfter,
+      duration: Duration(seconds: 2),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
+
+  Widget buildCategory(List<Category>? categories) {
+    return Stack(
+      alignment: Alignment.centerRight,
+      children: [
+        Container(
+          height: 130,
+          alignment: Alignment.center,
+          // width: sc_width * 0.9,
+          child: Scrollbar(
+            child: ListView.separated(
+              separatorBuilder: (context, index) => const SizedBox(
+                width: 20,
+              ),
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+              padding: const EdgeInsets.all(10),
+              itemCount: categories!.length,
+              scrollDirection: Axis.horizontal,
+              controller: _controller,
+              /* --------------------- Building Slider category Items --------------------- */
+              itemBuilder: ((context, index) => CategorySliderItems(
+                    map: mapp,
+                    categoryId: categories[index].categoryId,
+                    catergoryURL: categories[index].imageurl,
+                    categoryName: categories[index].Name,
+                    mainCategoryId: mainCategoryId,
+                  )),
+            ),
+          ),
+        ),
+        if (categories.length > 2)
+          IconButton(
+              splashColor: Colors.white,
+              alignment: Alignment.centerRight,
+              onPressed: _scrollDown,
+              icon: Icon(Icons.arrow_forward)),
+      ],
     );
   }
 
@@ -189,6 +213,7 @@ class CategoryScreen extends ConsumerWidget {
           //     ? 'Is Connected to Internet'
           //     : 'Is Disconnected from Internet'),
           categoriesList(ref, mainCategoryId),
+
           // Carousel(),
 
           /* -------------------------------------------------------------------------- */
