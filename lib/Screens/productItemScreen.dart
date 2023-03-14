@@ -3,16 +3,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:your_basket/Screens/buySubscriptionScreen.dart';
-import 'package:your_basket/Widgets/Categories/addItemIcon.dart';
 import 'package:readmore/readmore.dart';
 import 'package:your_basket/models/product/productdetail.dart';
 import 'package:your_basket/models/product/products.dart';
 import 'package:your_basket/providers/providers.dart';
 import 'package:share_plus/share_plus.dart';
+import '../config.dart';
 
 class ProductItemScreen extends ConsumerStatefulWidget {
   const ProductItemScreen({super.key});
@@ -27,23 +26,50 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
   late Product product;
   int counter = 0;
 
+  void showZommedimage(BuildContext context, String imageurl) {
+    showBottomSheet(
+        context: context,
+        builder: (context) {
+          return Stack(children: [
+            Container(
+              height: Config.scHeight,
+              child: Image.network(imageurl),
+            ),
+            FloatingActionButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Icon(Icons.close),
+            )
+          ]);
+        });
+  }
+
   Widget imageslider() {
-    return CarouselSlider(
-      options: CarouselOptions(
-        height: 400.0,
-      ),
-      items: product.ImageUrl.map((e) {
-        return Builder(
-          builder: (BuildContext context) {
-            return Container(
-                width: double.infinity,
-                height: double.infinity,
-                child: CachedNetworkImage(
-                  imageUrl: e,
-                ));
+    return CarouselSlider.builder(
+      itemCount: product.ImageUrl.length,
+      slideBuilder: (idx) {
+        return GestureDetector(
+          onTap: () {
+            showZommedimage(context, product.ImageUrl[idx]);
           },
+          child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              child: CachedNetworkImage(
+                imageUrl: product.ImageUrl[idx],
+              )),
         );
-      }).toList(),
+      },
+      slideIndicator: CircularSlideIndicator(
+          padding: const EdgeInsets.all(10),
+          indicatorBackgroundColor: Theme.of(context).primaryColor,
+          currentIndicatorColor: Colors.black),
+      enableAutoSlider: true,
+      unlimitedMode: true,
+      scrollDirection: Axis.horizontal,
+      autoSliderTransitionTime: const Duration(milliseconds: 500),
+      autoSliderTransitionCurve: Curves.ease,
     );
   }
 
