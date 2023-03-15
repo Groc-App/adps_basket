@@ -39,26 +39,15 @@ class APIServiceProducts {
     final queryParameter = map;
     var url = Uri.http(
         Config.apiURL, Config.getProductsByCategoriesApi, queryParameter);
-    print("\n\n\nThis is url:");
-    print(url);
+
     var response = await client.get(
       url,
       headers: requestHeaders,
-      // body: jsonEncode({"phone": }),
     );
 
     Map<String, dynamic> prdcts;
     if (response.statusCode == 200) {
-      // print("\n\n\nProduct response::");
-      // print(response.statusCode);
       var data = jsonDecode(response.body);
-      // print("\n\n\nProduct response::");
-
-      // print(data['data']);
-      // prdcts = data['data'];
-
-      // print("\nProduct response::");
-      // print(prdcts['Products']);
       return productsFromJson(data['data']);
     } else {
       return null;
@@ -80,17 +69,11 @@ class APIServiceProducts {
       headers: requestHeaders,
     );
 
-    // print(response.body);
     Map<String, dynamic> prdcts;
     if (response.statusCode == 200) {
-      // print('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
       var data = jsonDecode(response.body);
       prdcts = data["data"];
-
-      // print("Product response::");
-      // print(prdcts['Products']);
       if (data["data"] == null) return productsFromJson(prdcts);
-      // print('byeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
       return productsFromJson(prdcts['Products']);
     } else {
       return null;

@@ -193,34 +193,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   ),
                 ),
 
-//        ------               Slide to pay           ------
-
-                // Container(
-                //   width: sc_width,
-                //   height: sc_height * 0.08,
-                //   // color: Colors.black,
-                //   child: SlideAction(
-                //     onSubmit: () {},
-                //     height: sc_height * 0.08,
-                //     text: 'Slide to Checkout',
-                //     innerColor: Colors.deepPurple,
-                //     outerColor: Colors.deepPurple[300],
-                //     sliderButtonIcon: FaIcon(
-                //       FontAwesomeIcons.basketShopping,
-                //       // size: 20,
-                //       color: Colors.white,
-                //     ),
-                //     sliderButtonIconSize: 23,
-                //     sliderButtonIconPadding: 8,
-                //     borderRadius: 10,
-                //     sliderButtonYOffset: -4,
-                // textStyle: TextStyle(
-                //     fontSize: 18,
-                //     fontWeight: FontWeight.bold,
-                //     color: Colors.white),
-                //   ),
-                // )
-
                 // ----------         Button to checkout     --------
 
                 if (iscartempty == false)

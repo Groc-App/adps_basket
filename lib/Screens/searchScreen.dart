@@ -17,6 +17,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   List<Product> foundUser = [];
 
   Widget buildProducts(List<Product> products) {
+    print('yeasssssss inside search');
     return GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 5),

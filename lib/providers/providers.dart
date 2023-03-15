@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Services/api_service.dart';
 import 'package:your_basket/Services/offer_api_service.dart';
 import 'package:your_basket/Services/subscription_api_service.dart';
-// import 'package:your_basket/Services/product_api_service.dart';
 import 'package:your_basket/models/category/category.dart';
 import 'package:your_basket/models/offer/offer.dart';
 import 'package:your_basket/models/subscription/subscription.dart';
@@ -25,10 +24,7 @@ import '../Services/order_api_service.dart';
 import 'package:your_basket/models/orders/orders.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-// import 'package:your_basket/Services/category_api_service.dart';
-
 final authCheckProvider = StateProvider<User?>((ref) => null);
-// final authCheckProvider = StateProvider<User?>((ref) => new User());
 
 final cartItemsProvider = StateNotifierProvider<CartNotifier, CartState>(
   (ref) {
@@ -49,23 +45,6 @@ final addressBokkProvider =
       ref.watch(addressApiService), ref.watch(authCheckProvider)!.phoneNumber),
 );
 
-// final addnewaddressProvider =
-//     FutureProvider.family<Future<void>, Map<String, String?>>(
-//   (ref, mp) {
-//     final apiRespository = ref.watch(addressApiService);
-
-//     return apiRespository.addnewaddress(mp);
-//   },
-// );
-
-// final addressListProvider = FutureProvider.family<List<Address>?, String?>(
-//   (ref, number) {
-//     final apiRespository = ref.watch(addressApiService);
-
-//     return apiRespository.fetchalladdressbyid(number);
-//   },
-// );
-
 final selectedAddressProvider =
     FutureProvider.family<SelectedAddress?, String?>(
   (ref, number) {
@@ -82,14 +61,6 @@ final createuserProvider = FutureProvider.family<void, String?>(
     return apiRespository.createuserifnotexist(number);
   },
 );
-
-// final updatecartitem = FutureProvider.family<void, Map<String, String>>(
-//   (ref, mp) {
-//     final apiRespository = ref.watch(cartApiService);
-
-//     return apiRespository.addorupdateProduct(mp);
-//   },
-// );
 
 final yourordersProvider = FutureProvider.family<List<Orders>?, String>(
   (ref, userid) {
@@ -123,13 +94,6 @@ final categoriesProvider = FutureProvider.family<List<Category>?, String>(
   },
 );
 
-// final cartItemProvider = FutureProvider.family<List<CartItem>?, String?>(
-//   (ref, userid) {
-//     final apiRespository = ref.watch(cartApiService);
-//     return apiRespository.getCartItem(userid);
-//   },
-// );
-
 final productByidProvider = FutureProvider.family<ProductItem?, String>(
   (ref, productid) {
     final apiRespository = ref.watch(authApiService);
@@ -138,19 +102,9 @@ final productByidProvider = FutureProvider.family<ProductItem?, String>(
   },
 );
 
-// final cartItemUpdateProvider =
-//     FutureProvider.family<Product?, Map<String, dynamic>>(
-//   (ref, cartitemdet) {
-//     final apiRespository = ref.watch(cartApiService);
-//     apiRespository.updateCartitemquantity(cartitemdet);
-//     return null;
-//   },
-// );
-
 final productsByCategoryProvider =
     FutureProvider.family<List<Product>?, Map<String, String>>(
   (ref, map) {
-    print("\n\nIn the product providerrrrrrrrrrrrrrrrr");
     final productApiRepository = ref.watch(productApiService);
     return productApiRepository.getAllProdcutsByCategory(map);
   },
@@ -168,7 +122,6 @@ final allOfferProvider =
     FutureProvider.autoDispose.family<List<Offer>?, Map<String, String>>(
   (ref, map) {
     final apiRespository = ref.watch(offerApiService);
-    print("inside all of provider ${apiRespository.getAllOffers(map)}");
     return apiRespository.getAllOffers(map);
   },
 );
@@ -177,8 +130,6 @@ final subscriptionByUserProvider =
     FutureProvider.autoDispose.family<List<Subscription>?, Map<String, String>>(
   (ref, map) {
     final apiRespository = ref.watch(subscriptionApiService);
-    // print(
-    //     "inside all of provider ${apiRespository.getSubscriptionbyUser(map)}");
     return apiRespository.getSubscriptionbyUser(map);
   },
 );

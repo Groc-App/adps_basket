@@ -16,12 +16,9 @@ class AddressBookNotifier extends StateNotifier<AddressBookState> {
   Future<void> getAddresses(String? number) async {
     state = state.copyWith(isLoading: true);
 
-    // Future.delayed(const Duration(seconds: 10), () async {
     var addbookdata = await _apiService.fetchalladdressbyid(number);
     state = state.copyWith(AddressBookModel: addbookdata);
     state = state.copyWith(isLoading: false);
-    // });
-    // print("This is addressdata from Address Notifier $addbookdata");
   }
 
   Future<void> addNewAddress(mp) async {

@@ -1,14 +1,6 @@
 // import 'package:flutter/material.dart';
 // ignore_for_file: file_names
-
-import 'dart:math';
-
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:your_basket/Screens/ProfileScreen.dart';
-import 'package:your_basket/Screens/cartScreen.dart';
-import 'package:your_basket/Screens/homeScreen.dart';
 
 class BotmNavBar extends StatefulWidget {
   const BotmNavBar({super.key});

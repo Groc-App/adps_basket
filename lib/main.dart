@@ -99,17 +99,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // Future checkFirstSeen() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   bool _seen = (prefs.getBool('seen') ?? false);
+  Future checkFirstSeen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool _seen = (prefs.getBool('seen') ?? false);
 
-  //   if (_seen) {
-  //     return '/';
-  //   } else {
-  //     await prefs.setBool('seen', true);
-  //     return '/introScreen';
-  //   }
-  // }
+    if (_seen) {
+      return '/';
+    } else {
+      await prefs.setBool('seen', true);
+      return '/introScreen';
+    }
+  }
 
   @override
   void initState() {
@@ -164,21 +164,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // return FutureBuilder(
-    //     future: checkFirstSeen(),
-    //     builder: (context, snapshot) {
-    //       if (snapshot.connectionState == ConnectionState.waiting) {
-    //         return Center(
-    //           child: CircularProgressIndicator(),
-    //         );
-    //       } else {
-    //         if (snapshot.data == '/')
-    //           return HomeScreen();
-    //         else {
-    //           return IntroScreen();
-    //         }
-    //       }
-    //     });
-    return HomeScreen();
+    return FutureBuilder(
+        future: checkFirstSeen(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            if (snapshot.data == '/')
+              return HomeScreen();
+            else {
+              return IntroScreen();
+            }
+          }
+        });
+    // return HomeScreen();
   }
 }

@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:your_basket/models/cart/cartitem.dart';
 import 'package:your_basket/models/orders/orders.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:your_basket/models/product/productdetail.dart';
 import '../config.dart';
 
 final orderApiService = Provider((ref) => APIServiceOrder());
@@ -13,15 +11,11 @@ class APIServiceOrder {
 
   Future<List<Orders>?> getOrdersbyId(String userid) async {
     try {
-      // print("Get order api");
       Map<String, String> requestHeaders = {
         'Content-Type': 'application/json',
       };
 
-      // print("\nInside getORdersbyId");
-
       var ur = Config.getOrderbyIdApi + '/${userid}';
-
       var url = Uri.http(Config.apiURL, ur);
 
       print(url);
@@ -29,15 +23,10 @@ class APIServiceOrder {
       var response = await client.get(
         url,
         headers: requestHeaders,
-        // body: jsonEncode({"phone": }),
       );
 
-      // print(response.body);
-
       var data = jsonDecode(response.body);
-      // print("This is data ${data['data']}");
       if (response.statusCode != 400) {
-        // var tempdata = data['data'];
         return ordersFromJson(data['data']);
       } else {
         return null;
@@ -68,16 +57,10 @@ class APIServiceOrder {
       body: requestBody,
     );
 
-    print(response.body);
-
     if (response.statusCode == 200) {
       print('Success');
-      // var data = jsonDecode(response.body);
-      // return productDetailFromJson(data['data']);
     } else {
       print('Failure');
-
-      // return null;
     }
   }
 }

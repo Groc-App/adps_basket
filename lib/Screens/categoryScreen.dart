@@ -2,15 +2,11 @@
 // ignore_for_file: file_names, duplicate_ignore
 
 import 'package:flutter/material.dart';
-import 'package:your_basket/Widgets/Categories/CategoriesGrid.dart';
 import 'package:your_basket/Widgets/Categories/categoriesSlider.dart';
 import 'package:your_basket/Widgets/Categories/searchBar.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:your_basket/Widgets/Intro/noInternet.dart';
 import 'package:your_basket/Widgets/Sinners/productCategorysinner.dart';
-import 'package:your_basket/data/product.dart';
-import 'package:your_basket/data/productsdata.dart';
 import 'package:your_basket/models/product/products.dart';
 import 'package:your_basket/providers/connectivityProvider.dart';
 import '../Widgets/Sinners/productsinner.dart';
