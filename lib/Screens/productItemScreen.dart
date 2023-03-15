@@ -43,8 +43,8 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                 Navigator.pop(context);
               },
               backgroundColor: Colors.white,
-              hoverColor: Color.fromARGB(31, 77, 75, 75),
-              child: Icon(
+              hoverColor: const Color.fromARGB(31, 77, 75, 75),
+              child: const Icon(
                 Icons.close,
                 color: Colors.black,
               ),
@@ -65,14 +65,15 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
               width: double.infinity,
               height: double.infinity,
               child: CachedNetworkImage(
+                // fit: BoxFit.contain,
                 imageUrl: product.ImageUrl[idx],
               )),
         );
       },
       slideIndicator: CircularSlideIndicator(
-          padding: const EdgeInsets.all(10),
-          indicatorBackgroundColor: Theme.of(context).primaryColor,
-          currentIndicatorColor: Colors.black),
+          padding: const EdgeInsets.all(2),
+          indicatorBackgroundColor: Color.fromARGB(255, 237, 230, 230),
+          currentIndicatorColor: Colors.black.withOpacity(0.8)),
       enableAutoSlider: true,
       unlimitedMode: true,
       scrollDirection: Axis.horizontal,
@@ -85,16 +86,17 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.all(
-            (15),
-          ),
+          padding: EdgeInsets.only(top: 12),
           height: MediaQuery.of(context).size.height * 0.3,
           width: double.infinity,
           alignment: Alignment.topLeft,
           child: imageslider(),
         ),
         Container(
-          height: MediaQuery.of(context).size.height * 0.53,
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height * 0.53,
+          ),
+          // height: MediaQuery.of(context).size.height * 0.53,
           margin: const EdgeInsets.only(top: 20),
           padding: const EdgeInsets.all((15)),
           // ignore: prefer_const_constructors
@@ -102,7 +104,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
             boxShadow: const [
               BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 2)
             ],
-            color: Colors.white,
+            color: Color.fromARGB(255, 237, 230, 230),
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -121,15 +123,15 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      width: scWidth * 0.8,
-                      child: FittedBox(
+                      width: scWidth * 0.75,
+                      child: Flexible(
                         child: Text(
                           product.Name,
-                          softWrap: false,
-                          maxLines: 1,
+                          softWrap: true,
+                          maxLines: 2,
                           style: const TextStyle(
                               color: Colors.black,
-                              fontSize: 30,
+                              fontSize: 17,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -139,7 +141,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                 ),
                 const Spacer(),
                 IconButton(
-                    icon: Icon(Icons.share),
+                    icon: const Icon(Icons.share),
                     onPressed: () {
                       Share.share(
                           'https://play.google.com/store/apps/details?id=com.instructivetech.kidskite');
@@ -152,7 +154,8 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
               children: [
                 Text(
                   "Rs ${product.Price}",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 const Spacer(),
                 addTile(scWidth, number),
@@ -177,26 +180,30 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                   ),
-                  const Text(
-                    "Description",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 5),
+                    child: Text(
+                      "Description",
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                    ),
                   ),
                   ReadMoreText(
                     trimLength: 100,
                     trimLines: 3,
                     colorClickableText: Colors.pink,
                     trimMode: TrimMode.Line,
-                    moreStyle: TextStyle(
+                    moreStyle: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                         color: Colors.blue),
-                    lessStyle: TextStyle(
+                    lessStyle: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                         color: Colors.blue),
                     trimCollapsedText: '\nShow more >>',
                     trimExpandedText: '\nShow less <<',
-                    '${product.Description}',
+                    product.Description,
                   ),
                 ],
               ),
@@ -244,7 +251,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
     if (number != '') {
       final CartItemModel = ref.watch(cartItemsProvider);
       if (CartItemModel.isLoading) {
-        return SpinKitThreeInOut(
+        return const SpinKitThreeInOut(
           size: 38,
           color: Colors.green,
         );
@@ -276,7 +283,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
     return counter != 0
         ? Container(
             decoration: BoxDecoration(
-                color: Color.fromRGBO(245, 245, 245, 1),
+                color: const Color.fromRGBO(245, 245, 245, 1),
                 // border: const Border(
                 //     top: BorderSide(width: 2),
                 //     bottom: BorderSide(width: 2),
@@ -292,7 +299,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                   onTap: () => decrementHandler(number),
                   child: Icon(
                     // Color(value),
-                    color: Color.fromRGBO(83, 177, 117, 1),
+                    color: const Color.fromRGBO(83, 177, 117, 1),
 
                     Icons.remove,
                     size: scWidth * 0.25 * 0.3,
@@ -310,7 +317,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                 child: GestureDetector(
                   onTap: () => incrementHandler(number),
                   child: Icon(
-                    color: Color.fromRGBO(83, 177, 117, 1),
+                    color: const Color.fromRGBO(83, 177, 117, 1),
                     Icons.add,
                     size: scWidth * 0.25 * 0.3,
                   ),
@@ -402,8 +409,8 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
               Expanded(
                 child: FittedBox(
                   child: Text(
-                    '${product.Name}',
-                    style: TextStyle(fontSize: 58),
+                    product.Name,
+                    style: const TextStyle(fontSize: 58),
                     softWrap: false,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -418,9 +425,10 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                   ? buildProduct(context, scWidth, '')
                   : buildProduct(context, scWidth, authInfo.phoneNumber ?? '')),
         ),
-        backgroundColor: const Color.fromARGB(255, 235, 227, 227),
+        backgroundColor: Colors.white,
         bottomNavigationBar: Container(
-          decoration: BoxDecoration(color: Colors.white),
+          decoration:
+              const BoxDecoration(color: Color.fromARGB(255, 237, 230, 230)),
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(

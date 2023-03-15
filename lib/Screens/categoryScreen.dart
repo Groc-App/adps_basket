@@ -17,7 +17,19 @@ import '../Widgets/Sinners/productsinner.dart';
 import '../providers/providers.dart';
 import '../models/category/category.dart';
 
-class CategoryScreen extends ConsumerWidget {
+class CategoryScreen extends ConsumerStatefulWidget {
+  // const OfferScreen({Key? key}) : super(key: key);
+  late String mainCategoryId;
+
+  // ignore: use_key_in_widget_constructors
+  CategoryScreen({required this.mainCategoryId});
+
+  @override
+  _CategoryScreenState createState() =>
+      _CategoryScreenState(mainCategoryId: mainCategoryId);
+}
+
+class _CategoryScreenState extends ConsumerState<CategoryScreen> {
   // CategoryScreen({super.key});
 
   // setState(){}
@@ -25,7 +37,7 @@ class CategoryScreen extends ConsumerWidget {
   late String mainCategoryId;
 
   // ignore: use_key_in_widget_constructors
-  CategoryScreen({required this.mainCategoryId});
+  _CategoryScreenState({required this.mainCategoryId});
 
   late Map<String, String> mapp = {
     "mainCategoryId": mainCategoryId,
@@ -118,15 +130,74 @@ class CategoryScreen extends ConsumerWidget {
     );
   }
 
+  int selected = -1;
+
+  void tapHandler(WidgetRef ref, String val, String catId, int index) {
+    print("index::::::::::::::::::::::: $index");
+    print("Tapped tapped");
+    // print(categoryName);
+    // print(categoryId);
+
+    // String mainCategoryId=map['mainCategoryId'];
+    mapp = {'mainCategoryId': mainCategoryId, 'subCategoryId': catId};
+    ref.read(categoryProvider(mainCategoryId).notifier).update((state) => mapp);
+    setState(() {
+      selected = index;
+    });
+  }
+
+  Widget categoryBuilding(List<Category>? categories, int index) {
+    return GestureDetector(
+      onTap: () {
+        tapHandler(ref, mainCategoryId, categories[index].categoryId, index);
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Column(children: [
+          Container(
+            margin: const EdgeInsets.all(8),
+            width: 50,
+            height: 60,
+            alignment: Alignment.center,
+            decoration: selected == index
+                ? BoxDecoration(boxShadow: [
+                    BoxShadow(
+                        blurRadius: 1, color: Colors.green.withOpacity(0.4))
+                  ])
+                : null,
+            // color: selected == index ? Colors.white : Colors.black,
+            child: Image.network(
+              categories![index].imageurl,
+              fit: BoxFit.cover,
+              height: 60,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                categories[index].Name,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ]),
+      ),
+    );
+  }
+
   Widget buildCategory(List<Category>? categories) {
     return Stack(
       alignment: Alignment.centerRight,
       children: [
         Container(
-          height: 130,
-          alignment: Alignment.center,
-          // width: sc_width * 0.9,
-          child: Scrollbar(
+            height: 130,
+            alignment: Alignment.center,
+            // width: sc_width * 0.9,
             child: ListView.separated(
               separatorBuilder: (context, index) => const SizedBox(
                 width: 20,
@@ -138,16 +209,9 @@ class CategoryScreen extends ConsumerWidget {
               scrollDirection: Axis.horizontal,
               controller: _controller,
               /* --------------------- Building Slider category Items --------------------- */
-              itemBuilder: ((context, index) => CategorySliderItems(
-                    map: mapp,
-                    categoryId: categories[index].categoryId,
-                    catergoryURL: categories[index].imageurl,
-                    categoryName: categories[index].Name,
-                    mainCategoryId: mainCategoryId,
-                  )),
-            ),
-          ),
-        ),
+              itemBuilder: ((context, index) =>
+                  categoryBuilding(categories, index)),
+            )),
         if (categories.length > 2)
           IconButton(
               splashColor: Colors.white,
@@ -159,7 +223,7 @@ class CategoryScreen extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     var categ = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
 
@@ -188,11 +252,12 @@ class CategoryScreen extends ConsumerWidget {
     return Scaffold(
       /* --------------------------------- appBar --------------------------------- */
       appBar: AppBar(
-          centerTitle: true,
+          // centerTitle: true,
           // ignore: prefer_const_constructors
           title: Text(
-            "Milk And Bakery",
-            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 30),
+            categ['name'],
+            softWrap: true,
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
           ),
           backgroundColor: const Color.fromARGB(255, 237, 230, 230)),
       backgroundColor: const Color.fromARGB(255, 237, 230, 230),

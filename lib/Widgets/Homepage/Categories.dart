@@ -49,7 +49,7 @@ class MainCategory extends ConsumerWidget {
                 context,
                 scHeight,
                 scWidth,
-                Color.fromRGBO(247, 165, 147, 0.10)),
+                const Color.fromRGBO(247, 165, 147, 0.10)),
             getCategory(
                 list != null ? list[1].Name : '',
                 0.33,
@@ -59,7 +59,7 @@ class MainCategory extends ConsumerWidget {
                 context,
                 scHeight,
                 scWidth,
-                Color.fromRGBO(83, 177, 117, 0.10)),
+                const Color.fromRGBO(83, 177, 117, 0.10)),
           ],
         ),
         Row(
@@ -155,7 +155,7 @@ class MainCategory extends ConsumerWidget {
         onTap: () {
           print("\n\nMain Category id:: $maincategoryid");
           Navigator.of(context).pushNamed('${nav_url}',
-              arguments: {'maincategoryid': maincategoryid});
+              arguments: {'maincategoryid': maincategoryid, 'name': name});
         },
         child: Container(
           // decoration: BoxDecoration(color: Color.fromRGBO(244, 235, 247, 0.7)),
