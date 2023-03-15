@@ -25,7 +25,7 @@ class MostSelling extends StatelessWidget {
 
   Widget buildproduct(List<Product>? list, scWidth) {
     return Container(
-      height: scWidth * ((0.48 / 0.6) * 3) + 20,
+      height: scWidth * ((0.48 / 0.6) * 3) + 50,
       child: GridView.builder(
           padding: EdgeInsets.symmetric(horizontal: 5),
           physics: NeverScrollableScrollPhysics(),
