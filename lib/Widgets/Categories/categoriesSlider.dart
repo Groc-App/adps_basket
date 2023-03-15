@@ -7,11 +7,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final categoryProvider = StateProvider.family<Map<String, String>, String>(
     (ref, String id) => {"mainCategoryId": id, "subCategoryId": "null"});
 
-class CategorySliderItems extends ConsumerWidget {
-  // ignore: prefer_typing_uninitialized_variables
-  Map<String, String> map;
+class CategorySliderItems extends ConsumerStatefulWidget {
+  // const OfferScreen({Key? key}) : super(key: key);
+
+  final Map<String, String> map;
 
   final String categoryName;
+
+  final int index;
 
   // ignore: prefer_typing_uninitialized_variables
   final String catergoryURL;
@@ -19,8 +22,49 @@ class CategorySliderItems extends ConsumerWidget {
   String categoryId;
 
   final String mainCategoryId;
+  CategorySliderItems(
+      {required this.map,
+      required this.categoryName,
+      required this.catergoryURL,
+      required this.categoryId,
+      required this.mainCategoryId,
+      required this.index});
 
-  void tapHandler(WidgetRef ref, String val, String catId) {
+  @override
+  _CategorySliderItemsState createState() => _CategorySliderItemsState(
+        categoryId: categoryId,
+        categoryName: categoryName,
+        catergoryURL: catergoryURL,
+        index: index,
+        mainCategoryId: mainCategoryId,
+        map: map,
+      );
+}
+
+class _CategorySliderItemsState extends ConsumerState<CategorySliderItems> {
+  // ignore: prefer_typing_uninitialized_variables
+  late Map<String, String> map;
+
+  late final String categoryName;
+
+  late final int index;
+
+  // ignore: prefer_typing_uninitialized_variables
+  late final String catergoryURL;
+
+  late String categoryId;
+
+  late final String mainCategoryId;
+
+  int selected = -1;
+  @override
+  void initState() {
+    // TODO: implement initStat
+    super.initState();
+  }
+
+  void tapHandler(WidgetRef ref, String val, String catId, int index) {
+    print("index::::::::::::::::::::::: $index");
     print("Tapped tapped");
     print(categoryName);
     print(categoryId);
@@ -28,46 +72,53 @@ class CategorySliderItems extends ConsumerWidget {
     // String mainCategoryId=map['mainCategoryId'];
     map = {'mainCategoryId': mainCategoryId, 'subCategoryId': catId};
     ref.read(categoryProvider(mainCategoryId).notifier).update((state) => map);
+    setState(() {
+      selected = index;
+    });
   }
 
-  CategorySliderItems(
+  _CategorySliderItemsState(
       {required this.map,
       required this.categoryName,
       required this.catergoryURL,
       required this.categoryId,
-      required this.mainCategoryId});
+      required this.mainCategoryId,
+      required this.index});
   //  category=categoryName;
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-          tapHandler(ref, categoryName, categoryId);
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(children: [
-            Container(
-              margin: const EdgeInsets.all(8),
-              width: 50,
-              height: 50,
-              alignment: Alignment.center,
-              child: Image.network(
-                catergoryURL,
-                height: 50,
+      onTap: () {
+        tapHandler(ref, categoryName, categoryId, index);
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Column(children: [
+          Container(
+            margin: const EdgeInsets.all(8),
+            width: 50,
+            height: 60,
+            alignment: Alignment.center,
+            color: selected == index ? Colors.white : Colors.black,
+            child: Image.network(
+              catergoryURL,
+              fit: BoxFit.cover,
+              height: 60,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                categoryName,
+                style:
+                    const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  categoryName,
-                  style: const TextStyle(
-                      fontSize: 12, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ]),
-        ));
+            ],
+          ),
+        ]),
+      ),
+    );
   }
 }

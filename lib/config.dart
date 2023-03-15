@@ -4,13 +4,17 @@ import 'dart:ui' as ui;
 class Config {
   /* -------------------------------- app setup ------------------------------- */
   static const String GrocApp = 'GrocApp';
+<<<<<<< HEAD
+  static const String apiURL = '192.168.1.9:8000';
+=======
   static const String apiURL = '127.0.0.1:8000';
   // 127.0.0.1:8000
   // 192.168.1.16:8000
   // static const String apiURL = '192.168.1.4:8000';
+>>>>>>> d1d310f2f679a4732b95fa1a40cfb1f9f5302879
 
   /* -------------------------------------------------------------------------- */
-  /*                                 End Points                                 */
+  /*                               End Points                                   */
   /* -------------------------------------------------------------------------- */
 
   static Size scSize = WidgetsBinding.instance.window.physicalSize;
