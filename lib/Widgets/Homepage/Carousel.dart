@@ -2,7 +2,6 @@
 // ignore_for_file: file_names, duplicate_ignore
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 
 class Carousel extends StatelessWidget {
