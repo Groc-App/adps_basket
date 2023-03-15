@@ -257,14 +257,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
-  curved_navigation_bar:
-    dependency: "direct main"
-    description:
-      name: curved_navigation_bar
-      sha256: ea6412d00c5d83501bbf1cf9d1ac2ff11a20fbaf910c103c95ace7de82910334
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.3"
   dart_style:
     dependency: transitive
     description:
@@ -494,14 +486,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.1.0"
-  flutter_staggered_grid_view:
-    dependency: "direct main"
-    description:
-      name: flutter_staggered_grid_view
-      sha256: "1312314293acceb65b92754298754801b0e1f26a1845833b740b30415bbbcf07"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.6.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -800,14 +784,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.3.0"
-  pin_code_fields:
-    dependency: "direct main"
-    description:
-      name: pin_code_fields
-      sha256: c8652519d14688f3fe2a8288d86910a46aa0b9046d728f292d3bf6067c31b4c7
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.4.0"
   platform:
     dependency: transitive
     description:
@@ -1005,14 +981,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
-  slide_to_act:
-    dependency: "direct main"
-    description:
-      name: slide_to_act
-      sha256: e3ed8b7fdb3f4bff43ac3370c9dd27b4e48fb2518007f6d28745109f7aea275d
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   smooth_page_indicator:
     dependency: "direct main"
     description:

@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:your_basket/models/cart/cartitem.dart';
-import 'package:your_basket/models/category/category.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config.dart';
 
@@ -25,8 +23,6 @@ class APIServiceUser {
       url,
       headers: requestHeaders,
     );
-
-    print(response.body);
 
     if (response.statusCode == 200) {
       return null;

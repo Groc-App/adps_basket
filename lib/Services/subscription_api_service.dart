@@ -1,9 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:your_basket/models/cart/cartitem.dart';
-import 'package:your_basket/models/orders/orders.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:your_basket/models/product/productdetail.dart';
 import 'package:your_basket/models/subscription/subscription.dart';
 import '../config.dart';
 
@@ -30,8 +27,6 @@ class APIServiceSubscription {
       headers: requestHeaders,
     );
 
-    // print(response.body);
-
     if (true) {
       var data = jsonDecode(response.body);
       print(subscriptionFromJson(data['data']));
@@ -46,18 +41,11 @@ class APIServiceSubscription {
       'Content-Type': 'application/json',
     };
 
-    print("Map: $map");
-
     var body = json.encode(map);
 
-    print("Body:::::$body");
     var url = Uri.http(Config.apiURL, Config.createSubscripiotn);
 
-    print(url);
-
     var response = await client.post(url, headers: requestHeaders, body: body);
-
-    print(response.body);
 
     if (true) {
       return null;
@@ -71,10 +59,7 @@ class APIServiceSubscription {
       'Content-Type': 'application/json',
     };
 
-    // print("Map: $map");
     var url = Uri.http(Config.apiURL, Config.editSubscripiotn);
-
-    print(url);
 
     var response = await client.post(url,
         headers: requestHeaders,
@@ -85,8 +70,6 @@ class APIServiceSubscription {
           'endDate': map['endDate'],
           'address': map['address'],
         }));
-
-    print(response.body);
 
     if (true) {
       return null;
@@ -108,14 +91,10 @@ class APIServiceSubscription {
       var url =
           Uri.http(Config.apiURL, Config.cancelSubscription, queryParameter);
 
-      // print(url);
-
       var response = await client.delete(
         url,
         headers: requestHeaders,
       );
-
-      // print(response.body);
 
       if (response.statusCode == 200) {
         return null;

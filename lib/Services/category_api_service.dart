@@ -20,13 +20,10 @@ class APIServiceCategory {
     var response = await client.get(
       url,
       headers: requestHeaders,
-      // body: jsonEncode({"phone": }),
     );
-    // print("\nThis is Get All Cateogry URl $url");
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      // print(data['data']);
       return categoiesFromJson(data['data']);
     } else {
       return null;
@@ -34,8 +31,6 @@ class APIServiceCategory {
   }
 
   Future<List<Category>?> getmainCategory() async {
-    // print('h22222222222222222222222222222');
-
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -46,13 +41,10 @@ class APIServiceCategory {
     var response = await client.get(
       url,
       headers: requestHeaders,
-      // body: jsonEncode({"phone": }),
     );
-    // print("\n(Inside category api service) Categories fetched from api");
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      // print(data['data']);
       return categoiesFromJson(data['data']);
     } else {
       return null;
