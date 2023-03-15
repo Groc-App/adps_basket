@@ -27,29 +27,43 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
   int counter = 0;
 
   void showZommedimage(BuildContext context, String imageurl) {
-    showBottomSheet(
+    showModalBottomSheet(
+        constraints: BoxConstraints(minHeight: Config.scHeight),
+        isScrollControlled: true,
         context: context,
+        enableDrag: false,
         builder: (context) {
-          return Stack(children: [
-            Container(
-              height: Config.scHeight,
-              child: InteractiveViewer(
-                  maxScale: 3.0,
-                  panEnabled: true,
-                  child: Image.network(imageurl)),
-            ),
-            FloatingActionButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              backgroundColor: Colors.white,
-              hoverColor: const Color.fromARGB(31, 77, 75, 75),
-              child: const Icon(
-                Icons.close,
-                color: Colors.black,
+          return Container(
+            margin: EdgeInsets.only(top: 30),
+            child: Stack(children: [
+              Container(
+                height: Config.scHeight,
+                child: InteractiveViewer(
+                    maxScale: 5.0,
+                    panEnabled: true,
+                    child: CachedNetworkImage(
+                      imageUrl: imageurl,
+                    )),
               ),
-            )
-          ]);
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Positioned.fill(
+                  child: Align(
+                    alignment: Alignment(-0.96, -0.96),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.grey[300],
+                      child: Icon(
+                        Icons.close,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ]),
+          );
         });
   }
 
