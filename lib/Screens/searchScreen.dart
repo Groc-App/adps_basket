@@ -7,10 +7,7 @@ import 'package:your_basket/data/productsdata.dart';
 import 'package:your_basket/models/product/products.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:your_basket/models/product/products.dart';
 
 import '../../providers/providers.dart';
 
