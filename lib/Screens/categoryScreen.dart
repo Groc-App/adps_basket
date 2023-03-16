@@ -14,11 +14,9 @@ import '../providers/providers.dart';
 import '../models/category/category.dart';
 
 class CategoryScreen extends ConsumerStatefulWidget {
-  // const OfferScreen({Key? key}) : super(key: key);
   late String mainCategoryId;
 
-  // ignore: use_key_in_widget_constructors
-  CategoryScreen({required this.mainCategoryId});
+  CategoryScreen({super.key, required this.mainCategoryId});
 
   @override
   _CategoryScreenState createState() =>
@@ -26,13 +24,8 @@ class CategoryScreen extends ConsumerStatefulWidget {
 }
 
 class _CategoryScreenState extends ConsumerState<CategoryScreen> {
-  // CategoryScreen({super.key});
-
-  // setState(){}
-  // var category = "Bread";
   late String mainCategoryId;
 
-  // ignore: use_key_in_widget_constructors
   _CategoryScreenState({required this.mainCategoryId});
 
   late Map<String, String> mapp = {
@@ -41,15 +34,10 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
   };
 
   Widget categoriesList(WidgetRef ref, String mainCategoryId) {
-    print("Main Category Inside CategoryList Widget $mainCategoryId");
     final categories = ref.watch(categoriesProvider(mainCategoryId));
-
-    print("Main Category Inside CategoryList Widget $categories");
 
     return categories.when(
       data: (list) {
-        print("\nThiss is list of Sub Categories:" + '${list}');
-
         /* --------------------------- All Cateogry Logic --------------------------- */
 
         Map<String, dynamic> map = {
@@ -73,15 +61,9 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
   }
 
   Widget productList(WidgetRef ref, Map<String, String> map) {
-    // print("\nthis is category name ..........................||||||||||||");
-    // print(map);
     final products = ref.watch(productsByCategoryProvider(map));
     return products.when(
       data: (list) {
-        // print(
-        //     "\n\n\n\n\n\n\nThisssssssssssssssssss is list of products::::::::::::::::::::::::::::" +
-        //         '${list}');
-
         return buildProducts(list);
       },
       error: (_, __) => const Center(child: Text("ERR")),
@@ -90,10 +72,6 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
       ),
     );
   }
-  // Widget searchBar(WidgetRef ref)
-  // {
-  //   final productsList
-  // }
 
   Widget buildProducts(List<Product>? products) {
     return GridView.builder(
@@ -126,15 +104,9 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     );
   }
 
-  int selected = -1;
+  int selected = 0;
 
   void tapHandler(WidgetRef ref, String val, String catId, int index) {
-    print("index::::::::::::::::::::::: $index");
-    print("Tapped tapped");
-    // print(categoryName);
-    // print(categoryId);
-
-    // String mainCategoryId=map['mainCategoryId'];
     mapp = {'mainCategoryId': mainCategoryId, 'subCategoryId': catId};
     ref.read(categoryProvider(mainCategoryId).notifier).update((state) => mapp);
     setState(() {
@@ -155,13 +127,6 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
             width: 50,
             height: 60,
             alignment: Alignment.center,
-            decoration: selected == index
-                ? BoxDecoration(boxShadow: [
-                    BoxShadow(
-                        blurRadius: 1, color: Colors.green.withOpacity(0.4))
-                  ])
-                : null,
-            // color: selected == index ? Colors.white : Colors.black,
             child: Image.network(
               categories![index].imageurl,
               fit: BoxFit.cover,
@@ -174,7 +139,8 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
             children: [
               Text(
                 categories[index].Name,
-                style: const TextStyle(
+                style: TextStyle(
+                  color: selected == index ? Colors.green : Colors.black,
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                 ),
@@ -208,7 +174,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
               itemBuilder: ((context, index) =>
                   categoryBuilding(categories, index)),
             )),
-        if (categories.length > 2)
+        if (categories.length > 3)
           IconButton(
               splashColor: Colors.white,
               alignment: Alignment.centerRight,
@@ -226,8 +192,6 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     // ref.read(categoryProvider.notifier).update((state) => mapp);
 
     mainCategoryId = categ['maincategoryid'];
-    print("Category Id from Homescrreen");
-    print(categ['maincategoryid']);
     // mapp['categoryId'] = "null";
     // ConnectivityProvider connect =
     //     ref.watch(connectivityProvider).startMonitoring();
@@ -235,8 +199,6 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
 
     Map<String, String> map =
         ref.watch(categoryProvider(categ['maincategoryid']));
-    // print("\n||||||||This is update cateogry ||||||||");
-    // print(map);
     /* ------------------------------- dummy Data ------------------------------- */
     // var dummyList = List.generate(20, (index) => Catalog().products[0]);
 

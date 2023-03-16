@@ -66,14 +66,9 @@ class _ProductItemState extends ConsumerState<ProductItem> {
         });
       });
     }
-
-    // setState(() {
-    //   counter--;
-    // });
   }
 
   Widget addTile(scWidth, String number) {
-    // print('rebuild times 1/n');
     if (number != '') {
       final CartItemModel = ref.watch(cartItemsProvider);
 
@@ -108,9 +103,6 @@ class _ProductItemState extends ConsumerState<ProductItem> {
         });
       }
     }
-
-    // print('counter is:::::::::::::: $counter\n');
-
     return buildAddTile(scWidth, number);
   }
 
@@ -189,7 +181,6 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     final scWidth = scSize.width;
 
     var authInfo = ref.watch(authCheckProvider);
-    print('\nauthinfo is::::::::::;;;;\n$authInfo');
     // print(authInfo?.uid);
 
     return GestureDetector(
@@ -207,7 +198,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
           padding: const EdgeInsets.only(left: 5),
           child: Column(
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Flexible(
                   fit: FlexFit.loose,
@@ -219,6 +210,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                 ),
                 Expanded(
                   child: Container(
+                    alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.only(top: 7, left: 5, right: 5),
                     // fit: BoxFit.scaleDown,
                     // decoration: BoxDecoration(border: Border.all()),
