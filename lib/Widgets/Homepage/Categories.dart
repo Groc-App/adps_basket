@@ -2,6 +2,7 @@
 // ignore: file_names
 // ignore_for_file: file_names
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Sinners/mainCategorySinner.dart';
@@ -158,39 +159,71 @@ class MainCategory extends ConsumerWidget {
               arguments: {'maincategoryid': maincategoryid, 'name': name});
         },
         child: Container(
-          // decoration: BoxDecoration(color: Color.fromRGBO(244, 235, 247, 0.7)),
           height: scHeight * 0.25,
-          width: scWidth * wid_th,
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 3, vertical: 4),
-            child: ClipRRect(
+          width: (scWidth * wid_th) - 6,
+          margin: EdgeInsets.symmetric(horizontal: 3, vertical: 4),
+          // child: ClipRRect(
+          //   borderRadius: BorderRadius.circular(5),
+          //   child: Container(
+          //     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 0),
+          //     // ignore: prefer_const_constructors
+          //     decoration: BoxDecoration(
+          //       // boxShadow: [BoxShadow(blurRadius: 1)],
+          //       /* ---------------------------------- color --------------------------------- */
+          //       color: clr,
+          //       borderRadius: BorderRadius.circular(8),
+          //       // border: Border.all(width: 2, color: clr),
+          //       // ignore: prefer_const_constructors
+          //       image: DecorationImage(
+          //         image: NetworkImage(img_url),
+          //         fit: BoxFit.scaleDown,
+          //       ),
+          //     ),
+          //     alignment: const Alignment(0, -0.9),
+          //     child: FittedBox(
+          //       child: Text(
+          //         "$name",
+          //         style: const TextStyle(
+          //             fontWeight: FontWeight.bold, fontSize: 17),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 6, vertical: 0),
-                // ignore: prefer_const_constructors
                 decoration: BoxDecoration(
-                  // boxShadow: [BoxShadow(blurRadius: 1)],
-                  /* ---------------------------------- color --------------------------------- */
-                  color: clr,
-                  borderRadius: BorderRadius.circular(8),
-                  // border: Border.all(width: 2, color: clr),
-                  // ignore: prefer_const_constructors
-                  image: DecorationImage(
-                    image: NetworkImage(img_url),
-                    fit: BoxFit.scaleDown,
-                  ),
-                ),
-                alignment: const Alignment(0, -0.9),
-                child: FittedBox(
-                  child: Text(
-                    "$name",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 17),
-                  ),
-                ),
+                    color: clr, borderRadius: BorderRadius.circular(8)),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        name,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                        softWrap: true,
+                        maxLines: 2,
+                        overflow: TextOverflow.clip,
+                        textAlign: TextAlign.center,
+                      ),
+                      Container(
+                          height: scHeight * 0.25 * 0.7,
+                          child: CachedNetworkImage(
+                            imageUrl: img_url,
+                            fit: BoxFit.contain,
+                          ))
+                    ]),
+              )
+              // child: Stack(
+              //   alignment: Alignment.bottomCenter,
+              //   children: [
+              //     Image.network(img_url),
+              //     Text(name),
+              //   ],
+              // ),
               ),
-            ),
-          ),
         ),
       ),
     );
