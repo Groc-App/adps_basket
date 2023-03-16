@@ -26,6 +26,7 @@ mixin _$Offer {
   bool get isUserClaimed => throw _privateConstructorUsedError;
   double get worth => throw _privateConstructorUsedError;
   double get number => throw _privateConstructorUsedError;
+  double get totalUserOrder => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +44,8 @@ abstract class $OfferCopyWith<$Res> {
       String description,
       bool isUserClaimed,
       double worth,
-      double number});
+      double number,
+      double totalUserOrder});
 }
 
 /// @nodoc
@@ -65,6 +67,7 @@ class _$OfferCopyWithImpl<$Res, $Val extends Offer>
     Object? isUserClaimed = null,
     Object? worth = null,
     Object? number = null,
+    Object? totalUserOrder = null,
   }) {
     return _then(_value.copyWith(
       offerId: null == offerId
@@ -91,6 +94,10 @@ class _$OfferCopyWithImpl<$Res, $Val extends Offer>
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
               as double,
+      totalUserOrder: null == totalUserOrder
+          ? _value.totalUserOrder
+          : totalUserOrder // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 }
@@ -107,7 +114,8 @@ abstract class _$$_OfferCopyWith<$Res> implements $OfferCopyWith<$Res> {
       String description,
       bool isUserClaimed,
       double worth,
-      double number});
+      double number,
+      double totalUserOrder});
 }
 
 /// @nodoc
@@ -125,6 +133,7 @@ class __$$_OfferCopyWithImpl<$Res> extends _$OfferCopyWithImpl<$Res, _$_Offer>
     Object? isUserClaimed = null,
     Object? worth = null,
     Object? number = null,
+    Object? totalUserOrder = null,
   }) {
     return _then(_$_Offer(
       offerId: null == offerId
@@ -151,6 +160,10 @@ class __$$_OfferCopyWithImpl<$Res> extends _$OfferCopyWithImpl<$Res, _$_Offer>
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
               as double,
+      totalUserOrder: null == totalUserOrder
+          ? _value.totalUserOrder
+          : totalUserOrder // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -164,7 +177,8 @@ class _$_Offer implements _Offer {
       required this.description,
       required this.isUserClaimed,
       required this.worth,
-      required this.number});
+      required this.number,
+      required this.totalUserOrder});
 
   factory _$_Offer.fromJson(Map<String, dynamic> json) =>
       _$$_OfferFromJson(json);
@@ -181,10 +195,12 @@ class _$_Offer implements _Offer {
   final double worth;
   @override
   final double number;
+  @override
+  final double totalUserOrder;
 
   @override
   String toString() {
-    return 'Offer(offerId: $offerId, name: $name, description: $description, isUserClaimed: $isUserClaimed, worth: $worth, number: $number)';
+    return 'Offer(offerId: $offerId, name: $name, description: $description, isUserClaimed: $isUserClaimed, worth: $worth, number: $number, totalUserOrder: $totalUserOrder)';
   }
 
   @override
@@ -199,13 +215,15 @@ class _$_Offer implements _Offer {
             (identical(other.isUserClaimed, isUserClaimed) ||
                 other.isUserClaimed == isUserClaimed) &&
             (identical(other.worth, worth) || other.worth == worth) &&
-            (identical(other.number, number) || other.number == number));
+            (identical(other.number, number) || other.number == number) &&
+            (identical(other.totalUserOrder, totalUserOrder) ||
+                other.totalUserOrder == totalUserOrder));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, offerId, name, description, isUserClaimed, worth, number);
+  int get hashCode => Object.hash(runtimeType, offerId, name, description,
+      isUserClaimed, worth, number, totalUserOrder);
 
   @JsonKey(ignore: true)
   @override
@@ -228,7 +246,8 @@ abstract class _Offer implements Offer {
       required final String description,
       required final bool isUserClaimed,
       required final double worth,
-      required final double number}) = _$_Offer;
+      required final double number,
+      required final double totalUserOrder}) = _$_Offer;
 
   factory _Offer.fromJson(Map<String, dynamic> json) = _$_Offer.fromJson;
 
@@ -244,6 +263,8 @@ abstract class _Offer implements Offer {
   double get worth;
   @override
   double get number;
+  @override
+  double get totalUserOrder;
   @override
   @JsonKey(ignore: true)
   _$$_OfferCopyWith<_$_Offer> get copyWith =>

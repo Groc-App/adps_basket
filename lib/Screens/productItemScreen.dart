@@ -118,7 +118,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
             boxShadow: const [
               BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 2)
             ],
-            color: Color.fromARGB(255, 237, 230, 230),
+            color: const Color.fromARGB(255, 237, 230, 230),
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -150,7 +150,10 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                         ),
                       ),
                     ),
-                    Text(product.Quantity)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: Text(product.Quantity),
+                    )
                   ],
                 ),
                 const Spacer(),
@@ -167,7 +170,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
               // ignore: prefer_const_literals_to_create_immutables
               children: [
                 Text(
-                  "Rs ${product.Price}",
+                  "₹ ${product.Price.toInt()}",
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 20),
                 ),
@@ -203,8 +206,8 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                     ),
                   ),
                   ReadMoreText(
-                    trimLength: 100,
-                    trimLines: 3,
+                    trimLength: 50,
+                    trimLines: 7,
                     colorClickableText: Colors.pink,
                     trimMode: TrimMode.Line,
                     moreStyle: const TextStyle(
@@ -215,7 +218,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                         color: Colors.blue),
-                    trimCollapsedText: '\nShow more >>',
+                    trimCollapsedText: '\nRead more >>',
                     trimExpandedText: '\nShow less <<',
                     product.Description,
                   ),
@@ -339,34 +342,6 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
               ),
             ]),
           )
-        // Container(
-        //     width: scWidth * 0.48 * 0.40,
-        //     height: scWidth * 0.48 * 0.20,
-        //     decoration: BoxDecoration(
-        //       borderRadius: BorderRadius.circular(5),
-        //       color: Colors.white,
-        //     ),
-        //     child: Row(
-        //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //       children: [
-        //         MouseRegion(
-        //           cursor: SystemMouseCursors.click,
-        //           child: GestureDetector(
-        //             child: Icon(Icons.remove, size: scWidth * 0.48 * 0.5 * 0.2),
-        //             onTap: () => decrementHandler(),
-        //           ),
-        //         ),
-        //         Text('$counter'),
-        //         MouseRegion(
-        //           cursor: SystemMouseCursors.click,
-        //           child: GestureDetector(
-        //             child: Icon(Icons.add, size: scWidth * 0.48 * 0.5 * 0.2),
-        //             onTap: () => incrementHandler(),
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //   )
         : Container(
             width: scWidth * 0.48 * 0.5,
             height: scWidth * 0.25 * 0.4,
@@ -421,13 +396,11 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
           title: Row(
             children: [
               Expanded(
-                child: FittedBox(
-                  child: Text(
-                    product.Name,
-                    style: const TextStyle(fontSize: 58),
-                    softWrap: false,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                child: Text(
+                  product.Name,
+                  style: const TextStyle(fontSize: 15),
+                  softWrap: false,
+                  // overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],
@@ -452,7 +425,8 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                   onPressed: () {
                     Navigator.of(context).pushNamed('/cartScreen');
                   },
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromRGBO(83, 177, 117, 1)),
                   // textColor: Colors.white,
                   child: const Text('View Cart'),
                 ),
@@ -465,7 +439,8 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                       'subsid': '',
                     });
                   },
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromRGBO(83, 177, 117, 1)),
                   // textColor: Colors.white,
                   child: const Text('Subscribe'),
                 ),

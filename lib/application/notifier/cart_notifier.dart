@@ -18,7 +18,6 @@ class CartNotifier extends StateNotifier<CartState> {
     state = state.copyWith(isLoading: true);
 
     var cartdata = await _apiService.getCartitemsApi(number);
-    print("This is cartdata from Cart Notifier $cartdata");
     state = state.copyWith(cartModel: cartdata);
     state = state.copyWith(isLoading: false);
   }

@@ -4,11 +4,12 @@ import 'package:your_basket/Services/subscription_api_service.dart';
 import 'package:your_basket/providers/providers.dart';
 import 'package:intl/intl.dart';
 
+import '../Widgets/Cart/Noitems.dart';
 import '../Widgets/Subscription/modalSheet/item.dart';
 import '../Widgets/Subscription/summary/summaryCard.dart';
 import '../models/subscription/subscription.dart';
 
-const number = '917982733943';
+var number = '';
 Map<String, String> map = {"number": number};
 var scHeight;
 var scSize;
@@ -348,11 +349,19 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
     totalAmount = 0;
     scSize = MediaQuery.of(context).size;
     scHeight = scSize.height;
+    var authInfo = ref.watch(authCheckProvider);
+    number = (authInfo == null ? '' : authInfo.phoneNumber)!;
+    // number = authInfo.phoneNumber ?? '';
 
     return Scaffold(
         appBar: AppBar(
           title: const Text("Subscriptions"),
         ),
-        body: verificationBuild());
+        body: authInfo == null
+            ? NoItems(
+                noitemtext: 'Login/Signup first',
+                pageroute: 'loginpage',
+              )
+            : verificationBuild());
   }
 }

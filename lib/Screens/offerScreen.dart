@@ -13,9 +13,9 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 /* --------------------------- Predefined Constant -------------------------- */
 
 const kExpandedHeight = 200.0;
-const totalOrders = 15;
-const number = '917982733943';
-const map = {'number': number};
+var totalOrders = 0;
+var number = '';
+var map = {'number': number};
 
 /* -------------------------------------------------------------------------- */
 
@@ -39,18 +39,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   );
   // var imageUrl = storageRef.getDownloadURL();
   String? imageURL;
-
-  // Future<String?> downloadURLExample() async {
-  //   imageURL = await FirebaseStorage.instance
-  //       .ref()
-  //       .child("Offers/reward_appbar_bg.jpg")
-  //       .getDownloadURL();
-  //   print("This is the Downloaded URL ${imageURL}");
-  //   return imageURL;
-  // Image m = Image.network(imageURL.toString());
-  // return m;
-
-  // final bgImage = storageRef.child('Offers/reward_appbar_bg');
+  // String number = '';
 
   final ConfettiController _controller = ConfettiController(
     duration: const Duration(seconds: 2),
@@ -81,19 +70,14 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   }
 
   Widget verificationBuild() {
-    // print("\n\offer list 2");
-
     final offers = ref.watch(allOfferProvider(map));
 
     return offers.when(
       data: (list) {
         if (list!.isNotEmpty) {
-          print("\nINside list:::::::");
-
           list.forEach((offer) {
-            print("OFFER:::::::$offer");
+            totalOrders = offer.totalUserOrder.toInt();
             if (offer.isUserClaimed) {
-              print("Offer Worth ${offer.worth}");
               totalAmount += offer.worth.toInt();
             }
           });
@@ -135,9 +119,17 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   Widget build(BuildContext context) {
     scSize = MediaQuery.of(context).size;
     scHeight = scSize.height;
+    var authInfo = ref.watch(authCheckProvider);
+    number = (authInfo == null ? '' : authInfo.phoneNumber)!;
+    print("This is number $number");
 
-    print("\nRebuild");
-    return Scaffold(body: verificationBuild());
+    return Scaffold(
+        body: authInfo == null
+            ? NoItems(
+                noitemtext: 'Login/Signup first',
+                pageroute: 'loginpage',
+              )
+            : verificationBuild());
   }
 
   Widget _buildRewardsPoints() {
@@ -214,7 +206,6 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   }
 
   _buildGridViewCards(List<Offer>? list) {
-    // print("\n\ninside build grid view cards 3");
     return GridView.builder(
       itemCount: list!.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -229,6 +220,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
           return scratchedContainer(list, index, context);
         } else {
           if (list[index].number <= totalOrders) {
+            print("This is totalOrder $totalOrders");
             return availableCard(list, index, context);
           } else {
             return lockedCard(list, index, context);

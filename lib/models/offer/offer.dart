@@ -8,14 +8,14 @@ List<Offer> offerFromJson(dynamic str) =>
 
 @freezed
 abstract class Offer with _$Offer {
-  factory Offer({
-    required String offerId,
-    required String name,
-    required String description,
-    required bool isUserClaimed,
-    required double worth,
-    required double number,
-  }) = _Offer;
+  factory Offer(
+      {required String offerId,
+      required String name,
+      required String description,
+      required bool isUserClaimed,
+      required double worth,
+      required double number,
+      required double totalUserOrder}) = _Offer;
 
   factory Offer.fromJson(Map<String, dynamic> json) => _$OfferFromJson(json);
 }

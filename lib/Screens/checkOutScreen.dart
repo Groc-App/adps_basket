@@ -27,8 +27,6 @@ class CheckoutScreen extends StatelessWidget {
   }
 
   Widget adresstile(context, Address value) {
-    print('value type:::::::::::\n');
-    print(value.runtimeType);
     if (value.Flat_FLoor_Tower == '') {
       return ListTile(
         leading: Icon(Icons.delivery_dining),
@@ -64,11 +62,7 @@ class CheckoutScreen extends StatelessWidget {
             style: ElevatedButton.styleFrom(
                 elevation: 40, backgroundColor: Color.fromARGB(255, 0, 138, 5)),
             onPressed: () {
-              print('PLace order');
-              print(number);
-
               var cartProductsArray = [];
-              // print("\n\nProduct list ${datalist}");
               for (var i = 0; i < datalist.length; i++) {
                 var cartItem = datalist[i];
 

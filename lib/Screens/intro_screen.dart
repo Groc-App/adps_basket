@@ -24,8 +24,6 @@ class _IntroScreenState extends State<IntroScreen> {
     final scWidth = scSize.width;
     final scHeight = scSize.height;
 
-    // print(_controller.initialPage);
-
     return Scaffold(
       body: Stack(
         children: [
