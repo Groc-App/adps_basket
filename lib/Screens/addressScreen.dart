@@ -32,9 +32,6 @@ class AddressBook extends ConsumerWidget {
       );
     }
 
-    print('dobara bani hhhhhhhhhhhhhhhhhhh\n');
-    print(AddressBookState.AddressBookModel!.addresses);
-
     return _buildAddressList(
         AddressBookState.AddressBookModel!.addresses
             .cast<AddressModel.Address>(),
@@ -221,7 +218,6 @@ class AddressBook extends ConsumerWidget {
     final scHeight = scSize.height;
 
     var authInfo = ref.watch(authCheckProvider);
-    // print(authInfo?.uid);
 
     return Scaffold(
       /* --------------------------------- appBar --------------------------------- */

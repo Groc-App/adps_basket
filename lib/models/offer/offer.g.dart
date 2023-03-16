@@ -13,6 +13,7 @@ _$_Offer _$$_OfferFromJson(Map<String, dynamic> json) => _$_Offer(
       isUserClaimed: json['isUserClaimed'] as bool,
       worth: (json['worth'] as num).toDouble(),
       number: (json['number'] as num).toDouble(),
+      totalUserOrder: (json['totalUserOrder'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$_OfferToJson(_$_Offer instance) => <String, dynamic>{
@@ -22,4 +23,5 @@ Map<String, dynamic> _$$_OfferToJson(_$_Offer instance) => <String, dynamic>{
       'isUserClaimed': instance.isUserClaimed,
       'worth': instance.worth,
       'number': instance.number,
+      'totalUserOrder': instance.totalUserOrder,
     };

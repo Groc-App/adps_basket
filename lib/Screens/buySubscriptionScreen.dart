@@ -48,7 +48,6 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
     // final AddressBookState = ref.watch(addressBokkProvider);
     // var reqData = AddressBookState.AddressBookModel!.addresses
     //     .firstWhere((e) => e.defaultAddress == true);
-    // print(reqData);
 
     DateTime startDate =
         Intl.withLocale('en', () => DateFormat('d/M/y').parse(stDate));
@@ -143,7 +142,6 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
     var reqData = AddressBookState.AddressBookModel!.addresses
         .firstWhere((e) => e.defaultAddress == true);
     address = reqData;
-    print('rebnuild ho rhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/n');
     scSize = MediaQuery.of(context).size;
     scHeight = scSize.height;
 

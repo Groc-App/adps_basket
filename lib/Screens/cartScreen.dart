@@ -45,9 +45,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
       );
     }
 
-    print('dobara bani hhhhhhhhhhhhhhhhhhh\n');
-    print(cartState.cartModel!.products);
-
     return _buildCartItems(
         cartState.cartModel!.products.cast<CartItemModel.CartItem>(),
         phonenumber,
@@ -59,8 +56,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
       List<CartItemModel.CartItem>? list, String? userid, scHeight, scWidth) {
     datalist = list;
     pricetotal = 0.0;
-    print('\ninside buildcartitemssssssssssssssssss\n');
-    print(list);
 
     return list != null
         ? Column(
@@ -154,10 +149,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     final scWidth = scSize.width;
     final scHeight = scSize.height;
 
-    print("Rebild");
-
     var authInfo = ref.watch(authCheckProvider);
-    // print(authInfo?.uid);
 
     return Scaffold(
       // backgroundColor: const Color.fromARGB(255, 237, 230, 230),

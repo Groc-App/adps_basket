@@ -8,14 +8,11 @@ class SearchData {
 
   static void initialize(WidgetRef ref) {
     final pdata = ref.watch(allProductProvider);
-    pdata.when(data: (value) {
-      print('done');
-      print(value);
-      data = value;
-    }, error: (_, __) {
-      print('Eroorrrrrr');
-    }, loading: () {
-      print('loading ho rhi h');
-    });
+    pdata.when(
+        data: (value) {
+          data = value;
+        },
+        error: (_, __) {},
+        loading: () {});
   }
 }
