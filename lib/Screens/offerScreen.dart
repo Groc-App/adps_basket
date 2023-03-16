@@ -39,18 +39,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   );
   // var imageUrl = storageRef.getDownloadURL();
   String? imageURL;
-
-  // Future<String?> downloadURLExample() async {
-  //   imageURL = await FirebaseStorage.instance
-  //       .ref()
-  //       .child("Offers/reward_appbar_bg.jpg")
-  //       .getDownloadURL();
-  //   print("This is the Downloaded URL ${imageURL}");
-  //   return imageURL;
-  // Image m = Image.network(imageURL.toString());
-  // return m;
-
-  // final bgImage = storageRef.child('Offers/reward_appbar_bg');
+  String number = '';
 
   final ConfettiController _controller = ConfettiController(
     duration: const Duration(seconds: 2),
@@ -135,9 +124,19 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   Widget build(BuildContext context) {
     scSize = MediaQuery.of(context).size;
     scHeight = scSize.height;
+    var authInfo = ref.watch(authCheckProvider);
+    number = (authInfo == null ? '' : authInfo.phoneNumber)!;
+    print(number);
+    // var number = authInfo?.phoneNumber;
 
     print("\nRebuild");
-    return Scaffold(body: verificationBuild());
+    return Scaffold(
+        body: authInfo == null
+            ? NoItems(
+                noitemtext: 'Login/Signup first',
+                pageroute: 'loginpage',
+              )
+            : verificationBuild());
   }
 
   Widget _buildRewardsPoints() {

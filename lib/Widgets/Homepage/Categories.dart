@@ -162,6 +162,7 @@ class MainCategory extends ConsumerWidget {
           height: scHeight * 0.25,
           width: scWidth * wid_th,
           child: Container(
+            decoration: BoxDecoration(border: Border.all()),
             margin: EdgeInsets.symmetric(horizontal: 3, vertical: 4),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
@@ -177,11 +178,11 @@ class MainCategory extends ConsumerWidget {
                   // ignore: prefer_const_constructors
                   image: DecorationImage(
                     image: NetworkImage(img_url),
-                    fit: BoxFit.scaleDown,
+                    fit: BoxFit.contain,
                   ),
                 ),
                 alignment: const Alignment(0, -0.9),
-                child: FittedBox(
+                child: Container(
                   child: Text(
                     "$name",
                     style: const TextStyle(

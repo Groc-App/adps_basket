@@ -70,7 +70,7 @@ class YourOrderes extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var authInfo = ref.watch(authCheckProvider);
-    print(authInfo?.uid);
+    // print(authInfo?.uid);
 
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;

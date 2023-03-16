@@ -79,7 +79,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
 
       if (CartItemModel.isLoading) {
         // return CircularProgressIndicator();
-        return SpinKitThreeInOut(
+        return const SpinKitThreeInOut(
           size: 25,
           color: Colors.green,
         );
@@ -203,55 +203,69 @@ class _ProductItemState extends ConsumerState<ProductItem> {
       child: Card(
         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         // color: Colors.white,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                fit: FlexFit.loose,
-                flex: 3,
-                child: CachedNetworkImage(
-                  imageUrl: product.ImageUrl[0],
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Expanded(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Column(
-                    children: [
-                      Text(
-                        product.Name,
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      Text(
-                        product.Quantity,
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ],
+        child: Padding(
+          padding: const EdgeInsets.only(left: 5),
+          child: Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Flexible(
+                  fit: FlexFit.loose,
+                  flex: 3,
+                  child: CachedNetworkImage(
+                    imageUrl: product.ImageUrl[0],
+                    fit: BoxFit.cover,
                   ),
                 ),
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                        width: scWidth * 0.48 * 0.18,
-                        child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              '\u{20B9}${product.Price}',
-                              style: const TextStyle(
-                                  fontSize: 34, fontWeight: FontWeight.bold),
-                            ))),
-                    authInfo == null
-                        ? addTile(scWidth, '')
-                        : addTile(scWidth, authInfo.phoneNumber!),
-                    // addTile(scWidth, '+917982733943'),
-                  ],
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.only(top: 7, left: 5, right: 5),
+                    // fit: BoxFit.scaleDown,
+                    // decoration: BoxDecoration(border: Border.all()),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          product.Name,
+                          softWrap: true,
+                          maxLines: 2,
+                          style: const TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.w600),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 6),
+                          child: Text(
+                            product.Quantity,
+                            style: const TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              )
-            ]),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                          width: scWidth * 0.48 * 0.28,
+                          child: Container(
+                              // fit: BoxFit.scaleDown,
+                              child: Text(
+                            '\u{20B9}${product.Price.toInt()}',
+                            style: const TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.bold),
+                          ))),
+                      authInfo == null
+                          ? addTile(scWidth, '')
+                          : addTile(scWidth, authInfo.phoneNumber!),
+                      // addTile(scWidth, '+917982733943'),
+                    ],
+                  ),
+                )
+              ]),
+        ),
       ),
     );
   }
