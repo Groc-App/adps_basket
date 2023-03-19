@@ -55,28 +55,34 @@ class APIServiceProducts {
   }
 
   Future<List<Product>?> getAllProdcutsMostSelling() async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
+    try {
+      print("Inside ");
+      Map<String, String> requestHeaders = {
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      };
 
-    var url = Uri.http(Config.apiURL, Config.getProductsMostSellingApi);
-    print("This is url");
-    print(url);
+      var url = Uri.http(Config.apiURL, Config.getProductsMostSellingApi);
+      print("This is url");
+      print(url);
 
-    var response;
-    response = await client.get(
-      url,
-      headers: requestHeaders,
-    );
+      var response;
+      response = await client.get(
+        url,
+        headers: requestHeaders,
+      );
 
-    Map<String, dynamic> prdcts;
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      prdcts = data["data"];
-      if (data["data"] == null) return productsFromJson(prdcts);
-      return productsFromJson(prdcts['Products']);
-    } else {
-      return null;
+      Map<String, dynamic> prdcts;
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        prdcts = data["data"];
+        if (data["data"] == null) return productsFromJson(prdcts);
+        return productsFromJson(prdcts['Products']);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print(e);
     }
   }
 }
