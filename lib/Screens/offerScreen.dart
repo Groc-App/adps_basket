@@ -245,9 +245,9 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                   // cacheManager: instance,
                   imageUrl:
                       'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Freward_appbar_bg.jpg?alt=media&token=bf1c3400-ba8e-48c9-8b82-29c2803bd4ee',
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      CircularProgressIndicator(
-                          value: downloadProgress.progress),
+                  // progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  //     CircularProgressIndicator(
+                  //         value: downloadProgress.progress),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
 

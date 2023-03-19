@@ -4,6 +4,7 @@
 
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:your_basket/Widgets/Cart/Noitems.dart';
@@ -30,6 +31,13 @@ class _CartScreenState extends ConsumerState<CartScreen> {
   double pricetotal = 0.0;
   int listsize = 0;
   List<CartItemModel.CartItem>? datalist;
+  double discount = 0;
+
+  void updatediscount(value) {
+    setState(() {
+      discount = value;
+    });
+  }
 
   Widget _cartList(WidgetRef ref, scHeight, scWidth, phonenumber) {
     final cartState = ref.watch(cartItemsProvider);
@@ -125,6 +133,19 @@ class _CartScreenState extends ConsumerState<CartScreen> {
             ),
           ],
         ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Discount: ',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            ),
+            Text(
+              "₹${discount}",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            )
+          ],
+        ),
         const Divider(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,7 +159,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             )
           ],
-        )
+        ),
       ]),
     );
   }
@@ -182,6 +203,41 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   child: SingleChildScrollView(
                     child:
                         _cartList(ref, scHeight, scWidth, authInfo.phoneNumber),
+                    // _cartList(ref, scHeight, scWidth, '+917982733943'),
+                  ),
+                ),
+
+                GestureDetector(
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    '/applycouponScreen',
+                  ),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 3),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey,
+                    ),
+                    child: Row(
+                      children: [
+                        CachedNetworkImage(
+                          imageUrl:
+                              'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Icons%2Fbottomnavbar%2Foffer-icon-2.png?alt=media&token=ebadf132-5585-4527-8511-c7790ff1ab88',
+                          height: 27,
+                          color: Colors.blue,
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text('Apply coupon'),
+                        Spacer(),
+                        Icon(
+                          Icons.arrow_right,
+                          size: 28,
+                        )
+                      ],
+                    ),
                   ),
                 ),
 
@@ -195,6 +251,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                         Navigator.pushNamed(context, '/checkoutScreen',
                             arguments: {
                               'number': authInfo.phoneNumber ?? '',
+                              // 'number': '+91798277343',
                               'cartProductList': datalist,
                               'tamount': pricetotal
                             });

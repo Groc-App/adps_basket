@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -206,10 +205,10 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                   child: CachedNetworkImage(
                     imageUrl: product.ImageUrl[0],
                     fit: BoxFit.cover,
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) =>
-                            CircularProgressIndicator(
-                                value: downloadProgress.progress),
+                    // progressIndicatorBuilder:
+                    // (context, url, downloadProgress) =>
+                    //     CircularProgressIndicator(
+                    //         value: downloadProgress.progress),
                     errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),
@@ -230,7 +229,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                               fontSize: 12, fontWeight: FontWeight.w600),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 6),
+                          padding: const EdgeInsets.only(top: 4),
                           child: Text(
                             product.Quantity,
                             style: const TextStyle(

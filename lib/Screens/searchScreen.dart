@@ -191,10 +191,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                         child: CachedNetworkImage(
                           imageUrl: products[index].ImageUrl[0],
                           fit: BoxFit.cover,
-                          progressIndicatorBuilder:
-                              (context, url, downloadProgress) =>
-                                  CircularProgressIndicator(
-                                      value: downloadProgress.progress),
+                          // progressIndicatorBuilder:
+                          //     (context, url, downloadProgress) =>
+                          //         CircularProgressIndicator(
+                          //             value: downloadProgress.progress),
                           errorWidget: (context, url, error) =>
                               Icon(Icons.error),
                         ),

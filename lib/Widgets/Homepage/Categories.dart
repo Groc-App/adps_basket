@@ -214,10 +214,10 @@ class MainCategory extends ConsumerWidget {
                           child: CachedNetworkImage(
                             imageUrl: img_url,
                             fit: BoxFit.contain,
-                            progressIndicatorBuilder:
-                                (context, url, downloadProgress) =>
-                                    CircularProgressIndicator(
-                                        value: downloadProgress.progress),
+                            // progressIndicatorBuilder:
+                            //     (context, url, downloadProgress) =>
+                            //         CircularProgressIndicator(
+                            //             value: downloadProgress.progress),
                             errorWidget: (context, url, error) =>
                                 Icon(Icons.error),
                           ))

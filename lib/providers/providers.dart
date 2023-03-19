@@ -7,6 +7,7 @@ import 'package:your_basket/models/offer/offer.dart';
 import 'package:your_basket/models/subscription/subscription.dart';
 import '../Services/address_api_service.dart';
 import '../Services/cart_api_service.dart';
+import '../Services/coupon_api_service.dart';
 import '../Services/user_api_service.dart';
 import '../application/notifier/addressbook_notifier.dart';
 import '../application/notifier/cart_notifier.dart';
@@ -45,6 +46,13 @@ final addressBokkProvider =
       ref.watch(addressApiService), ref.watch(authCheckProvider)!.phoneNumber),
 );
 
+final checkcouponprovider = FutureProvider.family<String, Map<String, String>>(
+  (ref, mp) {
+    final apiRespository = ref.watch(couponApiService);
+
+    return apiRespository.checkcoupon(mp);
+  },
+);
 final selectedAddressProvider =
     FutureProvider.family<SelectedAddress?, String?>(
   (ref, number) {
