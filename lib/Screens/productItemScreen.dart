@@ -43,10 +43,10 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                     panEnabled: true,
                     child: CachedNetworkImage(
                       imageUrl: imageurl,
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) =>
-                              CircularProgressIndicator(
-                                  value: downloadProgress.progress),
+                      // progressIndicatorBuilder:
+                      //     (context, url, downloadProgress) =>
+                      //         CircularProgressIndicator(
+                      //             value: downloadProgress.progress),
                       errorWidget: (context, url, error) => Icon(Icons.error),
                     )),
               ),
@@ -86,8 +86,8 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
               child: CachedNetworkImage(
                 // fit: BoxFit.contain,
                 imageUrl: product.ImageUrl[idx],
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    CircularProgressIndicator(value: downloadProgress.progress),
+                // progressIndicatorBuilder: (context, url, downloadProgress) =>
+                //     CircularProgressIndicator(value: downloadProgress.progress),
                 errorWidget: (context, url, error) => Icon(Icons.error),
               )),
         );
@@ -314,11 +314,6 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
         ? Container(
             decoration: BoxDecoration(
                 color: const Color.fromRGBO(245, 245, 245, 1),
-                // border: const Border(
-                //     top: BorderSide(width: 2),
-                //     bottom: BorderSide(width: 2),
-                //     left: BorderSide(width: 2),
-                //     right: BorderSide(width: 2)),
                 borderRadius: BorderRadius.circular(5)),
             width: scWidth * 0.25,
             height: scWidth * 0.25 * 0.4,
@@ -330,7 +325,6 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                   child: Icon(
                     // Color(value),
                     color: const Color.fromRGBO(83, 177, 117, 1),
-
                     Icons.remove,
                     size: scWidth * 0.25 * 0.3,
                   ),

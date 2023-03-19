@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Services/subscription_api_service.dart';
+import 'package:your_basket/Widgets/Cart/Noitems.dart';
 import 'package:your_basket/Widgets/Subscription/modalSheet/item.dart';
 import 'package:your_basket/models/address/address.dart';
 import 'package:your_basket/models/product/products.dart';
@@ -8,8 +9,8 @@ import 'package:your_basket/providers/providers.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-const number = '917982733943';
-Map<String, String> map = {"number": number};
+// const number = '917982733943';
+// Map<String, String> map = {"number": number};
 var scHeight;
 var scSize;
 
@@ -26,7 +27,14 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
 
   // Initial Selected Value
   String dropdownvalue = '1';
-  late Address address;
+  Address address = Address(
+      addressId: '',
+      defaultAddress: false,
+      Flat_FLoor_Tower: '',
+      Street_Society: '',
+      Recipients_Name: '',
+      City: '',
+      Pincode: '');
 
   // List of items in our dropdown menu
   var items = [
@@ -138,10 +146,17 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
   Widget build(BuildContext context) {
     initializeDateFormatting('en', null);
 
-    final AddressBookState = ref.watch(addressBokkProvider);
-    var reqData = AddressBookState.AddressBookModel!.addresses
-        .firstWhere((e) => e.defaultAddress == true);
-    address = reqData;
+    var authInfo = ref.watch(authCheckProvider);
+
+    if (authInfo != null) {
+      final AddressBookState = ref.watch(addressBokkProvider);
+      if (AddressBookState.AddressBookModel!.addresses.isNotEmpty) {
+        var reqData = AddressBookState.AddressBookModel!.addresses
+            .firstWhere((e) => e.defaultAddress == true);
+        address = reqData;
+      }
+    }
+
     scSize = MediaQuery.of(context).size;
     scHeight = scSize.height;
 
@@ -166,201 +181,224 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
             ? Text("Buy Subscription")
             : Text('Edit Subscription'),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          height: scHeight * 0.9,
-          child: Column(
-            children: [
-              const Text(
-                "Subscription Detail",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              ModalItem(name: product.Name, imageURL: product.ImageUrl[0]),
-              const SizedBox(
-                height: 20,
-              ),
-              const Text("Details",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Card(
-                      elevation: 5,
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 20),
-                            child: const Text("Quantity",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500)),
-                          ),
-                          const Spacer(),
-                          Container(
-                            width: scSize.width * 0.5,
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 10),
-                            child: Container(
-                                child: DropdownButtonHideUnderline(
-                              child: DropdownButton(
-                                focusColor: Colors.white,
-                                dropdownColor: Colors.white,
-                                value: dropdownvalue,
-                                onChanged: (String? newValue) {
-                                  quantityHandler(newValue);
-                                },
-                                items: items.map((String item) {
-                                  return DropdownMenuItem(
-                                      child: Text(item), value: item);
-                                }).toList(),
-                              ),
-                            )),
-                          ),
-                        ],
-                      ),
+      body: authInfo == null
+          ? NoItems(
+              noitemtext: 'Login/Signup First',
+              pageroute: 'loginpage',
+            )
+          : SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                height: scHeight * 0.9,
+                child: Column(
+                  children: [
+                    const Text(
+                      "Subscription Detail",
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Card(
-                      elevation: 5,
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 20),
-                            child: const Text("Start Date",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500)),
-                          ),
-                          const Spacer(),
-                          Container(
-                            width: scSize.width * 0.5,
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 10),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  alignment: Alignment.centerLeft,
-                                  backgroundColor: Colors.white),
-                              onPressed: () async {
-                                startDateHandler();
-                              },
-                              child: Text(startDate,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.green)),
+                    ModalItem(
+                        name: product.Name, imageURL: product.ImageUrl[0]),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text("Details",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16)),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Card(
+                            elevation: 5,
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 20),
+                                  child: const Text("Quantity",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500)),
+                                ),
+                                const Spacer(),
+                                Container(
+                                  width: scSize.width * 0.5,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 10),
+                                  child: Container(
+                                      child: DropdownButtonHideUnderline(
+                                    child: DropdownButton(
+                                      focusColor: Colors.white,
+                                      dropdownColor: Colors.white,
+                                      value: dropdownvalue,
+                                      onChanged: (String? newValue) {
+                                        quantityHandler(newValue);
+                                      },
+                                      items: items.map((String item) {
+                                        return DropdownMenuItem(
+                                            child: Text(item), value: item);
+                                      }).toList(),
+                                    ),
+                                  )),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Card(
-                      elevation: 5,
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 20),
-                            child: const Text("End Date",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500)),
-                          ),
-                          const Spacer(),
-                          Container(
-                            width: scSize.width * 0.5,
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 10),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  alignment: Alignment.centerLeft,
-                                  backgroundColor: Colors.white),
-                              onPressed: () async {
-                                endDateHandler();
-                              },
-                              child: Text(endDate,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.green)),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Card(
+                            elevation: 5,
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 20),
+                                  child: const Text("Start Date",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500)),
+                                ),
+                                const Spacer(),
+                                Container(
+                                  width: scSize.width * 0.5,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 10),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        alignment: Alignment.centerLeft,
+                                        backgroundColor: Colors.white),
+                                    onPressed: () async {
+                                      startDateHandler();
+                                    },
+                                    child: Text(startDate,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green)),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Card(
-                      elevation: 5,
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 20),
-                            child: const Text("Address",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500)),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Card(
+                            elevation: 5,
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 20),
+                                  child: const Text("End Date",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500)),
+                                ),
+                                const Spacer(),
+                                Container(
+                                  width: scSize.width * 0.5,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 10),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        alignment: Alignment.centerLeft,
+                                        backgroundColor: Colors.white),
+                                    onPressed: () async {
+                                      endDateHandler();
+                                    },
+                                    child: Text(endDate,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green)),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                          const Spacer(),
-                          Container(
-                              decoration: BoxDecoration(color: Colors.white),
-                              width: scSize.width * 0.5,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 10),
-                              child: ElevatedButton(
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Card(
+                            elevation: 5,
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 20),
+                                  child: const Text("Address",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500)),
+                                ),
+                                const Spacer(),
+                                Container(
+                                    decoration:
+                                        BoxDecoration(color: Colors.white),
+                                    width: scSize.width * 0.5,
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 10),
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.white),
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pushNamed('/addressScreen');
+                                      },
+                                      child: Text(
+                                          "${address.Recipients_Name} ${address.Flat_FLoor_Tower} ${address.Street_Society} ",
+                                          softWrap: false,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.green)),
+                                    )),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    functiontype == 'buy'
+                        ? SizedBox(
+                            width: scSize.width * 0.5,
+                            height: scHeight * 0.08,
+                            child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.white),
+                                    backgroundColor: Colors.green),
                                 onPressed: () {
-                                  Navigator.of(context)
-                                      .pushNamed('/addressScreen');
+                                  submitHandler(
+                                      product.productId,
+                                      '+917982733943',
+                                      startDate,
+                                      endDate,
+                                      'buy',
+                                      subsid);
                                 },
-                                child: Text(
-                                    "${address.Recipients_Name} ${address.Flat_FLoor_Tower} ${address.Street_Society} ",
-                                    softWrap: false,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.green)),
-                              )),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+                                child: const Text("Buy Subscription")),
+                          )
+                        : SizedBox(
+                            width: scSize.width * 0.5,
+                            height: scHeight * 0.08,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.green),
+                                onPressed: () {
+                                  submitHandler(
+                                      product.productId,
+                                      '+917982733943',
+                                      startDate,
+                                      endDate,
+                                      'edit',
+                                      subsid);
+                                },
+                                child: const Text("Edit Subscription")),
+                          )
+                  ],
+                ),
               ),
-              functiontype == 'buy'
-                  ? SizedBox(
-                      width: scSize.width * 0.5,
-                      height: scHeight * 0.08,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green),
-                          onPressed: () {
-                            submitHandler(product.productId, '+917982733943',
-                                startDate, endDate, 'buy', subsid);
-                          },
-                          child: const Text("Buy Subscription")),
-                    )
-                  : SizedBox(
-                      width: scSize.width * 0.5,
-                      height: scHeight * 0.08,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green),
-                          onPressed: () {
-                            submitHandler(product.productId, '+917982733943',
-                                startDate, endDate, 'edit', subsid);
-                          },
-                          child: const Text("Edit Subscription")),
-                    )
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

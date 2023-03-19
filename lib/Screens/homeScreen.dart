@@ -33,8 +33,8 @@ class HomeScreen extends StatelessWidget {
           child: CachedNetworkImage(
             imageUrl:
                 'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Logo%2Flogo.png?alt=media&token=bde72ad0-a31b-405c-911c-6a45e258b6db',
-            progressIndicatorBuilder: (context, url, downloadProgress) =>
-                CircularProgressIndicator(value: downloadProgress.progress),
+            // progressIndicatorBuilder: (context, url, downloadProgress) =>
+            //     CircularProgressIndicator(value: downloadProgress.progress),
             errorWidget: (context, url, error) => Icon(Icons.error),
           ),
         ),

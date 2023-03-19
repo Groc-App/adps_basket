@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:your_basket/Screens/OrderSuccess.dart';
 import 'package:your_basket/Screens/ProfileScreen.dart';
 import 'package:your_basket/Screens/addressScreen.dart';
+import 'package:your_basket/Screens/applycouponScreen.dart';
 import 'package:your_basket/Screens/buySubscriptionScreen.dart';
 import 'package:your_basket/Screens/cartScreen.dart';
 import 'package:your_basket/Screens/categoryScreen.dart';
@@ -87,6 +88,7 @@ class MyApp extends StatelessWidget {
         '/checkoutScreen': (context) => CheckoutScreen(),
         '/subscriptionScreen': (context) => SubscriptionScreen(),
         '/buySubscriptionScreen': (context) => BuySubscriptionScreen(),
+        '/applycouponScreen': (context) => ApplycouponScreen(),
       },
     );
   }

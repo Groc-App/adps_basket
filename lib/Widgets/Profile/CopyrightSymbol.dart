@@ -12,13 +12,13 @@ class CopyRightSymbol extends StatelessWidget {
       children: const [
         Center(
           child: Text(
-            'adps',
+            'basko',
             style: TextStyle(fontSize: 24, color: Colors.grey),
           ),
         ),
         Center(
           child: Text(
-            'v10.00.01',
+            'v1.0.0.1',
             style: TextStyle(fontSize: 16, color: Colors.grey),
           ),
         )
