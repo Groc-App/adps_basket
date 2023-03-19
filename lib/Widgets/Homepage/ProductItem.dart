@@ -206,6 +206,11 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                   child: CachedNetworkImage(
                     imageUrl: product.ImageUrl[0],
                     fit: BoxFit.cover,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) =>
+                            CircularProgressIndicator(
+                                value: downloadProgress.progress),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),
                 Expanded(

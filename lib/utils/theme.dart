@@ -4,21 +4,40 @@
 /*                                 Theme Data                                 */
 /* -------------------------------------------------------------------------- */
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyTheme {
 /* ------------------------------- light theme ------------------------------ */
   static ThemeData lightTheme(BuildContext context) => ThemeData(
+        textTheme: TextTheme(
+          labelLarge: GoogleFonts.montserrat(),
+          labelMedium: GoogleFonts.montserrat(),
+          labelSmall: GoogleFonts.montserrat(),
+          bodyLarge: GoogleFonts.montserrat(),
+          bodyMedium: GoogleFonts.montserrat(),
+          bodySmall: GoogleFonts.montserrat(),
+          titleLarge: GoogleFonts.montserrat(),
+          titleMedium: GoogleFonts.montserrat(),
+          titleSmall: GoogleFonts.montserrat(),
+          displayLarge: GoogleFonts.montserrat(),
+          displayMedium: GoogleFonts.montserrat(),
+          displaySmall: GoogleFonts.montserrat(),
+          headlineLarge: GoogleFonts.montserrat(),
+          headlineMedium: GoogleFonts.montserrat(),
+          headlineSmall: GoogleFonts.montserrat(),
+        ),
+
         /* ------------------------------ APP BAR THEME ----------------------------- */
         appBarTheme: AppBarTheme(
-          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-          foregroundColor: const Color.fromRGBO(83, 177, 117, 1),
-          // color: Color.fromRGBO(83, 177, 117, 1),
-          elevation: 2.0,
-          iconTheme:
-              const IconThemeData(color: Color.fromRGBO(83, 177, 117, 1)),
-          toolbarTextStyle: Theme.of(context).textTheme.bodyMedium,
-          titleTextStyle: Theme.of(context).textTheme.titleLarge,
-        ),
+            backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+            foregroundColor: const Color.fromRGBO(83, 177, 117, 1),
+            elevation: 1.0,
+            iconTheme:
+                const IconThemeData(color: Color.fromRGBO(83, 177, 117, 1)),
+            titleTextStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Color.fromRGBO(83, 177, 117, 1),
+                fontSize: 20)),
 
         /* --------------------------------- COLORS --------------------------------- */
         primaryColor: Colors.white,
@@ -34,7 +53,8 @@ class MyTheme {
 
         outlinedButtonTheme: OutlinedButtonThemeData(
             style: OutlinedButton.styleFrom(
-                backgroundColor: Color.fromRGBO(83, 177, 117, 1),
+                // backgroundColor: Color.fromRGBO(83, 177, 117, 1),
+                backgroundColor: Colors.green[400],
                 foregroundColor: Colors.white)),
 
         /* ------------------------------- CARD THEME ------------------------------- */

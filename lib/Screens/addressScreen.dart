@@ -222,10 +222,8 @@ class AddressBook extends ConsumerWidget {
     return Scaffold(
       /* --------------------------------- appBar --------------------------------- */
       appBar: AppBar(
-          elevation: 7,
           title: const Text(
             "My Addresses",
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
           ),
           backgroundColor: const Color.fromARGB(255, 243, 243, 243)),
       body: authInfo == null

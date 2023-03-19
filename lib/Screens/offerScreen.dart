@@ -4,6 +4,7 @@ import 'package:your_basket/Widgets/Cart/Noitems.dart';
 import 'package:confetti/confetti.dart';
 import 'package:scratcher/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/Widgets/Errors/Dataloadingerror.dart';
 import 'package:your_basket/providers/providers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:your_basket/models/offer/offer.dart';
@@ -110,7 +111,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
         // print("\nThiss is list of Offerrrrrrs:" + '${list}');
         return _buildGridViewCards(list);
       },
-      error: (_, __) => const Center(child: Text(" err")),
+      error: (_, __) => DataError(),
       loading: () => const Center(child: CircularProgressIndicator()),
     );
   }
@@ -200,7 +201,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
         // print("\nThiss is list of Offerrrrrrs:" + '${list}');
         return _buildGridViewCards(list);
       },
-      error: (_, __) => const Center(child: Text(" err")),
+      error: (_, __) => DataError(),
       loading: () => const Center(child: CircularProgressIndicator()),
     );
   }
@@ -244,12 +245,10 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                   // cacheManager: instance,
                   imageUrl:
                       'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Freward_appbar_bg.jpg?alt=media&token=bf1c3400-ba8e-48c9-8b82-29c2803bd4ee',
-                  placeholder: (context, url) =>
-                      const CircularProgressIndicator(),
-                  errorWidget: (context, url, error) {
-                    print(error);
-                    return const Icon(Icons.error);
-                  },
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      CircularProgressIndicator(
+                          value: downloadProgress.progress),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
 
                 // FutureBuilder(

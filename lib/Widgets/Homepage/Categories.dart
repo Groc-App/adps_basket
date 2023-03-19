@@ -5,6 +5,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/Widgets/Errors/Dataloadingerror.dart';
 import 'package:your_basket/Widgets/Sinners/mainCategorySinner.dart';
 
 import '../../models/category/category.dart';
@@ -21,7 +22,7 @@ class MainCategory extends ConsumerWidget {
       data: (list) {
         return maincategorylistbuilder(list, context, scHeight, scWidth);
       },
-      error: (_, __) => const Center(child: Text("ERR")),
+      error: (_, __) => DataError(),
       loading: () => MainCategorySinner(),
     );
   }
@@ -213,6 +214,12 @@ class MainCategory extends ConsumerWidget {
                           child: CachedNetworkImage(
                             imageUrl: img_url,
                             fit: BoxFit.contain,
+                            progressIndicatorBuilder:
+                                (context, url, downloadProgress) =>
+                                    CircularProgressIndicator(
+                                        value: downloadProgress.progress),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
                           ))
                     ]),
               )

@@ -21,7 +21,7 @@ class ModalItem extends StatelessWidget {
       decoration: BoxDecoration(border: Border.all()),
       child: Row(
         children: [
-          Image.asset(
+          Image.network(
             imageURL,
             height: 100,
             width: 100,

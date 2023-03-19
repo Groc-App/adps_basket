@@ -1,6 +1,7 @@
 // ignore: file_names
 // ignore_for_file: file_names, duplicate_ignore
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 
@@ -36,7 +37,7 @@ class Carousel extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
                   image: const DecorationImage(
-                    image: NetworkImage(
+                    image: CachedNetworkImageProvider(
                         'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2Fc1.jpg?alt=media&token=c6c64f16-f899-4ab2-9d35-d2fa3f25bbda'),
                     fit: BoxFit.fill,
                   ),
@@ -53,7 +54,7 @@ class Carousel extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 image: const DecorationImage(
-                  image: NetworkImage(
+                  image: CachedNetworkImageProvider(
                       'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2Fc2.jpg?alt=media&token=fa1d113b-5900-45e5-bd7e-133a03b99aea'),
                   fit: BoxFit.fill,
                 ),
@@ -64,7 +65,7 @@ class Carousel extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               image: const DecorationImage(
-                image: NetworkImage(
+                image: CachedNetworkImageProvider(
                     'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2Fc3.jpg?alt=media&token=235cb723-3f9b-465d-bf17-c719119a5d29'),
                 fit: BoxFit.fill,
               ),

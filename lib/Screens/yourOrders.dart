@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Cart/Noitems.dart';
+import 'package:your_basket/Widgets/Errors/Dataloadingerror.dart';
 import 'package:your_basket/Widgets/YourOrderes/OrdereItem.dart';
 import 'package:your_basket/models/product/productdetail.dart';
 
@@ -31,19 +32,19 @@ class YourOrderes extends ConsumerWidget {
 
     return data.when(
       data: (list) {
-        // print("Thisssssssssssssssssss is list ${list}");
+        print("Thisssssssssssssssssss is list ${list}");
 
-        // if (list!.isEmpty == null) islistempty = true;
-        // print("\n\n\nThis is list $islistempty");
+        if (list!.isEmpty) islistempty = true;
+        print("\n\n\nThis is list $islistempty");
         return orderlistbuilder(list, context, scHeight);
       },
-      error: (_, __) => const Center(child: Text("ERRRRRRRRRRR")),
+      error: (_, __) => DataError(),
       loading: () => const Center(child: CircularProgressIndicator()),
     );
   }
 
   Widget orderlistbuilder(List<Orders>? list, contex, scHeight) {
-    return list == null
+    return list == null || list.isEmpty
         ? NoItems(
             noitemtext: 'You have no past orders!!!',
             pageroute: 'homescreen',

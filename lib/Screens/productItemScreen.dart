@@ -43,6 +43,11 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                     panEnabled: true,
                     child: CachedNetworkImage(
                       imageUrl: imageurl,
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) =>
+                              CircularProgressIndicator(
+                                  value: downloadProgress.progress),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     )),
               ),
               GestureDetector(
@@ -81,6 +86,9 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
               child: CachedNetworkImage(
                 // fit: BoxFit.contain,
                 imageUrl: product.ImageUrl[idx],
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    CircularProgressIndicator(value: downloadProgress.progress),
+                errorWidget: (context, url, error) => Icon(Icons.error),
               )),
         );
       },
@@ -116,9 +124,14 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
           // ignore: prefer_const_constructors
           decoration: BoxDecoration(
             boxShadow: const [
-              BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 2)
+              BoxShadow(
+                  color: Color.fromRGBO(207, 203, 203, 1),
+                  blurRadius: 2,
+                  spreadRadius: 2)
             ],
-            color: const Color.fromARGB(255, 237, 230, 230),
+            // color: Color.fromARGB(255, 250, 246, 246),
+            // color: Color.fromRGBO(236, 236, 234, 1),
+            color: Color.fromRGBO(243, 243, 243, 1),
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -392,7 +405,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 237, 230, 230),
+          backgroundColor: const Color.fromRGBO(243, 243, 243, 1),
           title: Row(
             children: [
               Expanded(
@@ -415,7 +428,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
         backgroundColor: Colors.white,
         bottomNavigationBar: Container(
           decoration:
-              const BoxDecoration(color: Color.fromARGB(255, 237, 230, 230)),
+              const BoxDecoration(color: Color.fromRGBO(243, 243, 243, 1)),
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(

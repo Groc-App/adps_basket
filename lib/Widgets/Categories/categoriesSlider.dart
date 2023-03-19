@@ -64,10 +64,10 @@ class _CategorySliderItemsState extends ConsumerState<CategorySliderItems> {
   }
 
   void tapHandler(WidgetRef ref, String val, String catId, int index) {
-    print("index::::::::::::::::::::::: $index");
-    print("Tapped tapped");
-    print(categoryName);
-    print(categoryId);
+    // print("index::::::::::::::::::::::: $index");
+    // print("Tapped tapped");
+    // print(categoryName);
+    // print(categoryId);
 
     // String mainCategoryId=map['mainCategoryId'];
     map = {'mainCategoryId': mainCategoryId, 'subCategoryId': catId};
