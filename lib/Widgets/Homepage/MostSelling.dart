@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/Widgets/Errors/Dataloadingerror.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:your_basket/Widgets/Sinners/productsinner.dart';
 import 'package:your_basket/providers/providers.dart';
@@ -18,7 +19,7 @@ class MostSelling extends StatelessWidget {
       data: (list) {
         return buildproduct(list, scWidth);
       },
-      error: (_, __) => const Center(child: Text("ERR")),
+      error: (_, __) => DataError(),
       loading: () => const Center(child: ProductSinner()),
     );
   }

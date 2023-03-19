@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:your_basket/Widgets/Categories/categoriesSlider.dart';
 import 'package:your_basket/Widgets/Categories/searchBar.dart';
+import 'package:your_basket/Widgets/Errors/Dataloadingerror.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Sinners/productCategorysinner.dart';
@@ -55,7 +56,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
 
         return buildCategory(list);
       },
-      error: (_, __) => const Center(child: Text("ERR")),
+      error: (_, __) => DataError(),
       loading: () => const Center(child: ProductCategorySinner()),
     );
   }
@@ -66,7 +67,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
       data: (list) {
         return buildProducts(list);
       },
-      error: (_, __) => const Center(child: Text("ERR")),
+      error: (_, __) => DataError(),
       loading: () => const Center(
         child: ProductSinner(),
       ),
@@ -212,13 +213,14 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
       appBar: AppBar(
           // centerTitle: true,
           // ignore: prefer_const_constructors
+          elevation: 1,
           title: Text(
             categ['name'],
             softWrap: true,
             style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
           ),
-          backgroundColor: const Color.fromARGB(255, 237, 230, 230)),
-      backgroundColor: const Color.fromARGB(255, 237, 230, 230),
+          backgroundColor: const Color.fromRGBO(243, 243, 243, 1)),
+      backgroundColor: Color.fromRGBO(243, 243, 243, 1),
 
       /* ---------------------------------- body ---------------------------------- */
       body: SingleChildScrollView(

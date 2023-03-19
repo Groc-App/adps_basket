@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:your_basket/config.dart';
 
@@ -21,7 +22,8 @@ class SummaryCard extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 image: const DecorationImage(
-                    image: AssetImage('assets/images/subscriptionCard.jpg'),
+                    image: CachedNetworkImageProvider(
+                        'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Subscription%20screen%2Ffirst%20card%20image%2Fsubscribe.png?alt=media&token=052ac19c-89e2-4bee-b119-7580fa0d4349'),
                     fit: BoxFit.cover)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

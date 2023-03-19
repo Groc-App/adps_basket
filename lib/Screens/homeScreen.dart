@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, prefer_const_constructors
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
@@ -22,15 +23,23 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.white,
+      backgroundColor: Color.fromRGBO(243, 243, 243, 1),
       appBar: AppBar(
-        // backgroundColor: Colors.deepPurple,
-        // iconTheme: IconThemeData(),
-        leading: Icon(
-          Icons.shopping_cart_outlined,
-          color: Color.fromRGBO(83, 177, 117, 1),
+        backgroundColor: Color.fromRGBO(243, 243, 243, 1),
+        elevation: 0,
+        leadingWidth: 50,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 5),
+          child: CachedNetworkImage(
+            imageUrl:
+                'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Logo%2Flogo.png?alt=media&token=bde72ad0-a31b-405c-911c-6a45e258b6db',
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                CircularProgressIndicator(value: downloadProgress.progress),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+          ),
         ),
-        title: Text('SpeedGrocery'),
+        title: Text('Basko'),
+        // title:
         centerTitle: true,
         actions: [
           IconButton(
@@ -56,9 +65,13 @@ class HomeScreen extends StatelessWidget {
         onPressed: () {
           Navigator.pushNamed(context, '/offerScreen');
         },
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.green[400],
         foregroundColor: Colors.white,
-        child: Icon(Icons.offline_share),
+        child: CachedNetworkImage(
+          imageUrl:
+              'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Icons%2Fbottomnavbar%2Foffer-icon-2.png?alt=media&token=ebadf132-5585-4527-8511-c7790ff1ab88',
+          height: 27,
+        ),
       ),
       bottomNavigationBar: const BotmNavBar(),
     );

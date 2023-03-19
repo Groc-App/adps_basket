@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Services/subscription_api_service.dart';
+import 'package:your_basket/Widgets/Errors/Dataloadingerror.dart';
 import 'package:your_basket/providers/providers.dart';
 import 'package:intl/intl.dart';
 
@@ -84,8 +85,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                             ),
                             ModalItem(
                                 name: list[i].product.Name,
-                                imageURL:
-                                    'assets/images/Dairy-Products-Png.png'),
+                                imageURL: list[i].product.ImageUrl[0]),
                             const SizedBox(
                               height: 20,
                             ),
@@ -280,10 +280,10 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
             leading: ClipRRect(
               borderRadius: const BorderRadius.all(
                   Radius.circular(10.0)), //add border radius here
-              child: Image.asset(
-                'assets/images/subscriptionCard.jpg',
+              child: Image.network(
+                list[i].product.ImageUrl[0],
                 width: 80,
-                fit: BoxFit.fill,
+                fit: BoxFit.contain,
               ), //add image location here
             ),
             title: Text("${list[i].product.Name}"),
@@ -339,7 +339,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
           );
         }
       },
-      error: (_, __) => const Center(child: Text("ERRRRRRRRRRR")),
+      error: (_, __) => DataError(),
       loading: () => const Center(child: CircularProgressIndicator()),
     );
   }
