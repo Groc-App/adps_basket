@@ -359,10 +359,10 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Center(
+                          Center(
                             child: Text(
-                              "Already Redeemed",
-                              style: TextStyle(
+                              "${list[index].offerId}",
+                              style: const TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.bold),
                             ),
                           ),
