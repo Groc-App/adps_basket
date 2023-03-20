@@ -155,7 +155,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
             Text(
-              "₹${pricetotal}",
+              "₹${(pricetotal - discount)}",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             )
           ],
@@ -171,6 +171,19 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     final scHeight = scSize.height;
 
     var authInfo = ref.watch(authCheckProvider);
+
+    var discountdata = (ModalRoute.of(context)?.settings.arguments ??
+        <String, dynamic>{}) as Map;
+
+    if (discountdata['discount'] != null) {
+      String discnt = discountdata['discount'];
+      if (discountdata != null && discnt != null) {
+        double newdiscount = double.parse(discnt);
+        setState(() {
+          discount = newdiscount;
+        });
+      }
+    }
 
     return Scaffold(
       // backgroundColor: const Color.fromARGB(255, 237, 230, 230),
@@ -208,10 +221,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 ),
 
                 GestureDetector(
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    '/applycouponScreen',
-                  ),
+                  onTap: () =>
+                      Navigator.pushNamed(context, '/applycouponScreen'),
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     padding: EdgeInsets.symmetric(vertical: 5, horizontal: 3),
@@ -251,9 +262,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                         Navigator.pushNamed(context, '/checkoutScreen',
                             arguments: {
                               'number': authInfo.phoneNumber ?? '',
-                              // 'number': '+91798277343',
                               'cartProductList': datalist,
-                              'tamount': pricetotal
+                              'tamount': pricetotal,
+                              'discount': discount,
                             });
                       },
                       child: Container(

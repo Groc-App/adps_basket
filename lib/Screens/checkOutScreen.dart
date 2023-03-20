@@ -13,7 +13,7 @@ class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen({super.key});
 
   Widget placeordertile(WidgetRef ref, String number, BuildContext context,
-      List<CartItem> datalist, pricetotal) {
+      List<CartItem> datalist, pricetotal, discount) {
     final AddressBookState = ref.watch(addressBokkProvider);
     var reqData = Address(
         addressId: '',
@@ -32,7 +32,8 @@ class CheckoutScreen extends StatelessWidget {
     return Column(
       children: [
         adresstile(context, reqData),
-        ordertile(datalist, ref, pricetotal, context, number, reqData),
+        ordertile(
+            datalist, ref, pricetotal, context, number, reqData, discount),
       ],
     );
   }
@@ -66,7 +67,7 @@ class CheckoutScreen extends StatelessWidget {
   }
 
   Widget ordertile(List<CartItem> datalist, WidgetRef ref, double pricetotal,
-      BuildContext context, String number, Address value) {
+      BuildContext context, String number, Address value, discount) {
     return Container(
         width: double.infinity,
         child: ElevatedButton(
@@ -103,7 +104,7 @@ class CheckoutScreen extends StatelessWidget {
               } else {
                 final cartViewModel = ref.read(cartItemsProvider.notifier);
                 cartViewModel
-                    .placeOrder(number, pricetotal.toString(),
+                    .placeOrder(number, (pricetotal - discount).toString(),
                         cartProductsArray, addressid)
                     .whenComplete(() => Navigator.pushNamed(
                         context, '/ordersuccessScreen',
@@ -125,6 +126,7 @@ class CheckoutScreen extends StatelessWidget {
     String number = Orderdata['number'];
     List<CartItem> datalist = Orderdata['cartProductList'];
     double pricetotal = Orderdata['tamount'];
+    double discount = Orderdata['discount'];
 
     return Scaffold(
       appBar: AppBar(
@@ -141,8 +143,8 @@ class CheckoutScreen extends StatelessWidget {
           child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Consumer(
-                builder: (context, ref, child) =>
-                    placeordertile(ref, number, context, datalist, pricetotal),
+                builder: (context, ref, child) => placeordertile(
+                    ref, number, context, datalist, pricetotal, discount),
               )),
         ),
       ),
