@@ -34,7 +34,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     "subCategoryId": "null"
   };
 
-  Widget categoriesList(WidgetRef ref, String mainCategoryId) {
+  Widget categoriesList(WidgetRef ref, String mainCategoryId, String imgUrl) {
     final categories = ref.watch(categoriesProvider(mainCategoryId));
 
     return categories.when(
@@ -44,8 +44,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
         Map<String, dynamic> map = {
           "Name": "All",
           "categoryId": "null",
-          "imageurl":
-              "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Main%20Category%2FDrinks%20%26%20Juices.png?alt=media&token=9e0b9a6b-9759-4e75-864e-06c3ef616417"
+          "imageurl": imgUrl
         };
 
         Category c = Category.fromJson(map);
@@ -53,6 +52,8 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
         if (list!.elementAt(0) != c) {
           list.insert(0, c);
         }
+
+        /* -------------------------------------------------------------------------- */
 
         return buildCategory(list);
       },
@@ -190,6 +191,8 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     var categ = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
 
+    var imgUrl = categ['imageUrl'];
+
     // ref.read(categoryProvider.notifier).update((state) => mapp);
 
     mainCategoryId = categ['maincategoryid'];
@@ -237,7 +240,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
           // Text(connectivityStatusProvider == ConnectivityStatus.isConnected
           //     ? 'Is Connected to Internet'
           //     : 'Is Disconnected from Internet'),
-          categoriesList(ref, mainCategoryId),
+          categoriesList(ref, mainCategoryId, imgUrl),
 
           // Carousel(),
 

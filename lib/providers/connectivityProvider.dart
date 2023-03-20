@@ -80,6 +80,18 @@ class ConnectivityStatusNotifier extends StateNotifier<ConnectivityStatus> {
         case ConnectivityResult.none:
           newState = ConnectivityStatus.isDisonnected;
           break;
+        case ConnectivityResult.bluetooth:
+          // TODO: Handle this case.
+          break;
+        case ConnectivityResult.ethernet:
+          // TODO: Handle this case.
+          break;
+        case ConnectivityResult.vpn:
+          // TODO: Handle this case.
+          break;
+        case ConnectivityResult.other:
+          // TODO: Handle this case.
+          break;
       }
       if (newState != lastResult) {
         state = newState!;

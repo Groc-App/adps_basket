@@ -156,8 +156,11 @@ class MainCategory extends ConsumerWidget {
       child: GestureDetector(
         onTap: () {
           print("\n\nMain Category id:: $maincategoryid");
-          Navigator.of(context).pushNamed('${nav_url}',
-              arguments: {'maincategoryid': maincategoryid, 'name': name});
+          Navigator.of(context).pushNamed('${nav_url}', arguments: {
+            'maincategoryid': maincategoryid,
+            'name': name,
+            'imageUrl': img_url
+          });
         },
         child: Container(
           height: scHeight * 0.25,

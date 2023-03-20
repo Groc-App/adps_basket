@@ -108,6 +108,8 @@ class APIServiceCart {
     var url = Uri.http(Config.apiURL, ur);
 
     print(url);
+    print(number);
+    print(productid);
 
     var response = await client.post(
       url,

@@ -4,15 +4,8 @@ import 'dart:ui' as ui;
 class Config {
   /* -------------------------------- app setup ------------------------------- */
   static const String GrocApp = 'GrocApp';
-<<<<<<< HEAD
-  static const String apiURL = '192.168.1.8:8000';
-=======
+  static const String apiURL = '127.0.0.1:8000';
   // static const String apiURL = '192.168.1.8:8000';
-  static const String apiURL = '192.168.11.122:8000';
-  // static const String apiURL =
-  //     'https://i1fn4d1wa3.execute-api.ap-south-1.amazonaws.com/dev';
-  // static const String apiURL = '192.168.166.148:8000';
->>>>>>> b711c8d9dfe4efe5db1e22e81f14452e49ff6457
   // 127.0.0.1:8000
   // 192.168.1.16:8000
   // static const String apiURL =

@@ -84,5 +84,6 @@ class APIServiceProducts {
     } catch (e) {
       print(e);
     }
+    return null;
   }
 }

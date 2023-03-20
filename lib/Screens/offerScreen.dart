@@ -164,7 +164,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
 
   Widget _buildRewardImage() {
     return Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
       image: DecorationImage(
         fit: BoxFit.fill,
         image: AssetImage("assets/images/rewards_cup_image.jpg"),
