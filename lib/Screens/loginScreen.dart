@@ -185,12 +185,28 @@ class _LoginScreenState extends State<LoginScreen> {
                                 : Text("Continue"),
                           ),
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed('/refferalloginScreen');
+                          },
+                          child: Container(
+                            child: Text(
+                              'Do you have a refferal code?',
+                              style: TextStyle(color: Colors.blue),
+                            ),
+                          ),
+                        ),
                         const SizedBox(
-                          height: 80,
+                          height: 45,
                         ),
                         const Flexible(
                           child: Text(
                               "By continuing you agree to our terms of services and policy",
+                              textAlign: TextAlign.center,
                               style: TextStyle(fontWeight: FontWeight.w200)),
                         )
                       ]),

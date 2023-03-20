@@ -180,7 +180,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     final scWidth = scSize.width;
 
     var authInfo = ref.watch(authCheckProvider);
-    // print(authInfo?.uid);
+    print(authInfo?.phoneNumber);
 
     return GestureDetector(
       onTap: () {

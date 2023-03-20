@@ -62,11 +62,11 @@ final selectedAddressProvider =
   },
 );
 
-final createuserProvider = FutureProvider.family<void, String?>(
-  (ref, number) {
+final createuserProvider = FutureProvider.family<String, Map<String, String?>>(
+  (ref, mp) {
     final apiRespository = ref.watch(userApiService);
 
-    return apiRespository.createuserifnotexist(number);
+    return apiRespository.createuserifnotexist(mp);
   },
 );
 

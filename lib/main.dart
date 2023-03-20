@@ -18,6 +18,7 @@ import 'package:your_basket/Screens/offerScreen.dart';
 import 'package:your_basket/Screens/orderSummary.dart';
 import 'package:your_basket/Screens/otpScreen.dart';
 import 'package:your_basket/Screens/productItemScreen.dart';
+import 'package:your_basket/Screens/refferalloginScreen.dart';
 import 'package:your_basket/Screens/subscriptionScreen.dart';
 import 'package:your_basket/Screens/yourOrders.dart';
 import 'package:your_basket/Widgets/Sinners/loadingsinner.dart';
@@ -84,6 +85,7 @@ class MyApp extends StatelessWidget {
         '/offerScreen': (context) => OfferScreen(),
         '/ordersuccessScreen': (context) => OrderSuuccess(),
         '/loginScreen': (context) => LoginScreen(),
+        '/refferalloginScreen': (context) => RefferalLogin(),
         '/orderSummaryScreen': (context) => OrderSummaryScreen(),
         '/checkoutScreen': (context) => CheckoutScreen(),
         '/subscriptionScreen': (context) => SubscriptionScreen(),

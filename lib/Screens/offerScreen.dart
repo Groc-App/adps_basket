@@ -75,7 +75,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
 
     return offers.when(
       data: (list) {
-        if (list!.isNotEmpty) {
+        if (list != null && list.isNotEmpty) {
           list.forEach((offer) {
             totalOrders = offer.totalUserOrder.toInt();
             if (offer.isUserClaimed) {
@@ -108,7 +108,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
             },
           );
         } else {}
-        // print("\nThiss is list of Offerrrrrrs:" + '${list}');
+        print("\nThiss is list of Offerrrrrrs:" + '${list}');
         return _buildGridViewCards(list);
       },
       error: (_, __) => DataError(),
@@ -121,7 +121,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
     scSize = MediaQuery.of(context).size;
     scHeight = scSize.height;
     var authInfo = ref.watch(authCheckProvider);
-    number = (authInfo == null ? '' : authInfo.phoneNumber)!;
+    number = (authInfo == null ? '' : authInfo.phoneNumber!);
     print("This is number $number");
 
     return Scaffold(
@@ -167,7 +167,8 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
         decoration: const BoxDecoration(
       image: DecorationImage(
         fit: BoxFit.fill,
-        image: AssetImage("assets/images/rewards_cup_image.jpg"),
+        image: CachedNetworkImageProvider(
+            'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Frewards_cup_image.jpg?alt=media&token=da5bffc1-c263-4007-8239-aabadbefeebc'),
       ),
     ));
   }
@@ -207,28 +208,31 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   }
 
   _buildGridViewCards(List<Offer>? list) {
-    return GridView.builder(
-      itemCount: list!.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 1.0,
-          crossAxisSpacing: 10.0,
-          mainAxisSpacing: 10.0),
-      padding: const EdgeInsets.all(10.0),
-      itemBuilder: (BuildContext context, int index) {
-        // print(list[index].isUserClaimed);
-        if (list[index].isUserClaimed) {
-          return scratchedContainer(list, index, context);
-        } else {
-          if (list[index].number <= totalOrders) {
-            print("This is totalOrder $totalOrders");
-            return availableCard(list, index, context);
+    if (list != null) {
+      return GridView.builder(
+        itemCount: list.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 1.0,
+            crossAxisSpacing: 10.0,
+            mainAxisSpacing: 10.0),
+        padding: const EdgeInsets.all(10.0),
+        itemBuilder: (BuildContext context, int index) {
+          // print(list[index].isUserClaimed);
+          if (list[index].isUserClaimed) {
+            return scratchedContainer(list, index, context);
           } else {
-            return lockedCard(list, index, context);
+            if (list[index].number <= totalOrders) {
+              print("This is totalOrder $totalOrders");
+              return availableCard(list, index, context);
+            } else {
+              return lockedCard(list, index, context);
+            }
           }
-        }
-      },
-    );
+        },
+      );
+    } else
+      return Container();
   }
 
   Widget _buildSilverAppBarBackground() {
@@ -320,8 +324,9 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                 children: <Widget>[
                   Expanded(
                     flex: 2,
-                    child: Image.asset(
-                      'assets/images/rewards_cup_image.jpg',
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Fscratch_image.jpg?alt=media&token=5d49818f-1078-48de-abe1-dac53e69f845',
                       fit: BoxFit.cover,
                     ),
                   ),

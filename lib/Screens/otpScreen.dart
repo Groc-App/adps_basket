@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
@@ -87,6 +86,8 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     var otp = opthash['otp'];
     phoneNumber = opthash['number'];
     var resendToken = opthash['resendtoken'];
+    var refferalCode = opthash['refferalCode'];
+    print('refferal code is:::::: $refferalCode');
 
     // print("OTP HASH::" + otpHash);
     return Scaffold(
@@ -166,13 +167,74 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                                 await auth.signInWithCredential(credential);
 
                             final User? user = cred.user;
-                            print(user);
-                            ref
-                                .read(authCheckProvider.notifier)
-                                .update((state) => user);
-                            ref.read(createuserProvider(user?.phoneNumber));
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                '/homepage', (Route<dynamic> route) => false);
+
+                            Map<String, String?> mp = {
+                              'number': user?.phoneNumber,
+                              'refferalcode': refferalCode
+                            };
+
+                            // create user in nodejs backend
+                            String loginstatus =
+                                await ref.read(createuserProvider(mp).future);
+
+                            print('loginstatus is:::::::: $loginstatus');
+                            //chceking refferal code status
+                            if (refferalCode != null &&
+                                loginstatus == 'AlreadyRegistered') {
+                              final snackBar = SnackBar(
+                                content: const Text(
+                                    'Can not use refferal code on registered account'),
+                                behavior: SnackBarBehavior.floating,
+                                backgroundColor: Colors.red,
+                                closeIconColor: Colors.white,
+                                duration: Duration(seconds: 3),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                              setState(() {
+                                _isLoading = false;
+                              });
+                            } else if (refferalCode != null &&
+                                loginstatus == 'WrongCode') {
+                              final snackBar = SnackBar(
+                                content: const Text('Wrong Refferal Code'),
+                                behavior: SnackBarBehavior.floating,
+                                backgroundColor: Colors.red,
+                                closeIconColor: Colors.white,
+                                duration: Duration(seconds: 3),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                              setState(() {
+                                _isLoading = false;
+                              });
+                            } else if (refferalCode != null &&
+                                loginstatus == 'error') {
+                              final snackBar = SnackBar(
+                                content: const Text('Error'),
+                                behavior: SnackBarBehavior.floating,
+                                backgroundColor: Colors.red,
+                                closeIconColor: Colors.white,
+                                duration: Duration(seconds: 3),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                              setState(() {
+                                _isLoading = false;
+                              });
+                            } else {
+                              //updating authcheckprovider
+                              ref
+                                  .read(authCheckProvider.notifier)
+                                  .update((state) => user);
+
+                              // navigate to home screen
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  '/homepage', (Route<dynamic> route) => false);
+                            }
                           } catch (e) {
                             if (e == null) {
                               print(' shiiiiiiiiiiiii hh     ');
@@ -189,7 +251,6 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                                 backgroundColor: Colors.red,
                                 closeIconColor: Colors.white,
                                 duration: Duration(seconds: 2),
-                                // showCloseIcon: true,
                               );
 
                               ScaffoldMessenger.of(context)
