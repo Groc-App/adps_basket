@@ -6,6 +6,7 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:your_basket/Widgets/Cart/Noitems.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
@@ -32,6 +33,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
   int listsize = 0;
   List<CartItemModel.CartItem>? datalist;
   double discount = 0;
+  TextEditingController couponController = TextEditingController();
+  bool _isLoading = false;
+  double deliveryCharges = 0;
 
   void updatediscount(value) {
     setState(() {
@@ -71,6 +75,12 @@ class _CartScreenState extends ConsumerState<CartScreen> {
               Column(
                 children: list.map((data) {
                   pricetotal = pricetotal + (data.ItemCount * data.Item.Price);
+                  if (pricetotal <= 50)
+                    deliveryCharges = 19.0;
+                  else if (pricetotal <= 100)
+                    deliveryCharges = 9.0;
+                  else
+                    deliveryCharges = 0.0;
                   return CartItemWidget.CartItem(
                       quantity: (data.ItemCount == null ? 0 : data.ItemCount),
                       item: data.Item,
@@ -117,16 +127,16 @@ class _CartScreenState extends ConsumerState<CartScreen> {
             ),
             Text.rich(
               TextSpan(children: [
+                // TextSpan(
+                //   text: '₹40',
+                //   style: TextStyle(
+                //       fontSize: 15,
+                //       fontWeight: FontWeight.w600,
+                //       color: Colors.grey,
+                //       decoration: TextDecoration.lineThrough),
+                // ),
                 TextSpan(
-                  text: '₹40',
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.grey,
-                      decoration: TextDecoration.lineThrough),
-                ),
-                TextSpan(
-                  text: ' Free',
+                  text: '₹$deliveryCharges',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                 ),
               ]),
@@ -155,7 +165,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
             Text(
-              "₹${(pricetotal - discount)}",
+              "₹${(pricetotal - discount + deliveryCharges)}",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             )
           ],
@@ -171,19 +181,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     final scHeight = scSize.height;
 
     var authInfo = ref.watch(authCheckProvider);
-
-    var discountdata = (ModalRoute.of(context)?.settings.arguments ??
-        <String, dynamic>{}) as Map;
-
-    if (discountdata['discount'] != null) {
-      String discnt = discountdata['discount'];
-      if (discountdata != null && discnt != null) {
-        double newdiscount = double.parse(discnt);
-        setState(() {
-          discount = newdiscount;
-        });
-      }
-    }
 
     return Scaffold(
       // backgroundColor: const Color.fromARGB(255, 237, 230, 230),
@@ -220,37 +217,103 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   ),
                 ),
 
-                GestureDetector(
-                  onTap: () =>
-                      Navigator.pushNamed(context, '/applycouponScreen'),
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 3),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.grey,
-                    ),
-                    child: Row(
-                      children: [
-                        CachedNetworkImage(
-                          imageUrl:
-                              'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Icons%2Fbottomnavbar%2Foffer-icon-2.png?alt=media&token=ebadf132-5585-4527-8511-c7790ff1ab88',
-                          height: 27,
-                          color: Colors.blue,
+                discount == 0.0
+                    ? Container(
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                        child: Column(
+                          children: [
+                            TextFormField(
+                              controller: couponController,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Enter coupon code',
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () async {
+                                print(couponController.text);
+
+                                setState(() {
+                                  _isLoading = true;
+                                });
+
+                                var status = await ref.read(
+                                    checkcouponprovider({
+                                  'number': authInfo.phoneNumber ?? '',
+                                  'code': couponController.text
+                                }).future);
+
+                                if (status == 'Invalid') {
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text('Invalid code')));
+                                } else if (status == 'Redeemed') {
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text('Already Redeemed')));
+                                } else {
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  setState(() {
+                                    discount = double.parse(status);
+                                  });
+                                }
+
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                              },
+                              child: _isLoading == false
+                                  ? Text('Apply Coupon')
+                                  : SpinKitThreeInOut(
+                                      color: Colors.green,
+                                      size: 28,
+                                    ),
+                            )
+                          ],
                         ),
-                        SizedBox(
-                          width: 8,
+                      )
+                    : Container(
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 5, horizontal: 3),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
                         ),
-                        Text('Apply coupon'),
-                        Spacer(),
-                        Icon(
-                          Icons.arrow_right,
-                          size: 28,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+                        child: Row(
+                          children: [
+                            CachedNetworkImage(
+                              imageUrl:
+                                  'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Icons%2Fbottomnavbar%2Foffer-icon-2.png?alt=media&token=ebadf132-5585-4527-8511-c7790ff1ab88',
+                              height: 27,
+                              color: Colors.green,
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text('Yayy, Coupon applied'),
+                            Spacer(),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  discount = 0.0;
+                                });
+                              },
+                              child: Text(
+                                'Change Coupon',
+                                style:
+                                    TextStyle(color: Colors.blue, fontSize: 12),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
 
                 // ----------         Button to checkout     --------
 
@@ -265,6 +328,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                               'cartProductList': datalist,
                               'tamount': pricetotal,
                               'discount': discount,
+                              'deliveryCharges': deliveryCharges
                             });
                       },
                       child: Container(

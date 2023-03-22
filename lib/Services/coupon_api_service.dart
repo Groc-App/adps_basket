@@ -22,10 +22,13 @@ class APIServiceCoupon {
     var url = Uri.http(Config.apiURL, Config.checkOffer);
 
     print(url);
+    print('number inside offer is::: ${mp['number']}');
+    print(jsonEncode({"number": mp['number'], "offerId": mp['code']}));
 
     var response = await client.post(
       url,
-      body: jsonEncode({"number": mp['number'], "code": mp['code']}),
+      headers: requestHeaders,
+      body: jsonEncode({"number": mp['number'], "offerId": mp['code']}),
     );
 
     print(response.body);
@@ -33,7 +36,7 @@ class APIServiceCoupon {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       print('\n${data['message']}');
-      return data['message'];
+      return (data['message']).toString();
     } else {
       return '';
     }

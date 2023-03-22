@@ -360,10 +360,12 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Center(
-                            child: Text(
+                            child: SelectableText(
                               list[index].offerId,
                               style: const TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold),
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
                           ),
                           const SizedBox(
@@ -404,6 +406,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
             isScrollControlled: true,
             backgroundColor: Colors.black.withOpacity(0.4),
             context: context,
+            enableDrag: false,
             builder: (BuildContext context) {
               return SizedBox(
                 height: scHeight,
