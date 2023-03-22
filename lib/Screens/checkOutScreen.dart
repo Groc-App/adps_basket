@@ -13,7 +13,7 @@ class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen({super.key});
 
   Widget placeordertile(WidgetRef ref, String number, BuildContext context,
-      List<CartItem> datalist, pricetotal, discount) {
+      List<CartItem> datalist, pricetotal, discount, deliveryCharges) {
     final AddressBookState = ref.watch(addressBokkProvider);
     var reqData = Address(
         addressId: '',
@@ -32,8 +32,8 @@ class CheckoutScreen extends StatelessWidget {
     return Column(
       children: [
         adresstile(context, reqData),
-        ordertile(
-            datalist, ref, pricetotal, context, number, reqData, discount),
+        ordertile(datalist, ref, pricetotal, context, number, reqData, discount,
+            deliveryCharges),
       ],
     );
   }
@@ -66,8 +66,15 @@ class CheckoutScreen extends StatelessWidget {
     }
   }
 
-  Widget ordertile(List<CartItem> datalist, WidgetRef ref, double pricetotal,
-      BuildContext context, String number, Address value, discount) {
+  Widget ordertile(
+      List<CartItem> datalist,
+      WidgetRef ref,
+      double pricetotal,
+      BuildContext context,
+      String number,
+      Address value,
+      discount,
+      deliveryCharges) {
     return Container(
         width: double.infinity,
         child: ElevatedButton(
@@ -104,8 +111,11 @@ class CheckoutScreen extends StatelessWidget {
               } else {
                 final cartViewModel = ref.read(cartItemsProvider.notifier);
                 cartViewModel
-                    .placeOrder(number, (pricetotal - discount).toString(),
-                        cartProductsArray, addressid)
+                    .placeOrder(
+                        number,
+                        (pricetotal - discount + deliveryCharges).toString(),
+                        cartProductsArray,
+                        addressid)
                     .whenComplete(() => Navigator.pushNamed(
                         context, '/ordersuccessScreen',
                         arguments: {'type': "order"}));
@@ -120,6 +130,8 @@ class CheckoutScreen extends StatelessWidget {
     final scHeight = scSize.height;
     final scWidth = scSize.width - 10 - 4 - 8;
 
+    // var authInfo = ref.watch(authCheckProvider);
+
     var Orderdata = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
 
@@ -127,6 +139,7 @@ class CheckoutScreen extends StatelessWidget {
     List<CartItem> datalist = Orderdata['cartProductList'];
     double pricetotal = Orderdata['tamount'];
     double discount = Orderdata['discount'];
+    double deliveryCharges = Orderdata['deliveryCharges'];
 
     return Scaffold(
       appBar: AppBar(
@@ -143,8 +156,8 @@ class CheckoutScreen extends StatelessWidget {
           child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Consumer(
-                builder: (context, ref, child) => placeordertile(
-                    ref, number, context, datalist, pricetotal, discount),
+                builder: (context, ref, child) => placeordertile(ref, number,
+                    context, datalist, pricetotal, discount, deliveryCharges),
               )),
         ),
       ),
@@ -250,19 +263,34 @@ class CheckoutScreen extends StatelessWidget {
                       RichText(
                         text: TextSpan(
                           text: 'This item costs ',
-                          children: const <TextSpan>[
+                          children: <TextSpan>[
+                            // TextSpan(
+                            //   text: '',
+                            //   style: TextStyle(
+                            //     color: Colors.grey,
+                            //     decoration: TextDecoration.lineThrough,
+                            //   ),
+                            // ),
                             TextSpan(
-                              text: '₹40',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                decoration: TextDecoration.lineThrough,
-                              ),
-                            ),
-                            TextSpan(
-                                text: '  ₹0',
-                                style: TextStyle(color: Colors.black)),
+                              text: '₹${deliveryCharges}',
+                              style: TextStyle(color: Colors.grey),
+                            )
                           ],
                         ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Discount: ',
+                      ),
+                      Text(
+                        "₹${discount}",
                       )
                     ],
                   ),
@@ -274,9 +302,13 @@ class CheckoutScreen extends StatelessWidget {
                       Text(
                         "Bill Total",
                         style: TextStyle(
-                            fontSize: 13, fontWeight: FontWeight.w600),
+                            fontSize: 18, fontWeight: FontWeight.w600),
                       ),
-                      Text("₹$pricetotal"),
+                      Text(
+                        "₹${pricetotal - discount + deliveryCharges}",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w600),
+                      ),
                     ],
                   )
                 ],

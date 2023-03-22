@@ -39,7 +39,7 @@ class APIServiceCoupon {
     }
   }
 
-  Future<String> checkReferral(Map<String, String?> mp) async {
+  Future<String> verifyReferral(Map<String, String?> mp) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
