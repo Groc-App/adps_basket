@@ -47,6 +47,7 @@ class Config {
   static const String getAllProducts = '/product/fetchAllProduct';
 
   static const String createuserApi = '/user/createuserifnotexist';
+  static const String getrefferalID = '/offer/getReferralId';
   static const String addorupdatecartitemApi = '/user/createorupdatecartitem';
   static const String createcartitemApi = '/user/createcartitem';
   static const String removeCartItem = '/cart/deleteCartItem';

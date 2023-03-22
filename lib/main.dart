@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:your_basket/Screens/OrderSuccess.dart';
 import 'package:your_basket/Screens/ProfileScreen.dart';
 import 'package:your_basket/Screens/addressScreen.dart';
-import 'package:your_basket/Screens/applycouponScreen.dart';
 import 'package:your_basket/Screens/buySubscriptionScreen.dart';
 import 'package:your_basket/Screens/cartScreen.dart';
 import 'package:your_basket/Screens/categoryScreen.dart';
@@ -20,6 +19,7 @@ import 'package:your_basket/Screens/productItemScreen.dart';
 import 'package:your_basket/Screens/refferalloginScreen.dart';
 import 'package:your_basket/Screens/subscriptionScreen.dart';
 import 'package:your_basket/Screens/yourOrders.dart';
+import 'package:your_basket/Widgets/Profile/ReferEarn.dart';
 import 'package:your_basket/Widgets/Sinners/loadingsinner.dart';
 import 'package:your_basket/utils/theme.dart';
 import 'Screens/homeScreen.dart';
@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // Globals().setContext(context);
     return MaterialApp(
-      title: 'Your Basket',
+      title: 'Basko',
       theme: MyTheme.lightTheme(context),
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
         '/checkoutScreen': (context) => CheckoutScreen(),
         '/subscriptionScreen': (context) => SubscriptionScreen(),
         '/buySubscriptionScreen': (context) => BuySubscriptionScreen(),
-        '/applycouponScreen': (context) => ApplycouponScreen(),
+        '/referearnScreen': (context) => ReferEarnScreen(),
       },
     );
   }
