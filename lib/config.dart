@@ -4,8 +4,8 @@ import 'dart:ui' as ui;
 class Config {
   /* -------------------------------- app setup ------------------------------- */
   static const String GrocApp = 'GrocApp';
-  // static const String apiURL = '127.0.0.1:8000';
-  static const String apiURL = '192.168.11.122:8000';
+  static const String apiURL = '127.0.0.1:8000';
+  // static const String apiURL = '192.168.11.122:8000';
   // 127.0.0.1:8000
   // 192.168.1.16:8000
   // static const String apiURL =
@@ -63,6 +63,7 @@ class Config {
   static const String getAllOffers = '/offer/getAllOffers';
   static const String updateOffer = '/offer/updateOffer';
   static const String checkOffer = '/offer/redeemOffer';
+  static const String verifyOffer = '/offer/verifyOffer';
 
   /* ----------------------------- Subcription APi ---------------------------- */
   static const String getSubscriptionByUser =

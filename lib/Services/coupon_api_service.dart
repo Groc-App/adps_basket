@@ -38,4 +38,29 @@ class APIServiceCoupon {
       return '';
     }
   }
+
+  Future<String> checkReferral(Map<String, String?> mp) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var url = Uri.http(Config.apiURL, Config.checkOffer);
+
+    print(url);
+
+    var response = await client.post(
+      url,
+      body: jsonEncode({"number": mp['number'], "code": mp['code']}),
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      print('\n${data['message']}');
+      return data['message'];
+    } else {
+      return '';
+    }
+  }
 }

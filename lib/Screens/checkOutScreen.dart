@@ -165,9 +165,6 @@ class CheckoutScreen extends StatelessWidget {
                 children: [
                   Container(
                     width: double.infinity,
-                    // decoration: BoxDecoration(
-                    //   border: Border.all(),
-                    // ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

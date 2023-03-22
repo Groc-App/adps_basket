@@ -53,6 +53,14 @@ final checkcouponprovider = FutureProvider.family<String, Map<String, String>>(
     return apiRespository.checkcoupon(mp);
   },
 );
+final verifyCoupon = FutureProvider.family<String, Map<String, String>>(
+  (ref, mp) {
+    final apiRespository = ref.watch(couponApiService);
+
+    return apiRespository.verifyReferral(mp);
+  },
+);
+
 final selectedAddressProvider =
     FutureProvider.family<SelectedAddress?, String?>(
   (ref, number) {

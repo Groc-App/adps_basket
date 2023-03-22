@@ -98,17 +98,17 @@ class _CartScreenState extends ConsumerState<CartScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               'Items Price: ',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
             Text(
-              "₹${pricetotal}",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              "₹$pricetotal",
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             )
           ],
         ),
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
@@ -136,13 +136,13 @@ class _CartScreenState extends ConsumerState<CartScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               'Discount: ',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
             Text(
-              "₹${discount}",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              "₹$discount",
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             )
           ],
         ),
@@ -150,13 +150,13 @@ class _CartScreenState extends ConsumerState<CartScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               "Grand Total",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
             Text(
               "₹${(pricetotal - discount)}",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             )
           ],
         ),
@@ -186,20 +186,19 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     }
 
     return Scaffold(
-      // backgroundColor: const Color.fromARGB(255, 237, 230, 230),
       appBar: AppBar(
-        // backgroundColor: Tsheme.of(context).primaryColor,
         centerTitle: true,
         title: Column(
           children: [
-            Text(
+            const Text(
               'Your Cart',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             if (listsize != 0)
               Text(
-                '${listsize} items',
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w100),
+                '$listsize items',
+                style:
+                    const TextStyle(fontSize: 10, fontWeight: FontWeight.w100),
               )
           ],
         ),
@@ -216,7 +215,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   child: SingleChildScrollView(
                     child:
                         _cartList(ref, scHeight, scWidth, authInfo.phoneNumber),
-                    // _cartList(ref, scHeight, scWidth, '+917982733943'),
                   ),
                 ),
 
@@ -224,8 +222,10 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   onTap: () =>
                       Navigator.pushNamed(context, '/applycouponScreen'),
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 3),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 3),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.grey,
@@ -238,12 +238,12 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                           height: 27,
                           color: Colors.blue,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 8,
                         ),
-                        Text('Apply coupon'),
-                        Spacer(),
-                        Icon(
+                        const Text('Apply coupon'),
+                        const Spacer(),
+                        const Icon(
                           Icons.arrow_right,
                           size: 28,
                         )
@@ -270,8 +270,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                       child: Container(
                           width: scWidth,
                           height: scHeight * 0.08,
-                          decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.only(
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(8),
                                   topRight: Radius.circular(8)),
                               color: Color.fromRGBO(83, 177, 117, 1)),
