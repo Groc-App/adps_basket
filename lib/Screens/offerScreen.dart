@@ -354,14 +354,14 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                 builder: (BuildContext context) {
                   return GestureDetector(
                     onTap: () => Navigator.pop(context),
-                    child: Container(
+                    child: SizedBox(
                       height: scHeight,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Center(
                             child: Text(
-                              "${list[index].offerId}",
+                              list[index].offerId,
                               style: const TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.bold),
                             ),
@@ -396,19 +396,16 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
     return InkResponse(
       child: Container(
           margin: const EdgeInsets.only(top: 0.0),
-          child: Image.asset(
-            'assets/images/scratch_image.jpg',
-            height: 320.0,
-            width: 320.0,
-            repeat: ImageRepeat.repeat,
-          )),
+          child: CachedNetworkImage(
+              imageUrl:
+                  "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Fscratch_image.jpg?alt=media&token=5d49818f-1078-48de-abe1-dac53e69f845")),
       onTap: () {
         showModalBottomSheet(
             isScrollControlled: true,
             backgroundColor: Colors.black.withOpacity(0.4),
             context: context,
             builder: (BuildContext context) {
-              return Container(
+              return SizedBox(
                 height: scHeight,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -420,8 +417,8 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                         brushSize: 50,
                         threshold: 50,
                         color: Colors.red,
-                        image: Image.asset(
-                          'assets/images/scratch_image.jpg',
+                        image: Image.network(
+                          "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Fscratch_image.jpg?alt=media&token=5d49818f-1078-48de-abe1-dac53e69f845",
                           fit: BoxFit.fill,
                         ),
                         onThreshold: () {
@@ -436,8 +433,8 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Image.asset(
-                                "assets/images/rewards_cup_image.jpg",
+                              Image.network(
+                                "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Frewards_cup_image.jpg?alt=media&token=da5bffc1-c263-4007-8239-aabadbefeebc",
                                 fit: BoxFit.contain,
                                 width: 150,
                                 height: 150,
@@ -512,8 +509,9 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
         ),
         margin: const EdgeInsets.only(top: 0.0),
         child: Stack(alignment: Alignment.center, children: [
-          Image.asset(
-            'assets/images/scratch_image.jpg',
+          CachedNetworkImage(
+            imageUrl:
+                "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Fscratch_image.jpg?alt=media&token=5d49818f-1078-48de-abe1-dac53e69f845",
             height: 320.0,
             width: 320.0,
             repeat: ImageRepeat.repeat,
