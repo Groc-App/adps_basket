@@ -6,10 +6,10 @@ import 'package:scratcher/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Errors/Dataloadingerror.dart';
 import 'package:your_basket/providers/providers.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:your_basket/models/offer/offer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter/services.dart';
 
 /* --------------------------- Predefined Constant -------------------------- */
 
@@ -21,6 +21,8 @@ var map = {'number': number};
 /* -------------------------------------------------------------------------- */
 
 class OfferScreen extends ConsumerStatefulWidget {
+  const OfferScreen({super.key});
+
   // const OfferScreen({Key? key}) : super(key: key);
 
   @override
@@ -28,9 +30,6 @@ class OfferScreen extends ConsumerStatefulWidget {
 }
 
 class _OfferScreenState extends ConsumerState<OfferScreen> {
-  // final storageRef =
-  //     FirebaseStorage.instance.ref().child('Offers/reward_appbar_bg');
-
   static CacheManager instance = CacheManager(
     Config(
       "imagemanager",
@@ -50,7 +49,6 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
 
   @override
   void initState() {
-    // TODO: implement initStat
     super.initState();
   }
 
@@ -236,8 +234,6 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   }
 
   Widget _buildSilverAppBarBackground() {
-    // print("\n\nIsid ebuild sliver app bar");
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
@@ -246,44 +242,10 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
             child: Stack(
               children: [
                 CachedNetworkImage(
-                  // cacheManager: instance,
                   imageUrl:
                       'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Freward_appbar_bg.jpg?alt=media&token=bf1c3400-ba8e-48c9-8b82-29c2803bd4ee',
-                  // progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  //     CircularProgressIndicator(
-                  //         value: downloadProgress.progress),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
-
-                // FutureBuilder(
-                //   future: downloadURLExample(),
-                //   builder: ((context, snapshot) {
-                //     if (snapshot.connectionState == ConnectionState.done) {
-                //       // return snapshot.data!;
-                //       return CachedNetworkImage(
-                //         cacheManager: instance,
-                //         imageUrl: 'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Freward_appbar_bg.jpg?alt=media&token=bf1c3400-ba8e-48c9-8b82-29c2803bd4ee',
-                //         placeholder: (context, url) =>
-                //             CircularProgressIndicator(),
-                //         errorWidget: (context, url, error) {
-                //           print(error);
-                //           return Icon(Icons.error);
-                //         },
-                //       );
-                //     }
-                //     if (snapshot.connectionState == ConnectionState.waiting) {
-                //       return CircularProgressIndicator();
-                //     }
-                //     return Container();
-                //   }),
-                // ),
-                // Image.asset(
-                //   // 'assets/images/reward-appbar-bg.jpg',
-                //   'assets/images/reward_appbar_bg.jpg',
-                //   width: double.infinity,
-                //   // height: 200,
-                //   fit: BoxFit.cover,
-                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -292,28 +254,20 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                   ],
                 ),
               ],
-              // decoration: BoxDecoration(
-              //   image: DecorationImage(
-              //     fit: BoxFit.cover,
-              //     image: AssetImage('assets/images/reward-appbar-bg.jpg'),
-              //   ),
-              // ),
-              // decoration: BoxDecoration(border: Border.all()),
-              // color: Color.fromRGBO(83, 177, 117, 1),
-              // child: Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: <Widget>[
-              //     Expanded(flex: 1, child: _buildRewardsPoints()),
-              //     // Expanded(flex: 1, child: _buildRewardImage())
-              //   ],
-              // ),
             )),
       ],
     );
   }
 
+  Future<void> _copyToClipboard(String text) async {
+    await Clipboard.setData(ClipboardData(text: text));
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('Copied to clipboard'),
+    ));
+  }
+
+  /* ------------------------- Card Already Scratched ------------------------- */
   Widget scratchedContainer(List<Offer> list, index, BuildContext context) {
-    // print("inside scaratched container");
     return Card(
       child: GridTile(
         child: InkWell(
@@ -326,7 +280,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                     flex: 2,
                     child: CachedNetworkImage(
                       imageUrl:
-                          'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Fscratch_image.jpg?alt=media&token=5d49818f-1078-48de-abe1-dac53e69f845',
+                          'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Frewards_cup_image.jpg?alt=media&token=da5bffc1-c263-4007-8239-aabadbefeebc',
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -336,55 +290,155 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                           padding: EdgeInsets.symmetric(vertical: 10.0),
                           child: Text(
                             "You Won",
-                            style: TextStyle(fontSize: 15.0),
+                            // style: TextStyle(fontSize: 15.0),
                           ))),
                   Expanded(
                       flex: 1,
                       child: Text(
                         'Rs ${list[index].worth}',
-                        style: const TextStyle(fontSize: 20.0),
+                        // style: const TextStyle(fontSize: 20.0),
                       )),
                 ],
               )),
           onTap: () {
             showModalBottomSheet(
                 isScrollControlled: true,
-                backgroundColor: Colors.black.withOpacity(0.4),
+                backgroundColor: Colors.black.withOpacity(0.7),
                 context: context,
                 builder: (BuildContext context) {
                   return GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: SizedBox(
                       height: scHeight,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Center(
-                            child: SelectableText(
-                              list[index].offerId,
-                              style: const TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
+                      child: list[index].isUserRedeemed == true
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Center(
+                                    child: Text(
+                                  "Already Redeemed",
+                                  style: TextStyle(color: Colors.white),
+                                )),
+                                SizedBox(height: 10),
+                                OutlinedButton(
+                                  style: OutlinedButton.styleFrom(
+                                      backgroundColor:
+                                          Colors.black.withOpacity(0.5)),
+                                  // style: ButtonStyle(backgroundColor: ),
+                                  child: const Text("Close"),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    width: scSize.width * 0.7,
+                                    height: scHeight * 0.3,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: new NetworkImage(
+                                              "https://st4.depositphotos.com/7668048/28693/v/600/depositphotos_286933884-stock-illustration-indian-rupee-coins-falling-scattered.jpg",
+                                            )),
+                                        // color: Colors.white,
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 15.0, left: 8, right: 8),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Get ₹${list[index].worth}* off",
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25),
+                                          ),
+                                          SizedBox(height: 20),
+                                          Container(
+                                            width: scSize.width * 0.7 * 0.8,
+                                            decoration: BoxDecoration(
+                                                color: Colors.grey
+                                                    .withOpacity(0.7),
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(5.0),
+                                              child: Row(
+                                                children: [
+                                                  Flexible(
+                                                    child: Text(
+                                                      list[index].offerId,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
+                                                  IconButton(
+                                                      onPressed: () {
+                                                        _copyToClipboard(
+                                                            list[index]
+                                                                .offerId);
+                                                      },
+                                                      icon: Icon(Icons.copy))
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    // OutlinedButton(
+                                    //   style: OutlinedButton.styleFrom(
+                                    //       backgroundColor:
+                                    //           Colors.black.withOpacity(0.5)),
+                                    //   // style: ButtonStyle(backgroundColor: ),
+                                    //   child: const Text("Copy"),
+                                    //   onPressed: () {
+                                    //     onTap:
+                                    //     () async {
+                                    //       await Clipboard.setData(ClipboardData(
+                                    //           text: list[index].offerId));
+                                    //       // copied successfully
+                                    //     };
+                                    //   },
+                                    // ),
+                                    OutlinedButton(
+                                      style: OutlinedButton.styleFrom(
+                                          backgroundColor:
+                                              Colors.black.withOpacity(0.5)),
+                                      // style: ButtonStyle(backgroundColor: ),
+                                      child: const Text("Close"),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Center(
-                            child: OutlinedButton(
-                              style: OutlinedButton.styleFrom(
-                                  backgroundColor:
-                                      Colors.black.withOpacity(0.5)),
-                              // style: ButtonStyle(backgroundColor: ),
-                              child: const Text("Close"),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            ),
-                          )
-                        ],
-                      ),
                     ),
                   );
                 });
@@ -527,7 +581,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
               child: Text(
                 "${(list[index].number - totalOrders).round()} Order More to unlock",
                 softWrap: true,
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white, fontSize: 12),
               ),
             ),
           )
@@ -537,124 +591,3 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
     );
   }
 }
-
-
-
-
-
-
-// InkResponse(
-//               child: Container(
-//                   margin: totalOrders >= index + 1
-//                       ? const EdgeInsets.only(top: 20.0)
-//                       : const EdgeInsets.only(top: 0.0),
-//                   child: totalOrders >= index + 1
-//                       ? Column(
-//                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                           children: <Widget>[
-//                             Expanded(
-//                               flex: 2,
-//                               child: Image.asset(
-//                                 'assets/images/rewards_cup_image.jpg',
-//                                 fit: BoxFit.cover,
-//                               ),
-//                             ),
-//                             const Expanded(
-//                                 flex: 1,
-//                                 child: Padding(
-//                                     padding:
-//                                         EdgeInsets.symmetric(vertical: 10.0),
-//                                     child: Text(
-//                                       "You Won",
-//                                       style: TextStyle(fontSize: 15.0),
-//                                     ))),
-//                             const Expanded(
-//                                 flex: 1,
-//                                 child: Text(
-//                                   'Rs 5',
-//                                   style: TextStyle(fontSize: 20.0),
-//                                 )),
-//                           ],
-//                         )
-//                       : Image.asset(
-//                           'assets/images/scratch_image.jpg',
-//                           height: 320.0,
-//                           width: 320.0,
-//                           repeat: ImageRepeat.repeat,
-//                         )),
-//               onTap: () {
-//                 showModalBottomSheet(
-//                     isScrollControlled: true,
-//                     backgroundColor: Colors.black.withOpacity(0.4),
-//                     context: context,
-//                     builder: (BuildContext context) {
-//                       return Container(
-//                         height: scHeight,
-//                         child: Center(
-//                           child: Scratcher(
-//                             brushSize: 50,
-//                             threshold: 50,
-//                             color: Colors.red,
-//                             image: Image.asset(
-//                               "assets/images/rewards_cup_image.jpg",
-//                               fit: BoxFit.fill,
-//                             ),
-//                             onThreshold: () => _controller.play(),
-//                             child: Container(
-//                               height: 300,
-//                               width: 300,
-//                               // color: Colors.white,
-//                               child: Column(
-//                                 mainAxisAlignment:
-//                                     MainAxisAlignment.spaceEvenly,
-//                                 crossAxisAlignment: CrossAxisAlignment.center,
-//                                 children: [
-//                                   Image.asset(
-//                                     "assets/images/rewards_cup_image.jpg",
-//                                     fit: BoxFit.contain,
-//                                     width: 150,
-//                                     height: 150,
-//                                   ),
-//                                   Column(
-//                                     children: [
-//                                       ConfettiWidget(
-//                                         blastDirectionality:
-//                                             BlastDirectionality.explosive,
-//                                         confettiController: _controller,
-//                                         particleDrag: 0.05,
-//                                         emissionFrequency: 0.05,
-//                                         numberOfParticles: 20,
-//                                         gravity: 0.05,
-//                                         shouldLoop: false,
-//                                         colors: [
-//                                           Colors.green,
-//                                           Colors.red,
-//                                           Colors.yellow,
-//                                           Colors.blue,
-//                                         ],
-//                                       ),
-//                                       const Text(
-//                                         "You won",
-//                                         style: TextStyle(
-//                                           fontWeight: FontWeight.w400,
-//                                           fontSize: 25,
-//                                         ),
-//                                       ),
-//                                       const Text(
-//                                         "1 Lakh!",
-//                                         style: TextStyle(
-//                                           fontWeight: FontWeight.w400,
-//                                           fontSize: 25,
-//                                         ),
-//                                       ),
-//                                     ],
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           ),
-//                         ),
-//                       );
-//                     });
-//               },
-//             ),

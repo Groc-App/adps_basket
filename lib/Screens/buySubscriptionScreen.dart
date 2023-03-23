@@ -43,11 +43,6 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
     '3',
     '4',
     '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
   ];
   // const SubscriptionScreen({super.key});
 
@@ -94,22 +89,6 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
   @override
   initState() {
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((_) async {
-    //   var productMap = (ModalRoute.of(context)?.settings.arguments ??
-    //       <String, String>{}) as Map;
-    //   product = productMap['product'];
-    //   functiontype = productMap['function'];
-    //   subsid = productMap['subsid'];
-    //   Quantity = productMap['quantity'];
-    //   StartDate = productMap['startDate'];
-    //   EndDate = productMap['endDate'];
-    //   if (Quantity != null) dropdownvalue = Quantity!;
-    //   if (StartDate != null) startDate = StartDate!;
-    //   if (EndDate != null) endDate = EndDate!;
-    // });
-
-    // this is called when the class is initialized or called for the first time
-    //  this is the material super constructor for init state to link your instance initState to the global initState context
   }
 
   startDateHandler() async {
@@ -142,11 +121,18 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
     });
   }
 
+  int daysBetween(DateTime from, DateTime to) {
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
+    return (to.difference(from).inHours / 24).round();
+  }
+
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('en', null);
 
     var authInfo = ref.watch(authCheckProvider);
+    var number = (authInfo == null ? '' : authInfo.phoneNumber)!;
 
     if (authInfo != null) {
       final AddressBookState = ref.watch(addressBokkProvider);
@@ -368,13 +354,31 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.green),
                                 onPressed: () {
-                                  submitHandler(
-                                      product.productId,
-                                      '+917982733943',
-                                      startDate,
-                                      endDate,
-                                      'buy',
-                                      subsid);
+                                  print("Start Date::$startDate");
+                                  print("End Date::$endDate");
+
+                                  var days = daysBetween(
+                                      DateFormat('d/M/y').parse(startDate),
+                                      DateFormat('d/M/y').parse(endDate));
+                                  print("Days:$days");
+                                  if (days < 3) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        title: Text('Date Alert'),
+                                        content: Text('Select Atleast 3 Days'),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () =>
+                                                  Navigator.of(context).pop(),
+                                              child: Text('OK'))
+                                        ],
+                                      ),
+                                    );
+                                  } else {
+                                    submitHandler(product.productId, number,
+                                        startDate, endDate, 'buy', subsid);
+                                  }
                                 },
                                 child: const Text("Buy Subscription")),
                           )
@@ -385,13 +389,8 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.green),
                                 onPressed: () {
-                                  submitHandler(
-                                      product.productId,
-                                      '+917982733943',
-                                      startDate,
-                                      endDate,
-                                      'edit',
-                                      subsid);
+                                  submitHandler(product.productId, number,
+                                      startDate, endDate, 'edit', subsid);
                                 },
                                 child: const Text("Edit Subscription")),
                           )

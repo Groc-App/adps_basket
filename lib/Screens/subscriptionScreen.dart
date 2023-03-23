@@ -296,8 +296,61 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
         });
   }
 
+  Widget subsAlert() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.red.withOpacity(0.8),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        height: scHeight * 0.08,
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+              child: Text(
+            "Add Subscription Worth Rs ${50 - totalAmount} more to Activate Subscriptions",
+            style: TextStyle(color: Colors.white),
+          )),
+        ),
+      ),
+    );
+  }
+
+  Widget activated() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color.fromRGBO(83, 177, 117, 1),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        height: scHeight * 0.05,
+        width: double.infinity,
+        child: const Padding(
+          padding: EdgeInsets.only(left: 8.0),
+          child: Row(
+            children: [
+              Icon(Icons.verified),
+              Padding(
+                padding: EdgeInsets.only(left: 8.0),
+                child: Center(
+                  child: Text(
+                    "Subscription Activated",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget verificationBuild() {
-    final data = ref.watch(subscriptionByUserProvider(map));
+    final data = ref.watch(subscriptionByUserProvider);
 
     return data.when(
       data: (list) {
@@ -314,9 +367,13 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                   totalAmount: totalAmount,
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  "My Subscriptions",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                totalAmount < 50 ? subsAlert() : activated(),
+                const Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    "My Subscriptions",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 Container(

@@ -14,7 +14,7 @@ class APIServiceCart {
   static var client = http.Client();
 
   Future<void> placeorder(
-      String number, String tamount, productlist, addressid) async {
+      String number, String tamount, productlist, addressid, couponCode) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -32,6 +32,7 @@ class APIServiceCart {
         "tamount": tamount,
         "orderdetail": productlist,
         "addressid": addressid,
+        "couponCode": couponCode
       }),
     );
 

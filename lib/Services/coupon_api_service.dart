@@ -22,8 +22,6 @@ class APIServiceCoupon {
     var url = Uri.http(Config.apiURL, Config.checkOffer);
 
     print(url);
-    print('number inside offer is::: ${mp['number']}');
-    print(jsonEncode({"number": mp['number'], "offerId": mp['code']}));
 
     var response = await client.post(
       url,
@@ -36,7 +34,34 @@ class APIServiceCoupon {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       print('\n${data['message']}');
-      return (data['message']).toString();
+      return data['message'];
+    } else {
+      return '';
+    }
+  }
+
+  Future<String> verifyReferral(String number) async {
+    print("Inside verifyRefferral");
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    var url = Uri.http(Config.apiURL, Config.verifyOffer);
+
+    print("This is verifyReferral url $url");
+
+    var response = await client.post(
+      headers: requestHeaders,
+      url,
+      body: jsonEncode({"number": number}),
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      print('\n${data['message']}');
+      return data['message'];
     } else {
       return '';
     }

@@ -24,6 +24,7 @@ mixin _$Offer {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   bool get isUserClaimed => throw _privateConstructorUsedError;
+  bool get isUserRedeemed => throw _privateConstructorUsedError;
   double get worth => throw _privateConstructorUsedError;
   double get number => throw _privateConstructorUsedError;
   double get totalUserOrder => throw _privateConstructorUsedError;
@@ -43,6 +44,7 @@ abstract class $OfferCopyWith<$Res> {
       String name,
       String description,
       bool isUserClaimed,
+      bool isUserRedeemed,
       double worth,
       double number,
       double totalUserOrder});
@@ -65,6 +67,7 @@ class _$OfferCopyWithImpl<$Res, $Val extends Offer>
     Object? name = null,
     Object? description = null,
     Object? isUserClaimed = null,
+    Object? isUserRedeemed = null,
     Object? worth = null,
     Object? number = null,
     Object? totalUserOrder = null,
@@ -85,6 +88,10 @@ class _$OfferCopyWithImpl<$Res, $Val extends Offer>
       isUserClaimed: null == isUserClaimed
           ? _value.isUserClaimed
           : isUserClaimed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isUserRedeemed: null == isUserRedeemed
+          ? _value.isUserRedeemed
+          : isUserRedeemed // ignore: cast_nullable_to_non_nullable
               as bool,
       worth: null == worth
           ? _value.worth
@@ -113,6 +120,7 @@ abstract class _$$_OfferCopyWith<$Res> implements $OfferCopyWith<$Res> {
       String name,
       String description,
       bool isUserClaimed,
+      bool isUserRedeemed,
       double worth,
       double number,
       double totalUserOrder});
@@ -131,6 +139,7 @@ class __$$_OfferCopyWithImpl<$Res> extends _$OfferCopyWithImpl<$Res, _$_Offer>
     Object? name = null,
     Object? description = null,
     Object? isUserClaimed = null,
+    Object? isUserRedeemed = null,
     Object? worth = null,
     Object? number = null,
     Object? totalUserOrder = null,
@@ -151,6 +160,10 @@ class __$$_OfferCopyWithImpl<$Res> extends _$OfferCopyWithImpl<$Res, _$_Offer>
       isUserClaimed: null == isUserClaimed
           ? _value.isUserClaimed
           : isUserClaimed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isUserRedeemed: null == isUserRedeemed
+          ? _value.isUserRedeemed
+          : isUserRedeemed // ignore: cast_nullable_to_non_nullable
               as bool,
       worth: null == worth
           ? _value.worth
@@ -176,6 +189,7 @@ class _$_Offer implements _Offer {
       required this.name,
       required this.description,
       required this.isUserClaimed,
+      required this.isUserRedeemed,
       required this.worth,
       required this.number,
       required this.totalUserOrder});
@@ -192,6 +206,8 @@ class _$_Offer implements _Offer {
   @override
   final bool isUserClaimed;
   @override
+  final bool isUserRedeemed;
+  @override
   final double worth;
   @override
   final double number;
@@ -200,7 +216,7 @@ class _$_Offer implements _Offer {
 
   @override
   String toString() {
-    return 'Offer(offerId: $offerId, name: $name, description: $description, isUserClaimed: $isUserClaimed, worth: $worth, number: $number, totalUserOrder: $totalUserOrder)';
+    return 'Offer(offerId: $offerId, name: $name, description: $description, isUserClaimed: $isUserClaimed, isUserRedeemed: $isUserRedeemed, worth: $worth, number: $number, totalUserOrder: $totalUserOrder)';
   }
 
   @override
@@ -214,6 +230,8 @@ class _$_Offer implements _Offer {
                 other.description == description) &&
             (identical(other.isUserClaimed, isUserClaimed) ||
                 other.isUserClaimed == isUserClaimed) &&
+            (identical(other.isUserRedeemed, isUserRedeemed) ||
+                other.isUserRedeemed == isUserRedeemed) &&
             (identical(other.worth, worth) || other.worth == worth) &&
             (identical(other.number, number) || other.number == number) &&
             (identical(other.totalUserOrder, totalUserOrder) ||
@@ -223,7 +241,7 @@ class _$_Offer implements _Offer {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, offerId, name, description,
-      isUserClaimed, worth, number, totalUserOrder);
+      isUserClaimed, isUserRedeemed, worth, number, totalUserOrder);
 
   @JsonKey(ignore: true)
   @override
@@ -245,6 +263,7 @@ abstract class _Offer implements Offer {
       required final String name,
       required final String description,
       required final bool isUserClaimed,
+      required final bool isUserRedeemed,
       required final double worth,
       required final double number,
       required final double totalUserOrder}) = _$_Offer;
@@ -259,6 +278,8 @@ abstract class _Offer implements Offer {
   String get description;
   @override
   bool get isUserClaimed;
+  @override
+  bool get isUserRedeemed;
   @override
   double get worth;
   @override

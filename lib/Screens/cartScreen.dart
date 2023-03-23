@@ -36,10 +36,49 @@ class _CartScreenState extends ConsumerState<CartScreen> {
   TextEditingController couponController = TextEditingController();
   bool _isLoading = false;
   double deliveryCharges = 0;
+  String referralVeri = "false";
+  String? couponCode = null;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    // foundUser = data;
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+// your code goes here
+      var status = await ref.read(verifyCouponProvider.future);
+
+      print("Statussss:$status");
+
+      if (status == 'true') {
+        updateRefVeri('true');
+        updatediscount(10);
+      } else {
+        updateRefVeri('false');
+        updatediscount(0);
+      }
+
+      print("Statuss real:$status");
+      print("Statuss real:$referralVeri");
+      print("Statuss real:$discount");
+    });
+  }
 
   void updatediscount(value) {
     setState(() {
       discount = value;
+    });
+  }
+
+  void updateRefVeri(value) {
+    setState(() {
+      referralVeri = value;
+    });
+  }
+
+  void setCouponCode(value) {
+    setState(() {
+      couponCode = value;
     });
   }
 
@@ -108,13 +147,13 @@ class _CartScreenState extends ConsumerState<CartScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               'Items Price: ',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
             Text(
-              "₹${pricetotal}",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              "₹$pricetotal",
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             )
           ],
         ),
@@ -146,13 +185,13 @@ class _CartScreenState extends ConsumerState<CartScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               'Discount: ',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
             Text(
-              "₹${discount}",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              "₹$discount",
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             )
           ],
         ),
@@ -160,7 +199,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               "Grand Total",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
@@ -182,21 +221,23 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
     var authInfo = ref.watch(authCheckProvider);
 
+    print("Body:::: $referralVeri");
+    print("Body:::: $discount");
+
     return Scaffold(
-      // backgroundColor: const Color.fromARGB(255, 237, 230, 230),
       appBar: AppBar(
-        // backgroundColor: Tsheme.of(context).primaryColor,
         centerTitle: true,
         title: Column(
           children: [
-            Text(
+            const Text(
               'Your Cart',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             if (listsize != 0)
               Text(
-                '${listsize} items',
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w100),
+                '$listsize items',
+                style:
+                    const TextStyle(fontSize: 10, fontWeight: FontWeight.w100),
               )
           ],
         ),
@@ -213,7 +254,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   child: SingleChildScrollView(
                     child:
                         _cartList(ref, scHeight, scWidth, authInfo.phoneNumber),
-                    // _cartList(ref, scHeight, scWidth, '+917982733943'),
                   ),
                 ),
 
@@ -234,6 +274,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                               onPressed: () async {
                                 print(couponController.text);
                                 FocusScope.of(context).unfocus();
+
+                                setCouponCode(couponController.text);
 
                                 setState(() {
                                   _isLoading = true;
@@ -269,7 +311,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                 });
                               },
                               child: _isLoading == false
-                                  ? Text('Apply Coupon')
+                                  ? const Text('Apply Coupon')
                                   : SpinKitThreeInOut(
                                       color: Colors.green,
                                       size: 28,
@@ -329,14 +371,15 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                               'cartProductList': datalist,
                               'tamount': pricetotal,
                               'discount': discount,
-                              'deliveryCharges': deliveryCharges
+                              'deliveryCharges': deliveryCharges,
+                              'couponCode': couponCode
                             });
                       },
                       child: Container(
                           width: scWidth,
                           height: scHeight * 0.08,
-                          decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.only(
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(8),
                                   topRight: Radius.circular(8)),
                               color: Color.fromRGBO(83, 177, 117, 1)),
