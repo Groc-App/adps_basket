@@ -296,8 +296,18 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
         });
   }
 
+  Widget subsAlert() {
+    return Container(
+      width: double.infinity,
+      color: Colors.red.withOpacity(0.6),
+      child: Center(
+          child: Text(
+              "Add Subscription Worth Rs ${50 - totalAmount} more to Activate Subscriptions")),
+    );
+  }
+
   Widget verificationBuild() {
-    final data = ref.watch(subscriptionByUserProvider(map));
+    final data = ref.watch(subscriptionByUserProvider);
 
     return data.when(
       data: (list) {
@@ -314,6 +324,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                   totalAmount: totalAmount,
                 ),
                 const SizedBox(height: 20),
+                totalAmount < 50 ? subsAlert() : SizedBox.shrink(),
                 const Text(
                   "My Subscriptions",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),

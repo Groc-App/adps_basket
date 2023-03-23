@@ -13,6 +13,7 @@ abstract class Offer with _$Offer {
       required String name,
       required String description,
       required bool isUserClaimed,
+      required bool isUserRedeemed,
       required double worth,
       required double number,
       required double totalUserOrder}) = _Offer;

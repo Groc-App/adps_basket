@@ -12,8 +12,15 @@ import '../providers/providers.dart';
 class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen({super.key});
 
-  Widget placeordertile(WidgetRef ref, String number, BuildContext context,
-      List<CartItem> datalist, pricetotal, discount, deliveryCharges) {
+  Widget placeordertile(
+      WidgetRef ref,
+      String number,
+      BuildContext context,
+      List<CartItem> datalist,
+      pricetotal,
+      discount,
+      deliveryCharges,
+      couponCode) {
     final AddressBookState = ref.watch(addressBokkProvider);
     var reqData = Address(
         addressId: '',
@@ -33,7 +40,7 @@ class CheckoutScreen extends StatelessWidget {
       children: [
         adresstile(context, reqData),
         ordertile(datalist, ref, pricetotal, context, number, reqData, discount,
-            deliveryCharges),
+            deliveryCharges, couponCode),
       ],
     );
   }
@@ -74,7 +81,8 @@ class CheckoutScreen extends StatelessWidget {
       String number,
       Address value,
       discount,
-      deliveryCharges) {
+      deliveryCharges,
+      couponCode) {
     return Container(
         width: double.infinity,
         child: ElevatedButton(
@@ -115,7 +123,8 @@ class CheckoutScreen extends StatelessWidget {
                         number,
                         (pricetotal - discount + deliveryCharges).toString(),
                         cartProductsArray,
-                        addressid)
+                        addressid,
+                        couponCode)
                     .whenComplete(() => Navigator.pushNamed(
                         context, '/ordersuccessScreen',
                         arguments: {'type': "order"}));
@@ -140,6 +149,7 @@ class CheckoutScreen extends StatelessWidget {
     double pricetotal = Orderdata['tamount'];
     double discount = Orderdata['discount'];
     double deliveryCharges = Orderdata['deliveryCharges'];
+    String couponCode = Orderdata['couponCode'];
 
     return Scaffold(
       appBar: AppBar(
@@ -156,8 +166,15 @@ class CheckoutScreen extends StatelessWidget {
           child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Consumer(
-                builder: (context, ref, child) => placeordertile(ref, number,
-                    context, datalist, pricetotal, discount, deliveryCharges),
+                builder: (context, ref, child) => placeordertile(
+                    ref,
+                    number,
+                    context,
+                    datalist,
+                    pricetotal,
+                    discount,
+                    deliveryCharges,
+                    couponCode),
               )),
         ),
       ),

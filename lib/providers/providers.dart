@@ -53,11 +53,18 @@ final checkcouponprovider = FutureProvider.family<String, Map<String, String>>(
     return apiRespository.checkcoupon(mp);
   },
 );
-final verifyCoupon = FutureProvider.family<String, Map<String, String>>(
-  (ref, mp) {
+final verifyCouponProvider = FutureProvider<String>(
+  (ref) {
     final apiRespository = ref.watch(couponApiService);
+    String number;
+    var user = ref.watch(authCheckProvider);
+    if (user == null) {
+      number = '';
+    } else {
+      number = user.phoneNumber!;
+    }
 
-    return apiRespository.verifyReferral(mp);
+    return apiRespository.verifyReferral(number);
   },
 );
 
@@ -144,10 +151,17 @@ final allOfferProvider =
 );
 
 final subscriptionByUserProvider =
-    FutureProvider.autoDispose.family<List<Subscription>?, Map<String, String>>(
-  (ref, map) {
+    FutureProvider.autoDispose<List<Subscription>?>(
+  (ref) {
     final apiRespository = ref.watch(subscriptionApiService);
-    return apiRespository.getSubscriptionbyUser(map);
+    String number;
+    var user = ref.watch(authCheckProvider);
+    if (user == null) {
+      number = '';
+    } else {
+      number = user.phoneNumber!;
+    }
+    return apiRespository.getSubscriptionbyUser(number);
   },
 );
 

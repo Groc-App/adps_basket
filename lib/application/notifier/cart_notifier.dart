@@ -63,8 +63,10 @@ class CartNotifier extends StateNotifier<CartState> {
     await getCartitems(number);
   }
 
-  Future<void> placeOrder(number, tamount, productList, addressmap) async {
-    await _apiService.placeorder(number, tamount, productList, addressmap);
+  Future<void> placeOrder(
+      number, tamount, productList, addressmap, couponCode) async {
+    await _apiService.placeorder(
+        number, tamount, productList, addressmap, couponCode);
 
     var updatedItems = state.cartModel!.products.toList();
 

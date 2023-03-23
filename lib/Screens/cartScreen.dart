@@ -36,11 +36,49 @@ class _CartScreenState extends ConsumerState<CartScreen> {
   TextEditingController couponController = TextEditingController();
   bool _isLoading = false;
   double deliveryCharges = 0;
-  String referralVeri = 'false';
+  String referralVeri = "false";
+  String? couponCode = null;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    // foundUser = data;
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+// your code goes here
+      var status = await ref.read(verifyCouponProvider.future);
+
+      print("Statussss:$status");
+
+      if (status == 'true') {
+        updateRefVeri('true');
+        updatediscount(10);
+      } else {
+        updateRefVeri('false');
+        updatediscount(0);
+      }
+
+      print("Statuss real:$status");
+      print("Statuss real:$referralVeri");
+      print("Statuss real:$discount");
+    });
+  }
 
   void updatediscount(value) {
     setState(() {
       discount = value;
+    });
+  }
+
+  void updateRefVeri(value) {
+    setState(() {
+      referralVeri = value;
+    });
+  }
+
+  void setCouponCode(value) {
+    setState(() {
+      couponCode = value;
     });
   }
 
@@ -182,14 +220,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     final scHeight = scSize.height;
 
     var authInfo = ref.watch(authCheckProvider);
-    final status =
-        ref.read(verifyCoupon({'number': authInfo!.phoneNumber ?? ''}));
 
-    status.when(
-        data: (data) => referralVeri = data,
-        error: (_, __) => {},
-        loading: () => const Center());
-    print("Status:::: $status");
+    print("Body:::: $referralVeri");
+    print("Body:::: $discount");
 
     return Scaffold(
       appBar: AppBar(
@@ -240,6 +273,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                             ElevatedButton(
                               onPressed: () async {
                                 print(couponController.text);
+                                setCouponCode(couponController.text);
 
                                 setState(() {
                                   _isLoading = true;
@@ -335,7 +369,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                               'cartProductList': datalist,
                               'tamount': pricetotal,
                               'discount': discount,
-                              'deliveryCharges': deliveryCharges
+                              'deliveryCharges': deliveryCharges,
+                              'couponCode': couponCode
                             });
                       },
                       child: Container(

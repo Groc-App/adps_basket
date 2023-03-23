@@ -39,18 +39,20 @@ class APIServiceCoupon {
     }
   }
 
-  Future<String> verifyReferral(Map<String, String?> mp) async {
+  Future<String> verifyReferral(String number) async {
+    print("Inside verifyRefferral");
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
 
-    var url = Uri.http(Config.apiURL, Config.checkOffer);
+    var url = Uri.http(Config.apiURL, Config.verifyOffer);
 
-    print(url);
+    print("This is verifyReferral url $url");
 
     var response = await client.post(
+      headers: requestHeaders,
       url,
-      body: jsonEncode({"number": mp['number'], "code": mp['code']}),
+      body: jsonEncode({"number": number}),
     );
 
     print(response.body);

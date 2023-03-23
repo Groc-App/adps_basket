@@ -9,16 +9,14 @@ final subscriptionApiService = Provider((ref) => APIServiceSubscription());
 class APIServiceSubscription {
   static var client = http.Client();
 
-  Future<List<Subscription>?> getSubscriptionbyUser(
-      Map<String, String> map) async {
+  Future<List<Subscription>?> getSubscriptionbyUser(String number) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
 
-    final queryParameter = map;
+    final queryParameter = {'number': number};
 
-    var url =
-        Uri.http(Config.apiURL, Config.getSubscriptionByUser, queryParameter);
+    var url = Uri.http(Config.apiURL, Config.getSubscriptionByUser);
 
     print(url);
 

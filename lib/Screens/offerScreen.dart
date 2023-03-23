@@ -9,6 +9,7 @@ import 'package:your_basket/providers/providers.dart';
 import 'package:your_basket/models/offer/offer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter/services.dart';
 
 /* --------------------------- Predefined Constant -------------------------- */
 
@@ -258,8 +259,8 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
     );
   }
 
+  /* ------------------------- Card Already Scratched ------------------------- */
   Widget scratchedContainer(List<Offer> list, index, BuildContext context) {
-    // print("inside scaratched container");
     return Card(
       child: GridTile(
         child: InkWell(
@@ -317,17 +318,34 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                           const SizedBox(
                             height: 20,
                           ),
-                          Center(
-                            child: OutlinedButton(
-                              style: OutlinedButton.styleFrom(
-                                  backgroundColor:
-                                      Colors.black.withOpacity(0.5)),
-                              // style: ButtonStyle(backgroundColor: ),
-                              child: const Text("Close"),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            ),
+                          Row(
+                            children: [
+                              OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                    backgroundColor:
+                                        Colors.black.withOpacity(0.5)),
+                                // style: ButtonStyle(backgroundColor: ),
+                                child: const Text("Copy"),
+                                onPressed: () {
+                                  onTap:
+                                  () async {
+                                    await Clipboard.setData(ClipboardData(
+                                        text: list[index].offerId));
+                                    // copied successfully
+                                  };
+                                },
+                              ),
+                              OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                    backgroundColor:
+                                        Colors.black.withOpacity(0.5)),
+                                // style: ButtonStyle(backgroundColor: ),
+                                child: const Text("Close"),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
                           )
                         ],
                       ),
@@ -473,7 +491,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
               child: Text(
                 "${(list[index].number - totalOrders).round()} Order More to unlock",
                 softWrap: true,
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white, fontSize: 12),
               ),
             ),
           )
