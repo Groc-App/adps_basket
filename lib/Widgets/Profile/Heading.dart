@@ -3,6 +3,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../providers/providers.dart';
 
 class HeadingSupport extends ConsumerWidget {
@@ -25,7 +27,10 @@ class HeadingSupport extends ConsumerWidget {
               margin: const EdgeInsets.only(bottom: 5),
               child: const Text(
                 'My Account',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromRGBO(83, 177, 117, 1)),
               ),
             ),
             authInfo != null
@@ -41,14 +46,25 @@ class HeadingSupport extends ConsumerWidget {
                     ),
                   ),
           ]),
-          Column(
-            children: const [
-              Icon(
-                Icons.call,
-                size: 20,
-              ),
-              Text('Support')
-            ],
+          GestureDetector(
+            onTap: () async {
+              const url = "tel:7982733943";
+              if (await canLaunch(url)) {
+                await launch(url);
+              } else {
+                throw 'Could not launch $url';
+              }
+            },
+            child: Column(
+              children: const [
+                Icon(
+                  FontAwesomeIcons.phone,
+                  size: 20,
+                  color: Color.fromRGBO(83, 177, 117, 1),
+                ),
+                Text('Support')
+              ],
+            ),
           ),
         ],
       ),
