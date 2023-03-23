@@ -25,7 +25,8 @@ class APIServiceCoupon {
 
     var response = await client.post(
       url,
-      body: jsonEncode({"number": mp['number'], "code": mp['code']}),
+      headers: requestHeaders,
+      body: jsonEncode({"number": mp['number'], "offerId": mp['code']}),
     );
 
     print(response.body);

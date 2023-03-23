@@ -98,7 +98,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     return counter != 0
         ? Container(
             width: scWidth * 0.48 * 0.36,
-            height: scWidth * 0.48 * 0.16,
+            height: scWidth * 0.48 * 0.20,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: Colors.white,
@@ -257,7 +257,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           );
         },
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: 0.6,
+          childAspectRatio: 0.58,
           crossAxisCount: 2,
           crossAxisSpacing: 3,
           mainAxisSpacing: 3,

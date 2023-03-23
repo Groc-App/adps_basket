@@ -16,9 +16,8 @@ class APIServiceSubscription {
 
     final queryParameter = {'number': number};
 
-    var url = Uri.http(Config.apiURL, Config.getSubscriptionByUser);
-
-    print(url);
+    var url =
+        Uri.http(Config.apiURL, Config.getSubscriptionByUser, queryParameter);
 
     var response = await client.get(
       url,
@@ -27,7 +26,6 @@ class APIServiceSubscription {
 
     if (true) {
       var data = jsonDecode(response.body);
-      print(subscriptionFromJson(data['data']));
       return subscriptionFromJson(data['data']);
     } else {
       return null;

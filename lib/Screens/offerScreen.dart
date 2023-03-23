@@ -259,6 +259,13 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
     );
   }
 
+  Future<void> _copyToClipboard(String text) async {
+    await Clipboard.setData(ClipboardData(text: text));
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('Copied to clipboard'),
+    ));
+  }
+
   /* ------------------------- Card Already Scratched ------------------------- */
   Widget scratchedContainer(List<Offer> list, index, BuildContext context) {
     return Card(
@@ -273,7 +280,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                     flex: 2,
                     child: CachedNetworkImage(
                       imageUrl:
-                          'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Fscratch_image.jpg?alt=media&token=5d49818f-1078-48de-abe1-dac53e69f845',
+                          'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Frewards_cup_image.jpg?alt=media&token=da5bffc1-c263-4007-8239-aabadbefeebc',
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -283,72 +290,155 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                           padding: EdgeInsets.symmetric(vertical: 10.0),
                           child: Text(
                             "You Won",
-                            style: TextStyle(fontSize: 15.0),
+                            // style: TextStyle(fontSize: 15.0),
                           ))),
                   Expanded(
                       flex: 1,
                       child: Text(
                         'Rs ${list[index].worth}',
-                        style: const TextStyle(fontSize: 20.0),
+                        // style: const TextStyle(fontSize: 20.0),
                       )),
                 ],
               )),
           onTap: () {
             showModalBottomSheet(
                 isScrollControlled: true,
-                backgroundColor: Colors.black.withOpacity(0.4),
+                backgroundColor: Colors.black.withOpacity(0.7),
                 context: context,
                 builder: (BuildContext context) {
                   return GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: SizedBox(
                       height: scHeight,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Center(
-                            child: SelectableText(
-                              list[index].offerId,
-                              style: const TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
+                      child: list[index].isUserRedeemed == true
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Center(
+                                    child: Text(
+                                  "Already Redeemed",
+                                  style: TextStyle(color: Colors.white),
+                                )),
+                                SizedBox(height: 10),
+                                OutlinedButton(
+                                  style: OutlinedButton.styleFrom(
+                                      backgroundColor:
+                                          Colors.black.withOpacity(0.5)),
+                                  // style: ButtonStyle(backgroundColor: ),
+                                  child: const Text("Close"),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    width: scSize.width * 0.7,
+                                    height: scHeight * 0.3,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: new NetworkImage(
+                                              "https://st4.depositphotos.com/7668048/28693/v/600/depositphotos_286933884-stock-illustration-indian-rupee-coins-falling-scattered.jpg",
+                                            )),
+                                        // color: Colors.white,
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 15.0, left: 8, right: 8),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Get ₹${list[index].worth}* off",
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25),
+                                          ),
+                                          SizedBox(height: 20),
+                                          Container(
+                                            width: scSize.width * 0.7 * 0.8,
+                                            decoration: BoxDecoration(
+                                                color: Colors.grey
+                                                    .withOpacity(0.7),
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(5.0),
+                                              child: Row(
+                                                children: [
+                                                  Flexible(
+                                                    child: Text(
+                                                      list[index].offerId,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
+                                                  IconButton(
+                                                      onPressed: () {
+                                                        _copyToClipboard(
+                                                            list[index]
+                                                                .offerId);
+                                                      },
+                                                      icon: Icon(Icons.copy))
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    // OutlinedButton(
+                                    //   style: OutlinedButton.styleFrom(
+                                    //       backgroundColor:
+                                    //           Colors.black.withOpacity(0.5)),
+                                    //   // style: ButtonStyle(backgroundColor: ),
+                                    //   child: const Text("Copy"),
+                                    //   onPressed: () {
+                                    //     onTap:
+                                    //     () async {
+                                    //       await Clipboard.setData(ClipboardData(
+                                    //           text: list[index].offerId));
+                                    //       // copied successfully
+                                    //     };
+                                    //   },
+                                    // ),
+                                    OutlinedButton(
+                                      style: OutlinedButton.styleFrom(
+                                          backgroundColor:
+                                              Colors.black.withOpacity(0.5)),
+                                      // style: ButtonStyle(backgroundColor: ),
+                                      child: const Text("Close"),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            children: [
-                              OutlinedButton(
-                                style: OutlinedButton.styleFrom(
-                                    backgroundColor:
-                                        Colors.black.withOpacity(0.5)),
-                                // style: ButtonStyle(backgroundColor: ),
-                                child: const Text("Copy"),
-                                onPressed: () {
-                                  onTap:
-                                  () async {
-                                    await Clipboard.setData(ClipboardData(
-                                        text: list[index].offerId));
-                                    // copied successfully
-                                  };
-                                },
-                              ),
-                              OutlinedButton(
-                                style: OutlinedButton.styleFrom(
-                                    backgroundColor:
-                                        Colors.black.withOpacity(0.5)),
-                                // style: ButtonStyle(backgroundColor: ),
-                                child: const Text("Close"),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
                     ),
                   );
                 });

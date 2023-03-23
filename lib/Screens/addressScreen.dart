@@ -228,7 +228,7 @@ class AddressBook extends ConsumerWidget {
           backgroundColor: const Color.fromARGB(255, 243, 243, 243)),
       body: authInfo == null
           ? NoItems(
-              noitemtext: 'Login/Signup first',
+              noitemtext: 'Login/Signup First',
               pageroute: 'loginpage',
             )
           : SingleChildScrollView(

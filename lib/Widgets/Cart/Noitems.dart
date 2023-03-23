@@ -12,12 +12,16 @@ class NoItems extends StatelessWidget {
     print(pageroute);
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
-
+    https: //img.freepik.com/free-vector/mobile-login-concept-illustration_114360-83.jpg?w=2000
     return Center(
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        // Image.network(
-        //     height: scHeight * 0.4,
-        //     'https://www.pngfind.com/pngs/m/88-881210_thug-life-pug-transparent-background-png-sad-dog.png'),
+        noitemtext == 'Login/SignUp First'
+            ? Image.network(
+                height: scHeight * 0.4,
+                'https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-83.jpg?w=2000')
+            : Image.network(
+                height: scHeight * 0.4,
+                'https://assets.materialup.com/uploads/16e7d0ed-140b-4f86-9b7e-d9d1c04edb2b/preview.png'),
         Container(
           margin: const EdgeInsets.symmetric(vertical: 10),
           child: Text(
@@ -32,6 +36,8 @@ class NoItems extends StatelessWidget {
                 },
                 child: Text('Login'))
             : ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromRGBO(83, 177, 117, 1)),
                 onPressed: () {
                   Navigator.of(context).pushNamedAndRemoveUntil(
                       '/homepage', (Route<dynamic> route) => false);

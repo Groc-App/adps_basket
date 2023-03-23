@@ -109,7 +109,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     return counter != 0
         ? Container(
             width: scWidth * 0.48 * 0.36,
-            height: scWidth * 0.48 * 0.16,
+            height: scWidth * 0.48 * 0.20,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: Colors.white,

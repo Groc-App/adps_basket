@@ -20,7 +20,7 @@ class CheckoutScreen extends StatelessWidget {
       pricetotal,
       discount,
       deliveryCharges,
-      couponCode) {
+      String? couponCode) {
     final AddressBookState = ref.watch(addressBokkProvider);
     var reqData = Address(
         addressId: '',
@@ -82,7 +82,7 @@ class CheckoutScreen extends StatelessWidget {
       Address value,
       discount,
       deliveryCharges,
-      couponCode) {
+      String? couponCode) {
     return Container(
         width: double.infinity,
         child: ElevatedButton(
@@ -149,7 +149,7 @@ class CheckoutScreen extends StatelessWidget {
     double pricetotal = Orderdata['tamount'];
     double discount = Orderdata['discount'];
     double deliveryCharges = Orderdata['deliveryCharges'];
-    String couponCode = Orderdata['couponCode'];
+    String? couponCode = Orderdata['couponCode'];
 
     return Scaffold(
       appBar: AppBar(
