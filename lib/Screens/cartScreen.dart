@@ -233,6 +233,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                             ElevatedButton(
                               onPressed: () async {
                                 print(couponController.text);
+                                FocusScope.of(context).unfocus();
 
                                 setState(() {
                                   _isLoading = true;

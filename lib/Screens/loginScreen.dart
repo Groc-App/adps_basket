@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, prefer_const_constructors
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
     String imgUrl =
-        "https://bonn.in/wp-content/uploads/2019/10/brown-dummy-with-sandwich-only.png";
+        "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Screens%2FLoginScreen%2FloginScreen.png?alt=media&token=a855de09-6027-4796-8e3d-80d5e501bbc7";
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -36,17 +37,11 @@ class _LoginScreenState extends State<LoginScreen> {
               /* ----------------------------- Image Container ---------------------------- */
               Container(
                 // color: Colors.purple,
-                height: scHeight * 0.54,
+                height: scHeight * 0.5,
                 decoration: BoxDecoration(
-                  // ignore: prefer_const_literals_to_create_immutables
-                  boxShadow: [
-                    const BoxShadow(
-                        color: Color.fromARGB(255, 255, 237, 104),
-                        spreadRadius: 15,
-                        blurRadius: 15)
-                  ],
                   image: DecorationImage(
-                      fit: BoxFit.contain, image: NetworkImage(imgUrl)),
+                      fit: BoxFit.fitWidth,
+                      image: CachedNetworkImageProvider(imgUrl)),
                 ),
               ),
               /* ----------------------------- B

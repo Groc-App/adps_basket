@@ -16,7 +16,7 @@ class DataError extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            '😂',
+            '🙁',
             style: TextStyle(fontSize: 24),
           ),
           SizedBox(

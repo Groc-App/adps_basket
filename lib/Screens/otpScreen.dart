@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -93,7 +94,6 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-            elevation: 7,
             title: Text(
               "OTP verification",
               style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
@@ -106,12 +106,12 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  height: scheight * 0.45,
-                  width: scWidth,
-                  child: Lottie.network(
-                      'https://assets8.lottiefiles.com/packages/lf20_SftL8OC48W.json',
-                      repeat: false),
-                ),
+                    padding: EdgeInsets.only(left: 15),
+                    height: scheight * 0.45,
+                    width: scWidth,
+                    child: CachedNetworkImage(
+                        imageUrl:
+                            'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Screens%2FOtpScreen%2FotpScreen.png?alt=media&token=e414372f-cfb9-438d-9533-04c4b94a6d3d')),
                 Text(
                   'Verification',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -132,8 +132,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                     ),
                     GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              '/loginScreen', (Route<dynamic> route) => false);
+                          Navigator.of(context).pop();
                         },
                         child: Text(
                           'Change Phone Number?',
@@ -281,7 +280,9 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                     Text('Did not get OTP?  '),
                     wait == false
                         ? GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
                             child: Text(
                               'Resend',
                               style: TextStyle(color: Colors.blue),
