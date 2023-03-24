@@ -15,8 +15,9 @@ class Quote extends ConsumerWidget {
       data: ((data) {
         return Text(
           '\'\'${data},,',
+          maxLines: 2,
           style: TextStyle(
-              fontSize: 24,
+              fontSize: 17,
               fontWeight: FontWeight.bold,
               fontStyle: FontStyle.italic,
               color: Theme.of(context).primaryColor),
@@ -34,10 +35,10 @@ class Quote extends ConsumerWidget {
     return Container(
       width: double.infinity,
       height: 50,
-      padding: const EdgeInsets.symmetric(horizontal: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       margin: const EdgeInsets.symmetric(vertical: 10),
       alignment: const Alignment(0, 0),
-      child: FittedBox(fit: BoxFit.fitWidth, child: textBuild(ref, context)),
+      child: textBuild(ref, context),
     );
   }
 }
