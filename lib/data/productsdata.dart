@@ -6,13 +6,14 @@ import '../providers/providers.dart';
 class SearchData {
   static List<Product> data = [];
 
-  static void initialize(WidgetRef ref) {
-    final pdata = ref.watch(allProductProvider);
-    pdata.when(
-        data: (value) {
-          data = value;
-        },
-        error: (_, __) {},
-        loading: () {});
+  static void initialize(WidgetRef ref) async {
+    List<Product> pdata = await ref.watch(allProductProvider.future);
+    // pdata.when(
+    //     data: (value) {
+    //       data = value;
+    //     },
+    //     error: (_, __) {},
+    //     loading: () {});
+    data = pdata;
   }
 }
