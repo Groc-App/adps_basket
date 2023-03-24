@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Quote extends StatelessWidget {
-  const Quote({super.key});
+import '../../providers/providers.dart';
+
+class Quote extends ConsumerWidget {
+  var text;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final quote = ref.read(qouteProvider);
+    quote.whenData((data) {
+      text = data;
+    });
+
     return Container(
       width: double.infinity,
       height: 50,
-      padding: EdgeInsets.symmetric(horizontal: 30),
-      margin: EdgeInsets.symmetric(vertical: 10),
-      alignment: Alignment(0, 0),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      alignment: const Alignment(0, 0),
       child: FittedBox(
           fit: BoxFit.fitWidth,
           child: Text(
-            '\'\'Apple a day, keeps doctor away,,',
+            '\'\'${text},,',
             style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
