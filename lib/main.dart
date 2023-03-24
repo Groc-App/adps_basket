@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
         '/ordersuccessScreen': (context) => OrderSuuccess(),
         '/orderfailureScreen': (context) => OrderFailure(),
         '/loginScreen': (context) => LoginScreen(),
-        '/refferalloginScreen': (context) => RefferalLogin(),
+        // '/refferalloginScreen': (context) => RefferalLogin(),
         '/orderSummaryScreen': (context) => OrderSummaryScreen(),
         '/checkoutScreen': (context) => CheckoutScreen(),
         '/subscriptionScreen': (context) => SubscriptionScreen(),

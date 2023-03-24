@@ -179,7 +179,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
 
                             print('loginstatus is:::::::: $loginstatus');
                             //chceking refferal code status
-                            if (refferalCode != null &&
+                            if (refferalCode != '' &&
                                 loginstatus == 'AlreadyRegistered') {
                               final snackBar = SnackBar(
                                 content: const Text(
@@ -195,7 +195,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                               setState(() {
                                 _isLoading = false;
                               });
-                            } else if (refferalCode != null &&
+                            } else if (refferalCode != '' &&
                                 loginstatus == 'WrongCode') {
                               final snackBar = SnackBar(
                                 content: const Text('Wrong Refferal Code'),
@@ -210,8 +210,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                               setState(() {
                                 _isLoading = false;
                               });
-                            } else if (refferalCode != null &&
-                                loginstatus == 'error') {
+                            } else if (loginstatus == 'error') {
                               final snackBar = SnackBar(
                                 content: const Text('Error'),
                                 behavior: SnackBarBehavior.floating,

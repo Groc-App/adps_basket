@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:your_basket/Widgets/Errors/Dataloadingerror.dart';
 import 'package:your_basket/models/address/address.dart';
 import 'package:your_basket/models/cart/cartitem.dart';
@@ -31,6 +32,10 @@ class CheckoutScreen extends StatelessWidget {
         Recipients_Name: '',
         City: '',
         Pincode: '');
+
+    if (AddressBookState.isLoading) {
+      return SpinKitThreeInOut();
+    }
 
     if (AddressBookState.AddressBookModel!.addresses.isNotEmpty) {
       reqData = AddressBookState.AddressBookModel!.addresses
@@ -69,7 +74,10 @@ class CheckoutScreen extends StatelessWidget {
         subtitle: Text('${value.Flat_FLoor_Tower} ${value.Street_Society}'),
         trailing: GestureDetector(
             onTap: () => Navigator.of(context).pushNamed('/addressScreen'),
-            child: Text("Change")),
+            child: Text(
+              "Change",
+              style: TextStyle(color: Colors.blue),
+            )),
       );
     }
   }
@@ -161,12 +169,16 @@ class CheckoutScreen extends StatelessWidget {
         title: Text("Checkout"),
       ),
       bottomNavigationBar: BottomAppBar(
+        elevation: 0,
+        color: Theme.of(context).scaffoldBackgroundColor,
         child: Container(
           height: 120, //set your height here
           width: double.maxFinite, //set your width here
           decoration: BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(40.0))),
+            // color: Theme.of(context).scaffoldBackgroundColor,
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(40.0)),
+          ),
           child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Consumer(

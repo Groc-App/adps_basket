@@ -98,7 +98,8 @@ final createuserProvider =
   },
 );
 
-final yourordersProvider = FutureProvider.family<List<Orders>?, String>(
+final yourordersProvider =
+    FutureProvider.autoDispose.family<List<Orders>?, String>(
   (ref, userid) {
     print('insideeeeeeeeeeeeeeeeee');
     final apiRespository = ref.watch(orderApiService);

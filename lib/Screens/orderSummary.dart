@@ -52,8 +52,8 @@ class OrderSummaryScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                    boxShadow: [BoxShadow(blurRadius: 2)],
-                    border: Border.all(),
+                    boxShadow: [BoxShadow(blurRadius: 1, spreadRadius: 0)],
+                    // border: Border.all(),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     color: Colors.white),
                 width: double.infinity,
@@ -142,8 +142,8 @@ class OrderSummaryScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                    boxShadow: [BoxShadow(blurRadius: 2)],
-                    border: Border.all(),
+                    boxShadow: [BoxShadow(blurRadius: 1, spreadRadius: 0)],
+                    // border: Border.all(),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     color: Colors.white),
                 width: double.infinity,
@@ -196,8 +196,8 @@ class OrderSummaryScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                    boxShadow: [BoxShadow(blurRadius: 2)],
-                    border: Border.all(),
+                    boxShadow: [BoxShadow(blurRadius: 1, spreadRadius: 0)],
+                    // border: Border.all(),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     color: Colors.white),
                 width: double.infinity,
@@ -230,7 +230,7 @@ class OrderSummaryScreen extends StatelessWidget {
                         Text("${orderID}"),
                       ],
                     ),
-                    SizedBox(height: 5),
+                    SizedBox(height: 10),
 
                     Column(
                       // ignore: prefer_const_literals_to_create_immutables
@@ -247,7 +247,7 @@ class OrderSummaryScreen extends StatelessWidget {
                         Text("Paid Online"),
                       ],
                     ),
-                    SizedBox(height: 5),
+                    SizedBox(height: 10),
 
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -265,7 +265,7 @@ class OrderSummaryScreen extends StatelessWidget {
                             "${address.Recipients_Name}, ${address.Flat_FLoor_Tower} ${address.Street_Society} ${address.City} ${address.Pincode} "),
                       ],
                     ),
-                    SizedBox(height: 5),
+                    SizedBox(height: 10),
 
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -283,6 +283,8 @@ class OrderSummaryScreen extends StatelessWidget {
                             "Placed on ${DateFormat('yyyy-MM-dd').format(date)} at ${DateFormat('hh:mm:ss').format(date)}"),
                       ],
                     ),
+                    SizedBox(height: 10),
+
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
 
@@ -298,8 +300,9 @@ class OrderSummaryScreen extends StatelessWidget {
                         Text(
                           orderStatus,
                           style: TextStyle(
+                              fontWeight: FontWeight.bold,
                               color: orderStatus == 'Ordered'
-                                  ? Color.fromARGB(255, 219, 202, 44)
+                                  ? Color.fromARGB(255, 127, 118, 39)
                                   : orderStatus == 'Delivered'
                                       ? Theme.of(context).primaryColor
                                       : Colors.red),

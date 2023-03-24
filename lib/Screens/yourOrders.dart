@@ -34,7 +34,7 @@ class YourOrderes extends ConsumerWidget {
       data: (list) {
         print("Thisssssssssssssssssss is list ${list}");
 
-        if (list!.isEmpty) islistempty = true;
+        if (list == null || list.isEmpty) islistempty = true;
         print("\n\n\nThis is list $islistempty");
         return orderlistbuilder(list, context, scHeight);
       },

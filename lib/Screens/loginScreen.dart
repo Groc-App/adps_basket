@@ -14,9 +14,12 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   // const LoginScreen({super.key});
-  String phoneNumber = "";
   bool _isLoading = false;
   int? _resendToken;
+  bool _haverefferal = false;
+
+  TextEditingController _refferalcontroller = TextEditingController();
+  TextEditingController _numbercontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
               /* ----------------------------- B
               ody Container ----------------------------- */
               Container(
-                height: 400,
+                height: 480,
                 decoration: const BoxDecoration(
                     // border: Border.all(width: 5, color: Colors.black)
                     ),
@@ -90,9 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Expanded(
                                 // width: ,
                                 child: TextFormField(
-                                  onChanged: (value) {
-                                    phoneNumber = value;
-                                  },
+                                  controller: _numbercontroller,
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [
                                     LengthLimitingTextInputFormatter(10),
@@ -107,6 +108,22 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                         ),
+                        if (_haverefferal)
+                          Container(
+                            margin: const EdgeInsets.all(15),
+                            padding: EdgeInsets.only(left: 12),
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.black, width: 1.5),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: TextFormField(
+                              controller: _refferalcontroller,
+                              decoration: InputDecoration(
+                                hintText: 'Referral Code',
+                                border: null,
+                              ),
+                            ),
+                          ),
 
                         /* --------------------------------- Button --------------------------------- */
                         SizedBox(
@@ -119,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   _isLoading = true;
                                 });
                                 await FirebaseAuth.instance.verifyPhoneNumber(
-                                  phoneNumber: '+91${phoneNumber}',
+                                  phoneNumber: '+91${_numbercontroller.text}',
                                   verificationCompleted:
                                       (PhoneAuthCredential credential) {},
                                   verificationFailed:
@@ -150,8 +167,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Navigator.of(context)
                                         .pushNamed('/otpScreen', arguments: {
                                       'otp': verificationId,
-                                      'number': phoneNumber,
-                                      'resendtoken': resendToken
+                                      'number': _numbercontroller.text,
+                                      'resendtoken': resendToken,
+                                      'refferalCode': _refferalcontroller.text,
                                     });
                                   },
                                   codeAutoRetrievalTimeout:
@@ -181,18 +199,34 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(
                           height: 10,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context)
-                                .pushNamed('/refferalloginScreen');
-                          },
-                          child: Container(
-                            child: Text(
-                              'Do you have a refferal code?',
-                              style: TextStyle(color: Colors.blue),
-                            ),
-                          ),
-                        ),
+                        _haverefferal == false
+                            ? GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _haverefferal = true;
+                                  });
+                                },
+                                child: Container(
+                                  child: Text(
+                                    'Do you have a refferal code?',
+                                    style: TextStyle(color: Colors.blue),
+                                  ),
+                                ),
+                              )
+                            : GestureDetector(
+                                onTap: () {
+                                  _refferalcontroller.text = '';
+                                  setState(() {
+                                    _haverefferal = false;
+                                  });
+                                },
+                                child: Container(
+                                  child: Text(
+                                    'Cancel refferal',
+                                    style: TextStyle(color: Colors.blue),
+                                  ),
+                                ),
+                              ),
                         const SizedBox(
                           height: 45,
                         ),

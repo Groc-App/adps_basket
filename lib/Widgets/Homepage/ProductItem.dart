@@ -195,6 +195,8 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     final scSize = MediaQuery.of(context).size;
     final scWidth = scSize.width;
 
+    product = widget.product;
+
     var authInfo = ref.watch(authCheckProvider);
     print(authInfo?.phoneNumber);
 
