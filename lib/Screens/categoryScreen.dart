@@ -124,17 +124,29 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(children: [
-          Container(
-            margin: const EdgeInsets.all(8),
-            width: 50,
-            height: 60,
-            alignment: Alignment.center,
-            child: Image.network(
-              categories![index].imageurl,
-              fit: BoxFit.cover,
-              height: 60,
-            ),
-          ),
+          selected == index
+              ? Container(
+                  margin: const EdgeInsets.all(2),
+                  width: 55,
+                  height: 75,
+                  alignment: Alignment.center,
+                  child: Image.network(
+                    categories![index].imageurl,
+                    fit: BoxFit.fitHeight,
+                    height: 75,
+                  ),
+                )
+              : Container(
+                  margin: const EdgeInsets.all(8),
+                  width: 50,
+                  height: 60,
+                  alignment: Alignment.center,
+                  child: Image.network(
+                    categories![index].imageurl,
+                    fit: BoxFit.cover,
+                    height: 60,
+                  ),
+                ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -161,7 +173,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
       alignment: Alignment.centerRight,
       children: [
         Container(
-            height: 130,
+            height: 135,
             alignment: Alignment.center,
             // width: sc_width * 0.9,
             child: ListView.separated(

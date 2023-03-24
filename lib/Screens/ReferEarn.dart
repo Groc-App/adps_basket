@@ -8,18 +8,17 @@ import 'package:your_basket/Widgets/Cart/Noitems.dart';
 import 'package:your_basket/Widgets/Errors/Dataloadingerror.dart';
 import 'package:your_basket/models/user/user.dart';
 
-import '../../providers/providers.dart';
+import '../providers/providers.dart';
 
-class ReferEarnScreen extends StatelessWidget {
-  ReferEarnScreen({super.key});
+class ReferEarnScreen extends ConsumerWidget {
   bool _isLogin = true;
-
   Widget refferalId(WidgetRef ref, String number, BuildContext context) {
+    print("Inside referralId");
     var data = ref.watch(getrefferalIdProvider(number));
 
     return data.when(
       data: (value) {
-        print('value in refferalId is:::::::::');
+        print('value in refferalId is::::::::: $value');
         if (value != null) return _buildrefferal(value, context);
         return Container();
       },
@@ -196,7 +195,8 @@ class ReferEarnScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    print("Inside Build");
     String number = '';
     var argData = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
@@ -226,10 +226,9 @@ class ReferEarnScreen extends StatelessWidget {
                             'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/ReferAndEarn%2FReferAndEarn.png?alt=media&token=c670dec4-f810-4e6d-b3b2-d431d114d71a',
                         fit: BoxFit.fitWidth,
                       ),
-                      Consumer(
-                        builder: (context, ref, child) =>
-                            refferalId(ref, number, context),
-                      ),
+
+                      refferalId(ref, number, context),
+
                       // refferalId('', number);
                       // _buildrefferal('ebjcjjkb'),
                     ],

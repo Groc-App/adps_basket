@@ -93,6 +93,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     // print("OTP HASH::" + otpHash);
     return Scaffold(
         resizeToAvoidBottomInset: true,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text(
             "OTP verification",

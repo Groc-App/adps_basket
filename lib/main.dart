@@ -19,7 +19,7 @@ import 'package:your_basket/Screens/productItemScreen.dart';
 import 'package:your_basket/Screens/refferalloginScreen.dart';
 import 'package:your_basket/Screens/subscriptionScreen.dart';
 import 'package:your_basket/Screens/yourOrders.dart';
-import 'package:your_basket/Widgets/Profile/ReferEarn.dart';
+import 'package:your_basket/Screens/ReferEarn.dart';
 import 'package:your_basket/Widgets/Sinners/loadingsinner.dart';
 import 'package:your_basket/utils/theme.dart';
 import 'Screens/OrderFailureScreen.dart';

@@ -35,9 +35,9 @@ class BotmNavBar extends StatelessWidget {
                 //   color: Colors.amber,
                 // ),
                 CachedNetworkImage(
-                  height: 22,
+                  height: 30,
                   imageUrl:
-                      'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Icons%2Fbottomnavbar%2Fhome-icon.png?alt=media&token=13a30502-d306-4391-a39e-e578a61c0b9c',
+                      'https://img.icons8.com/material-outlined/48/null/home-page.png',
                 ),
                 Text(
                   'Home',
@@ -58,7 +58,7 @@ class BotmNavBar extends StatelessWidget {
                 CachedNetworkImage(
                   height: 22,
                   imageUrl:
-                      'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Icons%2Fbottomnavbar%2Fcart-icon.png?alt=media&token=2575b106-0e6a-4db5-9c3e-ba05f410da4b',
+                      'https://img.icons8.com/pastel-glyph/64/null/shopping-cart--v2.png',
                 ),
                 Text(
                   'Cart',

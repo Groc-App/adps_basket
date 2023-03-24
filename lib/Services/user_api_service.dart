@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config.dart';
 import '../models/user/user.dart';
 
-final userApiService = Provider((ref) => APIServiceUser());
+final userApiService = Provider.autoDispose((ref) => APIServiceUser());
 
 class APIServiceUser {
   static var client = http.Client();
@@ -18,7 +18,7 @@ class APIServiceUser {
     var ur = Config.getrefferalID + '/${number}';
     var url = Uri.http(Config.apiURL, ur);
 
-    print(url);
+    print("Url of ger refferral id $url");
 
     var response = await client.get(
       url,

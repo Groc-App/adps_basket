@@ -47,7 +47,7 @@ final addressBokkProvider =
       ref.watch(addressApiService), ref.watch(authCheckProvider)!.phoneNumber),
 );
 
-final getrefferalIdProvider = FutureProvider.family<UserN?, String>(
+final getrefferalIdProvider = FutureProvider.autoDispose.family<UserN?, String>(
   (ref, number) {
     print('byeeeeeeeeeeeeeeeeeeeeeeeee');
     final apiRespository = ref.watch(userApiService);
@@ -56,14 +56,16 @@ final getrefferalIdProvider = FutureProvider.family<UserN?, String>(
   },
 );
 
-final checkcouponprovider = FutureProvider.family<String, Map<String, String>>(
+final checkcouponprovider =
+    FutureProvider.autoDispose.family<String, Map<String, String>>(
   (ref, mp) {
     final apiRespository = ref.watch(couponApiService);
 
     return apiRespository.checkcoupon(mp);
   },
 );
-final verifyCouponProvider = FutureProvider<String>(
+
+final verifyCouponProvider = FutureProvider.autoDispose<String>(
   (ref) {
     final apiRespository = ref.watch(couponApiService);
     String number;
@@ -87,7 +89,8 @@ final selectedAddressProvider =
   },
 );
 
-final createuserProvider = FutureProvider.family<String, Map<String, String?>>(
+final createuserProvider =
+    FutureProvider.autoDispose.family<String, Map<String, String?>>(
   (ref, mp) {
     final apiRespository = ref.watch(userApiService);
 

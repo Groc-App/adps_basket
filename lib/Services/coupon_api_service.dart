@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config.dart';
 import '../models/address/selectedaddress.dart';
 
-final couponApiService = Provider((ref) => APIServiceCoupon());
+final couponApiService = Provider.autoDispose((ref) => APIServiceCoupon());
 
 class APIServiceCoupon {
   static var client = http.Client();

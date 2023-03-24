@@ -62,6 +62,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
       print("Statuss real:$status");
       print("Statuss real:$referralVeri");
       print("Statuss real:$discount");
+      // ref.invalidate(verifyCouponProvider);
     });
   }
 
