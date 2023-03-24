@@ -8,6 +8,7 @@ import 'package:your_basket/models/subscription/subscription.dart';
 import '../Services/address_api_service.dart';
 import '../Services/cart_api_service.dart';
 import '../Services/coupon_api_service.dart';
+import '../Services/quote_api_service.dart';
 import '../Services/user_api_service.dart';
 import '../application/notifier/addressbook_notifier.dart';
 import '../application/notifier/cart_notifier.dart';
@@ -153,6 +154,13 @@ final allProductProvider = FutureProvider<List<Product>>(
     final apiRespository = ref.watch(productApiService);
 
     return apiRespository.getAllProduct();
+  },
+);
+final qouteProvider = FutureProvider<String>(
+  (ref) {
+    final apiRespository = ref.watch(quoteApiService);
+
+    return apiRespository.getQuote();
   },
 );
 

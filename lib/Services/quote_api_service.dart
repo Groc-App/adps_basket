@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:your_basket/models/subscription/subscription.dart';
 import '../config.dart';
 
-final subscriptionApiService = Provider((ref) => APIServiceSubscription());
+final quoteApiService = Provider((ref) => APIServiceQuote());
 
-class APIServiceSubscription {
+class APIServiceQuote {
   static var client = http.Client();
 
   Future<String> getQuote() async {
