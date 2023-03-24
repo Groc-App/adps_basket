@@ -63,11 +63,6 @@ class _RefferalLoginState extends State<RefferalLogin> {
             child: Expanded(
               child: TextFormField(
                 controller: refferalcodeController,
-                keyboardType: TextInputType.number,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(10),
-                  FilteringTextInputFormatter.digitsOnly
-                ],
                 decoration: InputDecoration(
                   hintText: 'Refferal Code',
                   border: null,
@@ -127,7 +122,7 @@ class _RefferalLoginState extends State<RefferalLogin> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 0, 148, 5),
+                  backgroundColor: Theme.of(context).primaryColor,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10))),
               child: _isLoading

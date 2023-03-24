@@ -61,7 +61,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
       fieldWidth: 40,
       otpFieldStyle: OtpFieldStyle(
         backgroundColor: Colors.white,
-        borderColor: Colors.green,
+        borderColor: Theme.of(context).primaryColor,
       ),
       style: TextStyle(fontSize: 17, color: Colors.black),
       textFieldAlignment: MainAxisAlignment.spaceAround,
@@ -94,11 +94,11 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-            title: Text(
-              "OTP verification",
-              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
-            ),
-            backgroundColor: const Color.fromARGB(255, 243, 243, 243)),
+          title: Text(
+            "OTP verification",
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
+          ),
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -147,7 +147,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                     height: 50,
                     width: 300,
                     decoration: BoxDecoration(
-                        color: Colors.green,
+                        color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.circular(10)),
                     child: TextButton(
                         onPressed: () async {

@@ -75,14 +75,20 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                     return SingleChildScrollView(
                       child: Container(
                         padding: const EdgeInsets.all(8),
-                        height: scHeight * 0.9,
+                        // height: scHeight * 0.9,
                         child: Column(
                           children: [
+                            SizedBox(
+                              height: 12,
+                            ),
                             const Text(
                               "Subscription Detail",
                               style: TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.bold),
                             ),
+                            // SizedBox(
+                            //   height: 2,
+                            // ),
                             ModalItem(
                                 name: list[i].product.Name,
                                 imageURL: list[i].product.ImageUrl[0]),
@@ -98,7 +104,6 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                   Padding(
                                     padding: const EdgeInsets.all(10.0),
                                     child: Card(
-                                      elevation: 5,
                                       child: Row(
                                         children: [
                                           Container(
@@ -117,9 +122,10 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                                 vertical: 5, horizontal: 10),
                                             child: Text(
                                                 list[i].quantity.toString(),
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    color: Colors.green)),
+                                                    color: Theme.of(context)
+                                                        .primaryColor)),
                                           ),
                                         ],
                                       ),
@@ -128,7 +134,6 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                   Padding(
                                     padding: const EdgeInsets.all(10.0),
                                     child: Card(
-                                      elevation: 5,
                                       child: Row(
                                         children: [
                                           Container(
@@ -147,9 +152,10 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                                 vertical: 5, horizontal: 10),
                                             child: Text(
                                                 '${DateFormat('dd/MM/yyyy').format(list[i].startDate)}',
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    color: Colors.green)),
+                                                    color: Theme.of(context)
+                                                        .primaryColor)),
                                           ),
                                         ],
                                       ),
@@ -158,7 +164,6 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                   Padding(
                                     padding: const EdgeInsets.all(10.0),
                                     child: Card(
-                                      elevation: 5,
                                       child: Row(
                                         children: [
                                           Container(
@@ -177,9 +182,10 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                                 vertical: 5, horizontal: 10),
                                             child: Text(
                                                 '${DateFormat('dd/MM/yyyy').format(list[i].endDate)}',
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    color: Colors.green)),
+                                                    color: Theme.of(context)
+                                                        .primaryColor)),
                                           ),
                                         ],
                                       ),
@@ -188,7 +194,6 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                   Padding(
                                     padding: const EdgeInsets.all(10.0),
                                     child: Card(
-                                      elevation: 5,
                                       child: Row(
                                         children: [
                                           Container(
@@ -207,11 +212,12 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                                 vertical: 5, horizontal: 10),
                                             child: list[i].subscriptionStatus ==
                                                     true
-                                                ? const Text("Subscribed",
+                                                ? Text("Subscribed",
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        color: Colors.green))
+                                                        color: Theme.of(context)
+                                                            .primaryColor))
                                                 : const Text("Unsubscribed",
                                                     style: TextStyle(
                                                         fontWeight:
@@ -233,6 +239,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   Container(
+                                    width: 150,
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.green),
@@ -257,13 +264,16 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                         },
                                         child: Text("Edit")),
                                   ),
-                                  ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.red),
-                                      onPressed: () {
-                                        cancelHandler(list[i].subscriptionId);
-                                      },
-                                      child: Text("Cancel"))
+                                  Container(
+                                    width: 150,
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.red),
+                                        onPressed: () {
+                                          cancelHandler(list[i].subscriptionId);
+                                        },
+                                        child: Text("Cancel")),
+                                  )
                                 ],
                               ),
                             )
@@ -276,7 +286,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
             minVerticalPadding: 10,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            tileColor: const Color.fromRGBO(245, 245, 245, 1),
+            tileColor: Theme.of(context).scaffoldBackgroundColor,
             leading: ClipRRect(
               borderRadius: const BorderRadius.all(
                   Radius.circular(10.0)), //add border radius here
@@ -323,7 +333,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color.fromRGBO(83, 177, 117, 1),
+          color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(10),
         ),
         height: scHeight * 0.05,
@@ -416,7 +426,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
         ),
         body: authInfo == null
             ? NoItems(
-                noitemtext: 'Login/Signup first',
+                noitemtext: 'Login/SignUp First',
                 pageroute: 'loginpage',
               )
             : verificationBuild());

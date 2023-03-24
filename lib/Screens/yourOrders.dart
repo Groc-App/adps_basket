@@ -77,14 +77,12 @@ class YourOrderes extends ConsumerWidget {
     final scHeight = scSize.height;
 
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 237, 230, 230),
         appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
           title: const Text('Your Orders'),
         ),
         body: authInfo == null
             ? NoItems(
-                noitemtext: 'Login/Signup first',
+                noitemtext: 'Login/SignUp First',
                 pageroute: 'loginpage',
               )
             : orderList(ref, context, scHeight, authInfo.phoneNumber ?? ''));

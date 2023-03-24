@@ -35,13 +35,29 @@ class _ProductItemState extends ConsumerState<ProductItem> {
   _ProductItemState({required this.product});
 
   void incrementHandler(phonenumber) {
-    setState(() {
-      counter++;
-    });
+    if (counter == 5) {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Quantity Exceeded'),
+          content: const Text('Maximum Quantity limit is 5'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Ok'),
+            ),
+          ],
+        ),
+      );
+    } else {
+      setState(() {
+        counter++;
+      });
 
-    final cartViewModel = ref.read(cartItemsProvider.notifier);
-    cartViewModel.updateCartItem(
-        phonenumber, counter.toString(), product.productId);
+      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      cartViewModel.updateCartItem(
+          phonenumber, counter.toString(), product.productId);
+    }
   }
 
   void decrementHandler(phonenumber) {
@@ -73,9 +89,9 @@ class _ProductItemState extends ConsumerState<ProductItem> {
 
       if (CartItemModel.isLoading) {
         // return CircularProgressIndicator();
-        return const SpinKitThreeInOut(
+        return SpinKitThreeInOut(
           size: 25,
-          color: Colors.green,
+          color: Theme.of(context).primaryColor,
         );
       }
 

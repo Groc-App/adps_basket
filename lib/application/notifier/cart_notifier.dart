@@ -63,18 +63,24 @@ class CartNotifier extends StateNotifier<CartState> {
     await getCartitems(number);
   }
 
-  Future<void> placeOrder(
+  Future<String> placeOrder(
       number, tamount, productList, addressmap, couponCode) async {
-    await _apiService.placeorder(
+    String statusdata = await _apiService.placeorder(
         number, tamount, productList, addressmap, couponCode);
 
-    var updatedItems = state.cartModel!.products.toList();
+    if (statusdata == 'success') {
+      var updatedItems = state.cartModel!.products.toList();
 
-    updatedItems.clear();
+      updatedItems.clear();
 
-    Cart newcart =
-        new Cart(Number: state.cartModel!.Number, products: updatedItems);
+      Cart newcart =
+          new Cart(Number: state.cartModel!.Number, products: updatedItems);
 
-    state = state.copyWith(cartModel: newcart);
+      state = state.copyWith(cartModel: newcart);
+
+      return 'Success';
+    } else {
+      return 'Error';
+    }
   }
 }

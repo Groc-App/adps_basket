@@ -99,8 +99,8 @@ class Content extends ConsumerWidget {
                 margin: EdgeInsets.only(right: 9),
                 child: CircleAvatar(
                   radius: 17,
-                  backgroundColor: Colors.grey[200],
-                  foregroundColor: Color.fromRGBO(83, 177, 117, 1),
+                  backgroundColor: Colors.white38,
+                  foregroundColor: Theme.of(context).primaryColor,
                   child: FaIcon(
                     icn,
                     size: 17,

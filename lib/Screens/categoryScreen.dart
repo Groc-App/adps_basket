@@ -142,7 +142,9 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
               Text(
                 categories[index].Name,
                 style: TextStyle(
-                  color: selected == index ? Colors.green : Colors.black,
+                  color: selected == index
+                      ? Theme.of(context).primaryColor
+                      : Colors.black,
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                 ),
@@ -214,16 +216,15 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     return Scaffold(
       /* --------------------------------- appBar --------------------------------- */
       appBar: AppBar(
-          // centerTitle: true,
-          // ignore: prefer_const_constructors
-          elevation: 1,
-          title: Text(
-            categ['name'],
-            softWrap: true,
-            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
-          ),
-          backgroundColor: const Color.fromRGBO(243, 243, 243, 1)),
-      backgroundColor: Color.fromRGBO(243, 243, 243, 1),
+        // centerTitle: true,
+        // ignore: prefer_const_constructors
+        elevation: 1,
+        title: Text(
+          categ['name'],
+          softWrap: true,
+          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+        ),
+      ),
 
       /* ---------------------------------- body ---------------------------------- */
       body: SingleChildScrollView(

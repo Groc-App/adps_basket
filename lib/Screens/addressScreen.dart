@@ -222,13 +222,13 @@ class AddressBook extends ConsumerWidget {
     return Scaffold(
       /* --------------------------------- appBar --------------------------------- */
       appBar: AppBar(
-          title: const Text(
-            "My Addresses",
-          ),
-          backgroundColor: const Color.fromARGB(255, 243, 243, 243)),
+        title: const Text(
+          "My Addresses",
+        ),
+      ),
       body: authInfo == null
           ? NoItems(
-              noitemtext: 'Login/Signup First',
+              noitemtext: 'Login/SignUp First',
               pageroute: 'loginpage',
             )
           : SingleChildScrollView(
@@ -242,7 +242,7 @@ class AddressBook extends ConsumerWidget {
                       bottomsheet(ref, context, authInfo.phoneNumber ?? '',
                           scHeight, 'addAddress', '');
                     }),
-                    child: const Row(
+                    child: Row(
                       children: [
                         Icon(Icons.add),
                         SizedBox(
@@ -250,8 +250,8 @@ class AddressBook extends ConsumerWidget {
                         ),
                         Text(
                           "Add New Address",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 18, 180, 23)),
+                          style:
+                              TextStyle(color: Theme.of(context).primaryColor),
                         )
                       ],
                     ),

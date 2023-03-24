@@ -125,7 +125,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
     return Scaffold(
         body: authInfo == null
             ? NoItems(
-                noitemtext: 'Login/Signup first',
+                noitemtext: 'Login/SignUp First',
                 pageroute: 'loginpage',
               )
             : verificationBuild());

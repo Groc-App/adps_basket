@@ -169,7 +169,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
       ),
       body: authInfo == null
           ? NoItems(
-              noitemtext: 'Login/Signup First',
+              noitemtext: 'Login/SignUp First',
               pageroute: 'loginpage',
             )
           : SingleChildScrollView(
@@ -178,10 +178,16 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                 height: scHeight * 0.9,
                 child: Column(
                   children: [
+                    SizedBox(
+                      height: 10,
+                    ),
                     const Text(
                       "Subscription Detail",
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 5,
                     ),
                     ModalItem(
                         name: product.Name, imageURL: product.ImageUrl[0]),
@@ -196,7 +202,6 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Card(
-                            elevation: 5,
                             child: Row(
                               children: [
                                 Container(
@@ -216,7 +221,8 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                                       child: DropdownButtonHideUnderline(
                                     child: DropdownButton(
                                       focusColor: Colors.white,
-                                      dropdownColor: Colors.white,
+                                      dropdownColor: Theme.of(context)
+                                          .scaffoldBackgroundColor,
                                       value: dropdownvalue,
                                       onChanged: (String? newValue) {
                                         quantityHandler(newValue);
@@ -235,7 +241,6 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Card(
-                            elevation: 5,
                             child: Row(
                               children: [
                                 Container(
@@ -254,14 +259,17 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         alignment: Alignment.centerLeft,
-                                        backgroundColor: Colors.white),
+                                        elevation: 1,
+                                        backgroundColor: Theme.of(context)
+                                            .scaffoldBackgroundColor),
                                     onPressed: () async {
                                       startDateHandler();
                                     },
                                     child: Text(startDate,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.green)),
+                                            color: Theme.of(context)
+                                                .primaryColor)),
                                   ),
                                 ),
                               ],
@@ -271,7 +279,6 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Card(
-                            elevation: 5,
                             child: Row(
                               children: [
                                 Container(
@@ -290,14 +297,17 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         alignment: Alignment.centerLeft,
-                                        backgroundColor: Colors.white),
+                                        elevation: 1,
+                                        backgroundColor: Theme.of(context)
+                                            .scaffoldBackgroundColor),
                                     onPressed: () async {
                                       endDateHandler();
                                     },
                                     child: Text(endDate,
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.green)),
+                                            color: Theme.of(context)
+                                                .primaryColor)),
                                   ),
                                 ),
                               ],
@@ -307,7 +317,6 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Card(
-                            elevation: 5,
                             child: Row(
                               children: [
                                 Container(
@@ -320,14 +329,17 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                                 ),
                                 const Spacer(),
                                 Container(
-                                    decoration:
-                                        BoxDecoration(color: Colors.white),
+                                    decoration: BoxDecoration(
+                                        color:
+                                            Theme.of(context).highlightColor),
                                     width: scSize.width * 0.5,
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 5, horizontal: 10),
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.white),
+                                          elevation: 1,
+                                          backgroundColor: Theme.of(context)
+                                              .scaffoldBackgroundColor),
                                       onPressed: () {
                                         Navigator.of(context)
                                             .pushNamed('/addressScreen');
@@ -338,7 +350,8 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.green)),
+                                              color: Theme.of(context)
+                                                  .primaryColor)),
                                     )),
                               ],
                             ),
@@ -346,10 +359,11 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                         ),
                       ],
                     ),
+                    Spacer(),
                     functiontype == 'buy'
                         ? SizedBox(
                             width: scSize.width * 0.5,
-                            height: scHeight * 0.08,
+                            height: scHeight * 0.05,
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.green),
@@ -384,7 +398,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                           )
                         : SizedBox(
                             width: scSize.width * 0.5,
-                            height: scHeight * 0.08,
+                            height: scHeight * 0.05,
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.green),
@@ -393,7 +407,10 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                                       startDate, endDate, 'edit', subsid);
                                 },
                                 child: const Text("Edit Subscription")),
-                          )
+                          ),
+                    SizedBox(
+                      height: 50,
+                    )
                   ],
                 ),
               ),

@@ -20,13 +20,29 @@ class SearchScreen extends ConsumerStatefulWidget {
 
 class _SearchScreenState extends ConsumerState<SearchScreen> {
   void incrementHandler(phonenumber, Product product) {
-    setState(() {
-      counter++;
-    });
+    if (counter == 5) {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Quantity Exceeded'),
+          content: const Text('Maximum Quantity limit is 5'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Ok'),
+            ),
+          ],
+        ),
+      );
+    } else {
+      setState(() {
+        counter++;
+      });
 
-    final cartViewModel = ref.read(cartItemsProvider.notifier);
-    cartViewModel.updateCartItem(
-        phonenumber, counter.toString(), product.productId);
+      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      cartViewModel.updateCartItem(
+          phonenumber, counter.toString(), product.productId);
+    }
   }
 
   var counter = 0;
@@ -62,9 +78,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
       if (CartItemModel.isLoading) {
         // return CircularProgressIndicator();
-        return const SpinKitThreeInOut(
+        return SpinKitThreeInOut(
           size: 25,
-          color: Colors.green,
+          color: Theme.of(context).primaryColor,
         );
       }
 
@@ -324,10 +340,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       //     title: Text(
       //       "Milk And Bakery",
       //       style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 28),
-      //     ),
-      //     backgroundColor: const Color.fromARGB(255, 237, 230, 230)),
-
-      backgroundColor: const Color.fromARGB(255, 237, 230, 230),
+      //     ),)
 
       /* ---------------------------------- BODY ---------------------------------- */
 

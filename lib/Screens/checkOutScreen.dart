@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/Widgets/Errors/Dataloadingerror.dart';
 import 'package:your_basket/models/address/address.dart';
 import 'package:your_basket/models/cart/cartitem.dart';
 
@@ -87,8 +88,8 @@ class CheckoutScreen extends StatelessWidget {
         width: double.infinity,
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                elevation: 40, backgroundColor: Color.fromARGB(255, 0, 138, 5)),
-            onPressed: () {
+                elevation: 40, backgroundColor: Theme.of(context).primaryColor),
+            onPressed: () async {
               var cartProductsArray = [];
               for (var i = 0; i < datalist.length; i++) {
                 var cartItem = datalist[i];
@@ -118,16 +119,20 @@ class CheckoutScreen extends StatelessWidget {
                 );
               } else {
                 final cartViewModel = ref.read(cartItemsProvider.notifier);
-                cartViewModel
-                    .placeOrder(
-                        number,
-                        (pricetotal - discount + deliveryCharges).toString(),
-                        cartProductsArray,
-                        addressid,
-                        couponCode)
-                    .whenComplete(() => Navigator.pushNamed(
-                        context, '/ordersuccessScreen',
-                        arguments: {'type': "order"}));
+                String succesdata = await cartViewModel.placeOrder(
+                    number,
+                    (pricetotal - discount + deliveryCharges).toString(),
+                    cartProductsArray,
+                    addressid,
+                    couponCode);
+
+                if (succesdata == 'Success') {
+                  Navigator.of(context).pushNamed('/ordersuccessScreen',
+                      arguments: {'type': 'order'});
+                } else {
+                  Navigator.of(context).pushNamed('/orderfailureScreen',
+                      arguments: {'type': 'order'});
+                }
               }
             },
             child: Text("Place Order")));
@@ -155,13 +160,12 @@ class CheckoutScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Checkout"),
       ),
-      backgroundColor: const Color.fromARGB(255, 241, 237, 237),
       bottomNavigationBar: BottomAppBar(
         child: Container(
           height: 120, //set your height here
           width: double.maxFinite, //set your width here
-          decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 255, 255, 255),
+          decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: BorderRadius.vertical(top: Radius.circular(40.0))),
           child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
@@ -185,8 +189,8 @@ class CheckoutScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(blurRadius: 2)],
-                  border: Border.all(),
+                  boxShadow: [BoxShadow(blurRadius: 1, spreadRadius: 0)],
+                  // border: Border.all(),
                   borderRadius: BorderRadius.all(Radius.circular(5)),
                   color: Colors.white),
               width: scWidth,
@@ -249,8 +253,8 @@ class CheckoutScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                  boxShadow: [const BoxShadow(blurRadius: 2)],
-                  border: Border.all(),
+                  boxShadow: [const BoxShadow(blurRadius: 1, spreadRadius: 0)],
+                  // border: Border.all(),
                   borderRadius: const BorderRadius.all(Radius.circular(5)),
                   color: Colors.white),
               width: scWidth,
@@ -335,8 +339,8 @@ class CheckoutScreen extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               margin: EdgeInsets.only(top: 20),
               decoration: BoxDecoration(
-                  boxShadow: [const BoxShadow(blurRadius: 2)],
-                  border: Border.all(),
+                  boxShadow: [BoxShadow(blurRadius: 1, spreadRadius: 0)],
+                  // border: Border.all(),
                   borderRadius: const BorderRadius.all(Radius.circular(5)),
                   color: Colors.white),
               width: scWidth,
@@ -357,10 +361,11 @@ class CheckoutScreen extends StatelessWidget {
                           margin: EdgeInsets.only(right: 10),
                           alignment: Alignment(0, 0),
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.green),
+                              shape: BoxShape.circle,
+                              color: Theme.of(context).primaryColor),
                           child: Icon(
                             Icons.done,
-                            size: 20,
+                            size: 23,
                           ),
                         ),
                         Column(
@@ -385,10 +390,11 @@ class CheckoutScreen extends StatelessWidget {
                           margin: EdgeInsets.only(right: 10),
                           alignment: Alignment(0, 0),
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.grey),
+                              shape: BoxShape.circle,
+                              color: Theme.of(context).scaffoldBackgroundColor),
                           child: Icon(
                             Icons.cancel,
-                            size: 20,
+                            size: 23,
                           ),
                         ),
                         Column(

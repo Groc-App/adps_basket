@@ -28,7 +28,6 @@ class _LoginScreenState extends State<LoginScreen> {
         "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Screens%2FLoginScreen%2FloginScreen.png?alt=media&token=a855de09-6027-4796-8e3d-80d5e501bbc7";
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       // backgroundColor: const Color.fromARGB(255, 192, 142, 212),
       body: SingleChildScrollView(
         child: Column(
@@ -169,8 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    const Color.fromARGB(255, 0, 148, 5),
+                                backgroundColor: Theme.of(context).primaryColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10))),
                             child: _isLoading
@@ -218,7 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
           decoration: BoxDecoration(
               // border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.circular(10),
-              color: Colors.green),
+              color: Theme.of(context).primaryColor),
           child: Text(
             'Skip for now >>',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),

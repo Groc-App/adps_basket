@@ -22,6 +22,7 @@ import 'package:your_basket/Screens/yourOrders.dart';
 import 'package:your_basket/Widgets/Profile/ReferEarn.dart';
 import 'package:your_basket/Widgets/Sinners/loadingsinner.dart';
 import 'package:your_basket/utils/theme.dart';
+import 'Screens/OrderFailureScreen.dart';
 import 'Screens/homeScreen.dart';
 import 'Screens/searchScreen.dart';
 import 'firebase_options.dart';
@@ -83,6 +84,7 @@ class MyApp extends StatelessWidget {
         '/addressScreen': (context) => AddressBook(),
         '/offerScreen': (context) => OfferScreen(),
         '/ordersuccessScreen': (context) => OrderSuuccess(),
+        '/orderfailureScreen': (context) => OrderFailure(),
         '/loginScreen': (context) => LoginScreen(),
         '/refferalloginScreen': (context) => RefferalLogin(),
         '/orderSummaryScreen': (context) => OrderSummaryScreen(),

@@ -16,9 +16,11 @@ class ModalItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(10),
+      padding: EdgeInsets.symmetric(horizontal: 5),
       height: Config.scHeight * 0.8 * 0.2,
       // width: double.infinit,q
-      decoration: BoxDecoration(border: Border.all()),
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(10)),
       child: Row(
         children: [
           Image.network(

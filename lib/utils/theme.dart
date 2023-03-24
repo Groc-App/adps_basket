@@ -40,7 +40,8 @@ class MyTheme {
                 fontSize: 20)),
 
         /* --------------------------------- COLORS --------------------------------- */
-        primaryColor: Colors.white,
+        primaryColor: const Color.fromRGBO(83, 177, 117, 1),
+        highlightColor: Colors.white,
         dividerColor: const Color.fromRGBO(214, 204, 194, 1),
 
         /* ------------------------------ BUTTON THEME ------------------------------ */
@@ -62,11 +63,9 @@ class MyTheme {
             color: Colors.white,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
-        // scaffoldBackgroundColor: const Color.fromRGBO(245, 245, 245, 1),
-        scaffoldBackgroundColor: Colors.white,
-        // backgroundColor: const Color.fromRGBO(237, 237, 233, 1),
-        // bottomAppBarTheme:
-        // BottomAppBarTheme(color: const Color.fromRGBO(213, 189, 175, 1)),
+
+        scaffoldBackgroundColor: Color.fromRGBO(243, 243, 243, 1),
+
         bottomNavigationBarTheme: (const BottomNavigationBarThemeData(
             backgroundColor: Colors.white,
             unselectedItemColor: Colors.grey,

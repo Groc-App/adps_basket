@@ -38,7 +38,6 @@ class OrderSummaryScreen extends StatelessWidget {
     print("OrderDetails::::::: $orderDetails");
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 241, 237, 237),
       appBar: AppBar(
         title: Text('Order Summary'),
       ),
@@ -302,7 +301,7 @@ class OrderSummaryScreen extends StatelessWidget {
                               color: orderStatus == 'Ordered'
                                   ? Color.fromARGB(255, 219, 202, 44)
                                   : orderStatus == 'Delivered'
-                                      ? Colors.green
+                                      ? Theme.of(context).primaryColor
                                       : Colors.red),
                         ),
                       ],

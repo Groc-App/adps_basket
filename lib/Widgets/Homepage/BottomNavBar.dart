@@ -13,7 +13,7 @@ class BotmNavBar extends StatelessWidget {
       notchMargin: 8.0,
       height: 60,
       shape: CircularNotchedRectangle(),
-      color: Color.fromRGBO(243, 243, 243, 1),
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         mainAxisSize: MainAxisSize.max,

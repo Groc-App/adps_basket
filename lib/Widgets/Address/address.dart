@@ -54,8 +54,9 @@ class Address extends ConsumerWidget {
           },
           child: Container(
             padding: EdgeInsets.all(4),
-            decoration:
-                BoxDecoration(color: Colors.grey[300], shape: BoxShape.circle),
+            decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                shape: BoxShape.circle),
             width: scWidth * 0.065,
             height: scWidth * 0.065,
             child: Container(

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:your_basket/Screens/offerScreen.dart';
 import 'package:your_basket/Widgets/Cart/Noitems.dart';
 import 'package:your_basket/Widgets/Errors/Dataloadingerror.dart';
 import 'package:your_basket/models/user/user.dart';
@@ -15,13 +14,13 @@ class ReferEarnScreen extends StatelessWidget {
   ReferEarnScreen({super.key});
   bool _isLogin = true;
 
-  Widget refferalId(WidgetRef ref, String number) {
+  Widget refferalId(WidgetRef ref, String number, BuildContext context) {
     var data = ref.watch(getrefferalIdProvider(number));
 
     return data.when(
       data: (value) {
         print('value in refferalId is:::::::::');
-        if (value != null) return _buildrefferal(value);
+        if (value != null) return _buildrefferal(value, context);
         return Container();
       },
       loading: () {
@@ -33,7 +32,7 @@ class ReferEarnScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildrefferal(UserN value) {
+  Widget _buildrefferal(UserN value, BuildContext context) {
     return Column(
       children: [
         SizedBox(
@@ -62,13 +61,15 @@ class ReferEarnScreen extends StatelessWidget {
           Container(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               alignment: Alignment(0, 0),
-              decoration:
-                  BoxDecoration(border: Border.all(color: Colors.black)),
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black12),
+                  borderRadius: BorderRadius.circular(10),
+                  color: Theme.of(context).scaffoldBackgroundColor),
               child: Text(
                 'Reffered People:\n${value.referralOffer['referredPeople']}',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 17, color: Color.fromRGBO(83, 177, 117, 1)),
+                    fontSize: 17, color: Theme.of(context).primaryColor),
               )),
           SizedBox(
             width: 5,
@@ -76,7 +77,10 @@ class ReferEarnScreen extends StatelessWidget {
           Container(
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             alignment: Alignment(0, 0),
-            decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.black12),
+                borderRadius: BorderRadius.circular(10),
+                color: Theme.of(context).scaffoldBackgroundColor),
             child: Text(
               'Refferal Claimed:\n${value.referralOffer['isClaimed']}',
               textAlign: TextAlign.center,
@@ -100,7 +104,7 @@ class ReferEarnScreen extends StatelessWidget {
               style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w600,
-                  color: Color.fromRGBO(83, 177, 117, 1)),
+                  color: Theme.of(context).primaryColor),
             ),
             TextSpan(
               text: ' to get ₹10 off on your next order.',
@@ -159,7 +163,7 @@ class ReferEarnScreen extends StatelessWidget {
         Container(
           padding: EdgeInsets.symmetric(horizontal: 9, vertical: 5),
           decoration: BoxDecoration(
-              color: Color.fromRGBO(83, 177, 117, 1),
+              color: Theme.of(context).primaryColor,
               // border: Border.all(),
               borderRadius: BorderRadius.circular(10)),
           child: Row(
@@ -224,7 +228,7 @@ class ReferEarnScreen extends StatelessWidget {
                       ),
                       Consumer(
                         builder: (context, ref, child) =>
-                            refferalId(ref, number),
+                            refferalId(ref, number, context),
                       ),
                       // refferalId('', number);
                       // _buildrefferal('ebjcjjkb'),

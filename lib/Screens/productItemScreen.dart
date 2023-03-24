@@ -94,7 +94,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
       },
       slideIndicator: CircularSlideIndicator(
           padding: const EdgeInsets.all(2),
-          indicatorBackgroundColor: Color.fromARGB(255, 237, 230, 230),
+          indicatorBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
           currentIndicatorColor: Colors.black.withOpacity(0.8)),
       enableAutoSlider: true,
       unlimitedMode: true,
@@ -131,7 +131,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
             ],
             // color: Color.fromARGB(255, 250, 246, 246),
             // color: Color.fromRGBO(236, 236, 234, 1),
-            color: Color.fromRGBO(243, 243, 243, 1),
+            color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -245,13 +245,29 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
   }
 
   void incrementHandler(phonenumber) {
-    setState(() {
-      counter++;
-    });
+    if (counter == 5) {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Quantity Exceeded'),
+          content: const Text('Maximum Quantity limit is 5'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Ok'),
+            ),
+          ],
+        ),
+      );
+    } else {
+      setState(() {
+        counter++;
+      });
 
-    final cartViewModel = ref.read(cartItemsProvider.notifier);
-    cartViewModel.updateCartItem(
-        phonenumber, counter.toString(), product.productId);
+      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      cartViewModel.updateCartItem(
+          phonenumber, counter.toString(), product.productId);
+    }
   }
 
   void decrementHandler(phonenumber) {
@@ -281,9 +297,9 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
     if (number != '') {
       final CartItemModel = ref.watch(cartItemsProvider);
       if (CartItemModel.isLoading) {
-        return const SpinKitThreeInOut(
+        return SpinKitThreeInOut(
           size: 38,
-          color: Colors.green,
+          color: Theme.of(context).primaryColor,
         );
       }
 
@@ -313,7 +329,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
     return counter != 0
         ? Container(
             decoration: BoxDecoration(
-                color: const Color.fromRGBO(245, 245, 245, 1),
+                color: Theme.of(context).scaffoldBackgroundColor,
                 borderRadius: BorderRadius.circular(5)),
             width: scWidth * 0.25,
             height: scWidth * 0.25 * 0.4,
@@ -324,7 +340,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                   onTap: () => decrementHandler(number),
                   child: Icon(
                     // Color(value),
-                    color: const Color.fromRGBO(83, 177, 117, 1),
+                    color: Theme.of(context).primaryColor,
                     Icons.remove,
                     size: scWidth * 0.25 * 0.3,
                   ),
@@ -341,7 +357,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                 child: GestureDetector(
                   onTap: () => incrementHandler(number),
                   child: Icon(
-                    color: const Color.fromRGBO(83, 177, 117, 1),
+                    color: Theme.of(context).primaryColor,
                     Icons.add,
                     size: scWidth * 0.25 * 0.3,
                   ),
@@ -399,7 +415,6 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color.fromRGBO(243, 243, 243, 1),
           title: Row(
             children: [
               Expanded(
@@ -422,7 +437,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
         backgroundColor: Colors.white,
         bottomNavigationBar: Container(
           decoration:
-              const BoxDecoration(color: Color.fromRGBO(243, 243, 243, 1)),
+              BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
@@ -433,7 +448,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                     Navigator.of(context).pushNamed('/cartScreen');
                   },
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromRGBO(83, 177, 117, 1)),
+                      backgroundColor: Theme.of(context).primaryColor),
                   // textColor: Colors.white,
                   child: const Text('View Cart'),
                 ),
@@ -447,7 +462,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                     });
                   },
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromRGBO(83, 177, 117, 1)),
+                      backgroundColor: Theme.of(context).primaryColor),
                   // textColor: Colors.white,
                   child: const Text('Subscribe'),
                 ),

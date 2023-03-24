@@ -19,7 +19,7 @@ class Quote extends StatelessWidget {
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 fontStyle: FontStyle.italic,
-                color: Colors.green[400]),
+                color: Theme.of(context).primaryColor),
           )),
     );
   }

@@ -25,12 +25,12 @@ class HeadingSupport extends ConsumerWidget {
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Container(
               margin: const EdgeInsets.only(bottom: 5),
-              child: const Text(
+              child: Text(
                 'My Account',
                 style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromRGBO(83, 177, 117, 1)),
+                    color: Theme.of(context).primaryColor),
               ),
             ),
             authInfo != null
@@ -56,11 +56,11 @@ class HeadingSupport extends ConsumerWidget {
               }
             },
             child: Column(
-              children: const [
+              children: [
                 Icon(
                   FontAwesomeIcons.phone,
                   size: 20,
-                  color: Color.fromRGBO(83, 177, 117, 1),
+                  color: Theme.of(context).primaryColor,
                 ),
                 Text('Support')
               ],

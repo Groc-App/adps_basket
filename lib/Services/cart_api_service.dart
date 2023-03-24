@@ -13,7 +13,7 @@ final cartApiService = Provider((ref) => APIServiceCart());
 class APIServiceCart {
   static var client = http.Client();
 
-  Future<void> placeorder(
+  Future<String> placeorder(
       String number, String tamount, productlist, addressid, couponCode) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ class APIServiceCart {
         "tamount": tamount,
         "orderdetail": productlist,
         "addressid": addressid,
-        "couponCode": couponCode
+        "offerId": couponCode
       }),
     );
 
@@ -40,9 +40,11 @@ class APIServiceCart {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      return null;
+      print('Yasssssss:::::::::::::::::::::::');
+      return 'success';
     } else {
-      return null;
+      print('Noooo:::::::::::::::::::::::::::');
+      return '';
     }
   }
 

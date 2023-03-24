@@ -18,7 +18,7 @@ class Carousel extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      height: scHeight * 0.3,
+      height: 190,
       child: CarouselSlider(
         // ignore: sort_child_properties_last
         children: [
@@ -35,11 +35,12 @@ class Carousel extends StatelessWidget {
               },
               child: Container(
                 decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black12),
                   borderRadius: BorderRadius.circular(10.0),
                   image: const DecorationImage(
                     image: CachedNetworkImageProvider(
-                        'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2Fc1.jpg?alt=media&token=c6c64f16-f899-4ab2-9d35-d2fa3f25bbda'),
-                    fit: BoxFit.fill,
+                        'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2FNew%20Customised%2Fc2.png?alt=media&token=e066aa14-d925-414a-aaf7-60690df67018'),
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
@@ -52,22 +53,35 @@ class Carousel extends StatelessWidget {
             },
             child: Container(
               decoration: BoxDecoration(
+                border: Border.all(color: Colors.black12),
                 borderRadius: BorderRadius.circular(10.0),
                 image: const DecorationImage(
                   image: CachedNetworkImageProvider(
-                      'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2Fc2.jpg?alt=media&token=fa1d113b-5900-45e5-bd7e-133a03b99aea'),
-                  fit: BoxFit.fill,
+                      'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2FNew%20Customised%2Fc1.png?alt=media&token=e1056865-f526-4064-b3a4-2af5cf81668b'),
+                  fit: BoxFit.contain,
                 ),
               ),
             ),
           ),
           Container(
             decoration: BoxDecoration(
+              border: Border.all(color: Colors.black12),
               borderRadius: BorderRadius.circular(10.0),
               image: const DecorationImage(
                 image: CachedNetworkImageProvider(
-                    'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2Fc3.jpg?alt=media&token=235cb723-3f9b-465d-bf17-c719119a5d29'),
-                fit: BoxFit.fill,
+                    'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2FNew%20Customised%2Fc3.png?alt=media&token=bdc847db-7e71-492a-8756-17941b37b1c5'),
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black12),
+              borderRadius: BorderRadius.circular(10.0),
+              image: const DecorationImage(
+                image: CachedNetworkImageProvider(
+                    'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2FNew%20Customised%2Fc4.png?alt=media&token=ab0dcde9-662e-4273-8145-1c11de0dbd70'),
+                fit: BoxFit.contain,
               ),
             ),
           ),
@@ -75,7 +89,7 @@ class Carousel extends StatelessWidget {
         slideTransform: const DepthTransform(),
         slideIndicator: CircularSlideIndicator(
             padding: const EdgeInsets.all(10),
-            indicatorBackgroundColor: Theme.of(context).primaryColor,
+            indicatorBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
             currentIndicatorColor: Colors.black),
         enableAutoSlider: true,
         unlimitedMode: true,
