@@ -18,6 +18,8 @@ class MainCategory extends ConsumerWidget {
       WidgetRef ref, BuildContext context, double scHeight, double scWidth) {
     final categories = ref.watch(maincategorylistProvider);
 
+    print(categories);
+
     return categories.when(
       data: (list) {
         return maincategorylistbuilder(list, context, scHeight, scWidth);

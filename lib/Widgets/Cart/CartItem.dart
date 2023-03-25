@@ -121,106 +121,109 @@ class _CartItemState extends ConsumerState<CartItem> {
         Navigator.pushNamed(context, '/productItemPage',
             arguments: {'product': product});
       },
-      child: Container(
-          height: scHeight * 0.18,
-          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
-          padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-              boxShadow: const [BoxShadow(blurRadius: 1, spreadRadius: 0)],
-              borderRadius: BorderRadius.circular(5),
-              color: Colors.white),
-          child: Row(
-            children: [
-              SizedBox(
-                width: scWidth * 0.2,
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: Image.network(
-                      fit: BoxFit.contain,
-                      item.ImageUrl[0],
-                    )),
-              ),
-              Container(
-                alignment: const Alignment(-1, -1),
-                padding: const EdgeInsets.only(left: 10, top: 5),
-                width: (scWidth * 0.55) - 5,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      item.Name,
-                      maxLines: 3,
-                      overflow: TextOverflow.clip,
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                    ),
-                    Text(
-                      item.Quantity,
-                      textAlign: TextAlign.left,
-                      style:
-                          TextStyle(fontSize: 10, fontWeight: FontWeight.w100),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 10),
-                      child: Text(
-                        '₹ ' + item.Price.toString(),
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w400),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    // border: const Border(
-                    //     top: BorderSide(width: 2),
-                    //     bottom: BorderSide(width: 2),
-                    //     left: BorderSide(width: 2),
-                    //     right: BorderSide(width: 2)),
-                    borderRadius: BorderRadius.circular(5)),
-                width: scWidth * 0.25,
-                height: scWidth * 0.25 * 0.4,
-                child: Row(children: [
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () => decrementHandler(),
-                      child: Icon(
-                        // Color(value),
-                        color: Theme.of(context).primaryColor,
-
-                        Icons.remove,
-                        size: scWidth * 0.25 * 0.3,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                      width: scWidth * 0.25 * 0.3,
-                      child: Text(
-                        '${quan}',
-                        textAlign: TextAlign.center,
+      child: Card(
+        elevation: 5,
+        child: Container(
+            height: scHeight * 0.18,
+            margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+            padding: const EdgeInsets.all(3),
+            // decoration: BoxDecoration(
+            //     boxShadow: const [BoxShadow(blurRadius: 1, spreadRadius: 0)],
+            //     borderRadius: BorderRadius.circular(5),
+            //     color: Colors.white),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: scWidth * 0.2,
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.network(
+                        fit: BoxFit.contain,
+                        item.ImageUrl[0],
                       )),
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () => incrementHandler(),
-                      child: Icon(
-                        color: Theme.of(context).primaryColor,
-                        Icons.add,
-                        size: scWidth * 0.25 * 0.3,
+                ),
+                Container(
+                  alignment: const Alignment(-1, -1),
+                  padding: const EdgeInsets.only(left: 8, top: 3),
+                  width: (scWidth * 0.55) - 5,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        item.Name,
+                        maxLines: 3,
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w400),
+                      ),
+                      Text(
+                        item.Quantity,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: 10, fontWeight: FontWeight.w100),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        child: Text(
+                          '₹ ' + item.Price.toString(),
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w400),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      // border: const Border(
+                      //     top: BorderSide(width: 2),
+                      //     bottom: BorderSide(width: 2),
+                      //     left: BorderSide(width: 2),
+                      //     right: BorderSide(width: 2)),
+                      borderRadius: BorderRadius.circular(5)),
+                  width: scWidth * 0.25,
+                  height: scWidth * 0.25 * 0.4,
+                  child: Row(children: [
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () => decrementHandler(),
+                        child: Icon(
+                          // Color(value),
+                          color: Theme.of(context).primaryColor,
+
+                          Icons.remove,
+                          size: scWidth * 0.25 * 0.3,
+                        ),
                       ),
                     ),
-                  ),
-                ]),
-              )
-            ],
-          )),
+                    SizedBox(
+                        width: scWidth * 0.25 * 0.3,
+                        child: Text(
+                          '${quan}',
+                          textAlign: TextAlign.center,
+                        )),
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () => incrementHandler(),
+                        child: Icon(
+                          color: Theme.of(context).primaryColor,
+                          Icons.add,
+                          size: scWidth * 0.25 * 0.3,
+                        ),
+                      ),
+                    ),
+                  ]),
+                )
+              ],
+            )),
+      ),
     );
   }
 }

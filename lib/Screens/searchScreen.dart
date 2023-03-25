@@ -148,59 +148,190 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     return Scaffold(
       /* ---------------------------------- BODY ---------------------------------- */
 
-      body: SafeArea(
-        child: SingleChildScrollView(
-          // padding: EdgeInsets.only(top: MediaQuery.of(context).size.),
-          child: Column(
-            children: [
-              /* ---------------------------- Top SLider Bar ---------------------------- */
-              Container(
-                height: 50,
-                margin: const EdgeInsets.all(8),
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    boxShadow: const [
-                      BoxShadow(
-                          color: Colors.grey, spreadRadius: 1, blurRadius: 1)
-                    ],
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20)),
-                child: Row(
-                  children: [
-                    const Icon(Icons.search),
-                    Container(
-                      width: 250,
-                      margin: const EdgeInsets.only(left: 10),
-                      child: TextFormField(
-                        autofocus: true,
-                        // obscuringCharacter: ,
-                        enableSuggestions: true,
-                        // onSaved: (value) {
-                        //   runFilter(value!);
-                        // },
-                        onChanged: (value) {
-                          runFilter(value);
-                        },
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'Search',
-                        ).copyWith(isDense: true),
-                      ),
+      body: NestedScrollView(
+        body: bodyContent(scHeight, scWidth, authInfo),
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              backgroundColor: Colors.green[400],
+              iconTheme: IconThemeData(
+                color: Colors.white, //change your color here
+              ),
+              centerTitle: true,
+              expandedHeight: 130,
+              elevation: 5.0,
+              floating: false,
+              pinned: true,
+              // title: innerBoxIsScrolled
+              //     ? Padding(
+              //         padding: const EdgeInsets.symmetric(vertical: 10.0),
+              //         child: SearchBar(),
+              //       )
+              //     : null,
+              flexibleSpace: FlexibleSpaceBar(
+                  background: _buildSilverAppBarBackground(context, 100.0)),
+            ),
+          ];
+        },
+        // child: Column(
+        //   children: [
+        //     /* ---------------------------- Top SLider Bar ---------------------------- */
+        //     Container(
+        //       height: 50,
+        //       margin: const EdgeInsets.all(8),
+        //       padding: const EdgeInsets.all(10),
+        //       decoration: BoxDecoration(
+        //           boxShadow: const [
+        //             BoxShadow(
+        //                 color: Colors.grey, spreadRadius: 1, blurRadius: 1)
+        //           ],
+        //           color: Colors.white,
+        //           borderRadius: BorderRadius.circular(20)),
+        //       child: Row(
+        //         children: [
+        //           const Icon(Icons.search),
+        //           Container(
+        //             width: 250,
+        //             margin: const EdgeInsets.only(left: 10),
+        //             child: TextFormField(
+        //               autofocus: true,
+        //               // obscuringCharacter: ,
+        //               enableSuggestions: true,
+        //               // onSaved: (value) {
+        //               //   runFilter(value!);
+        //               // },
+        //               onChanged: (value) {
+        //                 runFilter(value);
+        //               },
+        //               decoration: InputDecoration.collapsed(
+        //                 hintText: 'Search',
+        //               ).copyWith(isDense: true),
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //     foundUser.isEmpty
+        //         ? SizedBox(
+        //             height: scHeight * 0.8,
+        //             child: const Center(child: Text("Your Items")),
+        //           )
+        //         : SizedBox(
+        //             /* ---------------------- Building Categories Item Grid --------------------- */
+        //             child: buildProducts(foundUser, authInfo, scWidth))
+        //   ],
+        // ),
+      ),
+    );
+  }
+
+  _buildSilverAppBarBackground(context, height) {
+    return Container(
+      decoration: BoxDecoration(
+          // border: Border.all(),
+          color: Colors.white),
+      // color: Colors.white,
+      height: 25,
+      child: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.green[400],
+              // color: Colors.white,bo
+              borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+            ),
+            // Background
+            child: const Center(
+              child: Text(
+                "Basko",
+                style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white),
+              ),
+            ),
+
+            height: height + 25,
+            width: MediaQuery.of(context).size.width,
+          ),
+
+          // Container(), // Required some widget in between to float AppBar
+//
+          Positioned(
+            // To take AppBar Size only
+            top: 100.0,
+            left: 20.0,
+            right: 20.0,
+            child: AppBar(
+              // titleSpacing: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12
+
+                    // bottom: Radius.circular(8),
                     ),
-                  ],
+              ),
+              backgroundColor: Colors.white,
+              leading: Icon(
+                Icons.search,
+                color: Theme.of(context).primaryColor,
+              ),
+              primary: false,
+              title: TextFormField(
+                autofocus: true,
+                // obscuringCharacter: ,
+                enableSuggestions: true,
+                // onSaved: (value) {
+                //   runFilter(value!);
+                // },
+                onChanged: (value) {
+                  runFilter(value);
+                },
+                decoration: InputDecoration.collapsed(
+                  hintText: 'Search',
+                ).copyWith(isDense: true),
+              ),
+              actions: <Widget>[
+                // IconButton(
+                //   icon: Icon(Icons.search, color: Theme.of(context).primaryColor),
+                //   onPressed: () {},
+                // ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget bodyContent(
+    scHeight,
+    scWidth,
+    authInfo,
+  ) {
+    return foundUser.isEmpty
+        ? SizedBox(height: scHeight * 0.8, child: noItems())
+        : SizedBox(
+            /* ---------------------- Building Categories Item Grid --------------------- */
+            child: buildProducts(foundUser, authInfo, scWidth));
+  }
+
+  Widget noItems() {
+    return Center(
+      child: Column(
+
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: 160),
+              height: 150,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(
+                      "https://lirp.cdn-website.com/71568f09/dms3rep/multi/opt/Depositphotos_29511965_l-2015+%281%29-640w.jpg"),
                 ),
               ),
-              foundUser.isEmpty
-                  ? SizedBox(
-                      height: scHeight * 0.8,
-                      child: const Center(child: Text("Your Items")),
-                    )
-                  : SizedBox(
-                      /* ---------------------- Building Categories Item Grid --------------------- */
-                      child: buildProducts(foundUser, authInfo, scWidth))
-            ],
-          ),
-        ),
-      ),
+            ),
+          ]),
     );
   }
 }

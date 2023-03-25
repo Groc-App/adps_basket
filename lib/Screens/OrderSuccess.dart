@@ -36,13 +36,6 @@ class OrderSuuccess extends StatelessWidget {
                       'Subscription Created Successfully',
                       style: TextStyle(fontSize: 20),
                     ),
-              SizedBox(
-                height: 3,
-              ),
-              Text(
-                'It will be delivered by 8 AM',
-                style: TextStyle(fontSize: 14, color: Colors.grey),
-              ),
             ],
           ),
           SizedBox(
@@ -53,6 +46,8 @@ class OrderSuuccess extends StatelessWidget {
                 Navigator.of(context).pushNamedAndRemoveUntil(
                     '/homepage', (Route<dynamic> route) => false);
               },
+              style:
+                  ElevatedButton.styleFrom(backgroundColor: Colors.green[400]),
               child: Text('Continue Shopping')),
         ]),
       ),

@@ -202,6 +202,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Card(
+                            elevation: 4,
                             child: Row(
                               children: [
                                 Container(
@@ -241,6 +242,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Card(
+                            elevation: 4,
                             child: Row(
                               children: [
                                 Container(
@@ -279,6 +281,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Card(
+                            elevation: 4,
                             child: Row(
                               children: [
                                 Container(
@@ -317,6 +320,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Card(
+                            elevation: 4,
                             child: Row(
                               children: [
                                 Container(
@@ -379,7 +383,8 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                                     showDialog(
                                       context: context,
                                       builder: (context) => AlertDialog(
-                                        title: Text('Date Alert'),
+                                        title:
+                                            Center(child: Text('Date Alert')),
                                         content: Text('Select Atleast 3 Days'),
                                         actions: [
                                           TextButton(

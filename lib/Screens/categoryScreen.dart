@@ -226,27 +226,20 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
           // border: Border.all(),
           color: Colors.white),
       // color: Colors.white,
-      height: 25,
+      height: 30,
       child: Stack(
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
               color: Colors.green[400],
+              image: DecorationImage(
+                  fit: BoxFit.fitHeight,
+                  image: NetworkImage(
+                      "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Category%20App%20Bar%20Bg%2FOnly%20img%2FNew%20Project%20(1).png?alt=media&token=484d9c49-0722-4cc3-a447-a7c4d92b2baa")),
               // color: Colors.white,bo
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
             ),
-            // Background
-            child: Center(
-              child: Text(
-                "$name",
-                style: TextStyle(
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white),
-              ),
-            ),
-
-            height: height + 25,
+            height: height + 30,
             width: MediaQuery.of(context).size.width,
           ),
 
@@ -258,6 +251,8 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
             left: 20.0,
             right: 20.0,
             child: AppBar(
+              leadingWidth: 50,
+              titleSpacing: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12
 
@@ -266,21 +261,24 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
               ),
               backgroundColor: Colors.white,
               leading: Icon(
-                Icons.menu,
+                Icons.search,
                 color: Theme.of(context).primaryColor,
               ),
               primary: false,
               title: TextField(
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/searchScreen');
+                  },
                   decoration: InputDecoration(
-                      hintText: "Search order repeat",
+                      hintText: "Search in $name",
                       border: InputBorder.none,
                       hintStyle: TextStyle(color: Colors.grey))),
               actions: <Widget>[
-                IconButton(
-                  icon:
-                      Icon(Icons.search, color: Theme.of(context).primaryColor),
-                  onPressed: () {},
-                ),
+                // IconButton(
+                //   icon:
+                //       Icon(Icons.search, color: Theme.of(context).primaryColor),
+                //   onPressed: () {},
+                // ),
               ],
             ),
           ),
@@ -295,6 +293,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
         <String, dynamic>{}) as Map;
 
     var imgUrl = categ['imageUrl'];
+    // var catNavImg = categ['catNavImg'];
 
     // ref.read(categoryProvider.notifier).update((state) => mapp);
 
@@ -342,7 +341,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
               // leading: ,
               backgroundColor: Colors.green[400],
               centerTitle: true,
-              expandedHeight: 130,
+              expandedHeight: 140,
               elevation: 5.0,
               floating: false,
               pinned: true,

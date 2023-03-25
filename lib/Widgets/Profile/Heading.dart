@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-import 'dart:html';
+// import 'dart:html';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +50,7 @@ class HeadingSupport extends ConsumerWidget {
           ]),
           GestureDetector(
             onTap: () async {
-              var whatsapp = "+917988923447";
+              var whatsapp = "+918299073956";
               var whatsappAndroid =
                   Uri.parse("whatsapp://send?phone=$whatsapp&text=hello");
               if (await canLaunchUrl(whatsappAndroid)) {

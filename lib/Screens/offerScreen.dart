@@ -13,7 +13,7 @@ import 'package:flutter/services.dart';
 
 /* --------------------------- Predefined Constant -------------------------- */
 
-const kExpandedHeight = 200.0;
+const kExpandedHeight = 165.0;
 var totalOrders = 0;
 var number = '';
 var map = {'number': number};
@@ -30,13 +30,13 @@ class OfferScreen extends ConsumerStatefulWidget {
 }
 
 class _OfferScreenState extends ConsumerState<OfferScreen> {
-  static CacheManager instance = CacheManager(
-    Config(
-      "imagemanager",
-      stalePeriod: const Duration(days: 7),
-      maxNrOfCacheObjects: 20,
-    ),
-  );
+  // static CacheManager instance = CacheManager(
+  //   Config(
+  //     "imagemanager",
+  //     stalePeriod: const Duration(days: 7),
+  //     maxNrOfCacheObjects: 20,
+  //   ),
+  // );
   // var imageUrl = storageRef.getDownloadURL();
   String? imageURL;
   // String number = '';
@@ -86,9 +86,10 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
                 SliverAppBar(
+                  backgroundColor: Colors.green[400],
                   centerTitle: true,
                   leading: IconButton(
-                    color: Colors.black,
+                    color: Colors.white,
                     icon: const Icon(Icons.arrow_back),
                     onPressed: () {
                       Navigator.pop(context);
@@ -98,7 +99,12 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                   elevation: 5.0,
                   floating: false,
                   pinned: true,
-                  title: innerBoxIsScrolled ? const Text('Rewards') : null,
+                  title: innerBoxIsScrolled
+                      ? const Text(
+                          'Rewards',
+                          style: TextStyle(color: Colors.white),
+                        )
+                      : null,
                   flexibleSpace: FlexibleSpaceBar(
                       background: _buildSilverAppBarBackground()),
                 ),
@@ -242,6 +248,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
             child: Stack(
               children: [
                 CachedNetworkImage(
+                  // fit: BoxFit.fitWidth,
                   imageUrl:
                       'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Freward_appbar_bg.jpg?alt=media&token=bf1c3400-ba8e-48c9-8b82-29c2803bd4ee',
                   errorWidget: (context, url, error) => Icon(Icons.error),
@@ -295,7 +302,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                   Expanded(
                       flex: 1,
                       child: Text(
-                        'Rs ${list[index].worth}',
+                        'Rs ${list[index].worth.toInt()}.',
                         // style: const TextStyle(fontSize: 20.0),
                       )),
                 ],
@@ -343,7 +350,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                                     decoration: BoxDecoration(
                                         image: DecorationImage(
                                             fit: BoxFit.cover,
-                                            image: new NetworkImage(
+                                            image: NetworkImage(
                                               "https://st4.depositphotos.com/7668048/28693/v/600/depositphotos_286933884-stock-illustration-indian-rupee-coins-falling-scattered.jpg",
                                             )),
                                         // color: Colors.white,
@@ -356,7 +363,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Get ₹${list[index].worth}* off",
+                                            "Get ₹${list[index].worth.toInt()} off",
                                             style: const TextStyle(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold,
@@ -545,7 +552,8 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                         // style: ButtonStyle(backgroundColor: ),
                         child: const Text("Close"),
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              '/offerScreen', (Route<dynamic> route) => false);
                         },
                       ),
                     )
