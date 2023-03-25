@@ -57,7 +57,7 @@ class Carousel extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
                 image: const DecorationImage(
                   image: CachedNetworkImageProvider(
-                      'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2FNew%20Customised%2Fc1.png?alt=media&token=e1056865-f526-4064-b3a4-2af5cf81668b'),
+                      'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2FNew%20Customised%2Fc1.png?alt=media&token=90d1b137-94c3-4a18-8686-1caa321ec2a1'),
                   fit: BoxFit.contain,
                 ),
               ),
@@ -69,7 +69,7 @@ class Carousel extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.0),
               image: const DecorationImage(
                 image: CachedNetworkImageProvider(
-                    'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2FNew%20Customised%2Fc3.png?alt=media&token=bdc847db-7e71-492a-8756-17941b37b1c5'),
+                    'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2FNew%20Customised%2Fc3.png?alt=media&token=9d7351b4-991a-4b88-8001-ac8b53b7790d'),
                 fit: BoxFit.contain,
               ),
             ),
