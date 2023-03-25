@@ -159,6 +159,7 @@ _buildSilverAppBarBackground(context, height) {
           left: 20.0,
           right: 20.0,
           child: AppBar(
+            // titleSpacing: 5,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12
 
@@ -167,20 +168,23 @@ _buildSilverAppBarBackground(context, height) {
             ),
             backgroundColor: Colors.white,
             leading: Icon(
-              Icons.menu,
+              Icons.search,
               color: Theme.of(context).primaryColor,
             ),
             primary: false,
             title: TextField(
+                onTap: () {
+                  Navigator.of(context).pushNamed('/searchScreen');
+                },
                 decoration: InputDecoration(
-                    hintText: "Search order repeat",
+                    hintText: "search , order , repeat",
                     border: InputBorder.none,
                     hintStyle: TextStyle(color: Colors.grey))),
             actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.search, color: Theme.of(context).primaryColor),
-                onPressed: () {},
-              ),
+              // IconButton(
+              //   icon: Icon(Icons.search, color: Theme.of(context).primaryColor),
+              //   onPressed: () {},
+              // ),
             ],
           ),
         ),

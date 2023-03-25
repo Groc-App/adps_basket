@@ -294,6 +294,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         centerTitle: true,
         title: Column(
           children: [
@@ -315,179 +316,183 @@ class _CartScreenState extends ConsumerState<CartScreen> {
               noitemtext: 'Login/SignUp First',
               pageroute: 'loginpage',
             )
-          : Column(
-              children: [
-                Expanded(
-                  // Expanded kr lio
-                  child: SingleChildScrollView(
-                    child:
-                        _cartList(ref, scHeight, scWidth, authInfo.phoneNumber),
+          : Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Column(
+                children: [
+                  Expanded(
+                    // Expanded kr lio
+                    child: SingleChildScrollView(
+                      child: _cartList(
+                          ref, scHeight, scWidth, authInfo.phoneNumber),
+                    ),
                   ),
-                ),
 
-                if (iscartempty == false)
-                  _showCoupon == false
-                      ? douyouhavecoupon()
-                      : (discount == 0.0)
-                          ? Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 7),
-                              child: Column(
-                                children: [
-                                  TextFormField(
-                                    controller: couponController,
-                                    decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: 'Enter coupon code',
+                  if (iscartempty == false)
+                    _showCoupon == false
+                        ? douyouhavecoupon()
+                        : (discount == 0.0)
+                            ? Container(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 7),
+                                child: Column(
+                                  children: [
+                                    TextFormField(
+                                      controller: couponController,
+                                      decoration: const InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        labelText: 'Enter coupon code',
+                                      ),
                                     ),
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      print(couponController.text);
-                                      FocusScope.of(context).unfocus();
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        print(couponController.text);
+                                        FocusScope.of(context).unfocus();
 
-                                      setCouponCode(couponController.text);
+                                        setCouponCode(couponController.text);
 
-                                      setState(() {
-                                        _isLoading = true;
-                                      });
-
-                                      var status = await ref.read(
-                                          checkcouponprovider({
-                                        'number': authInfo.phoneNumber ?? '',
-                                        'code': couponController.text
-                                      }).future);
-
-                                      if (status == 'Invalid') {
-                                        ScaffoldMessenger.of(context)
-                                            .hideCurrentSnackBar();
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                content: Text('Invalid code')));
-                                      } else if (status == 'Redeemed') {
-                                        ScaffoldMessenger.of(context)
-                                            .hideCurrentSnackBar();
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                content:
-                                                    Text('Already Redeemed')));
-                                      } else if (status == 'Sortage') {
-                                        ScaffoldMessenger.of(context)
-                                            .hideCurrentSnackBar();
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                content:
-                                                    Text('No referral left')));
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .hideCurrentSnackBar();
                                         setState(() {
-                                          discount = double.parse(status);
+                                          _isLoading = true;
                                         });
-                                      }
 
-                                      setState(() {
-                                        _isLoading = false;
-                                      });
-                                    },
-                                    child: _isLoading == false
-                                        ? const Text('Apply Coupon')
-                                        : SpinKitThreeInOut(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            size: 28,
-                                          ),
-                                  )
-                                ],
-                              ),
-                            )
-                          : Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 5),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 3),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white,
-                              ),
-                              child: Row(
-                                children: [
-                                  CachedNetworkImage(
-                                    imageUrl:
-                                        'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Icons%2Fbottomnavbar%2Foffer-icon-2.png?alt=media&token=ebadf132-5585-4527-8511-c7790ff1ab88',
-                                    height: 27,
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                  Text('Yayy, Coupon applied'),
-                                  Spacer(),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        discount = 0.0;
-                                      });
-                                    },
-                                    child: Text(
-                                      'Change Coupon',
-                                      style: TextStyle(
-                                          color: Colors.blue, fontSize: 12),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
+                                        var status = await ref.read(
+                                            checkcouponprovider({
+                                          'number': authInfo.phoneNumber ?? '',
+                                          'code': couponController.text
+                                        }).future);
 
-                // ----------         Button to checkout     --------
+                                        if (status == 'Invalid') {
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content:
+                                                      Text('Invalid code')));
+                                        } else if (status == 'Redeemed') {
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content: Text(
+                                                      'Already Redeemed')));
+                                        } else if (status == 'Sortage') {
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content: Text(
+                                                      'No referral left')));
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          setState(() {
+                                            discount = double.parse(status);
+                                          });
+                                        }
 
-                if (iscartempty == false)
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/checkoutScreen',
-                            arguments: {
-                              'number': authInfo.phoneNumber ?? '',
-                              'cartProductList': datalist,
-                              'tamount': pricetotal,
-                              'discount': discount,
-                              'deliveryCharges': deliveryCharges,
-                              'couponCode': couponCode
-                            });
-                      },
-                      child: Container(
-                          width: scWidth,
-                          height: scHeight * 0.08,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(8),
-                                  topRight: Radius.circular(8)),
-                              color: Theme.of(context).primaryColor),
-                          alignment: const Alignment(0, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(right: 10),
-                                child: const FaIcon(
-                                  FontAwesomeIcons.basketShopping,
-                                  size: 23,
+                                        setState(() {
+                                          _isLoading = false;
+                                        });
+                                      },
+                                      child: _isLoading == false
+                                          ? const Text('Apply Coupon')
+                                          : SpinKitThreeInOut(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              size: 28,
+                                            ),
+                                    )
+                                  ],
+                                ),
+                              )
+                            : Container(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 5),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 3),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
                                   color: Colors.white,
                                 ),
+                                child: Row(
+                                  children: [
+                                    CachedNetworkImage(
+                                      imageUrl:
+                                          'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Icons%2Fbottomnavbar%2Foffer-icon-2.png?alt=media&token=ebadf132-5585-4527-8511-c7790ff1ab88',
+                                      height: 27,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    Text('Yayy, Coupon applied'),
+                                    Spacer(),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          discount = 0.0;
+                                        });
+                                      },
+                                      child: Text(
+                                        'Change Coupon',
+                                        style: TextStyle(
+                                            color: Colors.blue, fontSize: 12),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                              const Text(
-                                'Proceed to Checkout',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ],
-                          )),
-                    ),
-                  )
-              ],
+
+                  // ----------         Button to checkout     --------
+
+                  if (iscartempty == false)
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/checkoutScreen',
+                              arguments: {
+                                'number': authInfo.phoneNumber ?? '',
+                                'cartProductList': datalist,
+                                'tamount': pricetotal,
+                                'discount': discount,
+                                'deliveryCharges': deliveryCharges,
+                                'couponCode': couponCode
+                              });
+                        },
+                        child: Container(
+                            width: scWidth,
+                            height: scHeight * 0.08,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(8),
+                                    topRight: Radius.circular(8)),
+                                color: Theme.of(context).primaryColor),
+                            alignment: const Alignment(0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(right: 10),
+                                  child: const FaIcon(
+                                    FontAwesomeIcons.basketShopping,
+                                    size: 23,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const Text(
+                                  'Proceed to Checkout',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ],
+                            )),
+                      ),
+                    )
+                ],
+              ),
             ),
     );
   }

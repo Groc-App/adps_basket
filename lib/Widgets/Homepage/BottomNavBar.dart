@@ -37,7 +37,7 @@ class BotmNavBar extends StatelessWidget {
                 CachedNetworkImage(
                   height: 22,
                   imageUrl:
-                      'https://img.icons8.com/external-others-inmotus-design/48/null/external-B-qwerty-keypad-others-inmotus-design-3.png',
+                      'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Icons%2Fbottomnavbar%2Fhome-icon-B.png?alt=media&token=1f0f9df4-31cf-492d-a38c-3a408358a011',
                 ),
                 // CachedNetworkImage(
                 //   height: 22,

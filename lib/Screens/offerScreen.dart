@@ -86,6 +86,8 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
                 SliverAppBar(
+                  backgroundColor:
+                      innerBoxIsScrolled ? Colors.green[400] : Colors.white,
                   centerTitle: true,
                   leading: IconButton(
                     color: Colors.black,
@@ -295,7 +297,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                   Expanded(
                       flex: 1,
                       child: Text(
-                        'Rs ${list[index].worth}',
+                        'Rs ${list[index].worth.toInt()}.',
                         // style: const TextStyle(fontSize: 20.0),
                       )),
                 ],
@@ -343,7 +345,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                                     decoration: BoxDecoration(
                                         image: DecorationImage(
                                             fit: BoxFit.cover,
-                                            image: new NetworkImage(
+                                            image: NetworkImage(
                                               "https://st4.depositphotos.com/7668048/28693/v/600/depositphotos_286933884-stock-illustration-indian-rupee-coins-falling-scattered.jpg",
                                             )),
                                         // color: Colors.white,
@@ -356,7 +358,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Get ₹${list[index].worth}* off",
+                                            "Get ₹${list[index].worth.toInt()}* off",
                                             style: const TextStyle(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold,
