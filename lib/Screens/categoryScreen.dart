@@ -200,6 +200,95 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     );
   }
 
+  Widget bodyContent(map, imgUrl) {
+    return ListView(
+      padding: EdgeInsets.only(top: 0),
+      children: [
+        /* ---------------------------- Top SLider Bar ---------------------------- */
+        // GestureDetector(
+        //     onTap: () {
+        //       Navigator.of(context).pushNamed('/searchScreen');
+        //     },
+        //     child: SearchBar()),
+        // Text(connectivityStatusProvider == ConnectivityStatus.isConnected
+        //     ? 'Is Connected to Internet'
+        //     : 'Is Disconnected from Internet'),
+        categoriesList(ref, mainCategoryId, imgUrl),
+        /* ------------------------------Body Pane----------------------------- */
+        SizedBox(child: productList(ref, map))
+      ],
+    );
+  }
+
+  _buildSilverAppBarBackground(context, height, name) {
+    return Container(
+      decoration: BoxDecoration(
+          // border: Border.all(),
+          color: Colors.white),
+      // color: Colors.white,
+      height: 25,
+      child: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.green[400],
+              // color: Colors.white,bo
+              borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+            ),
+            // Background
+            child: Center(
+              child: Text(
+                "$name",
+                style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white),
+              ),
+            ),
+
+            height: height + 25,
+            width: MediaQuery.of(context).size.width,
+          ),
+
+          // Container(), // Required some widget in between to float AppBar
+//
+          Positioned(
+            // To take AppBar Size only
+            top: 100.0,
+            left: 20.0,
+            right: 20.0,
+            child: AppBar(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12
+
+                    // bottom: Radius.circular(8),
+                    ),
+              ),
+              backgroundColor: Colors.white,
+              leading: Icon(
+                Icons.menu,
+                color: Theme.of(context).primaryColor,
+              ),
+              primary: false,
+              title: TextField(
+                  decoration: InputDecoration(
+                      hintText: "Search order repeat",
+                      border: InputBorder.none,
+                      hintStyle: TextStyle(color: Colors.grey))),
+              actions: <Widget>[
+                IconButton(
+                  icon:
+                      Icon(Icons.search, color: Theme.of(context).primaryColor),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var categ = (ModalRoute.of(context)?.settings.arguments ??
@@ -226,47 +315,75 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
 
     /* -------------------------------- Scaffold -------------------------------- */
     return Scaffold(
+      backgroundColor: Colors.white,
       /* --------------------------------- appBar --------------------------------- */
-      appBar: AppBar(
-        // centerTitle: true,
-        // ignore: prefer_const_constructors
-        elevation: 1,
-        title: Text(
-          categ['name'],
-          softWrap: true,
-          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
-        ),
-      ),
+      // appBar: AppBar(
+      //   // centerTitle: true,
+      //   // ignore: prefer_const_constructors
+      //   elevation: 1,
+      //   title: Text(
+      //     categ['name'],
+      //     softWrap: true,
+      //     style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+      //   ),
+      // ),
 
       /* ---------------------------------- body ---------------------------------- */
-      body: SingleChildScrollView(
-          child:
-              // connect.isOnline != null ?
-              Column(
-        children: [
-          /* ---------------------------- Top SLider Bar ---------------------------- */
-          GestureDetector(
-              onTap: () {
-                Navigator.of(context).pushNamed('/searchScreen');
-              },
-              child: SearchBar()),
-          // Text(connectivityStatusProvider == ConnectivityStatus.isConnected
-          //     ? 'Is Connected to Internet'
-          //     : 'Is Disconnected from Internet'),
-          categoriesList(ref, mainCategoryId, imgUrl),
+      body: NestedScrollView(
+        body: bodyContent(map, imgUrl),
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              titleSpacing: 0,
+              iconTheme: IconThemeData(
+                color: Colors.white, //change your color here
+              ),
+              leadingWidth: 30,
+              // leading: ,
+              backgroundColor: Colors.green[400],
+              centerTitle: true,
+              expandedHeight: 130,
+              elevation: 5.0,
+              floating: false,
+              pinned: true,
+              title: innerBoxIsScrolled
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: SearchBar(),
+                    )
+                  : null,
+              flexibleSpace: FlexibleSpaceBar(
+                  background: _buildSilverAppBarBackground(
+                      context, 100.0, categ['name'])),
+            ),
+          ];
+        },
+        // connect.isOnline != null ?
+        //         Column(
+        //   children: [
+        //     /* ---------------------------- Top SLider Bar ---------------------------- */
+        //     GestureDetector(
+        //         onTap: () {
+        //           Navigator.of(context).pushNamed('/searchScreen');
+        //         },
+        //         child: SearchBar()),
+        //     // Text(connectivityStatusProvider == ConnectivityStatus.isConnected
+        //     //     ? 'Is Connected to Internet'
+        //     //     : 'Is Disconnected from Internet'),
+        //     categoriesList(ref, mainCategoryId, imgUrl),
 
-          // Carousel(),
+        //     // Carousel(),
 
-          /* -------------------------------------------------------------------------- */
+        //     /* -------------------------------------------------------------------------- */
 
-          /* ------------------------------Body Pane----------------------------- */
-          // ProductData(),2
-          // ProductDataWidgets(),
-          SizedBox(child: productList(ref, map))
-        ],
-      )
-          // : InternetConnection(),
-          ),
+        //     /* ------------------------------Body Pane----------------------------- */
+        //     // ProductData(),2
+        //     // ProductDataWidgets(),
+        //     SizedBox(child: productList(ref, map))
+        //   ],
+        // )
+        // : InternetConnection(),
+      ),
     );
   }
 }
