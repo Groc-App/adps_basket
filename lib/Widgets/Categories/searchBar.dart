@@ -20,7 +20,10 @@ class SearchBar extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Icon(Icons.search),
+            const Icon(
+              Icons.search,
+              color: Colors.green,
+            ),
             Container(
               alignment: Alignment.center,
               width: 250,

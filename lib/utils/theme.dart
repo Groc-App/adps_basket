@@ -64,7 +64,8 @@ class MyTheme {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
 
-        scaffoldBackgroundColor: Color.fromRGBO(243, 243, 243, 1),
+        scaffoldBackgroundColor: Colors.white,
+        // scaffoldBackgroundColor: Color.fromRGBO(243, 243, 243, 1),
 
         bottomNavigationBarTheme: (const BottomNavigationBarThemeData(
             backgroundColor: Colors.white,

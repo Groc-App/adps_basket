@@ -191,6 +191,7 @@ _buildSilverAppBarBackground(context, height) {
 
 Widget bodyContent() {
   return ListView(
+    padding: EdgeInsets.only(top: 0),
     // ignore: prefer_const_literals_to_create_immutables
     children: [
       Quote(),
