@@ -17,7 +17,7 @@ class Intro1 extends StatelessWidget {
                 'https://assets5.lottiefiles.com/packages/lf20_3tryizhw.json',
                 height: scHeight * 0.7),
             Container(
-                transform: Matrix4.rotationZ(6.15),
+                // transform: Matrix4.rotationZ(6.15),
                 margin: const EdgeInsets.only(left: 30, right: 35, top: 20),
                 child: const Text(
                   'Things at your doorstep everyday before 8 AM',

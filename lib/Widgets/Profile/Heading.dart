@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'dart:html';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,11 +50,18 @@ class HeadingSupport extends ConsumerWidget {
           ]),
           GestureDetector(
             onTap: () async {
-              const url = "tel:7982733943";
-              if (await canLaunch(url)) {
-                await launch(url);
+              var whatsapp = "+917988923447";
+              var whatsappAndroid =
+                  Uri.parse("whatsapp://send?phone=$whatsapp&text=hello");
+              if (await canLaunchUrl(whatsappAndroid)) {
+                await launchUrl(whatsappAndroid);
               } else {
-                throw 'Could not launch $url';
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("WhatsApp is not installed on the device"),
+                  ),
+                );
               }
             },
             child: Column(
