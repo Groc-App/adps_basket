@@ -35,10 +35,15 @@ class BotmNavBar extends StatelessWidget {
                 //   color: Colors.amber,
                 // ),
                 CachedNetworkImage(
-                  height: 30,
+                  height: 22,
                   imageUrl:
-                      'https://img.icons8.com/material-outlined/48/null/home-page.png',
+                      'https://img.icons8.com/external-others-inmotus-design/48/null/external-B-qwerty-keypad-others-inmotus-design-3.png',
                 ),
+                // CachedNetworkImage(
+                //   height: 22,
+                //   imageUrl:
+                //       'https://img.icons8.com/external-others-inmotus-design/67/null/external-B-keyboard-others-inmotus-design-10.png',
+                // ),
                 Text(
                   'Home',
                   textAlign: TextAlign.center,
@@ -81,7 +86,7 @@ class BotmNavBar extends StatelessWidget {
                 CachedNetworkImage(
                   height: 22,
                   imageUrl:
-                      'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Icons%2Fbottomnavbar%2Fsubscription-icon.png?alt=media&token=443c2fd5-915f-4707-b234-7516ca6bcac4',
+                      'https://img.icons8.com/ios/50/null/tear-off-calendar--v1.png',
                 ),
                 Text(
                   'Subs',
@@ -99,8 +104,7 @@ class BotmNavBar extends StatelessWidget {
               children: [
                 CachedNetworkImage(
                   height: 22,
-                  imageUrl:
-                      'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Icons%2Fbottomnavbar%2Fuser-icon.png?alt=media&token=58c01f7d-874b-4208-bd9f-52e15b15d836',
+                  imageUrl: 'https://img.icons8.com/windows/48/null/user.png',
                 ),
                 Text(
                   'Profile',
