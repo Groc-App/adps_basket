@@ -44,7 +44,7 @@ class MostSelling extends StatelessWidget {
                   ),
                 );
               })
-          : Text('Empty List'),
+          : DataError(),
     );
   }
 

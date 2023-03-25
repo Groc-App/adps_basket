@@ -23,7 +23,7 @@ class DataError extends StatelessWidget {
             height: 10,
           ),
           Text(
-            'Opps! Something went wrong.',
+            'Opps! No internet connection.',
             style: TextStyle(
                 fontSize: 19, fontWeight: FontWeight.bold, color: Colors.blue),
           ),

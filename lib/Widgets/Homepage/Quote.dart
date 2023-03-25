@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/Widgets/Sinners/quotesinner.dart';
 
 import '../../providers/providers.dart';
 import '../Errors/Dataloadingerror.dart';
@@ -23,9 +24,9 @@ class Quote extends ConsumerWidget {
               color: Theme.of(context).primaryColor),
         );
       }),
-      error: (_, __) => const DataError(),
+      error: (_, __) => Container(),
       loading: () => const Center(
-        child: ProductSinner(),
+        child: QuoteSinner(),
       ),
     );
   }
