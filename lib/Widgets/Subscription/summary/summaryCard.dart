@@ -23,14 +23,14 @@ class SummaryCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
                 image: const DecorationImage(
                     image: CachedNetworkImageProvider(
-                        'https://www.jotform.com/blog/wp-content/uploads/2020/05/How-to-start-a-food-delivery-business.png'),
+                        'https://i.pinimg.com/736x/25/0b/5b/250b5b6e80d7eace5126b5b8cf1418af.jpg'),
                     fit: BoxFit.cover)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Container(
-                  margin: const EdgeInsets.only(right: 50),
+                  margin: const EdgeInsets.only(right: 25),
                   height: Config.scHeight * 0.3 * 0.7,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -45,9 +45,10 @@ class SummaryCard extends StatelessWidget {
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
-                            color: Colors.white),
+                            color: Colors.green[400]),
                         child: const Text(
                           "Daily Expense",
+                          style: TextStyle(color: Colors.white),
                         ),
                       )
                     ],

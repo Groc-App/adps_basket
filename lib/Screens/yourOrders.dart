@@ -49,22 +49,18 @@ class YourOrderes extends ConsumerWidget {
             noitemtext: 'You have no past orders!!!',
             pageroute: 'homescreen',
           )
-        : Column(
-            children: [
-              SingleChildScrollView(
-                child: Column(
-                  children: list.map<Widget>((e) {
-                    return OrdereItem(
-                        orderDetails: e.OrderDetails,
-                        address: e.Addres,
-                        orderID: e.OrderId,
-                        date: e.Date,
-                        orderStatus: e.OrderStatus,
-                        totalAmount: e.TotalAmount.toString());
-                  }).toList(),
-                ),
-              ),
-            ],
+        : SingleChildScrollView(
+            child: Column(
+              children: list.map<Widget>((e) {
+                return OrdereItem(
+                    orderDetails: e.OrderDetails,
+                    address: e.Addres,
+                    orderID: e.OrderId,
+                    date: e.Date,
+                    orderStatus: e.OrderStatus,
+                    totalAmount: e.TotalAmount.toString());
+              }).toList(),
+            ),
           );
   }
 

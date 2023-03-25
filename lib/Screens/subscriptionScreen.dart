@@ -66,241 +66,270 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
               height: 10,
             ),
         itemBuilder: (context, i) {
-          return ListTile(
-            onTap: () {
-              showModalBottomSheet(
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (BuildContext context) {
-                    return SingleChildScrollView(
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        // height: scHeight * 0.9,
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 12,
-                            ),
-                            const Text(
-                              "Subscription Detail",
-                              style: TextStyle(
-                                  fontSize: 24, fontWeight: FontWeight.bold),
-                            ),
-                            // SizedBox(
-                            //   height: 2,
-                            // ),
-                            ModalItem(
-                                name: list[i].product.Name,
-                                imageURL: list[i].product.ImageUrl[0]),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            const Text("Details",
+          return Card(
+            elevation: 2,
+            child: ListTile(
+              onTap: () {
+                showModalBottomSheet(
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SingleChildScrollView(
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          // height: scHeight * 0.9,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 12,
+                              ),
+                              const Text(
+                                "Subscription Detail",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16)),
-                            Container(
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Card(
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 10, horizontal: 20),
-                                            child: const Text("Quantity",
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                        FontWeight.w500)),
-                                          ),
-                                          const Spacer(),
-                                          Container(
-                                            width: scSize.width * 0.5,
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 5, horizontal: 10),
-                                            child: Text(
-                                                list[i].quantity.toString(),
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Theme.of(context)
-                                                        .primaryColor)),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Card(
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 10, horizontal: 20),
-                                            child: const Text("Start Date",
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                        FontWeight.w500)),
-                                          ),
-                                          const Spacer(),
-                                          Container(
-                                            width: scSize.width * 0.5,
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 5, horizontal: 10),
-                                            child: Text(
-                                                '${DateFormat('dd/MM/yyyy').format(list[i].startDate)}',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Theme.of(context)
-                                                        .primaryColor)),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Card(
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 10, horizontal: 20),
-                                            child: const Text("End Date",
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                        FontWeight.w500)),
-                                          ),
-                                          const Spacer(),
-                                          Container(
-                                            width: scSize.width * 0.5,
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 5, horizontal: 10),
-                                            child: Text(
-                                                '${DateFormat('dd/MM/yyyy').format(list[i].endDate)}',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Theme.of(context)
-                                                        .primaryColor)),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Card(
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 10, horizontal: 20),
-                                            child: const Text("Status",
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                        FontWeight.w500)),
-                                          ),
-                                          const Spacer(),
-                                          Container(
-                                            width: scSize.width * 0.5,
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 5, horizontal: 10),
-                                            child: list[i].subscriptionStatus ==
-                                                    true
-                                                ? Text("Subscribed",
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Theme.of(context)
-                                                            .primaryColor))
-                                                : const Text("Unsubscribed",
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.red)),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                    fontSize: 24, fontWeight: FontWeight.bold),
                               ),
-                            ),
-                            Container(
-                              width: double.infinity,
-                              height: scHeight * 0.9 * 0.1,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Container(
-                                    width: 150,
-                                    child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.green),
-                                        onPressed: () {
-                                          var startDate =
-                                              DateFormat('dd/MM/yyyy')
-                                                  .format(list[i].startDate);
-                                          var endDate = DateFormat('dd/MM/yyyy')
-                                              .format(list[i].endDate);
-                                          Navigator.of(context).pushNamed(
-                                              '/buySubscriptionScreen',
-                                              arguments: {
-                                                'product': list[i].product,
-                                                'subsid':
-                                                    list[i].subscriptionId,
-                                                'function': 'edit',
-                                                'quantity':
-                                                    list[i].quantity.toString(),
-                                                'startDate': startDate,
-                                                'endDate': endDate,
-                                              });
-                                        },
-                                        child: Text("Edit")),
-                                  ),
-                                  Container(
-                                    width: 150,
-                                    child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.red),
-                                        onPressed: () {
-                                          cancelHandler(list[i].subscriptionId);
-                                        },
-                                        child: Text("Cancel")),
-                                  )
-                                ],
+                              // SizedBox(
+                              //   height: 2,
+                              // ),
+                              ModalItem(
+                                  name: list[i].product.Name,
+                                  imageURL: list[i].product.ImageUrl[0]),
+                              const SizedBox(
+                                height: 20,
                               ),
-                            )
-                          ],
+                              const Text("Details",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16)),
+                              Container(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Card(
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10,
+                                                      horizontal: 20),
+                                              child: const Text("Quantity",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w500)),
+                                            ),
+                                            const Spacer(),
+                                            Container(
+                                              width: scSize.width * 0.5,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 5,
+                                                      horizontal: 10),
+                                              child: Text(
+                                                  list[i].quantity.toString(),
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Theme.of(context)
+                                                          .primaryColor)),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Card(
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10,
+                                                      horizontal: 20),
+                                              child: const Text("Start Date",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w500)),
+                                            ),
+                                            const Spacer(),
+                                            Container(
+                                              width: scSize.width * 0.5,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 5,
+                                                      horizontal: 10),
+                                              child: Text(
+                                                  '${DateFormat('dd/MM/yyyy').format(list[i].startDate)}',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Theme.of(context)
+                                                          .primaryColor)),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Card(
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10,
+                                                      horizontal: 20),
+                                              child: const Text("End Date",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w500)),
+                                            ),
+                                            const Spacer(),
+                                            Container(
+                                              width: scSize.width * 0.5,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 5,
+                                                      horizontal: 10),
+                                              child: Text(
+                                                  '${DateFormat('dd/MM/yyyy').format(list[i].endDate)}',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Theme.of(context)
+                                                          .primaryColor)),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Card(
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10,
+                                                      horizontal: 20),
+                                              child: const Text("Status",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w500)),
+                                            ),
+                                            const Spacer(),
+                                            Container(
+                                              width: scSize.width * 0.5,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 5,
+                                                      horizontal: 10),
+                                              child: list[i]
+                                                          .subscriptionStatus ==
+                                                      true
+                                                  ? Text("Subscribed",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .primaryColor))
+                                                  : const Text("Unsubscribed",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.red)),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: double.infinity,
+                                height: scHeight * 0.9 * 0.1,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Container(
+                                      width: 150,
+                                      child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.green),
+                                          onPressed: () {
+                                            var startDate =
+                                                DateFormat('dd/MM/yyyy')
+                                                    .format(list[i].startDate);
+                                            var endDate =
+                                                DateFormat('dd/MM/yyyy')
+                                                    .format(list[i].endDate);
+                                            Navigator.of(context).pushNamed(
+                                                '/buySubscriptionScreen',
+                                                arguments: {
+                                                  'product': list[i].product,
+                                                  'subsid':
+                                                      list[i].subscriptionId,
+                                                  'function': 'edit',
+                                                  'quantity': list[i]
+                                                      .quantity
+                                                      .toString(),
+                                                  'startDate': startDate,
+                                                  'endDate': endDate,
+                                                });
+                                          },
+                                          child: Text("Edit")),
+                                    ),
+                                    Container(
+                                      width: 150,
+                                      child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.red),
+                                          onPressed: () {
+                                            cancelHandler(
+                                                list[i].subscriptionId);
+                                          },
+                                          child: Text("Cancel")),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  });
-            },
-            minVerticalPadding: 10,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            tileColor: Theme.of(context).scaffoldBackgroundColor,
-            leading: ClipRRect(
-              borderRadius: const BorderRadius.all(
-                  Radius.circular(10.0)), //add border radius here
-              child: Image.network(
-                list[i].product.ImageUrl[0],
-                width: 80,
-                fit: BoxFit.contain,
-              ), //add image location here
-            ),
-            title: Text("${list[i].product.Name}"),
-            subtitle: Text("${list[i].quantity} Qty"),
-            trailing: Text(
-              "₹${(list[i].quantity * list[i].product.Price).toString()}",
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      );
+                    });
+              },
+              minVerticalPadding: 10,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              tileColor: Theme.of(context).scaffoldBackgroundColor,
+              leading: ClipRRect(
+                borderRadius: const BorderRadius.all(
+                    Radius.circular(10.0)), //add border radius here
+                child: Image.network(
+                  list[i].product.ImageUrl[0],
+                  width: 80,
+                  fit: BoxFit.contain,
+                ), //add image location here
+              ),
+              title: Text("${list[i].product.Name}"),
+              subtitle: Text("${list[i].quantity} Qty"),
+              trailing: Text(
+                "₹${(list[i].quantity * list[i].product.Price).toString()}",
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
             ),
           );
         });
@@ -395,19 +424,34 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
             ),
           );
         } else {
-          return const Center(
-            child: Text(
-              "No Subscription Found",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey,
-                  fontStyle: FontStyle.italic),
-            ),
-          );
+          return noItems();
         }
       },
       error: (_, __) => DataError(),
       loading: () => const Center(child: CircularProgressIndicator()),
+    );
+  }
+
+  Widget noItems() {
+    return Center(
+      child: Column(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: 200),
+              height: 150,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(
+                      "https://media.istockphoto.com/id/1366733193/vector/illustration-of-the-delivery-person-the-man-is-crying.jpg?s=612x612&w=0&k=20&c=epdZWaJoHSBoasf0t94_yEaiD26QefpjcorsKyXgfWA="),
+                ),
+              ),
+            ),
+            Text(
+              "No Subscriptions",
+              style: TextStyle(fontStyle: FontStyle.italic),
+            )
+          ]),
     );
   }
 
