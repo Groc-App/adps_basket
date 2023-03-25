@@ -14,7 +14,7 @@ class Quote extends ConsumerWidget {
     return quote.when(
       data: ((data) {
         return Text(
-          '\'\'${data},,',
+          '\'\'Let’s gain some weight!,,',
           maxLines: 2,
           style: TextStyle(
               fontSize: 17,

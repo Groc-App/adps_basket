@@ -211,6 +211,8 @@ class _ProductItemState extends ConsumerState<ProductItem> {
       child: Card(
         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         // color: Colors.white,
+        elevation: 5,
+
         child: Padding(
           padding: const EdgeInsets.only(left: 5),
           child: Column(
