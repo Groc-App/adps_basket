@@ -33,10 +33,11 @@ class Quote extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
+      // decoration: BoxDecoration(border: Border.all()),
       width: double.infinity,
       height: 50,
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      margin: const EdgeInsets.symmetric(vertical: 10),
+      // margin: const EdgeInsets.symmetric(vertical: 10),
       alignment: const Alignment(0, 0),
       child: textBuild(ref, context),
     );

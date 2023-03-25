@@ -8,31 +8,34 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      margin: const EdgeInsets.all(8),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(boxShadow: const [
-        BoxShadow(color: Colors.grey, spreadRadius: 1, blurRadius: 1)
-      ], color: Colors.white, borderRadius: BorderRadius.circular(20)),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Icon(Icons.search),
-          Container(
-            alignment: Alignment.center,
-            width: 250,
-            margin: const EdgeInsets.only(left: 10),
-            child: TextFormField(
-              onTap: () {
-                Navigator.of(context).pushNamed('/searchScreen');
-              },
-              decoration: InputDecoration.collapsed(
-                hintText: 'Search here',
-              ).copyWith(isDense: true),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Container(
+        height: 40,
+        margin: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(boxShadow: const [
+          BoxShadow(color: Colors.grey, spreadRadius: 1, blurRadius: 1)
+        ], color: Colors.white, borderRadius: BorderRadius.circular(20)),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Icon(Icons.search),
+            Container(
+              alignment: Alignment.center,
+              width: 250,
+              margin: const EdgeInsets.only(left: 10),
+              child: TextFormField(
+                onTap: () {
+                  Navigator.of(context).pushNamed('/searchScreen');
+                },
+                decoration: InputDecoration.collapsed(
+                  hintText: 'Search',
+                ).copyWith(isDense: true),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:your_basket/Widgets/Homepage/Quote.dart';
 
+import '../Widgets/Categories/searchBar.dart';
 import '../Widgets/Homepage/Carousel.dart';
 import '../Widgets/Homepage/BottomNavBar.dart';
 import '../Widgets/Homepage/Categories.dart';
@@ -15,49 +16,92 @@ import 'package:flutter/material.dart';
 
 import '../providers/providers.dart';
 
+const kExpandedHeight = 120.0;
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   // const HomeScreen({super.key});
+  // _appBar(height, context) => PreferredSize(
+  //       preferredSize: Size(MediaQuery.of(context).size.width, height + 80),
+  //       child: Stack(
+  //         children: <Widget>[
+  //           Container(
+  //             // Background
+  //             child: Center(
+  //               child: Text(
+  //                 "Basko",
+  //                 style: TextStyle(
+  //                     fontSize: 25.0,
+  //                     fontWeight: FontWeight.w600,
+  //                     color: Colors.white),
+  //               ),
+  //             ),
+  //             color: const Color.fromRGBO(83, 177, 117, 1),
+  //             height: height + 75,
+  //             width: MediaQuery.of(context).size.width,
+  //           ),
+
+  //           Container(), // Required some widget in between to float AppBar
+
+  //           Positioned(
+  //             // To take AppBar Size only
+  //             top: 100.0,
+  //             left: 20.0,
+  //             right: 20.0,
+  //             child: AppBar(
+  //               backgroundColor: Colors.white,
+  //               leading: Icon(
+  //                 Icons.menu,
+  //                 color: Theme.of(context).primaryColor,
+  //               ),
+  //               primary: false,
+  //               title: TextField(
+  //                   decoration: InputDecoration(
+  //                       hintText: "Search",
+  //                       border: InputBorder.none,
+  //                       hintStyle: TextStyle(color: Colors.grey))),
+  //               actions: <Widget>[
+  //                 IconButton(
+  //                   icon: Icon(Icons.search,
+  //                       color: Theme.of(context).primaryColor),
+  //                   onPressed: () {},
+  //                 ),
+  //               ],
+  //             ),
+  //           )
+  //         ],
+  //       ),
+  //     );
 
   @override
   Widget build(BuildContext context) {
+    final scSize = MediaQuery.of(context).size;
+    final scHeight = scSize.height;
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        leadingWidth: 50,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 15, top: 5, bottom: 5),
-          child: CachedNetworkImage(
-            imageUrl:
-                'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Logo%2FNew%2Flogopng.png?alt=media&token=231df3d2-2600-4ed9-abe9-61f719f12e01',
-            // progressIndicatorBuilder: (context, url, downloadProgress) =>
-            //     CircularProgressIndicator(value: downloadProgress.progress),
-            errorWidget: (context, url, error) => Icon(Icons.error),
-          ),
-        ),
-        title: Text('Basko'),
-        // title:
-        centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('/searchScreen');
-              },
-              icon: Icon(Icons.search))
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          // ignore: prefer_const_literals_to_create_immutables
-          children: [
-            Quote(),
-            Carousel(),
-            MainCategory(),
-            MostSelling(),
-          ],
-        ),
+      body: NestedScrollView(
+        body: bodyContent(),
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              backgroundColor: Colors.green[400],
+              centerTitle: true,
+              expandedHeight: 130,
+              elevation: 5.0,
+              floating: false,
+              pinned: true,
+              title: innerBoxIsScrolled
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: SearchBar(),
+                    )
+                  : null,
+              flexibleSpace: FlexibleSpaceBar(
+                  background: _buildSilverAppBarBackground(context, 100.0)),
+            ),
+          ];
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
@@ -75,4 +119,84 @@ class HomeScreen extends StatelessWidget {
       bottomNavigationBar: const BotmNavBar(),
     );
   }
+}
+
+_buildSilverAppBarBackground(context, height) {
+  return Container(
+    decoration: BoxDecoration(
+        // border: Border.all(),
+        color: Colors.white),
+    // color: Colors.white,
+    height: 25,
+    child: Stack(
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.green[400],
+            // color: Colors.white,bo
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+          ),
+          // Background
+          child: const Center(
+            child: Text(
+              "Basko",
+              style: TextStyle(
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white),
+            ),
+          ),
+
+          height: height + 25,
+          width: MediaQuery.of(context).size.width,
+        ),
+
+        // Container(), // Required some widget in between to float AppBar
+//
+        Positioned(
+          // To take AppBar Size only
+          top: 100.0,
+          left: 20.0,
+          right: 20.0,
+          child: AppBar(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12
+
+                  // bottom: Radius.circular(8),
+                  ),
+            ),
+            backgroundColor: Colors.white,
+            leading: Icon(
+              Icons.menu,
+              color: Theme.of(context).primaryColor,
+            ),
+            primary: false,
+            title: TextField(
+                decoration: InputDecoration(
+                    hintText: "Search order repeat",
+                    border: InputBorder.none,
+                    hintStyle: TextStyle(color: Colors.grey))),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.search, color: Theme.of(context).primaryColor),
+                onPressed: () {},
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget bodyContent() {
+  return ListView(
+    // ignore: prefer_const_literals_to_create_immutables
+    children: [
+      Quote(),
+      Carousel(),
+      MainCategory(),
+      MostSelling(),
+    ],
+  );
 }
