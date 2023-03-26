@@ -20,8 +20,6 @@ import '../providers/providers.dart';
 import '../models/cart/cartitem.dart' as CartItemModel;
 import '../models/product/productdetail.dart' as ProductItemModel;
 
-String userNumber = '';
-
 class CartScreen extends ConsumerStatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
 
@@ -44,6 +42,19 @@ class _CartScreenState extends ConsumerState<CartScreen> {
   String couponCode = '';
   bool _showCoupon = false;
 
+  // String phonenumber = '';
+
+  // Future<void> setnumber() async {
+  //   print('called');
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? username = prefs.getString('username');
+  //   print('$username inside cart item:::::::::::');
+  //   if (username != null) {
+  //     phonenumber = username;
+  //     print('phonenumber is: $phonenumber');
+  //   }
+  // }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -52,9 +63,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
 // your code goes here
       var status = await ref.read(verifyCouponProvider.future);
-      await getNumber();
-
-      print("init:$userNumber");
       print("Statussss:$status");
 
       if (status == 'true') {
@@ -90,7 +98,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     });
   }
 
-  Widget _cartList(WidgetRef ref, scHeight, scWidth) {
+  Widget _cartList(WidgetRef ref, scHeight, scWidth, String phonenumber) {
     final cartState = ref.watch(cartItemsProvider);
 
     if (cartState.cartModel == null) {
@@ -106,7 +114,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
     return _buildCartItems(
         cartState.cartModel!.products.cast<CartItemModel.CartItem>(),
-        userNumber,
+        phonenumber,
         scHeight,
         scWidth);
   }
@@ -318,26 +326,19 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           );
   }
 
-  Future<void> getNumber() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String userNumberr = prefs.getString('username') ?? '';
-    setState(() {
-      userNumber = userNumberr;
-    });
-    print("userNumber $userNumber");
-  }
-
   @override
   Widget build(BuildContext context) {
     final scSize = MediaQuery.of(context).size;
     final scWidth = scSize.width;
     final scHeight = scSize.height;
 
-    // var authInfo?=username
-    print("UserNUmber $userNumber");
+    String? authInfo = ref.watch(authCheckProvider);
+    print('inside cart screen authinfo:::::::::::: $authInfo');
 
-    print("Body:::: $referralVeri");
-    print("Body:::: $discount");
+    // print("Body:::: $referralVeri");
+    // print("Body:::: $discount");
+
+    // setnumber();
 
     return Scaffold(
       appBar: AppBar(
@@ -358,7 +359,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           ],
         ),
       ),
-      body: userNumber == null
+      body: authInfo == null
           ? NoItems(
               noitemtext: 'Login/SignUp First',
               pageroute: 'loginpage',
@@ -370,7 +371,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   Expanded(
                     // Expanded kr lio
                     child: SingleChildScrollView(
-                      child: _cartList(ref, scHeight, scWidth),
+                      child: _cartList(ref, scHeight, scWidth, authInfo),
                     ),
                   ),
 
@@ -403,7 +404,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
                                         var status = await ref.read(
                                             checkcouponprovider({
-                                          'number': userNumber,
+                                          'number': authInfo,
                                           'code': couponController.text
                                         }).future);
 
@@ -498,7 +499,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                         onTap: () {
                           Navigator.pushNamed(context, '/checkoutScreen',
                               arguments: {
-                                'number': userNumber,
+                                'number': authInfo,
                                 'cartProductList': datalist,
                                 'tamount': pricetotal,
                                 'discount': discount,

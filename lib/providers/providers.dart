@@ -28,7 +28,17 @@ import '../Services/order_api_service.dart';
 import 'package:your_basket/models/orders/orders.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-final authCheckProvider = StateProvider<User?>((ref) => null);
+final authCheckProvider = StateProvider<String?>((ref) {
+  String? number;
+  SharedPreferences.getInstance().then((value) {
+    number = value.getString('phonenumber');
+  });
+
+  return number;
+  // String? username = await prefs.getString('phonenumber');
+
+  // return username;
+});
 
 final cartItemsProvider =
     StateNotifierProvider.autoDispose<CartNotifier, CartState>(
@@ -40,8 +50,8 @@ final cartItemsProvider =
     if (user == null) {
       number = '';
     } else {
-      print("provider:${user.phoneNumber}");
-      number = user.phoneNumber!;
+      print("provider:${user}");
+      number = user;
     }
     //  SharedPreferences prefs = await SharedPreferences.getInstance();
     // String userNumberr = prefs.getString('username') ?? '';
@@ -52,7 +62,7 @@ final cartItemsProvider =
 final addressBokkProvider =
     StateNotifierProvider<AddressBookNotifier, AddressBookState>(
   (ref) => AddressBookNotifier(
-      ref.watch(addressApiService), ref.watch(authCheckProvider)!.phoneNumber),
+      ref.watch(addressApiService), ref.watch(authCheckProvider)),
 );
 
 final getrefferalIdProvider = FutureProvider.autoDispose.family<UserN?, String>(
@@ -82,7 +92,7 @@ final verifyCouponProvider = FutureProvider.autoDispose<String>(
     if (user == null) {
       number = '';
     } else {
-      number = user.phoneNumber!;
+      number = user;
     }
 
     return apiRespository.verifyReferral(number);
@@ -189,7 +199,7 @@ final subscriptionByUserProvider =
     if (user == null) {
       number = '';
     } else {
-      number = user.phoneNumber!;
+      number = user;
     }
     return apiRespository.getSubscriptionbyUser(number);
   },

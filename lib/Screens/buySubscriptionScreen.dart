@@ -132,7 +132,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
     initializeDateFormatting('en', null);
 
     var authInfo = ref.watch(authCheckProvider);
-    var number = (authInfo == null ? '' : authInfo.phoneNumber)!;
+    var number = (authInfo == null ? '' : authInfo);
 
     if (authInfo != null) {
       final AddressBookState = ref.watch(addressBokkProvider);

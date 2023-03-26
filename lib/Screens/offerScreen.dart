@@ -125,7 +125,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
     scSize = MediaQuery.of(context).size;
     scHeight = scSize.height;
     var authInfo = ref.watch(authCheckProvider);
-    number = (authInfo == null ? '' : authInfo.phoneNumber!);
+    number = (authInfo == null ? '' : authInfo);
     print("This is number $number");
 
     return Scaffold(

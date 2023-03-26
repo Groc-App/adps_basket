@@ -461,7 +461,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
     scSize = MediaQuery.of(context).size;
     scHeight = scSize.height;
     var authInfo = ref.watch(authCheckProvider);
-    number = (authInfo == null ? '' : authInfo.phoneNumber)!;
+    number = (authInfo == null ? '' : authInfo);
     // number = authInfo.phoneNumber ?? '';
 
     return Scaffold(

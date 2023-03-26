@@ -9,11 +9,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:about/about.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../config.dart';
 import '../../providers/providers.dart';
 
 class Content extends ConsumerWidget {
-  const Content({super.key});
+  Content({super.key});
+
+  // String phonenumber = '';
+
+  // Future<void> setnumber() async {
+  //   print('called');
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? username = prefs.getString('username');
+  //   print('$username');
+  //   if (username != null) {
+  //     phonenumber = username;
+  //     print('phonenumber is: $phonenumber');
+  //   }
+  // }
 
   void navigation(context, navi_url) {
     Navigator.of(context).pushNamed('${navi_url}');
@@ -62,12 +77,16 @@ class Content extends ConsumerWidget {
                   child: const Text('Cancel'),
                 ),
                 TextButton(
-                  onPressed: () {
+                  onPressed: () async {
                     FirebaseAuth auth = FirebaseAuth.instance;
-                    auth.signOut();
+                    await auth.signOut();
                     ref
                         .read(authCheckProvider.notifier)
                         .update((state) => null);
+
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    await prefs.remove('phonenumber');
 
                     Navigator.pop(context, 'Logout');
                     Navigator.of(context).pushNamedAndRemoveUntil(
@@ -129,7 +148,9 @@ class Content extends ConsumerWidget {
     // Cheching user login info
 
     var authInfo = ref.watch(authCheckProvider);
-    print(authInfo?.uid);
+    print(authInfo);
+
+    // setnumber();
 
     return Column(
       children: [
@@ -146,12 +167,12 @@ class Content extends ConsumerWidget {
               height: 10,
             ),
             iconRow(FontAwesomeIcons.shoppingBag, 'Your Orders', context,
-                '/yourOrderScreen', ref, authInfo?.phoneNumber),
+                '/yourOrderScreen', ref, authInfo),
             SizedBox(
               height: 3,
             ),
             iconRow(FontAwesomeIcons.solidAddressBook, 'Your Addresses',
-                context, '/addressScreen', ref, authInfo?.phoneNumber),
+                context, '/addressScreen', ref, authInfo),
           ]),
         ),
         Container(
@@ -169,31 +190,31 @@ class Content extends ConsumerWidget {
               height: 12,
             ),
             iconRow(FontAwesomeIcons.share, 'Refer and Earn', context,
-                '/referearnScreen', ref, authInfo?.phoneNumber),
+                '/referearnScreen', ref, authInfo),
 
             SizedBox(
               height: 3,
             ),
             iconRow(FontAwesomeIcons.shareNodes, 'Share the app', context,
-                'share', ref, authInfo?.phoneNumber),
+                'share', ref, authInfo),
 
             SizedBox(
               height: 3,
             ),
 
             iconRow(FontAwesomeIcons.info, 'About us', context, 'about', ref,
-                authInfo?.phoneNumber),
+                authInfo),
             SizedBox(
               height: 3,
             ),
             iconRow(FontAwesomeIcons.solidStar, 'Rate us on Play Store',
-                context, '/yourOrderScreen', ref, authInfo?.phoneNumber),
+                context, '/yourOrderScreen', ref, authInfo),
             SizedBox(
               height: 3,
             ),
             if (authInfo != null)
               iconRow(FontAwesomeIcons.rightFromBracket, 'Logout', context,
-                  'logout', ref, authInfo.phoneNumber),
+                  'logout', ref, authInfo),
           ]),
         ),
       ],

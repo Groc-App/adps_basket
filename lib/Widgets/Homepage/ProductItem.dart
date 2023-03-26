@@ -198,7 +198,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     product = widget.product;
 
     var authInfo = ref.watch(authCheckProvider);
-    print(authInfo?.phoneNumber);
+    print(authInfo);
 
     return GestureDetector(
       onTap: () {
@@ -275,7 +275,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                           ))),
                       authInfo == null
                           ? addTile(scWidth, '')
-                          : addTile(scWidth, authInfo.phoneNumber!),
+                          : addTile(scWidth, authInfo),
                       // addTile(scWidth, '+917982733943'),
                     ],
                   ),

@@ -27,6 +27,7 @@ import 'Screens/homeScreen.dart';
 import 'Screens/internetConnection.dart';
 import 'Screens/introAnimationScreen.dart';
 import 'Screens/searchScreen.dart';
+import 'config.dart';
 import 'firebase_options.dart';
 import 'notificationservice/local_notification_service.dart';
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
@@ -111,17 +112,26 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? username = prefs.getString('username');
-    print(
-        "This is username $username"); // bool _seen = (prefs.getBool('seen') ?? false);
+    String? username = prefs.getString('phonenumber');
+    print("This is username $username");
+    // bool? _seen = (prefs.getBool('seen'));
 
     if (username != null) {
-      print("inside checkFirst $username");
-      return '/introAnimationScreen';
+      // setState(() {
+
+      // });
+      // Config.phonenumber = username;
+      return '/homepage';
     } else {
-      await prefs.setBool('seen', true);
-      return '/introScreen';
+      return '/intoAnimationScreen';
     }
+
+    // if (_seen != null) {
+    //   return '/homepage';
+    // } else {
+    //   await prefs.setBool('seen', true);
+    //   return '/introScreen';
+    // }
   }
 
   @override

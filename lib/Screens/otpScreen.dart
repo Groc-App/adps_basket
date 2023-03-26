@@ -11,6 +11,7 @@ import 'package:lottie/lottie.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../providers/providers.dart';
 
 class OtpScreen extends ConsumerStatefulWidget {
@@ -228,7 +229,14 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                               //updating authcheckprovider
                               ref
                                   .read(authCheckProvider.notifier)
-                                  .update((state) => user);
+                                  .update((state) => user!.phoneNumber);
+
+                              // setting number preferences
+
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              await prefs.setString(
+                                  'phonenumber', user!.phoneNumber ?? '');
 
                               // navigate to home screen
                               Navigator.of(context).pushNamedAndRemoveUntil(

@@ -239,8 +239,8 @@ class AddressBook extends ConsumerWidget {
                   /* -------------------------------------------------------------------------- */
                   child: GestureDetector(
                     onTap: (() {
-                      bottomsheet(ref, context, authInfo.phoneNumber ?? '',
-                          scHeight, 'addAddress', '');
+                      bottomsheet(
+                          ref, context, authInfo, scHeight, 'addAddress', '');
                     }),
                     child: Row(
                       children: [
@@ -259,7 +259,7 @@ class AddressBook extends ConsumerWidget {
                 ),
                 const Divider(),
                 /* -------------------------------------------------------------------------- */
-                _addressList(ref, authInfo.phoneNumber ?? ''),
+                _addressList(ref, authInfo),
                 // AddressSinner(),
               ]),
             ),

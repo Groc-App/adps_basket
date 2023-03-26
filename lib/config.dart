@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class Config {
+  // login
+
+  static late String? phonenumber = '56654';
+  var user = SharedPreferences.getInstance()
+      .then((value) => phonenumber = value.getString('phonenumber'));
+
   /* -------------------------------- app setup ------------------------------- */
   static const String GrocApp = 'GrocApp';
   // static const String apiURL = '127.0.0.1:8000';
-  static const String apiURL = '192.168.1.2:8000';
+  static const String apiURL = '192.168.1.8:8000';
   // static const String apiURL = '127.0.0.1:8000';
   // static const String apiURL = '192.168.1.11:8000';
   // 127.0.0.1:8000
