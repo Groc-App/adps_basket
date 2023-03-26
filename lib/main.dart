@@ -24,6 +24,8 @@ import 'package:your_basket/Widgets/Sinners/loadingsinner.dart';
 import 'package:your_basket/utils/theme.dart';
 import 'Screens/OrderFailureScreen.dart';
 import 'Screens/homeScreen.dart';
+import 'Screens/internetConnection.dart';
+import 'Screens/introAnimationScreen.dart';
 import 'Screens/searchScreen.dart';
 import 'firebase_options.dart';
 import 'notificationservice/local_notification_service.dart';
@@ -65,7 +67,9 @@ class MyApp extends StatelessWidget {
       title: 'Basko',
       theme: MyTheme.lightTheme(context),
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(),
+      home: ConnectionScreen(
+        child: const MyHomePage(),
+      ),
       // initialRoute: '/',
       routes: {
         // '/': (context) => MyHomePage(),
@@ -92,6 +96,7 @@ class MyApp extends StatelessWidget {
         '/subscriptionScreen': (context) => SubscriptionScreen(),
         '/buySubscriptionScreen': (context) => BuySubscriptionScreen(),
         '/referearnScreen': (context) => ReferEarnScreen(),
+        '/introAnimationScreen': (context) => IntroAnimationScreen(),
       },
     );
   }
@@ -106,10 +111,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool _seen = (prefs.getBool('seen') ?? false);
+    String? username = prefs.getString('username');
+    print(
+        "This is username $username"); // bool _seen = (prefs.getBool('seen') ?? false);
 
-    if (_seen) {
-      return '/';
+    if (username != null) {
+      print("inside checkFirst $username");
+      return '/introAnimationScreen';
     } else {
       await prefs.setBool('seen', true);
       return '/introScreen';
@@ -177,9 +185,11 @@ class _MyHomePageState extends State<MyHomePage> {
               child: CircularProgressIndicator(),
             );
           } else {
-            if (snapshot.data == '/')
-              return HomeScreen();
-            else {
+            if (snapshot.data != null) {
+              print("inside checkFirst $snapshot.data");
+
+              return IntroAnimationScreen();
+            } else {
               return IntroScreen();
             }
           }

@@ -323,14 +323,18 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           children: [
             Container(
               margin: EdgeInsets.only(top: 160),
-              height: 150,
+              height: 200,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
-                      "https://lirp.cdn-website.com/71568f09/dms3rep/multi/opt/Depositphotos_29511965_l-2015+%281%29-640w.jpg"),
+                      "https://media.istockphoto.com/id/1158317995/vector/cute-jack-russell-terrier-paws-up-over-wall-dog-face-cartoon-vector-illustration.jpg?s=170667a&w=0&k=20&c=e_tyRS_-oSA1eowlfNVNaU__mlNig7aETgEf3pOkaBI="),
                 ),
               ),
             ),
+            Text(
+              "No Items",
+              style: TextStyle(fontStyle: FontStyle.italic),
+            )
           ]),
     );
   }

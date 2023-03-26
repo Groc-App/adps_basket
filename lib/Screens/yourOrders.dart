@@ -12,8 +12,16 @@ import 'package:your_basket/models/product/productdetail.dart';
 import '../models/orders/orders.dart';
 import '../providers/providers.dart';
 
-class YourOrderes extends ConsumerWidget {
-  YourOrderes({super.key});
+class YourOrderes extends ConsumerStatefulWidget {
+  // YourOrderes({super.key});
+
+  @override
+  _YourOrderesState createState() => _YourOrderesState();
+}
+
+class _YourOrderesState extends ConsumerState<YourOrderes>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _animationController;
 
   bool islistempty = false;
   // String userid = '+917982733943';
@@ -23,6 +31,21 @@ class YourOrderes extends ConsumerWidget {
   late String date;
   late String address;
   late List<Map<String, dynamic>> orderDetails;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 1500),
+    )..forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   Widget orderList(WidgetRef ref, BuildContext context, double scHeight,
       String phonenumber) {
@@ -49,23 +72,47 @@ class YourOrderes extends ConsumerWidget {
             noitemtext: 'You have no past orders!!!',
             pageroute: 'homescreen',
           )
-        : SingleChildScrollView(
-            child: Column(
-              children: list.map<Widget>((e) {
-                return OrdereItem(
-                    orderDetails: e.OrderDetails,
-                    address: e.Addres,
-                    orderID: e.OrderId,
-                    date: e.Date,
-                    orderStatus: e.OrderStatus,
-                    totalAmount: e.TotalAmount.toString());
-              }).toList(),
-            ),
+        : ListView.builder(
+            itemCount: list.length,
+            itemBuilder: (context, index) {
+              final order = list[index];
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(-1, 0),
+                  end: Offset.zero,
+                ).animate(CurvedAnimation(
+                  parent: _animationController,
+                  curve:
+                      Interval(index / list.length, 1.0, curve: Curves.easeOut),
+                )),
+                child: OrdereItem(
+                    orderDetails: order.OrderDetails,
+                    address: order.Addres,
+                    orderID: order.OrderId,
+                    date: order.Date,
+                    orderStatus: order.OrderStatus,
+                    totalAmount: order.TotalAmount.toString()),
+              );
+            },
           );
+
+    // SingleChildScrollView(
+    //     child: Column(
+    //       children: list.map<Widget>((e) {
+    //         return OrdereItem(
+    //             orderDetails: e.OrderDetails,
+    //             address: e.Addres,
+    //             orderID: e.OrderId,
+    //             date: e.Date,
+    //             orderStatus: e.OrderStatus,
+    //             totalAmount: e.TotalAmount.toString());
+    //       }).toList(),
+    //     ),
+    //   );
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     var authInfo = ref.watch(authCheckProvider);
     // print(authInfo?.uid);
 
