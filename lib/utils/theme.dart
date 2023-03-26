@@ -40,7 +40,7 @@ class MyTheme {
                 fontSize: 20)),
 
         /* --------------------------------- COLORS --------------------------------- */
-        primaryColor: const Color.fromRGBO(83, 177, 117, 1),
+        primaryColor: Colors.green[400],
         highlightColor: Colors.white,
         dividerColor: const Color.fromRGBO(214, 204, 194, 1),
 

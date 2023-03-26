@@ -72,17 +72,19 @@ final checkcouponprovider =
   },
 );
 
-final verifyCouponProvider = FutureProvider.autoDispose<String>(
-  (ref) {
+final verifyCouponProvider = FutureProvider.autoDispose.family<String, String>(
+  (ref, number) {
+    print("inside provider $number");
+
     final apiRespository = ref.watch(couponApiService);
-    String number;
-    var user = ref.watch(authCheckProvider);
-    print("auth $user");
-    if (user == null) {
-      number = '';
-    } else {
-      number = user.phoneNumber!;
-    }
+    // String number;
+    // var user = ref.watch(authCheckProvider);
+    // print("auth $user");
+    // if (user == null) {
+    //   number = '';
+    // } else {
+    //   number = user.phoneNumber!;
+    // }
 
     return apiRespository.verifyReferral(number);
   },

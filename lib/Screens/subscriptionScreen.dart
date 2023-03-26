@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:your_basket/Services/subscription_api_service.dart';
 import 'package:your_basket/Widgets/Errors/Dataloadingerror.dart';
 import 'package:your_basket/providers/providers.dart';
@@ -26,6 +28,30 @@ class SubscriptionScreen extends ConsumerStatefulWidget {
 
 class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
   // const SubscriptionScreen({super.key});
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    // foundUser = data;
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+// your code goes here
+      await getNumber();
+
+      print("init:$number");
+
+      // ref.invalidate(verifyCouponProvider);
+    });
+  }
+
+  Future<void> getNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userNumberr = prefs.getString('username') ?? '';
+    setState(() {
+      number = userNumberr;
+    });
+    print("number $number");
+  }
 
   cancelHandler(String subscriptionId) {
     showDialog<String>(
@@ -299,7 +325,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                             cancelHandler(
                                                 list[i].subscriptionId);
                                           },
-                                          child: Text("Cancel")),
+                                          child: const Text("Cancel")),
                                     )
                                   ],
                                 ),
@@ -323,7 +349,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                   fit: BoxFit.contain,
                 ), //add image location here
               ),
-              title: Text("${list[i].product.Name}"),
+              title: Text(list[i].product.Name),
               subtitle: Text("${list[i].quantity} Qty"),
               trailing: Text(
                 "₹${(list[i].quantity * list[i].product.Price).toString()}",
@@ -350,7 +376,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
           child: Center(
               child: Text(
             "Add Subscription Worth Rs ${50 - totalAmount} more to Activate Subscriptions",
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           )),
         ),
       ),
@@ -440,14 +466,14 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
             Container(
               margin: EdgeInsets.only(top: 200),
               height: 150,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(
-                      "https://media.istockphoto.com/id/1366733193/vector/illustration-of-the-delivery-person-the-man-is-crying.jpg?s=612x612&w=0&k=20&c=epdZWaJoHSBoasf0t94_yEaiD26QefpjcorsKyXgfWA="),
+                  image: CachedNetworkImageProvider(
+                      "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Screens%2FNoItem%2Femptylist.png?alt=media&token=4f834d3f-2064-47a3-b9c6-9dce502aa65e"),
                 ),
               ),
             ),
-            Text(
+            const Text(
               "No Subscriptions",
               style: TextStyle(fontStyle: FontStyle.italic),
             )
@@ -460,15 +486,13 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
     totalAmount = 0;
     scSize = MediaQuery.of(context).size;
     scHeight = scSize.height;
-    var authInfo = ref.watch(authCheckProvider);
-    number = (authInfo == null ? '' : authInfo.phoneNumber)!;
     // number = authInfo.phoneNumber ?? '';
 
     return Scaffold(
         appBar: AppBar(
           title: const Text("Subscriptions"),
         ),
-        body: authInfo == null
+        body: number == ''
             ? NoItems(
                 noitemtext: 'Login/SignUp First',
                 pageroute: 'loginpage',

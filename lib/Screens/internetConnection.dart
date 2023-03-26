@@ -48,12 +48,14 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
               ),
               Text(
                 'No Internet Connection',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontStyle: FontStyle.italic),
               ),
               SizedBox(
                 height: 20,
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromRGBO(102, 187, 106, 1)),
                 onPressed: retry,
                 child: Text('Retry'),
               ),

@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:your_basket/Widgets/Cart/Noitems.dart';
 import 'package:your_basket/Widgets/Errors/Dataloadingerror.dart';
 import 'package:your_basket/Widgets/YourOrderes/OrdereItem.dart';
@@ -11,6 +12,8 @@ import 'package:your_basket/models/product/productdetail.dart';
 
 import '../models/orders/orders.dart';
 import '../providers/providers.dart';
+
+String userNumber = '';
 
 class YourOrderes extends ConsumerStatefulWidget {
   // YourOrderes({super.key});
@@ -35,9 +38,10 @@ class _YourOrderesState extends ConsumerState<YourOrderes>
   @override
   void initState() {
     super.initState();
+    getNumber();
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1500),
+      duration: const Duration(milliseconds: 1500),
     )..forward();
   }
 
@@ -45,6 +49,15 @@ class _YourOrderesState extends ConsumerState<YourOrderes>
   void dispose() {
     _animationController.dispose();
     super.dispose();
+  }
+
+  Future<void> getNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userNumberr = prefs.getString('username') ?? '';
+    setState(() {
+      userNumber = userNumberr;
+    });
+    print("userNumber $userNumber");
   }
 
   Widget orderList(WidgetRef ref, BuildContext context, double scHeight,
@@ -95,27 +108,10 @@ class _YourOrderesState extends ConsumerState<YourOrderes>
               );
             },
           );
-
-    // SingleChildScrollView(
-    //     child: Column(
-    //       children: list.map<Widget>((e) {
-    //         return OrdereItem(
-    //             orderDetails: e.OrderDetails,
-    //             address: e.Addres,
-    //             orderID: e.OrderId,
-    //             date: e.Date,
-    //             orderStatus: e.OrderStatus,
-    //             totalAmount: e.TotalAmount.toString());
-    //       }).toList(),
-    //     ),
-    //   );
   }
 
   @override
   Widget build(BuildContext context) {
-    var authInfo = ref.watch(authCheckProvider);
-    // print(authInfo?.uid);
-
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
 
@@ -123,11 +119,11 @@ class _YourOrderesState extends ConsumerState<YourOrderes>
         appBar: AppBar(
           title: const Text('Your Orders'),
         ),
-        body: authInfo == null
+        body: userNumber == ''
             ? NoItems(
                 noitemtext: 'Login/SignUp First',
                 pageroute: 'loginpage',
               )
-            : orderList(ref, context, scHeight, authInfo.phoneNumber ?? ''));
+            : orderList(ref, context, scHeight, userNumber));
   }
 }

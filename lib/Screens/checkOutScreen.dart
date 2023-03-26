@@ -5,14 +5,18 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:your_basket/Widgets/Errors/Dataloadingerror.dart';
+import 'package:your_basket/config.dart';
 import 'package:your_basket/models/address/address.dart';
 import 'package:your_basket/models/cart/cartitem.dart';
 
 import '../providers/providers.dart';
 
 class CheckoutScreen extends StatelessWidget {
-  const CheckoutScreen({super.key});
+  // const CheckoutScreen({super.key});
+  final scWidth = Config.scSize.width;
+  final scHeight = Config.scSize.height;
 
   Widget placeordertile(
       WidgetRef ref,
@@ -43,6 +47,7 @@ class CheckoutScreen extends StatelessWidget {
     }
 
     return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         adresstile(context, reqData),
         ordertile(datalist, ref, pricetotal, context, number, reqData, discount,
@@ -93,57 +98,153 @@ class CheckoutScreen extends StatelessWidget {
       deliveryCharges,
       String? couponCode) {
     return Container(
-        width: double.infinity,
-        child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                elevation: 40, backgroundColor: Theme.of(context).primaryColor),
-            onPressed: () async {
-              var cartProductsArray = [];
-              for (var i = 0; i < datalist.length; i++) {
-                var cartItem = datalist[i];
+      height: Config.scHeight * 0.07,
+      // decoration: const BoxDecoration(
+      //   boxShadow: [
+      //     BoxShadow(
+      //       blurRadius: 2.0,
+      //     ),
+      //   ],
+      // ),
+      // margin: EdgeInsets.only(bottom: 20),
+      // padding: EdgeInsets.only(bottom: 20),
+      width: double.infinity,
+      child: GestureDetector(
+        onTap: () async {
+          var cartProductsArray = [];
+          for (var i = 0; i < datalist.length; i++) {
+            var cartItem = datalist[i];
 
-                var map = {
-                  'Product': cartItem.Item.productId,
-                  'Quantity': cartItem.ItemCount
-                };
-                cartProductsArray.add(map);
-              }
+            var map = {
+              'Product': cartItem.Item.productId,
+              'Quantity': cartItem.ItemCount
+            };
+            cartProductsArray.add(map);
+          }
 
-              var addressid = value.addressId;
+          var addressid = value.addressId;
 
-              if (addressid == '') {
-                print('hitted');
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: Text('Address Alert'),
-                    content: Text('Please add address first.'),
-                    actions: [
-                      TextButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: Text('OK'))
-                    ],
-                  ),
-                );
-              } else {
-                final cartViewModel = ref.read(cartItemsProvider.notifier);
-                String succesdata = await cartViewModel.placeOrder(
-                    number,
-                    (pricetotal - discount + deliveryCharges).toString(),
-                    cartProductsArray,
-                    addressid,
-                    couponCode);
+          if (addressid == '') {
+            print('hitted');
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text('Address Alert'),
+                content: Text('Please add address first.'),
+                actions: [
+                  TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Text('OK'))
+                ],
+              ),
+            );
+          } else {
+            final cartViewModel = ref.read(cartItemsProvider.notifier);
+            String succesdata = await cartViewModel.placeOrder(
+                number,
+                (pricetotal - discount + deliveryCharges).toString(),
+                cartProductsArray,
+                addressid,
+                couponCode);
 
-                if (succesdata == 'Success') {
-                  Navigator.of(context).pushNamed('/ordersuccessScreen',
-                      arguments: {'type': 'order'});
-                } else {
-                  Navigator.of(context).pushNamed('/orderfailureScreen',
-                      arguments: {'type': 'order'});
-                }
-              }
-            },
-            child: Text("Place Order")));
+            if (succesdata == 'Success') {
+              Navigator.of(context).pushNamed('/ordersuccessScreen',
+                  arguments: {'type': 'order'});
+            } else {
+              Navigator.of(context).pushNamed('/orderfailureScreen',
+                  arguments: {'type': 'order'});
+            }
+          }
+        },
+        child: Container(
+          width: scWidth,
+          decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+              color: Theme.of(context).primaryColor),
+          alignment: const Alignment(0, 0),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Container(
+              //   margin: const EdgeInsets.only(right: 10),
+              //   child: const FaIcon(
+              //     FontAwesomeIcons.basketShopping,
+              //     size: 23,
+              //     color: Colors.white,
+              //   ),
+              // ),
+              const Text(
+                'Place Order',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  shadows: [
+                    Shadow(
+                      color: Color.fromARGB(255, 74, 74, 74),
+                      offset: Offset(1, 1),
+                      blurRadius: 1,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+
+      // ElevatedButton(
+      //     style: ElevatedButton.styleFrom(
+      //         elevation: 40, backgroundColor: Theme.of(context).primaryColor),
+      //     onPressed: () async {
+      //       var cartProductsArray = [];
+      //       for (var i = 0; i < datalist.length; i++) {
+      //         var cartItem = datalist[i];
+
+      //         var map = {
+      //           'Product': cartItem.Item.productId,
+      //           'Quantity': cartItem.ItemCount
+      //         };
+      //         cartProductsArray.add(map);
+      //       }
+
+      //       var addressid = value.addressId;
+
+      //       if (addressid == '') {
+      //         print('hitted');
+      //         showDialog(
+      //           context: context,
+      //           builder: (context) => AlertDialog(
+      //             title: Text('Address Alert'),
+      //             content: Text('Please add address first.'),
+      //             actions: [
+      //               TextButton(
+      //                   onPressed: () => Navigator.of(context).pop(),
+      //                   child: Text('OK'))
+      //             ],
+      //           ),
+      //         );
+      //       } else {
+      //         final cartViewModel = ref.read(cartItemsProvider.notifier);
+      //         String succesdata = await cartViewModel.placeOrder(
+      //             number,
+      //             (pricetotal - discount + deliveryCharges).toString(),
+      //             cartProductsArray,
+      //             addressid,
+      //             couponCode);
+
+      //         if (succesdata == 'Success') {
+      //           Navigator.of(context).pushNamed('/ordersuccessScreen',
+      //               arguments: {'type': 'order'});
+      //         } else {
+      //           Navigator.of(context).pushNamed('/orderfailureScreen',
+      //               arguments: {'type': 'order'});
+      //         }
+      //       }
+      //     },
+      //     child: Text("Place Order")),
+    );
   }
 
   @override
@@ -166,13 +267,18 @@ class CheckoutScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Checkout"),
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.green[400],
+        title: Text(
+          "Checkout",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       bottomNavigationBar: BottomAppBar(
         elevation: 0,
         color: Theme.of(context).scaffoldBackgroundColor,
         child: Container(
-          height: 120, //set your height here
+          height: 160, //set your height here
           width: double.maxFinite, //set your width here
           decoration: BoxDecoration(
             // color: Theme.of(context).scaffoldBackgroundColor,
@@ -180,85 +286,88 @@ class CheckoutScreen extends StatelessWidget {
             borderRadius: BorderRadius.vertical(top: Radius.circular(40.0)),
           ),
           child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              // padding: EdgeInsets.symmetric(horizontal: 10),
               child: Consumer(
-                builder: (context, ref, child) => placeordertile(
-                    ref,
-                    number,
-                    context,
-                    datalist,
-                    pricetotal,
-                    discount,
-                    deliveryCharges,
-                    couponCode),
-              )),
+            builder: (context, ref, child) => placeordertile(
+                ref,
+                number,
+                context,
+                datalist,
+                pricetotal,
+                discount,
+                deliveryCharges,
+                couponCode),
+          )),
         ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Container(
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(blurRadius: 1, spreadRadius: 0)],
-                  // border: Border.all(),
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                  color: Colors.white),
-              width: scWidth,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      // ignore: prefer_const_literals_to_create_immutables
-                      children: [
-                        Text(
-                          "Your Orders",
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold),
-                        ),
-                      ],
+            Card(
+              elevation: 4,
+              child: Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    boxShadow: [BoxShadow(blurRadius: 1, spreadRadius: 0)],
+                    // border: Border.all(),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    color: Colors.white),
+                width: scWidth,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // ignore: prefer_const_literals_to_create_immutables
+                        children: [
+                          Text(
+                            "Your Orders",
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    // decoration: BoxDecoration(border: Border.all()),
-                    margin: EdgeInsetsDirectional.symmetric(vertical: 8),
-                    child: Text(
-                      "${datalist.length} items in this order",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+                    Container(
+                      // decoration: BoxDecoration(border: Border.all()),
+                      margin: EdgeInsetsDirectional.symmetric(vertical: 8),
+                      child: Text(
+                        "${datalist.length} items in this order",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w800),
+                      ),
                     ),
-                  ),
 
-                  /* --------------------------- List tile for item --------------------------- */
+                    /* --------------------------- List tile for item --------------------------- */
 
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        leading: ClipRRect(
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(10.0)), //add border radius here
-                          child: Image.network(datalist[index]
-                              .Item
-                              .ImageUrl[0]), //add image location here
-                        ),
-                        title: Text("${datalist[index].Item.Name}"),
-                        subtitle: Text(
-                            "${datalist[index].Item.Quantity} X ${datalist[index].ItemCount}"),
-                        trailing: Text(
-                          "₹${datalist[index].Item.Price * datalist[index].ItemCount}",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      );
-                    },
-                    itemCount: datalist.length,
-                  ),
-                ],
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(10.0)), //add border radius here
+                            child: Image.network(datalist[index]
+                                .Item
+                                .ImageUrl[0]), //add image location here
+                          ),
+                          title: Text("${datalist[index].Item.Name}"),
+                          subtitle: Text(
+                              "${datalist[index].Item.Quantity} X ${datalist[index].ItemCount}"),
+                          trailing: Text(
+                            "₹${datalist[index].Item.Price * datalist[index].ItemCount}",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        );
+                      },
+                      itemCount: datalist.length,
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 20),

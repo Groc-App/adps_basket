@@ -6,18 +6,47 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../providers/providers.dart';
 
-class HeadingSupport extends ConsumerWidget {
-  const HeadingSupport({super.key});
+String userNumber = '';
+
+class HeadingSupport extends ConsumerStatefulWidget {
+  const HeadingSupport({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // Cheching user login info
+  _HeadingSupportState createState() => _HeadingSupportState();
+}
 
-    var authInfo = ref.watch(authCheckProvider);
-    print(authInfo?.uid);
+class _HeadingSupportState extends ConsumerState<HeadingSupport> {
+  // const HeadingSupport({super.key});
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    // foundUser = data;
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+// your code goes here
+      await getNumber();
+
+      // ref.invalidate(verifyCouponProvider);
+    });
+  }
+
+  Future<void> getNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userNumberr = prefs.getString('username') ?? '';
+    setState(() {
+      userNumber = userNumberr;
+    });
+    print("userNumber $userNumber");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Cheching user login info
 
     return Container(
       margin: EdgeInsets.only(bottom: 20),
@@ -35,8 +64,8 @@ class HeadingSupport extends ConsumerWidget {
                     color: Theme.of(context).primaryColor),
               ),
             ),
-            authInfo != null
-                ? Text('${authInfo.phoneNumber}')
+            userNumber != ''
+                ? Text('${userNumber}')
                 : GestureDetector(
                     onTap: () {
                       Navigator.of(context).pushNamed('/loginScreen');
@@ -50,7 +79,7 @@ class HeadingSupport extends ConsumerWidget {
           ]),
           GestureDetector(
             onTap: () async {
-              var whatsapp = "+918299073956";
+              var whatsapp = "${userNumber}";
               var whatsappAndroid =
                   Uri.parse("whatsapp://send?phone=$whatsapp&text=hello");
               if (await canLaunchUrl(whatsappAndroid)) {

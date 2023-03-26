@@ -50,8 +50,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
 // your code goes here
-      var status = await ref.read(verifyCouponProvider.future);
       await getNumber();
+      var status = await ref.read(verifyCouponProvider(userNumber).future);
 
       print("init:$userNumber");
       print("Statussss:$status");
@@ -167,7 +167,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               'Delivery Charges: ',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
@@ -183,7 +183,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 // ),
                 TextSpan(
                   text: '₹$deliveryCharges',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ]),
             ),
@@ -218,7 +219,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
             ),
             Text(
               "₹${(pricetotal - discount + deliveryCharges)}",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             )
           ],
         ),
@@ -229,8 +230,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
   Widget douyouhavecoupon() {
     return discount > 0.0
         ? Container(
-            margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 3),
+            margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 3),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Colors.white,
@@ -243,16 +244,16 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   height: 27,
                   color: Theme.of(context).primaryColor,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
-                Text('Yayy, referral discount applied'),
+                const Text('Yayy, referral discount applied'),
               ],
             ),
           )
         : Container(
-            margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 3),
+            margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 3),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Colors.white,
@@ -265,18 +266,18 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   height: 27,
                   color: Theme.of(context).primaryColor,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
-                Text('Do you have a coupon?'),
-                Spacer(),
+                const Text('Do you have a coupon?'),
+                const Spacer(),
                 GestureDetector(
                   onTap: () {
                     setState(() {
                       _showCoupon = true;
                     });
                   },
-                  child: Text(
+                  child: const Text(
                     'Apply Coupon',
                     style: TextStyle(color: Colors.blue, fontSize: 12),
                   ),
@@ -306,6 +307,16 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
     print("Body:::: $referralVeri");
     print("Body:::: $discount");
+    //   return FutureBuilder<bool>(
+    //   future: checkInternetConnection(),
+    //   builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+    //     if (snapshot.hasData && snapshot.data) {
+    //       // render widget content
+    //     } else {
+    //       // display error message or fallback content
+    //     }
+    //   },
+    // );
 
     return Scaffold(
       appBar: AppBar(
@@ -326,7 +337,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           ],
         ),
       ),
-      body: userNumber == null
+      body: userNumber == ''
           ? NoItems(
               noitemtext: 'Login/SignUp First',
               pageroute: 'loginpage',
@@ -347,7 +358,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                         ? douyouhavecoupon()
                         : (discount == 0.0)
                             ? Container(
-                                margin: EdgeInsets.symmetric(
+                                margin: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 7),
                                 child: Column(
                                   children: [
@@ -379,21 +390,21 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                           ScaffoldMessenger.of(context)
                                               .hideCurrentSnackBar();
                                           ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
+                                              .showSnackBar(const SnackBar(
                                                   content:
                                                       Text('Invalid code')));
                                         } else if (status == 'Redeemed') {
                                           ScaffoldMessenger.of(context)
                                               .hideCurrentSnackBar();
                                           ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
+                                              .showSnackBar(const SnackBar(
                                                   content: Text(
                                                       'Already Redeemed')));
                                         } else if (status == 'Sortage') {
                                           ScaffoldMessenger.of(context)
                                               .hideCurrentSnackBar();
                                           ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
+                                              .showSnackBar(const SnackBar(
                                                   content: Text(
                                                       'No referral left')));
                                         } else {
@@ -420,9 +431,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                 ),
                               )
                             : Container(
-                                margin: EdgeInsets.symmetric(
+                                margin: const EdgeInsets.symmetric(
                                     horizontal: 5, vertical: 5),
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     vertical: 5, horizontal: 3),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
@@ -436,18 +447,18 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                       height: 27,
                                       color: Theme.of(context).primaryColor,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 8,
                                     ),
-                                    Text('Yayy, Coupon applied'),
-                                    Spacer(),
+                                    const Text('Yayy, Coupon applied'),
+                                    const Spacer(),
                                     GestureDetector(
                                       onTap: () {
                                         setState(() {
                                           discount = 0.0;
                                         });
                                       },
-                                      child: Text(
+                                      child: const Text(
                                         'Change Coupon',
                                         style: TextStyle(
                                             color: Colors.blue, fontSize: 12),
@@ -460,49 +471,55 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   // ----------         Button to checkout     --------
 
                   if (iscartempty == false)
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/checkoutScreen',
-                              arguments: {
-                                'number': userNumber,
-                                'cartProductList': datalist,
-                                'tamount': pricetotal,
-                                'discount': discount,
-                                'deliveryCharges': deliveryCharges,
-                                'couponCode': couponCode
-                              });
-                        },
-                        child: Container(
-                            width: scWidth,
-                            height: scHeight * 0.08,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(8),
-                                    topRight: Radius.circular(8)),
-                                color: Theme.of(context).primaryColor),
-                            alignment: const Alignment(0, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(right: 10),
-                                  child: const FaIcon(
-                                    FontAwesomeIcons.basketShopping,
-                                    size: 23,
-                                    color: Colors.white,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/checkoutScreen',
+                            arguments: {
+                              'number': userNumber,
+                              'cartProductList': datalist,
+                              'tamount': pricetotal,
+                              'discount': discount,
+                              'deliveryCharges': deliveryCharges,
+                              'couponCode': couponCode
+                            });
+                      },
+                      child: Container(
+                        width: scWidth,
+                        height: scHeight * 0.08,
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(8),
+                                topRight: Radius.circular(8)),
+                            color: Theme.of(context).primaryColor),
+                        alignment: const Alignment(0, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(right: 10),
+                              child: const FaIcon(
+                                FontAwesomeIcons.basketShopping,
+                                size: 23,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const Text(
+                              'Proceed to Checkout',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                shadows: [
+                                  Shadow(
+                                    color: Color.fromARGB(255, 74, 74, 74),
+                                    offset: Offset(1, 1),
+                                    blurRadius: 1,
                                   ),
-                                ),
-                                const Text(
-                                  'Proceed to Checkout',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                              ],
-                            )),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     )
                 ],

@@ -338,7 +338,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
               ),
               leadingWidth: 30,
               // leading: ,
-              backgroundColor: Colors.green[400],
+              backgroundColor: Color.fromRGBO(102, 187, 106, 1),
               centerTitle: true,
               expandedHeight: 140,
               elevation: 5.0,

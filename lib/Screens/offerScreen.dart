@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:your_basket/Services/offer_api_service.dart';
 import 'package:your_basket/Widgets/Cart/Noitems.dart';
 import 'package:confetti/confetti.dart';
@@ -15,7 +16,7 @@ import 'package:flutter/services.dart';
 
 const kExpandedHeight = 165.0;
 var totalOrders = 0;
-var number = '';
+String number = '';
 var map = {'number': number};
 
 /* -------------------------------------------------------------------------- */
@@ -49,12 +50,31 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
 
   @override
   void initState() {
+    // TODO: implement initState
+    // foundUser = data;
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+// your code goes here
+      await getNumber();
+
+      print("init:$number");
+
+      // ref.invalidate(verifyCouponProvider);
+    });
   }
 
   late var scSize;
   late var scHeight;
   late int totalAmount = 0;
+
+  Future<void> getNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userNumberr = prefs.getString('username') ?? '';
+    setState(() {
+      number = userNumberr;
+    });
+    print("userNumber $number");
+  }
 
   /* --------------------------- Scratch Controller --------------------------- */
 
@@ -124,12 +144,9 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   Widget build(BuildContext context) {
     scSize = MediaQuery.of(context).size;
     scHeight = scSize.height;
-    var authInfo = ref.watch(authCheckProvider);
-    number = (authInfo == null ? '' : authInfo.phoneNumber!);
-    print("This is number $number");
 
     return Scaffold(
-        body: authInfo == null
+        body: number == ''
             ? NoItems(
                 noitemtext: 'Login/SignUp First',
                 pageroute: 'loginpage',

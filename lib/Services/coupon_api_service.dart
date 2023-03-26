@@ -41,7 +41,7 @@ class APIServiceCoupon {
   }
 
   Future<String> verifyReferral(String number) async {
-    print("Inside verifyRefferral");
+    print("Inside verifyRefferral: $number");
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -56,7 +56,7 @@ class APIServiceCoupon {
       body: jsonEncode({"number": number}),
     );
 
-    print(response.body);
+    print("This is response ${response.body}");
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);

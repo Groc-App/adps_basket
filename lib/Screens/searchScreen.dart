@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/Screens/buySubscriptionScreen.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:your_basket/data/productsdata.dart';
 import 'package:your_basket/models/product/products.dart';
@@ -10,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../providers/providers.dart';
+import '../config.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -147,7 +149,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
     return Scaffold(
       /* ---------------------------------- BODY ---------------------------------- */
-
+      resizeToAvoidBottomInset: true,
       body: NestedScrollView(
         body: bodyContent(scHeight, scWidth, authInfo),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -316,14 +318,14 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   }
 
   Widget noItems() {
-    return Center(
+    return SingleChildScrollView(
       child: Column(
 
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               margin: EdgeInsets.only(top: 160),
-              height: 200,
+              height: Config.scHeight * 0.25,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(

@@ -139,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 SharedPreferences prefs =
                                     await SharedPreferences.getInstance();
                                 await prefs.setString(
-                                    'username', _numbercontroller.text);
+                                    'username', "+91${_numbercontroller.text}");
                                 print("Prefs $prefs");
                                 await FirebaseAuth.instance.verifyPhoneNumber(
                                   phoneNumber: '+91${_numbercontroller.text}',

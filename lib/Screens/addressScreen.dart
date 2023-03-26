@@ -1,14 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:your_basket/Widgets/Address/address.dart';
 import '../Widgets/Cart/Noitems.dart';
 import '../Widgets/Sinners/addresssinner.dart';
 import '../providers/providers.dart';
 import '../models/address/address.dart' as AddressModel;
 
-class AddressBook extends ConsumerWidget {
-  AddressBook({super.key});
+String userNumber = '';
+
+class AddressBook extends ConsumerStatefulWidget {
+  const AddressBook({Key? key}) : super(key: key);
+
+  @override
+  _AddressBookState createState() => _AddressBookState();
+}
+
+class _AddressBookState extends ConsumerState<AddressBook> {
+  // AddressBook({super.key});
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    // foundUser = data;
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+// your code goes here
+      await getNumber();
+
+      // ref.invalidate(verifyCouponProvider);
+    });
+  }
+
+  Future<void> getNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userNumberr = prefs.getString('username') ?? '';
+    setState(() {
+      userNumber = userNumberr;
+    });
+    print("userNumber $userNumber");
+  }
 
   Widget _addressList(WidgetRef ref, String phonenumber) {
     final AddressBookState = ref.watch(addressBokkProvider);
@@ -213,12 +245,9 @@ class AddressBook extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
-
-    var authInfo = ref.watch(authCheckProvider);
-
     return Scaffold(
       /* --------------------------------- appBar --------------------------------- */
       appBar: AppBar(
@@ -226,7 +255,7 @@ class AddressBook extends ConsumerWidget {
           "My Addresses",
         ),
       ),
-      body: authInfo == null
+      body: userNumber == ''
           ? NoItems(
               noitemtext: 'Login/SignUp First',
               pageroute: 'loginpage',
@@ -239,8 +268,8 @@ class AddressBook extends ConsumerWidget {
                   /* -------------------------------------------------------------------------- */
                   child: GestureDetector(
                     onTap: (() {
-                      bottomsheet(ref, context, authInfo.phoneNumber ?? '',
-                          scHeight, 'addAddress', '');
+                      bottomsheet(
+                          ref, context, userNumber, scHeight, 'addAddress', '');
                     }),
                     child: Row(
                       children: [
@@ -259,7 +288,7 @@ class AddressBook extends ConsumerWidget {
                 ),
                 const Divider(),
                 /* -------------------------------------------------------------------------- */
-                _addressList(ref, authInfo.phoneNumber ?? ''),
+                _addressList(ref, userNumber),
                 // AddressSinner(),
               ]),
             ),

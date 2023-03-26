@@ -74,28 +74,37 @@ class MyApp extends StatelessWidget {
       routes: {
         // '/': (context) => MyHomePage(),
         '/introScreen': (context) => const IntroScreen(),
-        '/loading': (context) => const LoadingSinner(),
+        '/loading': (context) => ConnectionScreen(child: const LoadingSinner()),
         '/homepage': (context) => const HomeScreen(),
-        '/categoryScreen': (context) => CategoryScreen(
-              mainCategoryId: "63e00827b56990c02866bba5",
+        '/categoryScreen': (context) => ConnectionScreen(
+              child: CategoryScreen(
+                mainCategoryId: "63e00827b56990c02866bba5",
+              ),
             ),
-        '/productItemPage': (context) => ProductItemScreen(),
-        '/cartScreen': (context) => CartScreen(),
+        '/productItemPage': (context) => ConnectionScreen(
+            child: ConnectionScreen(child: ProductItemScreen())),
+        '/cartScreen': (context) => ConnectionScreen(child: CartScreen()),
         '/searchScreen': (context) => SearchScreen(),
-        '/profileScreen': (context) => ProfileScreen(),
-        '/yourOrderScreen': (context) => YourOrderes(),
+        '/profileScreen': (context) => ConnectionScreen(child: ProfileScreen()),
+        '/yourOrderScreen': (context) => ConnectionScreen(child: YourOrderes()),
         '/otpScreen': (context) => OtpScreen(),
-        '/addressScreen': (context) => AddressBook(),
-        '/offerScreen': (context) => OfferScreen(),
-        '/ordersuccessScreen': (context) => OrderSuuccess(),
+        '/addressScreen': (context) => ConnectionScreen(child: AddressBook()),
+        '/offerScreen': (context) => ConnectionScreen(child: OfferScreen()),
+        '/ordersuccessScreen': (context) =>
+            ConnectionScreen(child: OrderSuuccess()),
         '/orderfailureScreen': (context) => OrderFailure(),
         '/loginScreen': (context) => LoginScreen(),
         // '/refferalloginScreen': (context) => RefferalLogin(),
-        '/orderSummaryScreen': (context) => OrderSummaryScreen(),
-        '/checkoutScreen': (context) => CheckoutScreen(),
-        '/subscriptionScreen': (context) => SubscriptionScreen(),
-        '/buySubscriptionScreen': (context) => BuySubscriptionScreen(),
-        '/referearnScreen': (context) => ReferEarnScreen(),
+        '/orderSummaryScreen': (context) =>
+            ConnectionScreen(child: OrderSummaryScreen()),
+        '/checkoutScreen': (context) =>
+            ConnectionScreen(child: CheckoutScreen()),
+        '/subscriptionScreen': (context) =>
+            ConnectionScreen(child: SubscriptionScreen()),
+        '/buySubscriptionScreen': (context) =>
+            ConnectionScreen(child: BuySubscriptionScreen()),
+        '/referearnScreen': (context) =>
+            ConnectionScreen(child: ReferEarnScreen()),
         '/introAnimationScreen': (context) => IntroAnimationScreen(),
       },
     );

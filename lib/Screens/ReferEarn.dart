@@ -34,57 +34,48 @@ class ReferEarnScreen extends ConsumerWidget {
   Widget _buildrefferal(UserN value, BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: 13,
-        ),
-        CachedNetworkImage(
-          imageUrl:
-              'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/ReferAndEarn%2Frefersteps.png?alt=media&token=46f43c83-3c56-4fe9-990f-5989df3346a8',
-          fit: BoxFit.fitWidth,
-        ),
-        // Spacer(),
-        SizedBox(
-          height: 25,
-        ),
-
         // My earnings ----------------------------->>>>>>>>>>>>
 
         Text(
-          'My Earnings:',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
+          'My Earnings',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
         ),
         SizedBox(
-          height: 10,
+          height: 15,
         ),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Container(
+          Card(
+            elevation: 5,
+            child: Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                alignment: Alignment(0, 0),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black12),
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.green[400]!.withOpacity(0.6)),
+                child: Text(
+                  'Reffered People\n${value.referralOffer['referredPeople']}',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 17, color: Colors.black),
+                )),
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          Card(
+            elevation: 5,
+            child: Container(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               alignment: Alignment(0, 0),
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black12),
                   borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).scaffoldBackgroundColor),
+                  color: Colors.green[400]!.withOpacity(0.6)),
               child: Text(
-                'Reffered People:\n${value.referralOffer['referredPeople']}',
+                'Refferal Claimed\n${value.referralOffer['isClaimed']}',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 17, color: Theme.of(context).primaryColor),
-              )),
-          SizedBox(
-            width: 5,
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            alignment: Alignment(0, 0),
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.black12),
-                borderRadius: BorderRadius.circular(10),
-                color: Theme.of(context).scaffoldBackgroundColor),
-            child: Text(
-              'Refferal Claimed:\n${value.referralOffer['isClaimed']}',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 17, color: Color.fromARGB(255, 202, 54, 44)),
+                style: TextStyle(fontSize: 17, color: Colors.black),
+              ),
             ),
           )
         ]),
@@ -118,7 +109,7 @@ class ReferEarnScreen extends ConsumerWidget {
         ),
 
         Text(
-          'Your Refferal Code:',
+          'Your Referral Code',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
         ),
         SizedBox(
@@ -126,7 +117,7 @@ class ReferEarnScreen extends ConsumerWidget {
         ),
         Container(
           margin: EdgeInsets.symmetric(horizontal: 8),
-          color: Color.fromARGB(255, 215, 209, 209),
+          color: Colors.green[400]!.withOpacity(0.6),
           child: DottedBorder(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 9),
             color: Colors.black,
@@ -158,38 +149,6 @@ class ReferEarnScreen extends ConsumerWidget {
         SizedBox(
           height: 20,
         ),
-
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 9, vertical: 5),
-          decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              // border: Border.all(),
-              borderRadius: BorderRadius.circular(10)),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.share,
-                color: Colors.white,
-              ),
-              SizedBox(
-                width: 4,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Share.share(
-                    'Hii, look what i got \nhttps://play.google.com/store/apps/details?id=com.instructivetech.kidskite',
-                    subject: 'Look what i made!!!!!!!!!',
-                  );
-                },
-                child: Text(
-                  'Share the app',
-                  style: TextStyle(color: Colors.white),
-                ),
-              )
-            ],
-          ),
-        )
       ],
     );
   }
@@ -211,6 +170,7 @@ class ReferEarnScreen extends ConsumerWidget {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
+            elevation: 0,
             title: Text('Refer and Earn'),
           ),
           body: _isLogin == false
@@ -220,15 +180,154 @@ class ReferEarnScreen extends ConsumerWidget {
                 )
               : SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CachedNetworkImage(
-                        imageUrl:
-                            'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/ReferAndEarn%2FReferAndEarn.png?alt=media&token=c670dec4-f810-4e6d-b3b2-d431d114d71a',
-                        fit: BoxFit.fitWidth,
+                      refferalId(ref, number, context),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16.0),
+                        child: Text(
+                          "Steps to refer",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ),
+                      ListTile(
+                        horizontalTitleGap: 0,
+                        contentPadding: EdgeInsets.only(
+                            left: 16, right: 16, top: 8, bottom: 0),
+                        leading: Container(
+                          width: 8,
+                          height: 8,
+                          margin: EdgeInsets.only(top: 8),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.green,
+                          ),
+                        ),
+                        title: Padding(
+                          padding: EdgeInsets.only(left: 0, top: 8, bottom: 8),
+                          child: Text(
+                            'Invite your friend to signup',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        horizontalTitleGap: 0,
+                        contentPadding: EdgeInsets.only(
+                            left: 16, right: 16, top: 0, bottom: 0),
+                        leading: Container(
+                          width: 8,
+                          height: 8,
+                          margin: EdgeInsets.only(top: 8),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.green,
+                          ),
+                        ),
+                        title: Padding(
+                          padding: EdgeInsets.only(left: 0, top: 8, bottom: 8),
+                          child: Text(
+                            'Make sure your friend add your refer code while signup',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        horizontalTitleGap: 0,
+                        contentPadding: EdgeInsets.only(
+                            left: 16, right: 16, top: 0, bottom: 0),
+                        leading: Container(
+                          width: 8,
+                          height: 8,
+                          margin: EdgeInsets.only(top: 8),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.green,
+                          ),
+                        ),
+                        title: Padding(
+                          padding: EdgeInsets.only(left: 0, top: 8, bottom: 8),
+                          child: Text(
+                            'Your friend will get ₹10 off on first order',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        horizontalTitleGap: 0,
+                        contentPadding: EdgeInsets.only(
+                            left: 16, right: 16, top: 0, bottom: 0),
+                        leading: Container(
+                          width: 8,
+                          height: 8,
+                          margin: EdgeInsets.only(top: 8),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.green,
+                          ),
+                        ),
+                        title: Padding(
+                          padding: EdgeInsets.only(left: 0, top: 8, bottom: 8),
+                          child: Text(
+                            'You will get ₹10 off after your friend\'s first order',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
                       ),
 
-                      refferalId(ref, number, context),
-
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 35.0),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 9, vertical: 5),
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                // border: Border.all(),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.share,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 4,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Share.share(
+                                      'Hii, look what i got \nhttps://play.google.com/store/apps/details?id=com.instructivetech.kidskite',
+                                      subject: 'Look what i made!!!!!!!!!',
+                                    );
+                                  },
+                                  child: Text(
+                                    'Share the app',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
                       // refferalId('', number);
                       // _buildrefferal('ebjcjjkb'),
                     ],

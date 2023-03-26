@@ -14,7 +14,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Profile'),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Column(children: [
           HeadingSupport(),

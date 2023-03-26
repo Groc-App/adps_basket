@@ -37,7 +37,7 @@ class BotmNavBar extends StatelessWidget {
                 CachedNetworkImage(
                   height: 22,
                   imageUrl:
-                      'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Icons%2Fbottomnavbar%2Fhome-icon-B.png?alt=media&token=1f0f9df4-31cf-492d-a38c-3a408358a011',
+                      'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Logo%2FNew%2Flogo%20png%202.png?alt=media&token=c9f57ebd-d2e6-402b-8844-3758029d9258',
                 ),
                 // CachedNetworkImage(
                 //   height: 22,

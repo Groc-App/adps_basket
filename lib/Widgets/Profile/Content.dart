@@ -9,11 +9,46 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:about/about.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../providers/providers.dart';
 
-class Content extends ConsumerWidget {
-  const Content({super.key});
+String userNumber = '';
+
+class Content extends ConsumerStatefulWidget {
+  const Content({Key? key}) : super(key: key);
+
+  @override
+  _ContentState createState() => _ContentState();
+}
+
+class _ContentState extends ConsumerState<Content> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    // foundUser = data;
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+// your code goes here
+      getNumber();
+
+      // ref.invalidate(verifyCouponProvider);
+    });
+  }
+
+  Future<void> logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('username');
+  }
+
+  Future<void> getNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userNumberr = prefs.getString('username') ?? '';
+    setState(() {
+      userNumber = userNumberr;
+    });
+    print("userNumber $userNumber");
+  }
 
   void navigation(context, navi_url) {
     Navigator.of(context).pushNamed('${navi_url}');
@@ -62,12 +97,14 @@ class Content extends ConsumerWidget {
                   child: const Text('Cancel'),
                 ),
                 TextButton(
-                  onPressed: () {
+                  onPressed: () async {
                     FirebaseAuth auth = FirebaseAuth.instance;
                     auth.signOut();
                     ref
                         .read(authCheckProvider.notifier)
                         .update((state) => null);
+
+                    await logout();
 
                     Navigator.pop(context, 'Logout');
                     Navigator.of(context).pushNamedAndRemoveUntil(
@@ -125,11 +162,8 @@ class Content extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     // Cheching user login info
-
-    var authInfo = ref.watch(authCheckProvider);
-    print(authInfo?.uid);
 
     return Column(
       children: [
@@ -146,12 +180,12 @@ class Content extends ConsumerWidget {
               height: 10,
             ),
             iconRow(FontAwesomeIcons.shoppingBag, 'Your Orders', context,
-                '/yourOrderScreen', ref, authInfo?.phoneNumber),
+                '/yourOrderScreen', ref, userNumber),
             SizedBox(
               height: 3,
             ),
             iconRow(FontAwesomeIcons.solidAddressBook, 'Your Addresses',
-                context, '/addressScreen', ref, authInfo?.phoneNumber),
+                context, '/addressScreen', ref, userNumber),
           ]),
         ),
         Container(
@@ -169,31 +203,31 @@ class Content extends ConsumerWidget {
               height: 12,
             ),
             iconRow(FontAwesomeIcons.share, 'Refer and Earn', context,
-                '/referearnScreen', ref, authInfo?.phoneNumber),
+                '/referearnScreen', ref, userNumber),
 
             SizedBox(
               height: 3,
             ),
             iconRow(FontAwesomeIcons.shareNodes, 'Share the app', context,
-                'share', ref, authInfo?.phoneNumber),
+                'share', ref, userNumber),
 
             SizedBox(
               height: 3,
             ),
 
             iconRow(FontAwesomeIcons.info, 'About us', context, 'about', ref,
-                authInfo?.phoneNumber),
+                userNumber),
             SizedBox(
               height: 3,
             ),
             iconRow(FontAwesomeIcons.solidStar, 'Rate us on Play Store',
-                context, '/yourOrderScreen', ref, authInfo?.phoneNumber),
+                context, '/yourOrderScreen', ref, userNumber),
             SizedBox(
               height: 3,
             ),
-            if (authInfo != null)
+            if (userNumber != '')
               iconRow(FontAwesomeIcons.rightFromBracket, 'Logout', context,
-                  'logout', ref, authInfo.phoneNumber),
+                  'logout', ref, userNumber),
           ]),
         ),
       ],

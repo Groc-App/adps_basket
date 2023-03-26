@@ -25,10 +25,10 @@ class _ProductItemState extends ConsumerState<ProductItem> {
   // bool added = false;
   var counter = 0;
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
 
   Product product;
 
