@@ -8,6 +8,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:your_basket/Screens/subscriptionScreen.dart';
 import 'package:your_basket/Widgets/Cart/Noitems.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:your_basket/Widgets/Sinners/CartItemSinner.dart';
@@ -116,9 +117,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
               Column(
                 children: list.map((data) {
                   pricetotal = pricetotal + (data.ItemCount * data.Item.Price);
-                  if (pricetotal <= 50)
+                  if (pricetotal < 50)
                     deliveryCharges = 19.0;
-                  else if (pricetotal <= 100)
+                  else if (pricetotal < 100)
                     deliveryCharges = 9.0;
                   else
                     deliveryCharges = 0.0;
@@ -143,7 +144,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           borderRadius: BorderRadius.circular(5),
           color: Colors.white),
       width: scWidth * 0.85,
-      height: min(scHeight * 0.3, 145),
+      // height: min(scHeight * 0.3, 165),
       child:
           Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
         Row(
@@ -159,6 +160,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
             )
           ],
         ),
+        SizedBox(
+          height: 5,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -168,41 +172,69 @@ class _CartScreenState extends ConsumerState<CartScreen> {
             ),
             Text.rich(
               TextSpan(children: [
-                // TextSpan(
-                //   text: '₹40',
-                //   style: TextStyle(
-                //       fontSize: 15,
-                //       fontWeight: FontWeight.w600,
-                //       color: Colors.grey,
-                //       decoration: TextDecoration.lineThrough),
-                // ),
+                if (deliveryCharges < 19.0)
+                  TextSpan(
+                    text: '₹19',
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey,
+                        decoration: TextDecoration.lineThrough),
+                  ),
                 TextSpan(
-                  text: '₹$deliveryCharges',
+                  text: '  ₹$deliveryCharges',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ]),
             ),
           ],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Discount: ',
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Theme.of(context).primaryColor),
-            ),
-            Text(
-              "-₹$discount",
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Theme.of(context).primaryColor),
-            )
-          ],
+        SizedBox(
+          height: 5,
         ),
+        if (discount > 0)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Discount: ',
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).primaryColor),
+              ),
+              Text(
+                "-₹$discount",
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).primaryColor),
+              )
+            ],
+          ),
+        if (discount > 0)
+          SizedBox(
+            height: 5,
+          ),
+        if (pricetotal < 100)
+          Container(
+            width: double.infinity,
+            child: Text(
+              pricetotal < 50
+                  ? 'Add ₹${50 - pricetotal} more to reduce delivery charges'
+                  : 'Add ₹${100 - pricetotal} more to get free delivery',
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                  fontSize: 12,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 126, 122, 122)),
+            ),
+          ),
+        if (pricetotal < 100)
+          SizedBox(
+            height: 5,
+          ),
         const Divider(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

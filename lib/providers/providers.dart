@@ -29,7 +29,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 final authCheckProvider = StateProvider<User?>((ref) => null);
 
-final cartItemsProvider = StateNotifierProvider<CartNotifier, CartState>(
+final cartItemsProvider =
+    StateNotifierProvider.autoDispose<CartNotifier, CartState>(
   (ref) {
     String number;
     var user = ref.watch(authCheckProvider);

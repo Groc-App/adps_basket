@@ -1,8 +1,4 @@
 // ignore_for_file: file_names
-
-// import 'dart:html';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -50,19 +46,32 @@ class HeadingSupport extends ConsumerWidget {
           ]),
           GestureDetector(
             onTap: () async {
-              var whatsapp = "+918299073956";
-              var whatsappAndroid =
-                  Uri.parse("whatsapp://send?phone=$whatsapp&text=hello");
-              if (await canLaunchUrl(whatsappAndroid)) {
-                await launchUrl(whatsappAndroid);
-              } else {
+              try {
+                var whatsapp = "918299073956";
+                var url = "https://wa.me/$whatsapp?text=Hi, There!";
+
+                await launch(url);
+              } catch (e) {
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text("WhatsApp is not installed on the device"),
+                    content: Text(
+                        "WhatsApp is not installed on the device or some error"),
                   ),
                 );
               }
+
+              // var whatsappAndroid =
+              //     Uri.parse("whatsapp://send?phone=$whatsapp?text=Your");
+              // if (await canLaunchUrl(whatsappAndroid)) {
+              // } else {
+              //   ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              //   ScaffoldMessenger.of(context).showSnackBar(
+              //     const SnackBar(
+              //       content: Text("WhatsApp is not installed on the device"),
+              //     ),
+              //   );
+              // }
             },
             child: Column(
               children: [
