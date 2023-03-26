@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:your_basket/Services/api_service.dart';
 import 'package:your_basket/Services/offer_api_service.dart';
 import 'package:your_basket/Services/subscription_api_service.dart';
@@ -31,13 +32,18 @@ final authCheckProvider = StateProvider<User?>((ref) => null);
 
 final cartItemsProvider = StateNotifierProvider<CartNotifier, CartState>(
   (ref) {
+    print("provider:");
     String number;
     var user = ref.watch(authCheckProvider);
+
     if (user == null) {
       number = '';
     } else {
+      print("provider:${user.phoneNumber}");
       number = user.phoneNumber!;
     }
+    //  SharedPreferences prefs = await SharedPreferences.getInstance();
+    // String userNumberr = prefs.getString('username') ?? '';
     return CartNotifier(ref.watch(cartApiService), number);
   },
 );
@@ -71,6 +77,7 @@ final verifyCouponProvider = FutureProvider.autoDispose<String>(
     final apiRespository = ref.watch(couponApiService);
     String number;
     var user = ref.watch(authCheckProvider);
+    print("auth $user");
     if (user == null) {
       number = '';
     } else {

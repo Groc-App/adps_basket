@@ -8,6 +8,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:your_basket/Widgets/Cart/Noitems.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:your_basket/Widgets/Sinners/CartItemSinner.dart';
@@ -17,6 +18,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/providers.dart';
 import '../models/cart/cartitem.dart' as CartItemModel;
 import '../models/product/productdetail.dart' as ProductItemModel;
+
+String userNumber = '';
 
 class CartScreen extends ConsumerStatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -48,7 +51,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
 // your code goes here
       var status = await ref.read(verifyCouponProvider.future);
+      await getNumber();
 
+      print("init:$userNumber");
       print("Statussss:$status");
 
       if (status == 'true') {
@@ -84,7 +89,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     });
   }
 
-  Widget _cartList(WidgetRef ref, scHeight, scWidth, phonenumber) {
+  Widget _cartList(WidgetRef ref, scHeight, scWidth) {
     final cartState = ref.watch(cartItemsProvider);
 
     if (cartState.cartModel == null) {
@@ -100,7 +105,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
     return _buildCartItems(
         cartState.cartModel!.products.cast<CartItemModel.CartItem>(),
-        phonenumber,
+        userNumber,
         scHeight,
         scWidth);
   }
@@ -281,13 +286,23 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           );
   }
 
+  Future<void> getNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userNumberr = prefs.getString('username') ?? '';
+    setState(() {
+      userNumber = userNumberr;
+    });
+    print("userNumber $userNumber");
+  }
+
   @override
   Widget build(BuildContext context) {
     final scSize = MediaQuery.of(context).size;
     final scWidth = scSize.width;
     final scHeight = scSize.height;
 
-    var authInfo = ref.watch(authCheckProvider);
+    // var authInfo?=username
+    print("UserNUmber $userNumber");
 
     print("Body:::: $referralVeri");
     print("Body:::: $discount");
@@ -311,7 +326,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           ],
         ),
       ),
-      body: authInfo == null
+      body: userNumber == null
           ? NoItems(
               noitemtext: 'Login/SignUp First',
               pageroute: 'loginpage',
@@ -323,8 +338,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   Expanded(
                     // Expanded kr lio
                     child: SingleChildScrollView(
-                      child: _cartList(
-                          ref, scHeight, scWidth, authInfo.phoneNumber),
+                      child: _cartList(ref, scHeight, scWidth),
                     ),
                   ),
 
@@ -357,7 +371,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
                                         var status = await ref.read(
                                             checkcouponprovider({
-                                          'number': authInfo.phoneNumber ?? '',
+                                          'number': userNumber,
                                           'code': couponController.text
                                         }).future);
 
@@ -452,7 +466,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                         onTap: () {
                           Navigator.pushNamed(context, '/checkoutScreen',
                               arguments: {
-                                'number': authInfo.phoneNumber ?? '',
+                                'number': userNumber,
                                 'cartProductList': datalist,
                                 'tamount': pricetotal,
                                 'discount': discount,

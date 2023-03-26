@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -135,6 +136,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 setState(() {
                                   _isLoading = true;
                                 });
+                                SharedPreferences prefs =
+                                    await SharedPreferences.getInstance();
+                                await prefs.setString(
+                                    'username', _numbercontroller.text);
+                                print("Prefs $prefs");
                                 await FirebaseAuth.instance.verifyPhoneNumber(
                                   phoneNumber: '+91${_numbercontroller.text}',
                                   verificationCompleted:

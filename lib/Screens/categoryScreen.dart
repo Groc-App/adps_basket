@@ -301,7 +301,6 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     // mapp['categoryId'] = "null";
     // ConnectivityProvider connect =
     //     ref.watch(connectivityProvider).startMonitoring();
-    var connectivityStatusProvider = ref.watch(connectivityStatusProviders);
 
     Map<String, String> map =
         ref.watch(categoryProvider(categ['maincategoryid']));
