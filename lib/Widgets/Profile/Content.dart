@@ -11,6 +11,7 @@ import 'package:about/about.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../config.dart';
 import '../../providers/providers.dart';
 
 String userNumber = '';
@@ -99,7 +100,7 @@ class _ContentState extends ConsumerState<Content> {
                 TextButton(
                   onPressed: () async {
                     FirebaseAuth auth = FirebaseAuth.instance;
-                    auth.signOut();
+                    await auth.signOut();
                     ref
                         .read(authCheckProvider.notifier)
                         .update((state) => null);

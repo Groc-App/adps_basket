@@ -1,13 +1,11 @@
 // ignore_for_file: file_names
-
-// import 'dart:html';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../config.dart';
 import '../../providers/providers.dart';
 
 String userNumber = '';
@@ -88,10 +86,23 @@ class _HeadingSupportState extends ConsumerState<HeadingSupport> {
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text("WhatsApp is not installed on the device"),
+                    content: Text(
+                        "WhatsApp is not installed on the device or some error"),
                   ),
                 );
               }
+
+              // var whatsappAndroid =
+              //     Uri.parse("whatsapp://send?phone=$whatsapp?text=Your");
+              // if (await canLaunchUrl(whatsappAndroid)) {
+              // } else {
+              //   ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              //   ScaffoldMessenger.of(context).showSnackBar(
+              //     const SnackBar(
+              //       content: Text("WhatsApp is not installed on the device"),
+              //     ),
+              //   );
+              // }
             },
             child: Column(
               children: [

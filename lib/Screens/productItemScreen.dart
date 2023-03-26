@@ -432,7 +432,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
           child: SingleChildScrollView(
               child: authInfo == null
                   ? buildProduct(context, scWidth, '')
-                  : buildProduct(context, scWidth, authInfo.phoneNumber ?? '')),
+                  : buildProduct(context, scWidth, authInfo)),
         ),
         backgroundColor: Colors.white,
         bottomNavigationBar: Container(
