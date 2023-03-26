@@ -148,82 +148,105 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           borderRadius: BorderRadius.circular(5),
           color: Colors.white),
       width: scWidth * 0.85,
-      height: min(scHeight * 0.3, 145),
-      child:
-          Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // height: min(scHeight * 0.3, 145),
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Items Price: ',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-            Text(
-              "₹$pricetotal",
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            )
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              'Delivery Charges: ',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-            Text.rich(
-              TextSpan(children: [
-                // TextSpan(
-                //   text: '₹40',
-                //   style: TextStyle(
-                //       fontSize: 15,
-                //       fontWeight: FontWeight.w600,
-                //       color: Colors.grey,
-                //       decoration: TextDecoration.lineThrough),
-                // ),
-                TextSpan(
-                  text: '₹$deliveryCharges',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Items Price: ',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  "₹$pricetotal",
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w600),
+                )
+              ],
+            ),
+            SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Delivery Charges: ',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
-              ]),
+                Text.rich(
+                  TextSpan(children: [
+                    if (deliveryCharges < 19.0)
+                      TextSpan(
+                        text: '₹19',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey,
+                            decoration: TextDecoration.lineThrough),
+                      ),
+                    TextSpan(
+                      text: '  ₹$deliveryCharges',
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                  ]),
+                ),
+              ],
             ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Discount: ',
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Theme.of(context).primaryColor),
+            SizedBox(height: 5),
+            if (discount > 0.0)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Discount: ',
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).primaryColor),
+                  ),
+                  Text(
+                    "-₹$discount",
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).primaryColor),
+                  )
+                ],
+              ),
+            if (discount > 0.0) SizedBox(height: 5),
+            if (pricetotal < 100)
+              Text(
+                pricetotal < 50
+                    ? 'You are ₹${50 - pricetotal} away to reduce delivery charges'
+                    : 'You are ₹${100 - pricetotal} away to get free delivery',
+                style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 169, 165, 165)),
+              ),
+            SizedBox(
+              height: 5,
             ),
-            Text(
-              "-₹$discount",
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Theme.of(context).primaryColor),
-            )
-          ],
-        ),
-        const Divider(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              "Grand Total",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            const Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Grand Total",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  "₹${(pricetotal - discount + deliveryCharges)}",
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w600),
+                )
+              ],
             ),
-            Text(
-              "₹${(pricetotal - discount + deliveryCharges)}",
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            )
-          ],
-        ),
-      ]),
+          ]),
     );
   }
 
@@ -369,63 +392,84 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                         labelText: 'Enter coupon code',
                                       ),
                                     ),
-                                    ElevatedButton(
-                                      onPressed: () async {
-                                        print(couponController.text);
-                                        FocusScope.of(context).unfocus();
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              left: ((scWidth * 0.5) - 80)),
+                                          child: ElevatedButton(
+                                            onPressed: () async {
+                                              print(couponController.text);
+                                              FocusScope.of(context).unfocus();
 
-                                        setCouponCode(couponController.text);
+                                              setCouponCode(
+                                                  couponController.text);
 
-                                        setState(() {
-                                          _isLoading = true;
-                                        });
+                                              setState(() {
+                                                _isLoading = true;
+                                              });
 
-                                        var status = await ref.read(
-                                            checkcouponprovider({
-                                          'number': userNumber,
-                                          'code': couponController.text
-                                        }).future);
+                                              var status = await ref.read(
+                                                  checkcouponprovider({
+                                                'number': userNumber,
+                                                'code': couponController.text
+                                              }).future);
 
-                                        if (status == 'Invalid') {
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(const SnackBar(
-                                                  content:
-                                                      Text('Invalid code')));
-                                        } else if (status == 'Redeemed') {
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(const SnackBar(
-                                                  content: Text(
-                                                      'Already Redeemed')));
-                                        } else if (status == 'Sortage') {
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(const SnackBar(
-                                                  content: Text(
-                                                      'No referral left')));
-                                        } else {
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
-                                          setState(() {
-                                            discount = double.parse(status);
-                                          });
-                                        }
+                                              if (status == 'Invalid') {
+                                                ScaffoldMessenger.of(context)
+                                                    .hideCurrentSnackBar();
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(const SnackBar(
+                                                        content: Text(
+                                                            'Invalid code')));
+                                              } else if (status == 'Redeemed') {
+                                                ScaffoldMessenger.of(context)
+                                                    .hideCurrentSnackBar();
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(const SnackBar(
+                                                        content: Text(
+                                                            'Already Redeemed')));
+                                              } else if (status == 'Sortage') {
+                                                ScaffoldMessenger.of(context)
+                                                    .hideCurrentSnackBar();
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(const SnackBar(
+                                                        content: Text(
+                                                            'No referral left')));
+                                              } else {
+                                                ScaffoldMessenger.of(context)
+                                                    .hideCurrentSnackBar();
+                                                setState(() {
+                                                  discount =
+                                                      double.parse(status);
+                                                });
+                                              }
 
-                                        setState(() {
-                                          _isLoading = false;
-                                        });
-                                      },
-                                      child: _isLoading == false
-                                          ? const Text('Apply Coupon')
-                                          : SpinKitThreeInOut(
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                              size: 28,
-                                            ),
+                                              setState(() {
+                                                _isLoading = false;
+                                              });
+                                            },
+                                            child: _isLoading == false
+                                                ? const Text('Apply Coupon')
+                                                : SpinKitThreeInOut(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    size: 28,
+                                                  ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Spacer(),
+                                        GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                _showCoupon = false;
+                                              });
+                                            },
+                                            child: Icon(Icons.cancel_rounded)),
+                                      ],
                                     )
                                   ],
                                 ),
