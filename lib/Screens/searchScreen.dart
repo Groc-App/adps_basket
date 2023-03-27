@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:your_basket/Screens/buySubscriptionScreen.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:your_basket/data/productsdata.dart';
@@ -12,6 +13,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../providers/providers.dart';
 import '../config.dart';
+
+String userNumber = '';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -24,6 +27,15 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  Future<void> getNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userNumberr = prefs.getString('username') ?? '';
+    setState(() {
+      userNumber = userNumberr;
+    });
+    print("userNumber $userNumber");
   }
 
   void incrementHandler(phonenumber, Product product) {
@@ -102,6 +114,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     // TODO: implement initState
     // foundUser = data;
     super.initState();
+    getNumber();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       SearchData.initialize(ref);
     });
@@ -145,13 +158,13 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     final scHeight = scSize.height;
     final scWidth = scSize.width;
 
-    var authInfo = ref.watch(authCheckProvider);
+    // var authInfo = ref.watch(authCheckProvider);
 
     return Scaffold(
       /* ---------------------------------- BODY ---------------------------------- */
       resizeToAvoidBottomInset: true,
       body: NestedScrollView(
-        body: bodyContent(scHeight, scWidth, authInfo),
+        body: bodyContent(scHeight, scWidth, userNumber),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(

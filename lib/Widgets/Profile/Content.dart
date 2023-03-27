@@ -101,9 +101,9 @@ class _ContentState extends ConsumerState<Content> {
                   onPressed: () async {
                     FirebaseAuth auth = FirebaseAuth.instance;
                     await auth.signOut();
-                    ref
-                        .read(authCheckProvider.notifier)
-                        .update((state) => null);
+                    // ref
+                    //     .read(authCheckProvider.notifier)
+                    //     .update((state) => null);
 
                     await logout();
 

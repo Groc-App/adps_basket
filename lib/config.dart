@@ -6,14 +6,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Config {
   // login
 
-  static late String? phonenumber = '56654';
-  var user = SharedPreferences.getInstance()
-      .then((value) => phonenumber = value.getString('phonenumber'));
+  // static late String? phonenumber = '56654';
+  // var user = SharedPreferences.getInstance()
+  //     .then((value) => phonenumber = value.getString('phonenumber'));
 
   /* -------------------------------- app setup ------------------------------- */
   static const String GrocApp = 'GrocApp';
   // static const String apiURL = '127.0.0.1:8000';
-  static const String apiURL = '192.168.1.7:8000';
+  static const String apiURL = '192.168.1.5:8000';
   // static const String apiURL = '127.0.0.1:8000';
   // static const String apiURL = '192.168.1.11:8000';
   // 127.0.0.1:8000

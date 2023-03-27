@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:your_basket/Screens/buySubscriptionScreen.dart';
 import 'package:your_basket/Services/subscription_api_service.dart';
 import 'package:your_basket/Widgets/Errors/Dataloadingerror.dart';
 import 'package:your_basket/providers/providers.dart';
@@ -12,8 +13,8 @@ import '../Widgets/Subscription/modalSheet/item.dart';
 import '../Widgets/Subscription/summary/summaryCard.dart';
 import '../models/subscription/subscription.dart';
 
-var number = '';
-Map<String, String> map = {"number": number};
+var userNumber = '';
+Map<String, String> map = {"number": userNumber};
 var scHeight;
 var scSize;
 
@@ -38,7 +39,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
 // your code goes here
       await getNumber();
 
-      print("init:$number");
+      // print("init:$number");
 
       // ref.invalidate(verifyCouponProvider);
     });
@@ -48,9 +49,9 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String userNumberr = prefs.getString('username') ?? '';
     setState(() {
-      number = userNumberr;
+      userNumber = userNumberr;
     });
-    print("number $number");
+    print("number $userNumber");
   }
 
   cancelHandler(String subscriptionId) {
@@ -415,7 +416,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
   }
 
   Widget verificationBuild() {
-    final data = ref.watch(subscriptionByUserProvider);
+    final data = ref.watch(subscriptionByUserProvider(userNumber));
 
     return data.when(
       data: (list) {
@@ -492,7 +493,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
         appBar: AppBar(
           title: const Text("Subscriptions"),
         ),
-        body: number == ''
+        body: userNumber == ''
             ? NoItems(
                 noitemtext: 'Login/SignUp First',
                 pageroute: 'loginpage',

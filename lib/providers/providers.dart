@@ -28,17 +28,17 @@ import '../Services/order_api_service.dart';
 import 'package:your_basket/models/orders/orders.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-final authCheckProvider = StateProvider<String?>((ref) {
-  String? number;
-  SharedPreferences.getInstance().then((value) {
-    number = value.getString('phonenumber');
-  });
+// final authCheckProvider = StateProvider<String?>((ref) {
+//   String? number;
+//   SharedPreferences.getInstance().then((value) {
+//     number = value.getString('phonenumber');
+//   });
 
-  return number;
-  // String? username = await prefs.getString('phonenumber');
+//   return number;
+//   // String? username = await prefs.getString('phonenumber');
 
-  // return username;
-});
+//   // return username;
+// });
 
 final cartItemsProvider =
     StateNotifierProvider.autoDispose.family<CartNotifier, CartState, String>(
@@ -192,16 +192,16 @@ final allOfferProvider =
 );
 
 final subscriptionByUserProvider =
-    FutureProvider.autoDispose<List<Subscription>?>(
-  (ref) {
+    FutureProvider.autoDispose.family<List<Subscription>?, String>(
+  (ref, number) {
     final apiRespository = ref.watch(subscriptionApiService);
-    String number;
-    var user = ref.watch(authCheckProvider);
-    if (user == null) {
-      number = '';
-    } else {
-      number = user;
-    }
+    // String number;
+    // var user = ref.watch(authCheckProvider);
+    // if (user == null) {
+    //   number = '';
+    // } else {
+    //   number = user;
+    // }
     return apiRespository.getSubscriptionbyUser(number);
   },
 );

@@ -177,7 +177,7 @@ _buildSilverAppBarBackground(context, height) {
                   Navigator.of(context).pushNamed('/searchScreen');
                 },
                 decoration: InputDecoration(
-                    hintText: "search , order , repeat",
+                    hintText: "search,  order,  repeat",
                     border: InputBorder.none,
                     hintStyle: TextStyle(color: Colors.grey))),
             actions: <Widget>[

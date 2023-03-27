@@ -4,9 +4,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:your_basket/models/product/products.dart';
 
 import '../../providers/providers.dart';
+
+String userNumber = '';
 
 class ProductItem extends ConsumerStatefulWidget {
   // const ProductItem({super.key});
@@ -25,10 +28,20 @@ class _ProductItemState extends ConsumerState<ProductItem> {
   // bool added = false;
   var counter = 0;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
+  Future<void> getNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userNumberr = prefs.getString('username') ?? '';
+    setState(() {
+      userNumber = userNumberr;
+    });
+    print("userNumber $userNumber");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getNumber();
+  }
 
   Product product;
 
@@ -197,8 +210,8 @@ class _ProductItemState extends ConsumerState<ProductItem> {
 
     product = widget.product;
 
-    var authInfo = ref.watch(authCheckProvider);
-    print(authInfo);
+    // var authInfo = ref.watch(authCheckProvider);
+    // print(authInfo);
 
     return GestureDetector(
       onTap: () {
@@ -273,9 +286,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                             style: const TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.bold),
                           ))),
-                      authInfo == null
-                          ? addTile(scWidth, '')
-                          : addTile(scWidth, authInfo),
+                      addTile(scWidth, userNumber),
                       // addTile(scWidth, '+917982733943'),
                     ],
                   ),

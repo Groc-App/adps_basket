@@ -227,9 +227,9 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                               });
                             } else {
                               //updating authcheckprovider
-                              ref
-                                  .read(authCheckProvider.notifier)
-                                  .update((state) => user!.phoneNumber);
+                              // ref
+                              //     .read(authCheckProvider.notifier)
+                              //     .update((state) => user!.phoneNumber);
 
                               // setting number preferences
 

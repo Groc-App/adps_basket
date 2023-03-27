@@ -7,12 +7,15 @@ import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:readmore/readmore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:your_basket/Screens/offerScreen.dart';
 import 'package:your_basket/models/product/productdetail.dart';
 import 'package:your_basket/models/product/products.dart';
 import 'package:your_basket/providers/providers.dart';
 import 'package:share_plus/share_plus.dart';
 import '../config.dart';
+
+String userNumber = '';
 
 class ProductItemScreen extends ConsumerStatefulWidget {
   const ProductItemScreen({super.key});
@@ -22,10 +25,24 @@ class ProductItemScreen extends ConsumerStatefulWidget {
 }
 
 class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
+  @override
+  void initState() {
+    super.initState();
+    getNumber();
+  }
   // ProductItemScreen({super.key});
 
   late Product product;
   int counter = 0;
+
+  Future<void> getNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userNumberr = prefs.getString('username') ?? '';
+    setState(() {
+      userNumber = userNumberr;
+    });
+    print("userNumber $userNumber");
+  }
 
   void showZommedimage(BuildContext context, String imageurl) {
     showModalBottomSheet(
@@ -413,7 +430,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
     product = productIdMap['product'];
     // counter = productIdMap['counter'];
 
-    var authInfo = ref.watch(authCheckProvider);
+    // var authInfo = ref.watch(authCheckProvider);
 
     return Scaffold(
         appBar: AppBar(
@@ -432,9 +449,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
         ),
         body: SafeArea(
           child: SingleChildScrollView(
-              child: authInfo == null
-                  ? buildProduct(context, scWidth, '')
-                  : buildProduct(context, scWidth, authInfo)),
+              child: buildProduct(context, scWidth, userNumber)),
         ),
         backgroundColor: Colors.white,
         bottomNavigationBar: Container(

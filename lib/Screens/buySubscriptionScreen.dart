@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:your_basket/Services/subscription_api_service.dart';
 import 'package:your_basket/Widgets/Cart/Noitems.dart';
 import 'package:your_basket/Widgets/Subscription/modalSheet/item.dart';
@@ -20,6 +21,8 @@ class BuySubscriptionScreen extends ConsumerStatefulWidget {
   @override
   _BuySubscriptionScreenState createState() => _BuySubscriptionScreenState();
 }
+
+String userNumber = '';
 
 class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
   var startDate = 'Select Date';
@@ -45,6 +48,15 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
     '5',
   ];
   // const SubscriptionScreen({super.key});
+
+  Future<void> getNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userNumberr = prefs.getString('username') ?? '';
+    setState(() {
+      userNumber = userNumberr;
+    });
+    print("userNumber $userNumber");
+  }
 
   submitHandler(String productId, String number, String stDate, String eDate,
       String functiontype, String subsid) {
@@ -89,6 +101,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
   @override
   initState() {
     super.initState();
+    getNumber();
   }
 
   startDateHandler() async {
@@ -131,11 +144,11 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
   Widget build(BuildContext context) {
     initializeDateFormatting('en', null);
 
-    var authInfo = ref.watch(authCheckProvider);
-    var number = (authInfo == null ? '' : authInfo);
+    // var authInfo = ref.watch(authCheckProvider);
+    // var number = (authInfo == null ? '' : authInfo);
 
-    if (authInfo != null) {
-      final AddressBookState = ref.watch(addressBokkProvider(number));
+    if (userNumber != '') {
+      final AddressBookState = ref.watch(addressBokkProvider(userNumber));
       if (AddressBookState.AddressBookModel!.addresses.isNotEmpty) {
         var reqData = AddressBookState.AddressBookModel!.addresses
             .firstWhere((e) => e.defaultAddress == true);
@@ -167,7 +180,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
             ? Text("Buy Subscription")
             : Text('Edit Subscription'),
       ),
-      body: authInfo == null
+      body: userNumber == ''
           ? NoItems(
               noitemtext: 'Login/SignUp First',
               pageroute: 'loginpage',
@@ -395,7 +408,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                                       ),
                                     );
                                   } else {
-                                    submitHandler(product.productId, number,
+                                    submitHandler(product.productId, userNumber,
                                         startDate, endDate, 'buy', subsid);
                                   }
                                 },
@@ -408,7 +421,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.green),
                                 onPressed: () {
-                                  submitHandler(product.productId, number,
+                                  submitHandler(product.productId, userNumber,
                                       startDate, endDate, 'edit', subsid);
                                 },
                                 child: const Text("Edit Subscription")),
