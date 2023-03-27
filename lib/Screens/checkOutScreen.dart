@@ -27,7 +27,7 @@ class CheckoutScreen extends StatelessWidget {
       discount,
       deliveryCharges,
       String? couponCode) {
-    final AddressBookState = ref.watch(addressBokkProvider);
+    final AddressBookState = ref.watch(addressBokkProvider(number));
     var reqData = Address(
         addressId: '',
         defaultAddress: false,
