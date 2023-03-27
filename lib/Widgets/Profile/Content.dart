@@ -1,7 +1,6 @@
-// ignore_for_file: deprecated_member_use, avoid_unnecessary_containers, file_names
+// ignore_for_file: deprecated_member_use, avoid_unnecessary_containers, file_names, use_build_context_synchronously
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,9 +9,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:about/about.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../config.dart';
-import '../../providers/providers.dart';
 
 String userNumber = '';
 
@@ -26,11 +22,8 @@ class Content extends ConsumerStatefulWidget {
 class _ContentState extends ConsumerState<Content> {
   @override
   void initState() {
-    // TODO: implement initState
-    // foundUser = data;
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-// your code goes here
       getNumber();
 
       // ref.invalidate(verifyCouponProvider);
@@ -48,17 +41,16 @@ class _ContentState extends ConsumerState<Content> {
     setState(() {
       userNumber = userNumberr;
     });
-    print("userNumber $userNumber");
   }
 
-  void navigation(context, navi_url) {
-    Navigator.of(context).pushNamed('${navi_url}');
+  void navigation(context, naviUrl) {
+    Navigator.of(context).pushNamed('$naviUrl');
   }
 
-  Widget iconRow(icn, text, context, navi_url, WidgetRef ref, String? number) {
+  Widget iconRow(icn, text, context, naviUrl, WidgetRef ref, String? number) {
     return GestureDetector(
       onTap: () {
-        if (navi_url == 'about') {
+        if (naviUrl == 'about') {
           showAboutPage(
             context: context,
             values: {
@@ -86,7 +78,7 @@ class _ContentState extends ConsumerState<Content> {
                       'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Logo%2Flogo.png?alt=media&token=bde72ad0-a31b-405c-911c-6a45e258b6db'),
             ),
           );
-        } else if (navi_url == 'logout') {
+        } else if (naviUrl == 'logout') {
           showDialog<String>(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -116,25 +108,24 @@ class _ContentState extends ConsumerState<Content> {
               ],
             ),
           );
-        } else if (navi_url == 'share') {
-          print("inside tap");
+        } else if (naviUrl == 'share') {
           Share.share(
               'https://play.google.com/store/apps/details?id=com.instructivetech.kidskite');
-        } else if (navi_url == '/referearnScreen') {
+        } else if (naviUrl == '/referearnScreen') {
           Navigator.of(context)
-              .pushNamed('${navi_url}', arguments: {'number': number});
+              .pushNamed('$naviUrl', arguments: {'number': number});
         } else {
-          navigation(context, navi_url);
+          navigation(context, naviUrl);
         }
       },
       child: Container(
-        margin: EdgeInsets.only(bottom: 10),
+        margin: const EdgeInsets.only(bottom: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(children: [
               Container(
-                margin: EdgeInsets.only(right: 9),
+                margin: const EdgeInsets.only(right: 9),
                 child: CircleAvatar(
                   radius: 17,
                   backgroundColor: Colors.white38,
@@ -147,12 +138,12 @@ class _ContentState extends ConsumerState<Content> {
               ),
               Text(
                 text,
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
             ]),
             Container(
-                margin: EdgeInsets.only(right: 5),
-                child: Icon(
+                margin: const EdgeInsets.only(right: 5),
+                child: const Icon(
                   Icons.navigate_next,
                   color: Colors.grey,
                 )),
@@ -171,18 +162,18 @@ class _ContentState extends ConsumerState<Content> {
         Container(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(
+            const Text(
               'YOUR INFORMATION',
               style: TextStyle(
                   fontSize: 15, color: Color.fromARGB(255, 121, 117, 117)),
             ),
             // Divider(),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             iconRow(FontAwesomeIcons.shoppingBag, 'Your Orders', context,
                 '/yourOrderScreen', ref, userNumber),
-            SizedBox(
+            const SizedBox(
               height: 3,
             ),
             iconRow(FontAwesomeIcons.solidAddressBook, 'Your Addresses',
@@ -206,24 +197,24 @@ class _ContentState extends ConsumerState<Content> {
             iconRow(FontAwesomeIcons.share, 'Refer and Earn', context,
                 '/referearnScreen', ref, userNumber),
 
-            SizedBox(
+            const SizedBox(
               height: 3,
             ),
             iconRow(FontAwesomeIcons.shareNodes, 'Share the app', context,
                 'share', ref, userNumber),
 
-            SizedBox(
+            const SizedBox(
               height: 3,
             ),
 
             iconRow(FontAwesomeIcons.info, 'About us', context, 'about', ref,
                 userNumber),
-            SizedBox(
+            const SizedBox(
               height: 3,
             ),
             iconRow(FontAwesomeIcons.solidStar, 'Rate us on Play Store',
                 context, '/yourOrderScreen', ref, userNumber),
-            SizedBox(
+            const SizedBox(
               height: 3,
             ),
             if (userNumber != '')

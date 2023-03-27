@@ -1,7 +1,8 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../address/address.dart';
-import '../product/products.dart';
 part 'orders.freezed.dart';
 part 'orders.g.dart';
 

@@ -6,15 +6,15 @@ class QuoteSinner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scSize = MediaQuery.of(context).size;
-    final scHeight = scSize.height;
-    final scWidth = scSize.width;
+    // final scSize = MediaQuery.of(context).size;
+    // final scHeight = scSize.height;
+    // final scWidth = scSize.width;
 
     return Shimmer.fromColors(
-        baseColor: Color.fromARGB(255, 224, 224, 224),
-        highlightColor: Color.fromRGBO(213, 199, 199, 1),
+        baseColor: const Color.fromARGB(255, 224, 224, 224),
+        highlightColor: const Color.fromRGBO(213, 199, 199, 1),
         // child: Container(),
-        child: Container(
+        child: const SizedBox(
           width: double.infinity,
           height: 50,
         ));

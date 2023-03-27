@@ -1,8 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:your_basket/models/address/address.dart';
-import 'package:your_basket/models/cart/cartitem.dart';
-import 'package:your_basket/models/category/category.dart';
 import 'package:your_basket/models/address/addressbook.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,8 +18,6 @@ class APIServiceAddress {
 
     var url = Uri.http(Config.apiURL, Config.addnewaddress);
 
-    print(url);
-
     Map<String, String?> address = {
       "Recipients_Name": mp['Recipients_Name'],
       "Flat_FLoor_Tower": mp['Flat_FLoor_Tower'],
@@ -31,20 +26,19 @@ class APIServiceAddress {
       "Pincode": mp['Pincode']
     };
 
+    // ignore: unused_local_variable
     var response = await client.post(
       url,
       headers: requestHeaders,
       body: jsonEncode({"number": mp["number"], "address": address}),
     );
 
-    print(response.body);
-
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      return null;
-    } else {
-      return null;
-    }
+    // if (response.statusCode == 200) {
+    //   var data = jsonDecode(response.body);
+    //   return null;
+    // } else {
+    //   return null;
+    // }
   }
 
   Future<void> deleteaddress(String number, String addressId) async {
@@ -54,23 +48,16 @@ class APIServiceAddress {
 
     var url = Uri.http(Config.apiURL, Config.deleteaddress);
 
-    print('User id is $number\n addressid is $addressId\n');
-
-    print(url);
-
     var response = await client.post(
       url,
       headers: requestHeaders,
       body: jsonEncode({"number": number, "addressid": addressId}),
     );
 
-    print(response.body);
-
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      return null;
+      return;
     } else {
-      return null;
+      return;
     }
   }
 
@@ -81,10 +68,6 @@ class APIServiceAddress {
     };
 
     var url = Uri.http(Config.apiURL, Config.updateaddress);
-
-    print('User id is \n addressid is ${addressId}\n');
-
-    print(url);
 
     Map<String, String?> address = {
       "Recipients_Name": addressdetail['Recipients_Name'],
@@ -100,13 +83,10 @@ class APIServiceAddress {
       body: jsonEncode({"addressId": addressId, "addressinfo": address}),
     );
 
-    print(response.body);
-
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      return null;
+      return;
     } else {
-      return null;
+      return;
     }
   }
 
@@ -119,15 +99,11 @@ class APIServiceAddress {
 
     String? phonenumber = number;
 
-    print(url);
-
     var response = await client.post(
       url,
       headers: requestHeaders,
       body: jsonEncode({"phonenumber": phonenumber}),
     );
-
-    print(response.body);
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -142,18 +118,14 @@ class APIServiceAddress {
       'Content-Type': 'application/json',
     };
 
-    var ur = Config.getselectedaddress + '/$phonenumber';
+    var ur = '${Config.getselectedaddress}/$phonenumber';
 
     var url = Uri.http(Config.apiURL, ur);
-
-    print(url);
 
     var response = await client.get(
       url,
       headers: requestHeaders,
     );
-
-    print(response.body);
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -170,8 +142,6 @@ class APIServiceAddress {
 
     var url = Uri.http(Config.apiURL, Config.setSelectedaddress);
 
-    print(url);
-
     var response = await client.post(url,
         headers: requestHeaders,
         body: jsonEncode({
@@ -179,13 +149,10 @@ class APIServiceAddress {
           "addressid": addressId,
         }));
 
-    print(response.body);
-
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      return null;
+      return;
     } else {
-      return null;
+      return;
     }
   }
 }

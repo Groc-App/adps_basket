@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, prefer_typing_uninitialized_variables
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -6,14 +8,12 @@ class NoItems extends StatelessWidget {
   final noitemtext;
   final pageroute;
 
-  NoItems({this.noitemtext, this.pageroute});
+  const NoItems({super.key, this.noitemtext, this.pageroute});
 
   @override
   Widget build(BuildContext context) {
-    print(pageroute);
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
-    https: //img.freepik.com/free-vector/mobile-login-concept-illustration_114360-83.jpg?w=2000
     return Center(
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         noitemtext == 'Login/SignUp First'
@@ -22,7 +22,7 @@ class NoItems extends StatelessWidget {
                 imageUrl:
                     'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Screens%2FNoItem%2Floginfirst2.png?alt=media&token=6d8fd382-93b3-4031-966d-85291540d926')
             : Container(
-                margin: EdgeInsets.only(top: 200),
+                margin: const EdgeInsets.only(top: 200),
                 child: CachedNetworkImage(
                     height: scHeight * 0.2,
                     imageUrl:
@@ -35,7 +35,7 @@ class NoItems extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 10),
           child: Text(
             '$noitemtext',
-            style: TextStyle(fontStyle: FontStyle.italic),
+            style: const TextStyle(fontStyle: FontStyle.italic),
           ),
         ),
         pageroute == 'loginpage'
@@ -45,7 +45,7 @@ class NoItems extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pushNamed('/loginScreen');
                 },
-                child: Text('Login'))
+                child: const Text('Login'))
             : ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).primaryColor),
@@ -54,7 +54,7 @@ class NoItems extends StatelessWidget {
                       '/homepage', (Route<dynamic> route) => false);
                 },
                 child: const Text('Shop Now')),
-        SizedBox(
+        const SizedBox(
           height: 40,
         )
       ]),

@@ -16,7 +16,6 @@ import 'package:your_basket/Screens/offerScreen.dart';
 import 'package:your_basket/Screens/orderSummary.dart';
 import 'package:your_basket/Screens/otpScreen.dart';
 import 'package:your_basket/Screens/productItemScreen.dart';
-import 'package:your_basket/Screens/refferalloginScreen.dart';
 import 'package:your_basket/Screens/subscriptionScreen.dart';
 import 'package:your_basket/Screens/yourOrders.dart';
 import 'package:your_basket/Screens/ReferEarn.dart';
@@ -27,16 +26,12 @@ import 'Screens/homeScreen.dart';
 import 'Screens/internetConnection.dart';
 import 'Screens/introAnimationScreen.dart';
 import 'Screens/searchScreen.dart';
-import 'config.dart';
 import 'firebase_options.dart';
 import 'notificationservice/local_notification_service.dart';
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-Future<void> backgroundHandler(RemoteMessage message) async {
-  print(message.data.toString());
-  print(message.notification!.title);
-}
+Future<void> backgroundHandler(RemoteMessage message) async {}
 
 Future<void> main() async {
   FlutterError.demangleStackTrace = (StackTrace stack) {
@@ -53,7 +48,7 @@ Future<void> main() async {
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   LocalNotificationService.initialize();
   runApp(
-    ProviderScope(child: const MyApp()),
+    const ProviderScope(child: MyApp()),
   );
 }
 
@@ -68,45 +63,49 @@ class MyApp extends StatelessWidget {
       title: 'Basko',
       theme: MyTheme.lightTheme(context),
       debugShowCheckedModeBanner: false,
-      home: ConnectionScreen(
-        child: const MyHomePage(),
+      home: const ConnectionScreen(
+        child: MyHomePage(),
       ),
       // initialRoute: '/',
       routes: {
         // '/': (context) => MyHomePage(),
         '/introScreen': (context) => const IntroScreen(),
-        '/loading': (context) => ConnectionScreen(child: const LoadingSinner()),
+        '/loading': (context) => const ConnectionScreen(child: LoadingSinner()),
         '/homepage': (context) => const HomeScreen(),
         '/categoryScreen': (context) => ConnectionScreen(
               child: CategoryScreen(
                 mainCategoryId: "63e00827b56990c02866bba5",
               ),
             ),
-        '/productItemPage': (context) => ConnectionScreen(
+        '/productItemPage': (context) => const ConnectionScreen(
             child: ConnectionScreen(child: ProductItemScreen())),
-        '/cartScreen': (context) => ConnectionScreen(child: CartScreen()),
-        '/searchScreen': (context) => SearchScreen(),
-        '/profileScreen': (context) => ConnectionScreen(child: ProfileScreen()),
-        '/yourOrderScreen': (context) => ConnectionScreen(child: YourOrderes()),
-        '/otpScreen': (context) => OtpScreen(),
-        '/addressScreen': (context) => ConnectionScreen(child: AddressBook()),
-        '/offerScreen': (context) => ConnectionScreen(child: OfferScreen()),
+        '/cartScreen': (context) => const ConnectionScreen(child: CartScreen()),
+        '/searchScreen': (context) => const SearchScreen(),
+        '/profileScreen': (context) =>
+            const ConnectionScreen(child: ProfileScreen()),
+        '/yourOrderScreen': (context) =>
+            const ConnectionScreen(child: YourOrderes()),
+        '/otpScreen': (context) => const OtpScreen(),
+        '/addressScreen': (context) =>
+            const ConnectionScreen(child: AddressBook()),
+        '/offerScreen': (context) =>
+            const ConnectionScreen(child: OfferScreen()),
         '/ordersuccessScreen': (context) =>
-            ConnectionScreen(child: OrderSuuccess()),
-        '/orderfailureScreen': (context) => OrderFailure(),
-        '/loginScreen': (context) => LoginScreen(),
+            const ConnectionScreen(child: OrderSuuccess()),
+        '/orderfailureScreen': (context) => const OrderFailure(),
+        '/loginScreen': (context) => const LoginScreen(),
         // '/refferalloginScreen': (context) => RefferalLogin(),
         '/orderSummaryScreen': (context) =>
             ConnectionScreen(child: OrderSummaryScreen()),
         '/checkoutScreen': (context) =>
             ConnectionScreen(child: CheckoutScreen()),
         '/subscriptionScreen': (context) =>
-            ConnectionScreen(child: SubscriptionScreen()),
+            const ConnectionScreen(child: SubscriptionScreen()),
         '/buySubscriptionScreen': (context) =>
-            ConnectionScreen(child: BuySubscriptionScreen()),
+            const ConnectionScreen(child: BuySubscriptionScreen()),
         '/referearnScreen': (context) =>
             ConnectionScreen(child: ReferEarnScreen()),
-        '/introAnimationScreen': (context) => IntroAnimationScreen(),
+        '/introAnimationScreen': (context) => const IntroAnimationScreen(),
       },
     );
   }
@@ -122,7 +121,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? username = prefs.getString('phonenumber');
-    print("This is username $username");
     // bool? _seen = (prefs.getBool('seen'));
 
     if (username != null) {
@@ -152,9 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     FirebaseMessaging.instance.getInitialMessage().then(
       (message) {
-        print("FirebaseMessaging.instance.getInitialMessage");
         if (message != null) {
-          print("New Notification");
           // if (message.data['_id'] != null) {
           //   Navigator.of(context).push(
           //     MaterialPageRoute(
@@ -171,11 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // 2. This method only call when App in forground it mean app must be opened
     FirebaseMessaging.onMessage.listen(
       (message) {
-        print("FirebaseMessaging.onMessage.listen");
         if (message.notification != null) {
-          print(message.notification!.title);
-          print(message.notification!.body);
-          print("message.data11 ${message.data}");
           LocalNotificationService.createanddisplaynotification(message);
         }
       },
@@ -184,12 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
 // 3. This method only call when App in background and not terminated(not closed)
     FirebaseMessaging.onMessageOpenedApp.listen(
       (message) {
-        print("FirebaseMessaging.onMessageOpenedApp.listen");
-        if (message.notification != null) {
-          print(message.notification!.title);
-          print(message.notification!.body);
-          print("message.data22 ${message.data['_id']}");
-        }
+        if (message.notification != null) {}
       },
     );
   }
@@ -200,16 +187,14 @@ class _MyHomePageState extends State<MyHomePage> {
         future: checkFirstSeen(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else {
             if (snapshot.data != null) {
-              print("inside checkFirst $snapshot.data");
-
-              return IntroAnimationScreen();
+              return const IntroAnimationScreen();
             } else {
-              return IntroScreen();
+              return const IntroScreen();
             }
           }
         });

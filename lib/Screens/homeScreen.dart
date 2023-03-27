@@ -1,9 +1,6 @@
 // ignore_for_file: file_names, prefer_const_constructors
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:your_basket/Widgets/Homepage/Quote.dart';
 
 import '../Widgets/Categories/searchBar.dart';
@@ -13,8 +10,6 @@ import '../Widgets/Homepage/Categories.dart';
 import '../Widgets/Homepage/MostSelling.dart';
 
 import 'package:flutter/material.dart';
-
-import '../providers/providers.dart';
 
 const kExpandedHeight = 120.0;
 
@@ -76,8 +71,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scSize = MediaQuery.of(context).size;
-    final scHeight = scSize.height;
+    // final scSize = MediaQuery.of(context).size;
+    // final scHeight = scSize.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: NestedScrollView(
@@ -136,6 +131,9 @@ _buildSilverAppBarBackground(context, height) {
             // color: Colors.white,bo
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
           ),
+
+          height: height + 25,
+          width: MediaQuery.of(context).size.width,
           // Background
           child: const Center(
             child: Text(
@@ -146,9 +144,6 @@ _buildSilverAppBarBackground(context, height) {
                   color: Colors.white),
             ),
           ),
-
-          height: height + 25,
-          width: MediaQuery.of(context).size.width,
         ),
 
         // Container(), // Required some widget in between to float AppBar
@@ -180,12 +175,6 @@ _buildSilverAppBarBackground(context, height) {
                     hintText: "search,  order,  repeat",
                     border: InputBorder.none,
                     hintStyle: TextStyle(color: Colors.grey))),
-            actions: <Widget>[
-              // IconButton(
-              //   icon: Icon(Icons.search, color: Theme.of(context).primaryColor),
-              //   onPressed: () {},
-              // ),
-            ],
           ),
         ),
       ],

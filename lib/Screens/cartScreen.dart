@@ -1,8 +1,6 @@
 // ignore: file_names
 // ignore: file_names
-// ignore_for_file: implementation_imports, file_names, duplicate_ignore
-
-import 'dart:math';
+// ignore_for_file: implementation_imports, file_names, duplicate_ignore, library_prefixes, library_private_types_in_public_api, use_build_context_synchronously
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -10,14 +8,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:your_basket/Widgets/Cart/Noitems.dart';
-import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:your_basket/Widgets/Sinners/CartItemSinner.dart';
-import 'package:your_basket/application/state/cart_state.dart';
 import '../Widgets/Cart/CartItem.dart' as CartItemWidget;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/providers.dart';
 import '../models/cart/cartitem.dart' as CartItemModel;
-import '../models/product/productdetail.dart' as ProductItemModel;
 
 String userNumber = '';
 
@@ -45,25 +40,14 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    // foundUser = data;z
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback(
-    // (_) async {
-// your code goes here
+
     getNumber();
     setStatus();
-
-    print("Statuss real:$referralVeri");
-    print("Statuss real:$discount");
-    // ref.invalidate(verifyCouponProvider);
-    // },
   }
 
   Future<void> setStatus() async {
     var status = await ref.read(verifyCouponProvider(userNumber).future);
-    print("init:$userNumber");
-    print("Statussss:$status");
 
     if (status == 'true') {
       updateRefVeri('true');
@@ -72,7 +56,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
       updateRefVeri('false');
       updatediscount(0.0);
     }
-    print("userNumber $userNumber");
   }
 
   void updatediscount(value) {
@@ -102,7 +85,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
     if (cartState.cartModel!.products.isEmpty) {
       iscartempty = true;
-      return NoItems(
+      return const NoItems(
         noitemtext: 'Your Cart is Empty!!!!',
       );
     }
@@ -125,14 +108,15 @@ class _CartScreenState extends ConsumerState<CartScreen> {
               Column(
                 children: list.map((data) {
                   pricetotal = pricetotal + (data.ItemCount * data.Item.Price);
-                  if (pricetotal <= 50)
+                  if (pricetotal <= 50) {
                     deliveryCharges = 19.0;
-                  else if (pricetotal <= 100)
+                  } else if (pricetotal <= 100) {
                     deliveryCharges = 9.0;
-                  else
+                  } else {
                     deliveryCharges = 0.0;
+                  }
                   return CartItemWidget.CartItem(
-                      quantity: (data.ItemCount == null ? 0 : data.ItemCount),
+                      quantity: (data.ItemCount),
                       item: data.Item,
                       userid: userid ?? '');
                 }).toList(),
@@ -171,7 +155,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 )
               ],
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -182,7 +166,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 Text.rich(
                   TextSpan(children: [
                     if (deliveryCharges < 19.0)
-                      TextSpan(
+                      const TextSpan(
                         text: '₹19',
                         style: TextStyle(
                             fontSize: 15,
@@ -199,7 +183,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             if (discount > 0.0)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -220,19 +204,19 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   )
                 ],
               ),
-            if (discount > 0.0) SizedBox(height: 5),
+            if (discount > 0.0) const SizedBox(height: 5),
             if (pricetotal < 100)
               Text(
                 pricetotal < 50
                     ? 'You are ₹${50 - pricetotal} away to reduce delivery charges'
                     : 'You are ₹${100 - pricetotal} away to get free delivery',
-                style: TextStyle(
+                style: const TextStyle(
                     fontStyle: FontStyle.italic,
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 169, 165, 165)),
               ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             const Divider(),
@@ -320,7 +304,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     setState(() {
       userNumber = userNumberr;
     });
-    print("userNumber $userNumber");
   }
 
   @override
@@ -330,10 +313,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     final scHeight = scSize.height;
 
     // var authInfo?=username
-    print("UserNUmber $userNumber");
 
-    print("Body:::: $referralVeri");
-    print("Body:::: $discount");
     //   return FutureBuilder<bool>(
     //   future: checkInternetConnection(),
     //   builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
@@ -365,7 +345,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
         ),
       ),
       body: userNumber == ''
-          ? NoItems(
+          ? const NoItems(
               noitemtext: 'Login/SignUp First',
               pageroute: 'loginpage',
             )
@@ -403,7 +383,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                               left: ((scWidth * 0.5) - 80)),
                                           child: ElevatedButton(
                                             onPressed: () async {
-                                              print(couponController.text);
                                               FocusScope.of(context).unfocus();
 
                                               setCouponCode(
@@ -462,17 +441,18 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                                   ),
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 5,
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         GestureDetector(
                                             onTap: () {
                                               setState(() {
                                                 _showCoupon = false;
                                               });
                                             },
-                                            child: Icon(Icons.cancel_rounded)),
+                                            child: const Icon(
+                                                Icons.cancel_rounded)),
                                       ],
                                     )
                                   ],

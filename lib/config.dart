@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
-import 'package:shared_preferences/shared_preferences.dart';
-
 class Config {
   // login
 
@@ -11,6 +9,7 @@ class Config {
   //     .then((value) => phonenumber = value.getString('phonenumber'));
 
   /* -------------------------------- app setup ------------------------------- */
+  // ignore: constant_identifier_names
   static const String GrocApp = 'GrocApp';
   // static const String apiURL = '127.0.0.1:8000';
   static const String apiURL = '192.168.1.5:8000';

@@ -13,37 +13,37 @@ class ProductSinner extends StatelessWidget {
     final scWidth = scSize.width;
 
     return Shimmer.fromColors(
-        baseColor: Color.fromARGB(255, 224, 224, 224),
-        highlightColor: Color.fromRGBO(213, 199, 199, 1),
+        baseColor: const Color.fromARGB(255, 224, 224, 224),
+        highlightColor: const Color.fromRGBO(213, 199, 199, 1),
         child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
+                SizedBox(
                   height: scWidth * 0.6,
                   width: scWidth * 0.48,
-                  child: Card(),
+                  child: const Card(),
                 ),
-                Container(
+                SizedBox(
                   height: scWidth * 0.6,
                   width: scWidth * 0.48,
-                  child: Card(),
+                  child: const Card(),
                 ),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
+                SizedBox(
                   height: scWidth * 0.6,
                   width: scWidth * 0.48,
-                  child: Card(),
+                  child: const Card(),
                 ),
-                Container(
+                SizedBox(
                   height: scWidth * 0.6,
                   width: scWidth * 0.48,
-                  child: Card(),
+                  child: const Card(),
                 ),
               ],
             ),

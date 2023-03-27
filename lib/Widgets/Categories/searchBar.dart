@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({super.key});
@@ -32,7 +31,7 @@ class SearchBar extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).pushNamed('/searchScreen');
                 },
-                decoration: InputDecoration.collapsed(
+                decoration: const InputDecoration.collapsed(
                   hintText: 'Search',
                 ).copyWith(isDense: true),
               ),

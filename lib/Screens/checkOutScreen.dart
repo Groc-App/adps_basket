@@ -1,12 +1,8 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, sized_box_for_whitespace
-
-import 'dart:async';
+// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, sized_box_for_whitespace, file_names, non_constant_identifier_names, use_build_context_synchronously, unnecessary_string_interpolations, unnecessary_brace_in_string_interps
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:your_basket/Widgets/Errors/Dataloadingerror.dart';
 import 'package:your_basket/config.dart';
 import 'package:your_basket/models/address/address.dart';
 import 'package:your_basket/models/cart/cartitem.dart';
@@ -17,6 +13,8 @@ class CheckoutScreen extends StatelessWidget {
   // const CheckoutScreen({super.key});
   final scWidth = Config.scSize.width;
   final scHeight = Config.scSize.height;
+
+  CheckoutScreen({super.key});
 
   Widget placeordertile(
       WidgetRef ref,
@@ -125,7 +123,6 @@ class CheckoutScreen extends StatelessWidget {
           var addressid = value.addressId;
 
           if (addressid == '') {
-            print('hitted');
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
@@ -165,7 +162,7 @@ class CheckoutScreen extends StatelessWidget {
           alignment: const Alignment(0, 0),
           child: Row(
             mainAxisSize: MainAxisSize.min,
-            children: [
+            children: const [
               // Container(
               //   margin: const EdgeInsets.only(right: 10),
               //   child: const FaIcon(
@@ -174,7 +171,7 @@ class CheckoutScreen extends StatelessWidget {
               //     color: Colors.white,
               //   ),
               // ),
-              const Text(
+              Text(
                 'Place Order',
                 style: TextStyle(
                   fontSize: 18,
@@ -250,7 +247,7 @@ class CheckoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scSize = MediaQuery.of(context).size;
-    final scHeight = scSize.height;
+    // final scHeight = scSize.height;
     final scWidth = scSize.width - 10 - 4 - 8;
 
     // var authInfo = ref.watch(authCheckProvider);
@@ -309,7 +306,9 @@ class CheckoutScreen extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                    boxShadow: [BoxShadow(blurRadius: 1, spreadRadius: 0)],
+                    boxShadow: const [
+                      BoxShadow(blurRadius: 1, spreadRadius: 0)
+                    ],
                     // border: Border.all(),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     color: Colors.white),
@@ -374,7 +373,7 @@ class CheckoutScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                  boxShadow: [const BoxShadow(blurRadius: 1, spreadRadius: 0)],
+                  boxShadow: const [BoxShadow(blurRadius: 1, spreadRadius: 0)],
                   // border: Border.all(),
                   borderRadius: const BorderRadius.all(Radius.circular(5)),
                   color: Colors.white),
@@ -460,7 +459,7 @@ class CheckoutScreen extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               margin: EdgeInsets.only(top: 20),
               decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(blurRadius: 1, spreadRadius: 0)],
+                  boxShadow: const [BoxShadow(blurRadius: 1, spreadRadius: 0)],
                   // border: Border.all(),
                   borderRadius: const BorderRadius.all(Radius.circular(5)),
                   color: Colors.white),
@@ -491,7 +490,7 @@ class CheckoutScreen extends StatelessWidget {
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Text(
                               'COD',
                               style: TextStyle(

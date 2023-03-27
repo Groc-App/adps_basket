@@ -10,8 +10,8 @@ class Carousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scSize = MediaQuery.of(context).size;
-    final scHeight = scSize.height;
+    // final scSize = MediaQuery.of(context).size;
+    // final scHeight = scSize.height;
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),

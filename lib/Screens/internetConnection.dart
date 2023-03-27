@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 import '../providers/connectivityProvider.dart';
@@ -5,7 +7,7 @@ import '../providers/connectivityProvider.dart';
 class ConnectionScreen extends StatefulWidget {
   final Widget child;
 
-  ConnectionScreen({required this.child});
+  const ConnectionScreen({super.key, required this.child});
 
   @override
   _ConnectionScreenState createState() => _ConnectionScreenState();
@@ -39,25 +41,25 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
+              const Icon(
                 Icons.signal_wifi_off,
                 size: 50,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Text(
+              const Text(
                 'No Internet Connection',
                 style: TextStyle(fontStyle: FontStyle.italic),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(102, 187, 106, 1)),
+                    backgroundColor: const Color.fromRGBO(102, 187, 106, 1)),
                 onPressed: retry,
-                child: Text('Retry'),
+                child: const Text('Retry'),
               ),
             ],
           ),

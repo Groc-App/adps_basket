@@ -1,4 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
+// ignore_for_file: file_names, must_be_immutable
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,21 +13,21 @@ import '../providers/providers.dart';
 
 class ReferEarnScreen extends ConsumerWidget {
   bool _isLogin = true;
+
+  ReferEarnScreen({super.key});
   Widget refferalId(WidgetRef ref, String number, BuildContext context) {
-    print("Inside referralId");
     var data = ref.watch(getrefferalIdProvider(number));
 
     return data.when(
       data: (value) {
-        print('value in refferalId is::::::::: $value');
         if (value != null) return _buildrefferal(value, context);
         return Container();
       },
       loading: () {
-        return CircularProgressIndicator();
+        return const CircularProgressIndicator();
       },
       error: (error, stackTrace) {
-        return DataError();
+        return const DataError();
       },
     );
   }
@@ -36,19 +37,20 @@ class ReferEarnScreen extends ConsumerWidget {
       children: [
         // My earnings ----------------------------->>>>>>>>>>>>
 
-        Text(
+        const Text(
           'My Earnings',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Card(
             elevation: 5,
             child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                alignment: Alignment(0, 0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                alignment: const Alignment(0, 0),
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.black12),
                     borderRadius: BorderRadius.circular(10),
@@ -56,17 +58,17 @@ class ReferEarnScreen extends ConsumerWidget {
                 child: Text(
                   'Reffered People\n${value.referralOffer['referredPeople']}',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 17, color: Colors.black),
+                  style: const TextStyle(fontSize: 17, color: Colors.black),
                 )),
           ),
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           Card(
             elevation: 5,
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              alignment: Alignment(0, 0),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              alignment: const Alignment(0, 0),
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black12),
                   borderRadius: BorderRadius.circular(10),
@@ -74,19 +76,19 @@ class ReferEarnScreen extends ConsumerWidget {
               child: Text(
                 'Refferal Claimed\n${value.referralOffer['isClaimed']}',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 17, color: Colors.black),
+                style: const TextStyle(fontSize: 17, color: Colors.black),
               ),
             ),
           )
         ]),
 
-        SizedBox(
+        const SizedBox(
           height: 14,
         ),
         Text.rich(
           textAlign: TextAlign.center,
           TextSpan(children: [
-            TextSpan(
+            const TextSpan(
               text: 'Use code ',
             ),
             TextSpan(
@@ -96,7 +98,7 @@ class ReferEarnScreen extends ConsumerWidget {
                   fontWeight: FontWeight.w600,
                   color: Theme.of(context).primaryColor),
             ),
-            TextSpan(
+            const TextSpan(
               text: ' to get ₹10 off on your next order.',
             )
           ]),
@@ -104,38 +106,38 @@ class ReferEarnScreen extends ConsumerWidget {
 
         // refferal code --------->>>>>>
 
-        SizedBox(
+        const SizedBox(
           height: 24,
         ),
 
-        Text(
+        const Text(
           'Your Referral Code',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
         ),
-        SizedBox(
+        const SizedBox(
           height: 12,
         ),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 8),
+          margin: const EdgeInsets.symmetric(horizontal: 8),
           color: Colors.green[400]!.withOpacity(0.6),
           child: DottedBorder(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 9),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 9),
             color: Colors.black,
             strokeWidth: 1,
             child: Text(
               value.referralCode,
-              style: TextStyle(fontSize: 17),
+              style: const TextStyle(fontSize: 17),
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 7,
         ),
         GestureDetector(
           child: const Tooltip(
               preferBelow: false,
               message: "Copy",
-              child: const Text(
+              child: Text(
                 'Tap to Copy',
                 style: TextStyle(color: Colors.blue, fontSize: 15),
               )),
@@ -146,7 +148,7 @@ class ReferEarnScreen extends ConsumerWidget {
 
         // share button -------------->>>>>>
 
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
       ],
@@ -155,15 +157,15 @@ class ReferEarnScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print("Inside Build");
     String number = '';
     var argData = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
 
     if (argData['number'] == null) {
       _isLogin = false;
-    } else
+    } else {
       number = argData['number'];
+    }
 
     return Container(
       color: Colors.white,
@@ -171,10 +173,10 @@ class ReferEarnScreen extends ConsumerWidget {
         child: Scaffold(
           appBar: AppBar(
             elevation: 0,
-            title: Text('Refer and Earn'),
+            title: const Text('Refer and Earn'),
           ),
           body: _isLogin == false
-              ? NoItems(
+              ? const NoItems(
                   noitemtext: 'Login/SignUp First',
                   pageroute: 'loginpage',
                 )
@@ -183,8 +185,8 @@ class ReferEarnScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       refferalId(ref, number, context),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 16.0),
                         child: Text(
                           "Steps to refer",
                           style: TextStyle(fontSize: 20),
@@ -192,18 +194,18 @@ class ReferEarnScreen extends ConsumerWidget {
                       ),
                       ListTile(
                         horizontalTitleGap: 0,
-                        contentPadding: EdgeInsets.only(
+                        contentPadding: const EdgeInsets.only(
                             left: 16, right: 16, top: 8, bottom: 0),
                         leading: Container(
                           width: 8,
                           height: 8,
-                          margin: EdgeInsets.only(top: 8),
-                          decoration: BoxDecoration(
+                          margin: const EdgeInsets.only(top: 8),
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.green,
                           ),
                         ),
-                        title: Padding(
+                        title: const Padding(
                           padding: EdgeInsets.only(left: 0, top: 8, bottom: 8),
                           child: Text(
                             'Invite your friend to signup',
@@ -217,18 +219,18 @@ class ReferEarnScreen extends ConsumerWidget {
                       ),
                       ListTile(
                         horizontalTitleGap: 0,
-                        contentPadding: EdgeInsets.only(
+                        contentPadding: const EdgeInsets.only(
                             left: 16, right: 16, top: 0, bottom: 0),
                         leading: Container(
                           width: 8,
                           height: 8,
-                          margin: EdgeInsets.only(top: 8),
-                          decoration: BoxDecoration(
+                          margin: const EdgeInsets.only(top: 8),
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.green,
                           ),
                         ),
-                        title: Padding(
+                        title: const Padding(
                           padding: EdgeInsets.only(left: 0, top: 8, bottom: 8),
                           child: Text(
                             'Make sure your friend add your refer code while signup',
@@ -242,18 +244,18 @@ class ReferEarnScreen extends ConsumerWidget {
                       ),
                       ListTile(
                         horizontalTitleGap: 0,
-                        contentPadding: EdgeInsets.only(
+                        contentPadding: const EdgeInsets.only(
                             left: 16, right: 16, top: 0, bottom: 0),
                         leading: Container(
                           width: 8,
                           height: 8,
-                          margin: EdgeInsets.only(top: 8),
-                          decoration: BoxDecoration(
+                          margin: const EdgeInsets.only(top: 8),
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.green,
                           ),
                         ),
-                        title: Padding(
+                        title: const Padding(
                           padding: EdgeInsets.only(left: 0, top: 8, bottom: 8),
                           child: Text(
                             'Your friend will get ₹10 off on first order',
@@ -267,18 +269,18 @@ class ReferEarnScreen extends ConsumerWidget {
                       ),
                       ListTile(
                         horizontalTitleGap: 0,
-                        contentPadding: EdgeInsets.only(
+                        contentPadding: const EdgeInsets.only(
                             left: 16, right: 16, top: 0, bottom: 0),
                         leading: Container(
                           width: 8,
                           height: 8,
-                          margin: EdgeInsets.only(top: 8),
-                          decoration: BoxDecoration(
+                          margin: const EdgeInsets.only(top: 8),
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.green,
                           ),
                         ),
-                        title: Padding(
+                        title: const Padding(
                           padding: EdgeInsets.only(left: 0, top: 8, bottom: 8),
                           child: Text(
                             'You will get ₹10 off after your friend\'s first order',
@@ -295,7 +297,7 @@ class ReferEarnScreen extends ConsumerWidget {
                         child: Padding(
                           padding: const EdgeInsets.only(top: 35.0),
                           child: Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 9, vertical: 5),
                             decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
@@ -304,11 +306,11 @@ class ReferEarnScreen extends ConsumerWidget {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.share,
                                   color: Colors.white,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 4,
                                 ),
                                 GestureDetector(
@@ -318,7 +320,7 @@ class ReferEarnScreen extends ConsumerWidget {
                                       subject: 'Look what i made!!!!!!!!!',
                                     );
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     'Share the app',
                                     style: TextStyle(color: Colors.white),
                                   ),

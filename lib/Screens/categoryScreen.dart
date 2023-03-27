@@ -1,5 +1,5 @@
 // ignore: file_names
-// ignore_for_file: file_names, duplicate_ignore
+// ignore_for_file: file_names, duplicate_ignore, must_be_immutable, no_logic_in_create_state
 
 import 'package:flutter/material.dart';
 import 'package:your_basket/Widgets/Categories/categoriesSlider.dart';
@@ -9,7 +9,6 @@ import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Sinners/productCategorysinner.dart';
 import 'package:your_basket/models/product/products.dart';
-import 'package:your_basket/providers/connectivityProvider.dart';
 import '../Widgets/Sinners/productsinner.dart';
 import '../providers/providers.dart';
 import '../models/category/category.dart';
@@ -20,6 +19,7 @@ class CategoryScreen extends ConsumerStatefulWidget {
   CategoryScreen({super.key, required this.mainCategoryId});
 
   @override
+  // ignore: library_private_types_in_public_api
   _CategoryScreenState createState() =>
       _CategoryScreenState(mainCategoryId: mainCategoryId);
 }
@@ -57,7 +57,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
 
         return buildCategory(list);
       },
-      error: (_, __) => DataError(),
+      error: (_, __) => const DataError(),
       loading: () => const Center(child: ProductCategorySinner()),
     );
   }
@@ -68,7 +68,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
       data: (list) {
         return buildProducts(list);
       },
-      error: (_, __) => DataError(),
+      error: (_, __) => const DataError(),
       loading: () => const Center(
         child: ProductSinner(),
       ),
@@ -101,7 +101,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
   void _scrollDown() {
     _controller.animateTo(
       _controller.position.extentAfter,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       curve: Curves.fastOutSlowIn,
     );
   }
@@ -195,14 +195,14 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
               splashColor: Colors.white,
               alignment: Alignment.centerRight,
               onPressed: _scrollDown,
-              icon: Icon(Icons.arrow_forward)),
+              icon: const Icon(Icons.arrow_forward)),
       ],
     );
   }
 
   Widget bodyContent(map, imgUrl) {
     return ListView(
-      padding: EdgeInsets.only(top: 0),
+      padding: const EdgeInsets.only(top: 0),
       children: [
         /* ---------------------------- Top SLider Bar ---------------------------- */
         // GestureDetector(
@@ -222,7 +222,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
 
   _buildSilverAppBarBackground(context, height, name) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           // border: Border.all(),
           color: Colors.white),
       // color: Colors.white,
@@ -232,12 +232,13 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
           Container(
             decoration: BoxDecoration(
               color: Colors.green[400],
-              image: DecorationImage(
+              image: const DecorationImage(
                   fit: BoxFit.fitHeight,
                   image: NetworkImage(
                       "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Category%20App%20Bar%20Bg%2FOnly%20img%2FNew%20Project%20(1).png?alt=media&token=484d9c49-0722-4cc3-a447-a7c4d92b2baa")),
               // color: Colors.white,bo
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+              borderRadius:
+                  const BorderRadius.vertical(bottom: Radius.circular(10)),
             ),
             height: height + 30,
             width: MediaQuery.of(context).size.width,
@@ -272,14 +273,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                   decoration: InputDecoration(
                       hintText: "Search in $name",
                       border: InputBorder.none,
-                      hintStyle: TextStyle(color: Colors.grey))),
-              actions: <Widget>[
-                // IconButton(
-                //   icon:
-                //       Icon(Icons.search, color: Theme.of(context).primaryColor),
-                //   onPressed: () {},
-                // ),
-              ],
+                      hintStyle: const TextStyle(color: Colors.grey))),
             ),
           ),
         ],
@@ -308,8 +302,8 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
     // var dummyList = List.generate(20, (index) => Catalog().products[0]);
 
     /* --------------------------- Screen Intilization -------------------------- */
-    final scSize = MediaQuery.of(context).size;
-    final scHeight = scSize.height;
+    // final scSize = MediaQuery.of(context).size;
+    // final scHeight = scSize.height;
 
     /* -------------------------------- Scaffold -------------------------------- */
     return Scaffold(
@@ -333,20 +327,20 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
           return <Widget>[
             SliverAppBar(
               titleSpacing: 0,
-              iconTheme: IconThemeData(
+              iconTheme: const IconThemeData(
                 color: Colors.white, //change your color here
               ),
               leadingWidth: 30,
               // leading: ,
-              backgroundColor: Color.fromRGBO(102, 187, 106, 1),
+              backgroundColor: const Color.fromRGBO(102, 187, 106, 1),
               centerTitle: true,
               expandedHeight: 140,
               elevation: 5.0,
               floating: false,
               pinned: true,
               title: innerBoxIsScrolled
-                  ? Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  ? const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
                       child: SearchBar(),
                     )
                   : null,

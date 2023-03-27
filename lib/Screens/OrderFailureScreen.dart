@@ -1,12 +1,10 @@
+// ignore_for_file: file_names
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:lottie/lottie.dart';
-
 class OrderFailure extends StatelessWidget {
-  OrderFailure({super.key});
+  const OrderFailure({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +14,6 @@ class OrderFailure extends StatelessWidget {
     var successTypeMap = (ModalRoute.of(context)?.settings.arguments ??
         <String, String>{}) as Map;
     var successType = successTypeMap['type'];
-    print("Success Type::::::: $successType");
 
     return Scaffold(
       body: Center(
@@ -32,26 +29,26 @@ class OrderFailure extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 successType == 'order'
-                    ? Text(
+                    ? const Text(
                         'OOPS!!!, Some error occured, Could not place order',
                         style: TextStyle(fontSize: 20),
                         textAlign: TextAlign.center,
                       )
-                    : Text(
+                    : const Text(
                         'OOPS!!!, Some error occured, Could not create subscription',
                         style: TextStyle(fontSize: 20),
                       ),
-                SizedBox(
+                const SizedBox(
                   height: 3,
                 ),
-                Text(
+                const Text(
                   'Please try again later',
                   style: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           ElevatedButton(
@@ -59,7 +56,7 @@ class OrderFailure extends StatelessWidget {
                 Navigator.of(context).pushNamedAndRemoveUntil(
                     '/homepage', (Route<dynamic> route) => false);
               },
-              child: Text('Try again')),
+              child: const Text('Try again')),
         ]),
       ),
     );

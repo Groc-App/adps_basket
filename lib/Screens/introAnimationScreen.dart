@@ -1,8 +1,12 @@
+// ignore_for_file: file_names, library_private_types_in_public_api
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 
 class IntroAnimationScreen extends StatefulWidget {
+  const IntroAnimationScreen({super.key});
+
   @override
   _IntroAnimationScreenState createState() => _IntroAnimationScreenState();
 }
@@ -17,7 +21,7 @@ class _IntroAnimationScreenState extends State<IntroAnimationScreen>
     super.initState();
 
     _animationController = AnimationController(
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       vsync: this,
     );
 
@@ -28,7 +32,7 @@ class _IntroAnimationScreenState extends State<IntroAnimationScreen>
 
     _animationController.forward();
 
-    Timer(Duration(seconds: 4), () {
+    Timer(const Duration(seconds: 4), () {
       Navigator.pushReplacementNamed(context, '/homepage');
     });
   }

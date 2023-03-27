@@ -14,11 +14,9 @@ class APIServiceAuth {
       'Content-Type': 'application/json',
     };
 
-    var ur = Config.getProductByIdApi + '/${productid}';
+    var ur = '${Config.getProductByIdApi}/$productid';
 
     var url = Uri.http(Config.apiURL, ur);
-
-    print(url);
 
     var response = await client.get(
       url,
@@ -29,7 +27,6 @@ class APIServiceAuth {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      print(data['data']);
       return productDetailFromJson(data['data']);
     } else {
       return null;

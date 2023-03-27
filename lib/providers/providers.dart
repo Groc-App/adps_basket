@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:your_basket/Services/api_service.dart';
 import 'package:your_basket/Services/offer_api_service.dart';
 import 'package:your_basket/Services/subscription_api_service.dart';
@@ -15,18 +14,14 @@ import '../application/notifier/addressbook_notifier.dart';
 import '../application/notifier/cart_notifier.dart';
 import '../application/state/addressbook_state.dart';
 import '../application/state/cart_state.dart';
-import '../models/address/address.dart';
 import '../models/address/selectedaddress.dart';
-import '../models/cart/cartitem.dart';
 import '../models/product/productdetail.dart';
 import 'package:your_basket/models/product/products.dart';
 import '../Services/category_api_service.dart';
 import '../Services/product_api_service.dart';
 import '../models/user/user.dart';
-import 'connectivityProvider.dart';
 import '../Services/order_api_service.dart';
 import 'package:your_basket/models/orders/orders.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 // final authCheckProvider = StateProvider<String?>((ref) {
 //   String? number;
@@ -66,7 +61,6 @@ final addressBokkProvider =
 
 final getrefferalIdProvider = FutureProvider.autoDispose.family<UserN?, String>(
   (ref, number) {
-    print('byeeeeeeeeeeeeeeeeeeeeeeeee');
     final apiRespository = ref.watch(userApiService);
 
     return apiRespository.getrefferalId(number);
@@ -84,8 +78,6 @@ final checkcouponprovider =
 
 final verifyCouponProvider = FutureProvider.autoDispose.family<String, String>(
   (ref, number) {
-    print("inside provider $number");
-
     final apiRespository = ref.watch(couponApiService);
     // String number;
     // var user = ref.watch(authCheckProvider);
@@ -121,7 +113,6 @@ final createuserProvider =
 final yourordersProvider =
     FutureProvider.autoDispose.family<List<Orders>?, String>(
   (ref, userid) {
-    print('insideeeeeeeeeeeeeeeeee');
     final apiRespository = ref.watch(orderApiService);
 
     return apiRespository.getOrdersbyId(userid);

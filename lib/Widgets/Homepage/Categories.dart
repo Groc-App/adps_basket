@@ -18,14 +18,12 @@ class MainCategory extends ConsumerWidget {
       WidgetRef ref, BuildContext context, double scHeight, double scWidth) {
     final categories = ref.watch(maincategorylistProvider);
 
-    print(categories);
-
     return categories.when(
       data: (list) {
         return maincategorylistbuilder(list, context, scHeight, scWidth);
       },
-      error: (_, __) => DataError(),
-      loading: () => MainCategorySinner(),
+      error: (_, __) => const DataError(),
+      loading: () => const MainCategorySinner(),
     );
   }
 
@@ -34,8 +32,8 @@ class MainCategory extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(10.0),
+        const Padding(
+          padding: EdgeInsets.all(10.0),
           child: Text(
             'Categories',
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
@@ -78,7 +76,7 @@ class MainCategory extends ConsumerWidget {
                 context,
                 scHeight,
                 scWidth,
-                Color.fromRGBO(211, 176, 224, 0.25)),
+                const Color.fromRGBO(211, 176, 224, 0.25)),
             getCategory(
                 list != null ? list[3].Name : '',
                 0.33,
@@ -88,7 +86,7 @@ class MainCategory extends ConsumerWidget {
                 context,
                 scHeight,
                 scWidth,
-                Color.fromRGBO(248, 164, 76, 0.1)),
+                const Color.fromRGBO(248, 164, 76, 0.1)),
             getCategory(
               list != null ? list[4].Name : '',
               0.33,
@@ -98,7 +96,7 @@ class MainCategory extends ConsumerWidget {
               context,
               scHeight,
               scWidth,
-              Color.fromRGBO(183, 223, 245, 0.25),
+              const Color.fromRGBO(183, 223, 245, 0.25),
             )
           ],
         ),
@@ -114,7 +112,7 @@ class MainCategory extends ConsumerWidget {
                 context,
                 scHeight,
                 scWidth,
-                Color.fromRGBO(211, 176, 224, 0.25)),
+                const Color.fromRGBO(211, 176, 224, 0.25)),
             getCategory(
                 list != null ? list[6].Name : '',
                 0.33,
@@ -124,7 +122,7 @@ class MainCategory extends ConsumerWidget {
                 context,
                 scHeight,
                 scWidth,
-                Color.fromRGBO(248, 164, 76, 0.1)),
+                const Color.fromRGBO(248, 164, 76, 0.1)),
             getCategory(
               list != null ? list[7].Name : '',
               0.33,
@@ -134,7 +132,7 @@ class MainCategory extends ConsumerWidget {
               context,
               scHeight,
               scWidth,
-              Color.fromRGBO(183, 223, 245, 0.25),
+              const Color.fromRGBO(183, 223, 245, 0.25),
             )
           ],
         )
@@ -157,7 +155,6 @@ class MainCategory extends ConsumerWidget {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () {
-          print("\n\nMain Category id:: $maincategoryid");
           Navigator.of(context).pushNamed('${nav_url}', arguments: {
             'maincategoryid': maincategoryid,
             'name': name,
@@ -167,7 +164,7 @@ class MainCategory extends ConsumerWidget {
         child: Container(
           height: scHeight * 0.25,
           width: (scWidth * wid_th) - 6,
-          margin: EdgeInsets.symmetric(horizontal: 3, vertical: 4),
+          margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
           // child: ClipRRect(
           //   borderRadius: BorderRadius.circular(5),
           //   child: Container(
@@ -198,7 +195,7 @@ class MainCategory extends ConsumerWidget {
           child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 0),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 0),
                 decoration: BoxDecoration(
                     color: clr, borderRadius: BorderRadius.circular(8)),
                 child: Column(
@@ -207,14 +204,14 @@ class MainCategory extends ConsumerWidget {
                     children: [
                       Text(
                         name,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                         softWrap: true,
                         maxLines: 2,
                         overflow: TextOverflow.clip,
                         textAlign: TextAlign.center,
                       ),
-                      Container(
+                      SizedBox(
                           height: scHeight * 0.25 * 0.7,
                           child: CachedNetworkImage(
                             imageUrl: img_url,
@@ -224,7 +221,7 @@ class MainCategory extends ConsumerWidget {
                             //         CircularProgressIndicator(
                             //             value: downloadProgress.progress),
                             errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
+                                const Icon(Icons.error),
                           ))
                     ]),
               )

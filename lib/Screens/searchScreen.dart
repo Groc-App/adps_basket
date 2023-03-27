@@ -3,13 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:your_basket/Screens/buySubscriptionScreen.dart';
 import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
 import 'package:your_basket/data/productsdata.dart';
 import 'package:your_basket/models/product/products.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../providers/providers.dart';
 import '../config.dart';
@@ -35,7 +31,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     setState(() {
       userNumber = userNumberr;
     });
-    print("userNumber $userNumber");
   }
 
   void incrementHandler(phonenumber, Product product) {
@@ -92,7 +87,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   List<Product> foundUser = [];
 
   Widget buildProducts(List<Product> products, authInfo, scWidth) {
-    print('ye bhiiiiiiiiiiiiiiiiiii');
     return GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -111,8 +105,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    // foundUser = data;
     super.initState();
     getNumber();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -121,7 +113,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   }
 
   void runFilter(String enteredKeyword) {
-    print('\n filter runnungggggggggggggggg');
     List<Product> results = [];
     foundUser = [];
     if (enteredKeyword.isEmpty) {
@@ -169,7 +160,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           return <Widget>[
             SliverAppBar(
               backgroundColor: Colors.green[400],
-              iconTheme: IconThemeData(
+              iconTheme: const IconThemeData(
                 color: Colors.white, //change your color here
               ),
               centerTitle: true,
@@ -242,7 +233,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   _buildSilverAppBarBackground(context, height) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           // border: Border.all(),
           color: Colors.white),
       // color: Colors.white,
@@ -253,8 +244,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             decoration: BoxDecoration(
               color: Colors.green[400],
               // color: Colors.white,bo
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+              borderRadius:
+                  const BorderRadius.vertical(bottom: Radius.circular(10)),
             ),
+
+            height: height + 25,
+            width: MediaQuery.of(context).size.width,
             // Background
             child: const Center(
               child: Text(
@@ -265,9 +260,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     color: Colors.white),
               ),
             ),
-
-            height: height + 25,
-            width: MediaQuery.of(context).size.width,
           ),
 
           // Container(), // Required some widget in between to float AppBar
@@ -301,16 +293,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 onChanged: (value) {
                   runFilter(value);
                 },
-                decoration: InputDecoration.collapsed(
+                decoration: const InputDecoration.collapsed(
                   hintText: 'Search',
                 ).copyWith(isDense: true),
               ),
-              actions: <Widget>[
-                // IconButton(
-                //   icon: Icon(Icons.search, color: Theme.of(context).primaryColor),
-                //   onPressed: () {},
-                // ),
-              ],
             ),
           ),
         ],
@@ -337,16 +323,16 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.only(top: 160),
+              margin: const EdgeInsets.only(top: 160),
               height: Config.scHeight * 0.25,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
                       "https://media.istockphoto.com/id/1158317995/vector/cute-jack-russell-terrier-paws-up-over-wall-dog-face-cartoon-vector-illustration.jpg?s=170667a&w=0&k=20&c=e_tyRS_-oSA1eowlfNVNaU__mlNig7aETgEf3pOkaBI="),
                 ),
               ),
             ),
-            Text(
+            const Text(
               "No Items",
               style: TextStyle(fontStyle: FontStyle.italic),
             )

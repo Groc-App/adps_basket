@@ -1,8 +1,9 @@
+// ignore_for_file: file_names, prefer_typing_uninitialized_variables, library_private_types_in_public_api
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:your_basket/Screens/buySubscriptionScreen.dart';
 import 'package:your_basket/Services/subscription_api_service.dart';
 import 'package:your_basket/Widgets/Errors/Dataloadingerror.dart';
 import 'package:your_basket/providers/providers.dart';
@@ -21,6 +22,8 @@ var scSize;
 int totalAmount = 0;
 
 class SubscriptionScreen extends ConsumerStatefulWidget {
+  const SubscriptionScreen({super.key});
+
   // const OfferScreen({Key? key}) : super(key: key);
 
   @override
@@ -32,14 +35,9 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    // foundUser = data;
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-// your code goes here
       await getNumber();
-
-      // print("init:$number");
 
       // ref.invalidate(verifyCouponProvider);
     });
@@ -51,7 +49,6 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
     setState(() {
       userNumber = userNumberr;
     });
-    print("number $userNumber");
   }
 
   cancelHandler(String subscriptionId) {
@@ -87,7 +84,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
     return ListView.separated(
         // padding: EdgeInsets.all(10),
         shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         itemCount: list!.length,
         separatorBuilder: (context, index) => const SizedBox(
               height: 10,
@@ -107,7 +104,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                           // height: scHeight * 0.9,
                           child: Column(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 height: 12,
                               ),
                               const Text(
@@ -128,168 +125,147 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16)),
-                              Container(
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Card(
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 10,
-                                                      horizontal: 20),
-                                              child: const Text("Quantity",
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.w500)),
-                                            ),
-                                            const Spacer(),
-                                            Container(
-                                              width: scSize.width * 0.5,
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 5,
-                                                      horizontal: 10),
-                                              child: Text(
-                                                  list[i].quantity.toString(),
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .primaryColor)),
-                                            ),
-                                          ],
-                                        ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Card(
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 10, horizontal: 20),
+                                            child: const Text("Quantity",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.w500)),
+                                          ),
+                                          const Spacer(),
+                                          Container(
+                                            width: scSize.width * 0.5,
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 5, horizontal: 10),
+                                            child: Text(
+                                                list[i].quantity.toString(),
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context)
+                                                        .primaryColor)),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Card(
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 10,
-                                                      horizontal: 20),
-                                              child: const Text("Start Date",
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.w500)),
-                                            ),
-                                            const Spacer(),
-                                            Container(
-                                              width: scSize.width * 0.5,
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 5,
-                                                      horizontal: 10),
-                                              child: Text(
-                                                  '${DateFormat('dd/MM/yyyy').format(list[i].startDate)}',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .primaryColor)),
-                                            ),
-                                          ],
-                                        ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Card(
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 10, horizontal: 20),
+                                            child: const Text("Start Date",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.w500)),
+                                          ),
+                                          const Spacer(),
+                                          Container(
+                                            width: scSize.width * 0.5,
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 5, horizontal: 10),
+                                            child: Text(
+                                                DateFormat('dd/MM/yyyy')
+                                                    .format(list[i].startDate),
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context)
+                                                        .primaryColor)),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Card(
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 10,
-                                                      horizontal: 20),
-                                              child: const Text("End Date",
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.w500)),
-                                            ),
-                                            const Spacer(),
-                                            Container(
-                                              width: scSize.width * 0.5,
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 5,
-                                                      horizontal: 10),
-                                              child: Text(
-                                                  '${DateFormat('dd/MM/yyyy').format(list[i].endDate)}',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .primaryColor)),
-                                            ),
-                                          ],
-                                        ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Card(
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 10, horizontal: 20),
+                                            child: const Text("End Date",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.w500)),
+                                          ),
+                                          const Spacer(),
+                                          Container(
+                                            width: scSize.width * 0.5,
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 5, horizontal: 10),
+                                            child: Text(
+                                                DateFormat('dd/MM/yyyy')
+                                                    .format(list[i].endDate),
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context)
+                                                        .primaryColor)),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Card(
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 10,
-                                                      horizontal: 20),
-                                              child: const Text("Status",
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.w500)),
-                                            ),
-                                            const Spacer(),
-                                            Container(
-                                              width: scSize.width * 0.5,
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 5,
-                                                      horizontal: 10),
-                                              child: list[i]
-                                                          .subscriptionStatus ==
-                                                      true
-                                                  ? Text("Subscribed",
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .primaryColor))
-                                                  : const Text("Unsubscribed",
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.red)),
-                                            ),
-                                          ],
-                                        ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Card(
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 10, horizontal: 20),
+                                            child: const Text("Status",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.w500)),
+                                          ),
+                                          const Spacer(),
+                                          Container(
+                                            width: scSize.width * 0.5,
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 5, horizontal: 10),
+                                            child: list[i].subscriptionStatus ==
+                                                    true
+                                                ? Text("Subscribed",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Theme.of(context)
+                                                            .primaryColor))
+                                                : const Text("Unsubscribed",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.red)),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                              Container(
+                              SizedBox(
                                 width: double.infinity,
                                 height: scHeight * 0.9 * 0.1,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    Container(
+                                    SizedBox(
                                       width: 150,
                                       child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
@@ -315,9 +291,9 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                                   'endDate': endDate,
                                                 });
                                           },
-                                          child: Text("Edit")),
+                                          child: const Text("Edit")),
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: 150,
                                       child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
@@ -421,11 +397,9 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
     return data.when(
       data: (list) {
         if (list!.isNotEmpty) {
-          list.forEach(
-            (e) {
-              totalAmount += (e.quantity * e.product.Price).toInt();
-            },
-          );
+          for (var e in list) {
+            totalAmount += (e.quantity * e.product.Price).toInt();
+          }
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -454,7 +428,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
           return noItems();
         }
       },
-      error: (_, __) => DataError(),
+      error: (_, __) => const DataError(),
       loading: () => const Center(child: CircularProgressIndicator()),
     );
   }
@@ -465,7 +439,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.only(top: 200),
+              margin: const EdgeInsets.only(top: 200),
               height: 150,
               decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -494,7 +468,7 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
           title: const Text("Subscriptions"),
         ),
         body: userNumber == ''
-            ? NoItems(
+            ? const NoItems(
                 noitemtext: 'Login/SignUp First',
                 pageroute: 'loginpage',
               )

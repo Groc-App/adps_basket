@@ -165,7 +165,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
               ],
             ),
           )
-        : Container(
+        : SizedBox(
             width: scWidth * 0.48 * 0.38,
             child: FittedBox(
               child: OutlinedButton(
@@ -242,7 +242,8 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                     // (context, url, downloadProgress) =>
                     //     CircularProgressIndicator(
                     //         value: downloadProgress.progress),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                 ),
                 Expanded(
@@ -277,15 +278,13 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Container(
+                      SizedBox(
                           width: scWidth * 0.48 * 0.28,
-                          child: Container(
-                              // fit: BoxFit.scaleDown,
-                              child: Text(
+                          child: Text(
                             '\u{20B9}${product.Price.toInt()}',
                             style: const TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.bold),
-                          ))),
+                          )),
                       addTile(scWidth, userNumber),
                       // addTile(scWidth, '+917982733943'),
                     ],

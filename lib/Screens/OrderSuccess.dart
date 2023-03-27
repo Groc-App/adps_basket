@@ -1,22 +1,19 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: file_names
 
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class OrderSuuccess extends StatelessWidget {
-  OrderSuuccess({super.key});
+  const OrderSuuccess({super.key});
 
   @override
   Widget build(BuildContext context) {
-    print("Inside order success");
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
 
     var successTypeMap = (ModalRoute.of(context)?.settings.arguments ??
         <String, String>{}) as Map;
     var successType = successTypeMap['type'];
-    print("Success Type::::::: $successType");
 
     return WillPopScope(
       onWillPop: () async {
@@ -36,14 +33,14 @@ class OrderSuuccess extends StatelessWidget {
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 successType == 'order'
-                    ? Text(
+                    ? const Text(
                         'Order Placed Successfully !',
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w900,
                         ),
                       )
-                    : Text(
+                    : const Text(
                         'Subscription Created Successfully',
                         style: TextStyle(fontSize: 20),
                       ),
@@ -58,7 +55,7 @@ class OrderSuuccess extends StatelessWidget {
                   },
                   style:
                       ElevatedButton.styleFrom(backgroundColor: Colors.white),
-                  child: Text(
+                  child: const Text(
                     'Continue Shopping',
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),

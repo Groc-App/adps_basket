@@ -1,12 +1,9 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously, library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../config.dart';
-import '../../providers/providers.dart';
 
 String userNumber = '';
 
@@ -22,8 +19,6 @@ class _HeadingSupportState extends ConsumerState<HeadingSupport> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    // foundUser = data;
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
 // your code goes here
@@ -39,7 +34,6 @@ class _HeadingSupportState extends ConsumerState<HeadingSupport> {
     setState(() {
       userNumber = userNumberr;
     });
-    print("userNumber $userNumber");
   }
 
   @override
@@ -47,7 +41,7 @@ class _HeadingSupportState extends ConsumerState<HeadingSupport> {
     // Cheching user login info
 
     return Container(
-      margin: EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.only(bottom: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -63,12 +57,12 @@ class _HeadingSupportState extends ConsumerState<HeadingSupport> {
               ),
             ),
             userNumber != ''
-                ? Text('${userNumber}')
+                ? Text(userNumber)
                 : GestureDetector(
                     onTap: () {
                       Navigator.of(context).pushNamed('/loginScreen');
                     },
-                    child: Text(
+                    child: const Text(
                       'LogIn to view Profile',
                       style: TextStyle(
                           color: Colors.blue, fontWeight: FontWeight.w500),
@@ -77,7 +71,7 @@ class _HeadingSupportState extends ConsumerState<HeadingSupport> {
           ]),
           GestureDetector(
             onTap: () async {
-              var whatsapp = "${userNumber}";
+              var whatsapp = userNumber;
               var whatsappAndroid =
                   Uri.parse("whatsapp://send?phone=$whatsapp&text=hello");
               if (await canLaunchUrl(whatsappAndroid)) {
@@ -111,7 +105,7 @@ class _HeadingSupportState extends ConsumerState<HeadingSupport> {
                   size: 20,
                   color: Theme.of(context).primaryColor,
                 ),
-                Text('Support')
+                const Text('Support')
               ],
             ),
           ),

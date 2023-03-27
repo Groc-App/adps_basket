@@ -1,15 +1,12 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, non_constant_identifier_names
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:readmore/readmore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:your_basket/Screens/offerScreen.dart';
-import 'package:your_basket/models/product/productdetail.dart';
 import 'package:your_basket/models/product/products.dart';
 import 'package:your_basket/providers/providers.dart';
 import 'package:share_plus/share_plus.dart';
@@ -41,7 +38,6 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
     setState(() {
       userNumber = userNumberr;
     });
-    print("userNumber $userNumber");
   }
 
   void showZommedimage(BuildContext context, String imageurl) {
@@ -52,9 +48,9 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
         enableDrag: false,
         builder: (context) {
           return Container(
-            margin: EdgeInsets.only(top: 30),
+            margin: const EdgeInsets.only(top: 30),
             child: Stack(children: [
-              Container(
+              SizedBox(
                 height: Config.scHeight,
                 child: InteractiveViewer(
                     maxScale: 5.0,
@@ -65,7 +61,8 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                       //     (context, url, downloadProgress) =>
                       //         CircularProgressIndicator(
                       //             value: downloadProgress.progress),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     )),
               ),
               GestureDetector(
@@ -74,10 +71,10 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                 },
                 child: Positioned.fill(
                   child: Align(
-                    alignment: Alignment(-0.96, -0.96),
+                    alignment: const Alignment(-0.96, -0.96),
                     child: CircleAvatar(
                       backgroundColor: Colors.grey[300],
-                      child: Icon(
+                      child: const Icon(
                         Icons.close,
                         color: Colors.black,
                       ),
@@ -98,7 +95,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
           onTap: () {
             showZommedimage(context, product.ImageUrl[idx]);
           },
-          child: Container(
+          child: SizedBox(
               width: double.infinity,
               height: double.infinity,
               child: CachedNetworkImage(
@@ -106,7 +103,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                 imageUrl: product.ImageUrl[idx],
                 // progressIndicatorBuilder: (context, url, downloadProgress) =>
                 //     CircularProgressIndicator(value: downloadProgress.progress),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               )),
         );
       },
@@ -126,7 +123,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.only(top: 12),
+          padding: const EdgeInsets.only(top: 12),
           height: MediaQuery.of(context).size.height * 0.3,
           width: double.infinity,
           alignment: Alignment.topLeft,
@@ -167,7 +164,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
+                    SizedBox(
                       width: scWidth * 0.75,
                       child: Flexible(
                         child: Text(
@@ -339,7 +336,6 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
         });
       }
     }
-    print('counter is:::::::::::::: $counter\n');
     return buildAddTile(scWidth, number);
   }
 
@@ -367,7 +363,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
               SizedBox(
                   width: scWidth * 0.25 * 0.3,
                   child: Text(
-                    '${counter}',
+                    '$counter',
                     textAlign: TextAlign.center,
                   )),
               MouseRegion(
@@ -383,7 +379,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
               ),
             ]),
           )
-        : Container(
+        : SizedBox(
             width: scWidth * 0.48 * 0.5,
             height: scWidth * 0.25 * 0.4,
             child: OutlinedButton(
