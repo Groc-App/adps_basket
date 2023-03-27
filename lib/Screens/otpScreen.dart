@@ -95,7 +95,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                     width: scWidth,
                     child: CachedNetworkImage(
                         imageUrl:
-                            'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Screens%2FOtpScreen%2FotpScreen.png?alt=media&token=e414372f-cfb9-438d-9533-04c4b94a6d3d')),
+                            'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Screens%2FOtpScreen%2Fotpscreen%20(2).png?alt=media&token=8d38b962-91c8-47ce-825b-513d4897d47c')),
                 Text(
                   'Verification',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
