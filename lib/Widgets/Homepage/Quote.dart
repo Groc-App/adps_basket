@@ -3,8 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Widgets/Sinners/quotesinner.dart';
 
 import '../../providers/providers.dart';
-import '../Errors/Dataloadingerror.dart';
-import '../Sinners/productsinner.dart';
 
 class Quote extends ConsumerWidget {
   var text;

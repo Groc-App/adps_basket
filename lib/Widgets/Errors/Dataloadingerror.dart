@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 class DataError extends StatelessWidget {
@@ -23,7 +25,7 @@ class DataError extends StatelessWidget {
             height: 10,
           ),
           Text(
-            'Opps! No internet connection.',
+            'Opps! Something went wrong.',
             style: TextStyle(
                 fontSize: 19, fontWeight: FontWeight.bold, color: Colors.blue),
           ),
@@ -31,7 +33,7 @@ class DataError extends StatelessWidget {
             height: 10,
           ),
           Text(
-            'Please try again later.',
+            'Please report and try again later.',
             style: TextStyle(fontSize: 15),
           ),
         ],

@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, prefer_const_literals_to_create_immutables
+// ignore_for_file: file_names, prefer_const_literals_to_create_immutables, no_logic_in_create_state, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,7 +23,8 @@ class CategorySliderItems extends ConsumerStatefulWidget {
 
   final String mainCategoryId;
   CategorySliderItems(
-      {required this.map,
+      {super.key,
+      required this.map,
       required this.categoryName,
       required this.catergoryURL,
       required this.categoryId,
@@ -59,7 +60,6 @@ class _CategorySliderItemsState extends ConsumerState<CategorySliderItems> {
   int selected = -1;
   @override
   void initState() {
-    // TODO: implement initStat
     super.initState();
   }
 

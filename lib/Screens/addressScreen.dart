@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, library_private_types_in_public_api, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,6 +8,7 @@ import 'package:your_basket/Widgets/Address/address.dart';
 import '../Widgets/Cart/Noitems.dart';
 import '../Widgets/Sinners/addresssinner.dart';
 import '../providers/providers.dart';
+// ignore: library_prefixes
 import '../models/address/address.dart' as AddressModel;
 
 String phonenumber = '';
@@ -22,7 +25,6 @@ class _AddressBookState extends ConsumerState<AddressBook> {
 
   @override
   void initState() {
-    // TODO: implement initState
     // foundUser = data;
     super.initState();
 // your code goes here
@@ -36,16 +38,13 @@ class _AddressBookState extends ConsumerState<AddressBook> {
     setState(() {
       phonenumber = userNumberr;
     });
-    print("userNumber $userNumberr");
   }
 
   Widget _addressList(WidgetRef ref, String phonenumber) {
-    print("phoneNUmber $phonenumber");
     final AddressBookState = ref.watch(addressBokkProvider(phonenumber));
-    print("address $AddressBookState");
 
     if (AddressBookState.AddressBookModel == null) {
-      return Column(
+      return const Column(
         children: [
           AddressSinner(),
           SizedBox(height: 10),
@@ -58,7 +57,7 @@ class _AddressBookState extends ConsumerState<AddressBook> {
     }
 
     if (AddressBookState.AddressBookModel!.addresses.isEmpty) {
-      return Center(
+      return const Center(
         child: Text('No Address Found'),
       );
     }
@@ -76,7 +75,7 @@ class _AddressBookState extends ConsumerState<AddressBook> {
         return Column(
           children: [
             Address(data: value, userId: phonenumber, bottomsheet: bottomsheet),
-            Divider(),
+            const Divider(),
           ],
         );
       }).toList(),
@@ -85,7 +84,7 @@ class _AddressBookState extends ConsumerState<AddressBook> {
 
   void bottomsheet(WidgetRef ref, BuildContext context, String phonenumber,
       double scHeight, String functionality, String addressId) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     String? name, flatnumber, society, city, pincode;
 
     showModalBottomSheet(
@@ -103,19 +102,19 @@ class _AddressBookState extends ConsumerState<AddressBook> {
                     top: 10,
                     bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: Form(
-                    key: _formKey,
+                    key: formKey,
                     child: Column(
                       children: [
                         Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          child: Text(
+                          margin: const EdgeInsets.symmetric(vertical: 10),
+                          child: const Text(
                             'Enter Details',
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w400),
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(bottom: 10),
+                          margin: const EdgeInsets.only(bottom: 10),
                           child: TextFormField(
                             onSaved: (value) => name = value,
                             decoration: const InputDecoration(
@@ -131,7 +130,7 @@ class _AddressBookState extends ConsumerState<AddressBook> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(bottom: 10),
+                          margin: const EdgeInsets.only(bottom: 10),
                           child: TextFormField(
                             onSaved: (value) => flatnumber = value,
                             decoration: const InputDecoration(
@@ -147,7 +146,7 @@ class _AddressBookState extends ConsumerState<AddressBook> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(bottom: 10),
+                          margin: const EdgeInsets.only(bottom: 10),
                           child: TextFormField(
                             onSaved: (value) => society = value,
                             decoration: const InputDecoration(
@@ -163,7 +162,7 @@ class _AddressBookState extends ConsumerState<AddressBook> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(bottom: 10),
+                          margin: const EdgeInsets.only(bottom: 10),
                           child: TextFormField(
                             onSaved: (value) => city = value,
                             decoration: const InputDecoration(
@@ -179,7 +178,7 @@ class _AddressBookState extends ConsumerState<AddressBook> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(bottom: 10),
+                          margin: const EdgeInsets.only(bottom: 10),
                           child: TextFormField(
                             onSaved: (value) => pincode = value,
                             maxLength: 6,
@@ -199,11 +198,11 @@ class _AddressBookState extends ConsumerState<AddressBook> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
+                          margin: const EdgeInsets.symmetric(vertical: 10),
                           child: ElevatedButton(
                             onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                _formKey.currentState!.save();
+                              if (formKey.currentState!.validate()) {
+                                formKey.currentState!.save();
                                 Map<String, String?> mp = {
                                   "number": phonenumber,
                                   "Recipients_Name": name,
@@ -252,7 +251,6 @@ class _AddressBookState extends ConsumerState<AddressBook> {
 
     getNumber();
 
-    print("number $phonenumber");
     return Scaffold(
       /* --------------------------------- appBar --------------------------------- */
       appBar: AppBar(
@@ -261,7 +259,7 @@ class _AddressBookState extends ConsumerState<AddressBook> {
         ),
       ),
       body: phonenumber == ''
-          ? NoItems(
+          ? const NoItems(
               noitemtext: 'Login/SignUp First',
               pageroute: 'loginpage',
             )
@@ -278,8 +276,8 @@ class _AddressBookState extends ConsumerState<AddressBook> {
                     }),
                     child: Row(
                       children: [
-                        Icon(Icons.add),
-                        SizedBox(
+                        const Icon(Icons.add),
+                        const SizedBox(
                           width: 5,
                         ),
                         Text(

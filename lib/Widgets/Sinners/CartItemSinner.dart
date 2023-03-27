@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -8,11 +10,10 @@ class CartItemSinner extends StatelessWidget {
   Widget build(BuildContext context) {
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
-    final scWidth = scSize.width;
 
     return Shimmer.fromColors(
-        baseColor: Color.fromARGB(255, 224, 224, 224),
-        highlightColor: Color.fromRGBO(213, 199, 199, 1),
+        baseColor: const Color.fromARGB(255, 224, 224, 224),
+        highlightColor: const Color.fromRGBO(213, 199, 199, 1),
         child: Column(
           children: [
             Container(

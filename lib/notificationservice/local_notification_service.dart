@@ -50,8 +50,6 @@ class LocalNotificationService {
         notificationDetails,
         payload: message.data['_id'],
       );
-    } on Exception catch (e) {
-      print(e);
-    }
+    } on Exception catch (_) {}
   }
 }

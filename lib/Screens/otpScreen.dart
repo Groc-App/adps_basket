@@ -1,13 +1,10 @@
-// ignore_for_file: file_names, prefer_const_constructors, prefer_typing_uninitialized_variables
-
-import 'dart:async';
+// ignore_for_file: file_names, prefer_const_constructors, prefer_typing_uninitialized_variables, use_build_context_synchronously, unnecessary_null_comparison
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:lottie/lottie.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
@@ -15,6 +12,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../providers/providers.dart';
 
 class OtpScreen extends ConsumerStatefulWidget {
+  const OtpScreen({super.key});
+
   @override
   ConsumerState<OtpScreen> createState() => _OtpScreenState();
 }
@@ -33,27 +32,11 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
   bool wait = true;
   var smscoded;
   bool _isLoading = false;
-  bool _wrongOTP = false;
 
   var phoneNumber = '';
   var hint = '000000';
 
-  void startTimer() {
-    print('Timer started');
-    const onsec = Duration(seconds: 1);
-    Timer _timer = Timer.periodic(onsec, (timer) {
-      if (start == 0) {
-        setState(() {
-          wait = false;
-          timer.cancel();
-        });
-      } else {
-        setState(() {
-          start--;
-        });
-      }
-    });
-  }
+  void startTimer() {}
 
   Widget otpField() {
     return OTPTextField(
@@ -68,7 +51,6 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
       textFieldAlignment: MainAxisAlignment.spaceAround,
       fieldStyle: FieldStyle.underline,
       onCompleted: (pin) {
-        print("Completed: " + pin);
         setState(() {
           smscoded = pin;
         });
@@ -87,9 +69,9 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
         <String, dynamic>{}) as Map;
     var otp = opthash['otp'];
     phoneNumber = opthash['number'];
+    // ignore: unused_local_variable
     var resendToken = opthash['resendtoken'];
     var refferalCode = opthash['refferalCode'];
-    print('refferal code is:::::: $refferalCode');
 
     // print("OTP HASH::" + otpHash);
     return Scaffold(
@@ -113,7 +95,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                     width: scWidth,
                     child: CachedNetworkImage(
                         imageUrl:
-                            'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Screens%2FOtpScreen%2FotpScreen.png?alt=media&token=e414372f-cfb9-438d-9533-04c4b94a6d3d')),
+                            'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Screens%2FOtpScreen%2Fotpscreen%20(2).png?alt=media&token=8d38b962-91c8-47ce-825b-513d4897d47c')),
                 Text(
                   'Verification',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -157,7 +139,6 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                             setState(() {
                               _isLoading = true;
                             });
-                            print(smscoded);
                             PhoneAuthCredential credential =
                                 PhoneAuthProvider.credential(
                                     verificationId: otp,
@@ -178,7 +159,6 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                             String loginstatus =
                                 await ref.read(createuserProvider(mp).future);
 
-                            print('loginstatus is:::::::: $loginstatus');
                             //chceking refferal code status
                             if (refferalCode != '' &&
                                 loginstatus == 'AlreadyRegistered') {
@@ -227,9 +207,9 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                               });
                             } else {
                               //updating authcheckprovider
-                              ref
-                                  .read(authCheckProvider.notifier)
-                                  .update((state) => user!.phoneNumber);
+                              // ref
+                              //     .read(authCheckProvider.notifier)
+                              //     .update((state) => user!.phoneNumber);
 
                               // setting number preferences
 
@@ -244,11 +224,9 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                             }
                           } catch (e) {
                             if (e == null) {
-                              print(' shiiiiiiiiiiiii hh     ');
                             } else {
                               setState(() {
                                 _isLoading = false;
-                                _wrongOTP = true;
                               });
                               final snackBar = SnackBar(
                                 content: const Text('Wrong OTP'),
@@ -262,7 +240,6 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
 
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
-                              print('galat hhhhhhhhhhhhhhhhhhh $e');
                             }
                           }
                         },
@@ -297,7 +274,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                             ),
                           )
                         : Text(
-                            '0:${start}',
+                            '0:$start',
                             style: TextStyle(color: Colors.blue),
                           )
                   ],

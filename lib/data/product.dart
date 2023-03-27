@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/models/product/products.dart';
@@ -12,11 +14,11 @@ class ProductData extends ConsumerWidget {
     final productsData = ref.watch(allProductProvider);
 
     return productsData.when(data: (list) {
-      return Text("");
+      return const Text("");
     }, error: (_, __) {
-      return Text("");
+      return const Text("");
     }, loading: () {
-      return Text("");
+      return const Text("");
     });
   }
 

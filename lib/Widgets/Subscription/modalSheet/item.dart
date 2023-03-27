@@ -1,8 +1,7 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:your_basket/config.dart';
-import 'package:intl/intl.dart';
-
-import '../../../models/subscription/subscription.dart';
 
 class ModalItem extends StatelessWidget {
   String name;
@@ -18,7 +17,7 @@ class ModalItem extends StatelessWidget {
       elevation: 4,
       child: Container(
         margin: const EdgeInsets.all(10),
-        padding: EdgeInsets.symmetric(horizontal: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 5),
         height: Config.scHeight * 0.8 * 0.2,
         // width: double.infinit,q
         decoration: BoxDecoration(

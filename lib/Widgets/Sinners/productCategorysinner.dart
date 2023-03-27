@@ -9,31 +9,31 @@ class ProductCategorySinner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scSize = MediaQuery.of(context).size;
-    final scWidth = scSize.width;
+    // final scSize = MediaQuery.of(context).size;
+    // final scWidth = scSize.width;
 
     return Shimmer.fromColors(
-      baseColor: Color.fromARGB(255, 224, 224, 224),
-      highlightColor: Color.fromRGBO(213, 199, 199, 1),
-      child: Row(
+      baseColor: const Color.fromARGB(255, 224, 224, 224),
+      highlightColor: const Color.fromRGBO(213, 199, 199, 1),
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Container(
+          SizedBox(
             height: 50,
             width: 50,
             child: Card(),
           ),
-          Container(
+          SizedBox(
             height: 50,
             width: 50,
             child: Card(),
           ),
-          Container(
+          SizedBox(
             height: 50,
             width: 50,
             child: Card(),
           ),
-          Container(
+          SizedBox(
             height: 50,
             width: 50,
             child: Card(),

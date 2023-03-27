@@ -2,7 +2,6 @@
 // ignore_for_file: file_names
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BotmNavBar extends StatelessWidget {
   const BotmNavBar({super.key});
@@ -12,7 +11,7 @@ class BotmNavBar extends StatelessWidget {
     return BottomAppBar(
       notchMargin: 8.0,
       height: 60,
-      shape: CircularNotchedRectangle(),
+      shape: const CircularNotchedRectangle(),
       color: Theme.of(context).scaffoldBackgroundColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -44,7 +43,7 @@ class BotmNavBar extends StatelessWidget {
                 //   imageUrl:
                 //       'https://img.icons8.com/external-others-inmotus-design/67/null/external-B-keyboard-others-inmotus-design-10.png',
                 // ),
-                Text(
+                const Text(
                   'Home',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontWeight: FontWeight.w500),
@@ -65,7 +64,7 @@ class BotmNavBar extends StatelessWidget {
                   imageUrl:
                       'https://img.icons8.com/pastel-glyph/64/null/shopping-cart--v2.png',
                 ),
-                Text(
+                const Text(
                   'Cart',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontWeight: FontWeight.w500),
@@ -73,7 +72,7 @@ class BotmNavBar extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 6,
           ),
           GestureDetector(
@@ -88,7 +87,7 @@ class BotmNavBar extends StatelessWidget {
                   imageUrl:
                       'https://img.icons8.com/ios/50/null/tear-off-calendar--v1.png',
                 ),
-                Text(
+                const Text(
                   'Subs',
                   style: TextStyle(fontWeight: FontWeight.w500),
                 )
@@ -106,7 +105,7 @@ class BotmNavBar extends StatelessWidget {
                   height: 22,
                   imageUrl: 'https://img.icons8.com/windows/48/null/user.png',
                 ),
-                Text(
+                const Text(
                   'Profile',
                   style: TextStyle(fontWeight: FontWeight.w500),
                 )

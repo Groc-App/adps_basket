@@ -64,7 +64,7 @@ class AddressBookNotifier extends StateNotifier<AddressBookState> {
   }
 
   Future<void> setSelectedAddress(userid, addressId) async {
-    var data = await _apiService.setSelectedaddress(userid, addressId);
+    await _apiService.setSelectedaddress(userid, addressId);
 
     // var PreviousDefaultAddress = state.AddressBookModel!.addresses
     //     .firstWhere((e) => e.defaultAddress == true);

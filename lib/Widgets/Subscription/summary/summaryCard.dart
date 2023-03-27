@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:your_basket/config.dart';
@@ -36,7 +38,7 @@ class SummaryCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "₹ ${totalAmount}",
+                        "₹ $totalAmount",
                         style: const TextStyle(
                             fontSize: 30, fontWeight: FontWeight.bold),
                       ),

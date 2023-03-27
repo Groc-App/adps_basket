@@ -7,9 +7,9 @@ class CopyRightSymbol extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.end,
-      children: const [
+      children: [
         Center(
           child: Text(
             'basko',

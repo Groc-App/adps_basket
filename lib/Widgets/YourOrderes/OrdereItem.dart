@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -16,7 +16,8 @@ class OrdereItem extends StatelessWidget {
   List<Map<String, dynamic>> orderDetails;
 
   OrdereItem(
-      {required this.orderID,
+      {super.key,
+      required this.orderID,
       required this.date,
       required this.address,
       required this.orderDetails,
@@ -30,8 +31,6 @@ class OrdereItem extends StatelessWidget {
       // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
       child: ListTile(
         onTap: () {
-          print("OrderDetails Inside Order Item Build:::");
-          print("$orderID, $orderID,$orderDetails, $totalAmount, $date");
           Navigator.of(context).pushNamed('/orderSummaryScreen', arguments: {
             'orderID': orderID,
             'date': date,
@@ -58,19 +57,19 @@ class OrdereItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Total Price: ₹${totalAmount}',
-                style: TextStyle(fontSize: 11),
+                'Total Price: ₹$totalAmount',
+                style: const TextStyle(fontSize: 11),
               ),
               Text(
                 DateFormat.yMMMd().format(date),
-                style: TextStyle(fontSize: 11),
+                style: const TextStyle(fontSize: 11),
               ),
             ],
           ),
         ),
-        trailing: Column(
+        trailing: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Icon(Icons.navigate_next),
           ],
         ),

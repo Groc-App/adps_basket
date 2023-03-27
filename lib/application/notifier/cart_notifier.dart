@@ -3,7 +3,6 @@ import 'package:your_basket/models/cart/cart.dart';
 import 'package:your_basket/models/cart/cartitem.dart';
 
 import '../../Services/cart_api_service.dart';
-import '../../providers/providers.dart';
 import '../state/cart_state.dart';
 
 class CartNotifier extends StateNotifier<CartState> {
@@ -39,7 +38,7 @@ class CartNotifier extends StateNotifier<CartState> {
     updatedItems.remove(isCartItemExist);
 
     Cart newcart =
-        new Cart(Number: state.cartModel!.Number, products: updatedItems);
+        Cart(Number: state.cartModel!.Number, products: updatedItems);
 
     state = state.copyWith(cartModel: newcart);
 
@@ -57,7 +56,7 @@ class CartNotifier extends StateNotifier<CartState> {
     updatedItems.remove(isCartItemExist);
     updatedItems.add(cartProduct);
     Cart newcart =
-        new Cart(Number: state.cartModel!.Number, products: updatedItems);
+        Cart(Number: state.cartModel!.Number, products: updatedItems);
     state = state.copyWith(cartModel: newcart);
 
     await getCartitems(number);
@@ -74,7 +73,7 @@ class CartNotifier extends StateNotifier<CartState> {
       updatedItems.clear();
 
       Cart newcart =
-          new Cart(Number: state.cartModel!.Number, products: updatedItems);
+          Cart(Number: state.cartModel!.Number, products: updatedItems);
 
       state = state.copyWith(cartModel: newcart);
 

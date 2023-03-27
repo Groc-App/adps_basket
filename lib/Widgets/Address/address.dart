@@ -1,3 +1,5 @@
+// ignore_for_file: library_prefixes, must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Screens/addressScreen.dart';
@@ -36,7 +38,7 @@ class Address extends ConsumerWidget {
                   pageBuilder: (BuildContext context,
                       Animation<double> animation1,
                       Animation<double> animation2) {
-                    return LoadingSinner();
+                    return const LoadingSinner();
                   },
                   transitionDuration: Duration.zero,
                   reverseTransitionDuration: Duration.zero,
@@ -50,14 +52,14 @@ class Address extends ConsumerWidget {
                         transitionDuration: Duration.zero,
                         reverseTransitionDuration: Duration.zero,
                         pageBuilder: (context, animation, secondaryAnimation) =>
-                            LoadingSinner(),
+                            const LoadingSinner(),
                       )));
             }
           },
           child: Container(
-            padding: EdgeInsets.all(2),
-            decoration:
-                BoxDecoration(color: Colors.black12, shape: BoxShape.circle),
+            padding: const EdgeInsets.all(2),
+            decoration: const BoxDecoration(
+                color: Colors.black12, shape: BoxShape.circle),
             width: scWidth * 0.065,
             height: scWidth * 0.065,
             child: Container(
@@ -68,7 +70,7 @@ class Address extends ConsumerWidget {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 15,
         ),
         Expanded(
@@ -77,21 +79,22 @@ class Address extends ConsumerWidget {
             children: [
               Text(
                 "Home - ${data.Recipients_Name}",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               Text(
                   "${data.Flat_FLoor_Tower} ${data.Street_Society} ${data.City} ${data.Pincode}")
             ],
           ),
         ),
-        Spacer(),
+        const Spacer(),
         GestureDetector(
             onTap: () {
               bottomsheet(ref, context, userId, scHeight, 'updateAddress',
                   data.addressId);
             },
-            child: Container(child: Icon(Icons.edit))),
-        SizedBox(
+            child: const Icon(Icons.edit)),
+        const SizedBox(
           width: 10,
         ),
         GestureDetector(
@@ -100,11 +103,9 @@ class Address extends ConsumerWidget {
                 ref.read(addressBokkProvider(phonenumber).notifier);
             addressModel.deleteAddress(userId, data.addressId);
           },
-          child: Container(
-            child: Icon(Icons.delete),
-          ),
+          child: const Icon(Icons.delete),
         ),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
       ],

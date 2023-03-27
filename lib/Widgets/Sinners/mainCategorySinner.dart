@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -11,41 +13,41 @@ class MainCategorySinner extends StatelessWidget {
     final scWidth = scSize.width;
 
     return Shimmer.fromColors(
-        baseColor: Color.fromARGB(255, 224, 224, 224),
-        highlightColor: Color.fromRGBO(213, 199, 199, 1),
+        baseColor: const Color.fromARGB(255, 224, 224, 224),
+        highlightColor: const Color.fromRGBO(213, 199, 199, 1),
         // child: Container(),
         child: Column(
           children: [
             Row(
               children: [
-                Container(
+                SizedBox(
                   height: scHeight * 0.25,
                   width: scWidth * 0.63,
-                  child: Card(),
+                  child: const Card(),
                 ),
-                Container(
+                SizedBox(
                   height: scHeight * 0.25,
                   width: scWidth * 0.31,
-                  child: Card(),
+                  child: const Card(),
                 ),
               ],
             ),
             Row(
               children: [
-                Container(
+                SizedBox(
                   height: scHeight * 0.25,
                   width: scWidth * 0.31,
-                  child: Card(),
+                  child: const Card(),
                 ),
-                Container(
+                SizedBox(
                   height: scHeight * 0.25,
                   width: scWidth * 0.31,
-                  child: Card(),
+                  child: const Card(),
                 ),
-                Container(
+                SizedBox(
                   height: scHeight * 0.25,
                   width: scWidth * 0.31,
-                  child: Card(),
+                  child: const Card(),
                 ),
               ],
             )

@@ -4,9 +4,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:your_basket/models/product/products.dart';
 
 import '../../providers/providers.dart';
+
+String userNumber = '';
 
 class ProductItem extends ConsumerStatefulWidget {
   // const ProductItem({super.key});
@@ -25,10 +28,20 @@ class _ProductItemState extends ConsumerState<ProductItem> {
   // bool added = false;
   var counter = 0;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
+  Future<void> getNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userNumberr = prefs.getString('username') ?? '';
+    setState(() {
+      userNumber = userNumberr;
+    });
+    print("userNumber $userNumber");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getNumber();
+  }
 
   Product product;
 
@@ -54,7 +67,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
         counter++;
       });
 
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      final cartViewModel = ref.read(cartItemsProvider(phonenumber).notifier);
       cartViewModel.updateCartItem(
           phonenumber, counter.toString(), product.productId);
     }
@@ -62,7 +75,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
 
   void decrementHandler(phonenumber) {
     if ((counter - 1) == 0) {
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      final cartViewModel = ref.read(cartItemsProvider(phonenumber).notifier);
       cartViewModel
           .removeCartItems(phonenumber, product.productId)
           .whenComplete(() {
@@ -71,7 +84,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
         });
       });
     } else {
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      final cartViewModel = ref.read(cartItemsProvider(phonenumber).notifier);
       cartViewModel
           .updateCartItem(
               phonenumber, (counter - 1).toString(), product.productId)
@@ -85,7 +98,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
 
   Widget addTile(scWidth, String number) {
     if (number != '') {
-      final CartItemModel = ref.watch(cartItemsProvider);
+      final CartItemModel = ref.watch(cartItemsProvider(number));
 
       if (CartItemModel.isLoading) {
         // return CircularProgressIndicator();
@@ -121,7 +134,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     return buildAddTile(scWidth, number);
   }
 
-  Widget buildAddTile(scWidth, String? number) {
+  Widget buildAddTile(scWidth, String number) {
     return counter != 0
         ? Container(
             width: scWidth * 0.48 * 0.36,
@@ -152,7 +165,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
               ],
             ),
           )
-        : Container(
+        : SizedBox(
             width: scWidth * 0.48 * 0.38,
             child: FittedBox(
               child: OutlinedButton(
@@ -181,7 +194,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                         counter++;
                       });
                       final cartViewModel =
-                          ref.read(cartItemsProvider.notifier);
+                          ref.read(cartItemsProvider(number).notifier);
                       cartViewModel.addCartItems(number, product.productId);
                     }
                   },
@@ -197,8 +210,8 @@ class _ProductItemState extends ConsumerState<ProductItem> {
 
     product = widget.product;
 
-    var authInfo = ref.watch(authCheckProvider);
-    print(authInfo);
+    // var authInfo = ref.watch(authCheckProvider);
+    // print(authInfo);
 
     return GestureDetector(
       onTap: () {
@@ -229,7 +242,8 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                     // (context, url, downloadProgress) =>
                     //     CircularProgressIndicator(
                     //         value: downloadProgress.progress),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                 ),
                 Expanded(
@@ -264,18 +278,14 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Container(
+                      SizedBox(
                           width: scWidth * 0.48 * 0.28,
-                          child: Container(
-                              // fit: BoxFit.scaleDown,
-                              child: Text(
+                          child: Text(
                             '\u{20B9}${product.Price.toInt()}',
                             style: const TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.bold),
-                          ))),
-                      authInfo == null
-                          ? addTile(scWidth, '')
-                          : addTile(scWidth, authInfo),
+                          )),
+                      addTile(scWidth, userNumber),
                       // addTile(scWidth, '+917982733943'),
                     ],
                   ),

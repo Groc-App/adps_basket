@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:your_basket/models/product/productdetail.dart';
 part 'cartitem.freezed.dart';

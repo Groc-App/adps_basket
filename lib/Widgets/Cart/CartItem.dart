@@ -1,9 +1,8 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, must_be_immutable, no_logic_in_create_state
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:your_basket/Screens/cartScreen.dart';
-import 'package:your_basket/models/cart/cartitem.dart';
 import 'package:your_basket/models/product/productdetail.dart';
 import 'package:your_basket/models/product/products.dart';
 
@@ -15,12 +14,14 @@ class CartItem extends ConsumerStatefulWidget {
   String userid;
 
   CartItem({
+    super.key,
     required this.quantity,
     required this.item,
     required this.userid,
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _CartItemState createState() =>
       _CartItemState(quan: quantity, item: item, userid: userid);
 }
@@ -54,7 +55,7 @@ class _CartItemState extends ConsumerState<CartItem> {
     } else {
       int newquan = quan + 1;
 
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      final cartViewModel = ref.read(cartItemsProvider(userid).notifier);
       cartViewModel.updateCartItem(userid, newquan.toString(), item.productId);
 
       setState(() {
@@ -68,9 +69,7 @@ class _CartItemState extends ConsumerState<CartItem> {
     int newquan = quan - 1;
 
     if (newquan == 0) {
-      print('0000000000000000000000000000000000000000000000000000000000000');
-      print('inside cart item ${item.productId}');
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      final cartViewModel = ref.read(cartItemsProvider(userid).notifier);
       cartViewModel
           .removeCartItems(userid, item.productId)
           .whenComplete(() => Navigator.pushReplacement(
@@ -79,14 +78,14 @@ class _CartItemState extends ConsumerState<CartItem> {
                   pageBuilder: (BuildContext context,
                       Animation<double> animation1,
                       Animation<double> animation2) {
-                    return CartScreen();
+                    return const CartScreen();
                   },
                   transitionDuration: Duration.zero,
                   reverseTransitionDuration: Duration.zero,
                 ),
               ));
     } else {
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      final cartViewModel = ref.read(cartItemsProvider(userid).notifier);
       cartViewModel.updateCartItem(userid, newquan.toString(), item.productId);
     }
 
@@ -154,27 +153,27 @@ class _CartItemState extends ConsumerState<CartItem> {
                         item.Name,
                         maxLines: 3,
                         overflow: TextOverflow.clip,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.w400),
                       ),
                       Text(
                         item.Quantity,
                         textAlign: TextAlign.left,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 10, fontWeight: FontWeight.w100),
                       ),
                       Container(
                         margin: const EdgeInsets.only(top: 10),
                         child: Text(
-                          '₹ ' + item.Price.toString(),
-                          style: TextStyle(
+                          '₹ ${item.Price}',
+                          style: const TextStyle(
                               fontSize: 15, fontWeight: FontWeight.w400),
                         ),
                       )
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
                 Container(
@@ -205,7 +204,7 @@ class _CartItemState extends ConsumerState<CartItem> {
                     SizedBox(
                         width: scWidth * 0.25 * 0.3,
                         child: Text(
-                          '${quan}',
+                          '$quan',
                           textAlign: TextAlign.center,
                         )),
                     MouseRegion(

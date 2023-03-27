@@ -1,11 +1,8 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations, file_names, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:your_basket/models/address/address.dart';
-import 'dart:math';
-
-import 'package:your_basket/models/product/productdetail.dart';
 
 class OrderSummaryScreen extends StatelessWidget {
   OrderSummaryScreen({super.key});
@@ -20,13 +17,8 @@ class OrderSummaryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scSize = MediaQuery.of(context).size;
-    final scHeight = scSize.height;
     var orderData = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
-
-    print("\nInside your OrdersSummary:");
-    print("This is order received from argument $orderData");
 
     orderID = orderData['orderID'];
     totalAmount = orderData['totalAmount'];
@@ -34,8 +26,6 @@ class OrderSummaryScreen extends StatelessWidget {
     orderStatus = orderData['orderStatus'];
     orderDetails = orderData['orderDetails'];
     address = orderData['address'];
-
-    print("OrderDetails::::::: $orderDetails");
 
     return Scaffold(
       appBar: AppBar(
@@ -52,7 +42,9 @@ class OrderSummaryScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                    boxShadow: [BoxShadow(blurRadius: 1, spreadRadius: 0)],
+                    boxShadow: const [
+                      BoxShadow(blurRadius: 1, spreadRadius: 0)
+                    ],
                     // border: Border.all(),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     color: Colors.white),
@@ -60,7 +52,7 @@ class OrderSummaryScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       // decoration: BoxDecoration(
                       //   border: Border.all(),
@@ -107,9 +99,6 @@ class OrderSummaryScreen extends StatelessWidget {
                           // scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           itemBuilder: (context, i) {
-                            print("\n\nProduct Name in OrderDetails::");
-                            print(orderDetails[i]['Product']['Name']);
-
                             int price = orderDetails[i]['Product']['Price'] *
                                 orderDetails[i]['Quantity'];
 
@@ -142,7 +131,9 @@ class OrderSummaryScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                    boxShadow: [BoxShadow(blurRadius: 1, spreadRadius: 0)],
+                    boxShadow: const [
+                      BoxShadow(blurRadius: 1, spreadRadius: 0)
+                    ],
                     // border: Border.all(),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     color: Colors.white),
@@ -163,13 +154,13 @@ class OrderSummaryScreen extends StatelessWidget {
                       // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         Text("MRP"),
-                        Text("₹${totalAmount}"),
+                        Text("₹$totalAmount"),
                       ],
                     ),
                     SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                      children: const [
                         Text("Delivery Charges"),
                         Text("₹0"),
                       ],
@@ -184,7 +175,7 @@ class OrderSummaryScreen extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 13, fontWeight: FontWeight.w600),
                         ),
-                        Text("₹${totalAmount}"),
+                        Text("₹$totalAmount"),
                       ],
                     )
                   ],
@@ -196,7 +187,9 @@ class OrderSummaryScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                    boxShadow: [BoxShadow(blurRadius: 1, spreadRadius: 0)],
+                    boxShadow: const [
+                      BoxShadow(blurRadius: 1, spreadRadius: 0)
+                    ],
                     // border: Border.all(),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     color: Colors.white),
@@ -227,7 +220,7 @@ class OrderSummaryScreen extends StatelessWidget {
                               fontWeight: FontWeight.normal,
                               color: Color.fromARGB(255, 137, 137, 137)),
                         ),
-                        Text("${orderID}"),
+                        Text("$orderID"),
                       ],
                     ),
                     SizedBox(height: 10),

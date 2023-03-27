@@ -1,14 +1,15 @@
-// ignore_for_file: file_names, prefer_const_constructors
+// ignore_for_file: file_names, prefer_const_constructors, unused_local_variable
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -19,8 +20,8 @@ class _LoginScreenState extends State<LoginScreen> {
   int? _resendToken;
   bool _haverefferal = false;
 
-  TextEditingController _refferalcontroller = TextEditingController();
-  TextEditingController _numbercontroller = TextEditingController();
+  final TextEditingController _refferalcontroller = TextEditingController();
+  final TextEditingController _numbercontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +141,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     await SharedPreferences.getInstance();
                                 await prefs.setString(
                                     'username', "+91${_numbercontroller.text}");
-                                print("Prefs $prefs");
                                 await FirebaseAuth.instance.verifyPhoneNumber(
                                   phoneNumber: '+91${_numbercontroller.text}',
                                   verificationCompleted:
@@ -187,9 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   timeout: Duration(seconds: 30),
                                   forceResendingToken: _resendToken,
                                 );
-                              } catch (e) {
-                                print(e);
-                              }
+                              } catch (_) {}
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Theme.of(context).primaryColor,
@@ -212,11 +210,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     _haverefferal = true;
                                   });
                                 },
-                                child: Container(
-                                  child: Text(
-                                    'Do you have a refferal code?',
-                                    style: TextStyle(color: Colors.blue),
-                                  ),
+                                child: Text(
+                                  'Do you have a refferal code?',
+                                  style: TextStyle(color: Colors.blue),
                                 ),
                               )
                             : GestureDetector(
@@ -226,11 +222,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     _haverefferal = false;
                                   });
                                 },
-                                child: Container(
-                                  child: Text(
-                                    'Cancel refferal',
-                                    style: TextStyle(color: Colors.blue),
-                                  ),
+                                child: Text(
+                                  'Cancel refferal',
+                                  style: TextStyle(color: Colors.blue),
                                 ),
                               ),
                         const SizedBox(

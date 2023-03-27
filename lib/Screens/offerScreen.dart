@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, library_private_types_in_public_api, unused_element, curly_braces_in_flow_control_structures, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:your_basket/Services/offer_api_service.dart';
@@ -9,7 +11,6 @@ import 'package:your_basket/Widgets/Errors/Dataloadingerror.dart';
 import 'package:your_basket/providers/providers.dart';
 import 'package:your_basket/models/offer/offer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter/services.dart';
 
 /* --------------------------- Predefined Constant -------------------------- */
@@ -50,21 +51,17 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    // foundUser = data;
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-// your code goes here
       await getNumber();
-
-      print("init:$number");
 
       // ref.invalidate(verifyCouponProvider);
     });
   }
 
+  // ignore: prefer_typing_uninitialized_variables
   late var scSize;
-  late var scHeight;
+  late var scHeight = 0.0;
   late int totalAmount = 0;
 
   Future<void> getNumber() async {
@@ -73,7 +70,6 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
     setState(() {
       number = userNumberr;
     });
-    print("userNumber $number");
   }
 
   /* --------------------------- Scratch Controller --------------------------- */
@@ -94,12 +90,12 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
     return offers.when(
       data: (list) {
         if (list != null && list.isNotEmpty) {
-          list.forEach((offer) {
+          for (var offer in list) {
             totalOrders = offer.totalUserOrder.toInt();
             if (offer.isUserClaimed) {
               totalAmount += offer.worth.toInt();
             }
-          });
+          }
           return NestedScrollView(
             body: _buildGridViewContainer(list),
             headerSliverBuilder:
@@ -132,10 +128,9 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
             },
           );
         } else {}
-        print("\nThiss is list of Offerrrrrrs:" + '${list}');
         return _buildGridViewCards(list);
       },
-      error: (_, __) => DataError(),
+      error: (_, __) => const DataError(),
       loading: () => const Center(child: CircularProgressIndicator()),
     );
   }
@@ -147,7 +142,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
 
     return Scaffold(
         body: number == ''
-            ? NoItems(
+            ? const NoItems(
                 noitemtext: 'Login/SignUp First',
                 pageroute: 'loginpage',
               )
@@ -170,7 +165,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                   style: TextStyle(fontSize: 50.0),
                 ),
                 Text(
-                  "${totalAmount}",
+                  "$totalAmount",
                   style: const TextStyle(fontSize: 50.0),
                 ),
               ],
@@ -223,7 +218,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
         // print("\nThiss is list of Offerrrrrrs:" + '${list}');
         return _buildGridViewCards(list);
       },
-      error: (_, __) => DataError(),
+      error: (_, __) => const DataError(),
       loading: () => const Center(child: CircularProgressIndicator()),
     );
   }
@@ -244,7 +239,6 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
             return scratchedContainer(list, index, context);
           } else {
             if (list[index].number <= totalOrders) {
-              print("This is totalOrder $totalOrders");
               return availableCard(list, index, context);
             } else {
               return lockedCard(list, index, context);
@@ -268,7 +262,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                   // fit: BoxFit.fitWidth,
                   imageUrl:
                       'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Freward_appbar_bg.jpg?alt=media&token=bf1c3400-ba8e-48c9-8b82-29c2803bd4ee',
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -343,7 +337,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                                   "Already Redeemed",
                                   style: TextStyle(color: Colors.white),
                                 )),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 OutlinedButton(
                                   style: OutlinedButton.styleFrom(
                                       backgroundColor:
@@ -365,7 +359,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                                     width: scSize.width * 0.7,
                                     height: scHeight * 0.3,
                                     decoration: BoxDecoration(
-                                        image: DecorationImage(
+                                        image: const DecorationImage(
                                             fit: BoxFit.cover,
                                             image: NetworkImage(
                                               "https://st4.depositphotos.com/7668048/28693/v/600/depositphotos_286933884-stock-illustration-indian-rupee-coins-falling-scattered.jpg",
@@ -386,7 +380,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 25),
                                           ),
-                                          SizedBox(height: 20),
+                                          const SizedBox(height: 20),
                                           Container(
                                             width: scSize.width * 0.7 * 0.8,
                                             decoration: BoxDecoration(
@@ -417,7 +411,8 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                                                             list[index]
                                                                 .offerId);
                                                       },
-                                                      icon: Icon(Icons.copy))
+                                                      icon: const Icon(
+                                                          Icons.copy))
                                                 ],
                                               ),
                                             ),
@@ -531,7 +526,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                                     numberOfParticles: 20,
                                     gravity: 0.05,
                                     shouldLoop: false,
-                                    colors: [
+                                    colors: const [
                                       Colors.green,
                                       Colors.red,
                                       Colors.yellow,
