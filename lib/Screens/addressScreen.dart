@@ -25,12 +25,10 @@ class _AddressBookState extends ConsumerState<AddressBook> {
     // TODO: implement initState
     // foundUser = data;
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
 // your code goes here
-      await getNumber();
+    getNumber();
 
-      // ref.invalidate(verifyCouponProvider);
-    });
+    // ref.invalidate(verifyCouponProvider);
   }
 
   Future<void> getNumber() async {
@@ -43,7 +41,9 @@ class _AddressBookState extends ConsumerState<AddressBook> {
   }
 
   Widget _addressList(WidgetRef ref, String phonenumber) {
+    print("phoneNUmber $phonenumber");
     final AddressBookState = ref.watch(addressBokkProvider);
+    print("address $AddressBookState");
 
     if (AddressBookState.AddressBookModel == null) {
       return Column(
@@ -248,6 +248,7 @@ class _AddressBookState extends ConsumerState<AddressBook> {
   Widget build(BuildContext context) {
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
+    print("number $userNumber");
     return Scaffold(
       /* --------------------------------- appBar --------------------------------- */
       appBar: AppBar(

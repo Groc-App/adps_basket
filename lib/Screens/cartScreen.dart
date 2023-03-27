@@ -46,29 +46,33 @@ class _CartScreenState extends ConsumerState<CartScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    // foundUser = data;
+    // foundUser = data;z
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
+    // WidgetsBinding.instance.addPostFrameCallback(
+    // (_) async {
 // your code goes here
-      await getNumber();
-      var status = await ref.read(verifyCouponProvider(userNumber).future);
+    getNumber();
+    setStatus();
 
-      print("init:$userNumber");
-      print("Statussss:$status");
+    print("Statuss real:$referralVeri");
+    print("Statuss real:$discount");
+    // ref.invalidate(verifyCouponProvider);
+    // },
+  }
 
-      if (status == 'true') {
-        updateRefVeri('true');
-        updatediscount(10.0);
-      } else {
-        updateRefVeri('false');
-        updatediscount(0.0);
-      }
+  Future<void> setStatus() async {
+    var status = await ref.read(verifyCouponProvider(userNumber).future);
+    print("init:$userNumber");
+    print("Statussss:$status");
 
-      print("Statuss real:$status");
-      print("Statuss real:$referralVeri");
-      print("Statuss real:$discount");
-      // ref.invalidate(verifyCouponProvider);
-    });
+    if (status == 'true') {
+      updateRefVeri('true');
+      updatediscount(10.0);
+    } else {
+      updateRefVeri('false');
+      updatediscount(0.0);
+    }
+    print("userNumber $userNumber");
   }
 
   void updatediscount(value) {
