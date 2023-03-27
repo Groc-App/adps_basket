@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:your_basket/Screens/addressScreen.dart';
 import 'package:your_basket/Widgets/Sinners/loadingsinner.dart';
 import '../../models/address/address.dart' as Addresmodel;
 import '../../providers/providers.dart';
@@ -27,7 +28,8 @@ class Address extends ConsumerWidget {
           onTap: () {
             if (data.defaultAddress == true) {
             } else {
-              final addressModel = ref.read(addressBokkProvider.notifier);
+              final addressModel =
+                  ref.read(addressBokkProvider(phonenumber).notifier);
               Navigator.push(
                 context,
                 PageRouteBuilder(
@@ -94,7 +96,8 @@ class Address extends ConsumerWidget {
         ),
         GestureDetector(
           onTap: () {
-            final addressModel = ref.read(addressBokkProvider.notifier);
+            final addressModel =
+                ref.read(addressBokkProvider(phonenumber).notifier);
             addressModel.deleteAddress(userId, data.addressId);
           },
           child: Container(

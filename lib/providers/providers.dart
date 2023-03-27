@@ -60,9 +60,8 @@ final cartItemsProvider =
 );
 
 final addressBokkProvider =
-    StateNotifierProvider<AddressBookNotifier, AddressBookState>(
-  (ref) => AddressBookNotifier(
-      ref.watch(addressApiService), ref.watch(authCheckProvider)),
+    StateNotifierProvider.family<AddressBookNotifier, AddressBookState, String>(
+  (ref, number) => AddressBookNotifier(ref.watch(addressApiService), number),
 );
 
 final getrefferalIdProvider = FutureProvider.autoDispose.family<UserN?, String>(

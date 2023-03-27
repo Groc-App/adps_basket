@@ -8,7 +8,7 @@ import '../Widgets/Sinners/addresssinner.dart';
 import '../providers/providers.dart';
 import '../models/address/address.dart' as AddressModel;
 
-String userNumber = '';
+String phonenumber = '';
 
 class AddressBook extends ConsumerStatefulWidget {
   const AddressBook({Key? key}) : super(key: key);
@@ -26,7 +26,6 @@ class _AddressBookState extends ConsumerState<AddressBook> {
     // foundUser = data;
     super.initState();
 // your code goes here
-    getNumber();
 
     // ref.invalidate(verifyCouponProvider);
   }
@@ -35,14 +34,14 @@ class _AddressBookState extends ConsumerState<AddressBook> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String userNumberr = prefs.getString('username') ?? '';
     setState(() {
-      userNumber = userNumberr;
+      phonenumber = userNumberr;
     });
-    print("userNumber $userNumber");
+    print("userNumber $userNumberr");
   }
 
   Widget _addressList(WidgetRef ref, String phonenumber) {
     print("phoneNUmber $phonenumber");
-    final AddressBookState = ref.watch(addressBokkProvider);
+    final AddressBookState = ref.watch(addressBokkProvider(phonenumber));
     print("address $AddressBookState");
 
     if (AddressBookState.AddressBookModel == null) {
@@ -215,16 +214,18 @@ class _AddressBookState extends ConsumerState<AddressBook> {
                                 };
 
                                 if (functionality == 'addAddress') {
-                                  final addressModel =
-                                      ref.read(addressBokkProvider.notifier);
+                                  final addressModel = ref.read(
+                                      addressBokkProvider(phonenumber)
+                                          .notifier);
                                   addressModel
                                       .addNewAddress(mp)
                                       .whenComplete(() {
                                     Navigator.pop(context);
                                   });
                                 } else if (functionality == 'updateAddress') {
-                                  final addressModel =
-                                      ref.read(addressBokkProvider.notifier);
+                                  final addressModel = ref.read(
+                                      addressBokkProvider(phonenumber)
+                                          .notifier);
                                   addressModel
                                       .updateAddress(mp, addressId)
                                       .whenComplete(() {
@@ -248,7 +249,10 @@ class _AddressBookState extends ConsumerState<AddressBook> {
   Widget build(BuildContext context) {
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
-    print("number $userNumber");
+
+    getNumber();
+
+    print("number $phonenumber");
     return Scaffold(
       /* --------------------------------- appBar --------------------------------- */
       appBar: AppBar(
@@ -256,7 +260,7 @@ class _AddressBookState extends ConsumerState<AddressBook> {
           "My Addresses",
         ),
       ),
-      body: userNumber == ''
+      body: phonenumber == ''
           ? NoItems(
               noitemtext: 'Login/SignUp First',
               pageroute: 'loginpage',
@@ -269,8 +273,8 @@ class _AddressBookState extends ConsumerState<AddressBook> {
                   /* -------------------------------------------------------------------------- */
                   child: GestureDetector(
                     onTap: (() {
-                      bottomsheet(
-                          ref, context, userNumber, scHeight, 'addAddress', '');
+                      bottomsheet(ref, context, phonenumber, scHeight,
+                          'addAddress', '');
                     }),
                     child: Row(
                       children: [
@@ -289,7 +293,7 @@ class _AddressBookState extends ConsumerState<AddressBook> {
                 ),
                 const Divider(),
                 /* -------------------------------------------------------------------------- */
-                _addressList(ref, userNumber),
+                _addressList(ref, phonenumber),
                 // AddressSinner(),
               ]),
             ),

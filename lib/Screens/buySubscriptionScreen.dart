@@ -135,7 +135,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
     var number = (authInfo == null ? '' : authInfo);
 
     if (authInfo != null) {
-      final AddressBookState = ref.watch(addressBokkProvider);
+      final AddressBookState = ref.watch(addressBokkProvider(number));
       if (AddressBookState.AddressBookModel!.addresses.isNotEmpty) {
         var reqData = AddressBookState.AddressBookModel!.addresses
             .firstWhere((e) => e.defaultAddress == true);
