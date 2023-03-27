@@ -54,7 +54,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
         counter++;
       });
 
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      final cartViewModel = ref.read(cartItemsProvider(phonenumber).notifier);
       cartViewModel.updateCartItem(
           phonenumber, counter.toString(), product.productId);
     }
@@ -62,7 +62,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
 
   void decrementHandler(phonenumber) {
     if ((counter - 1) == 0) {
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      final cartViewModel = ref.read(cartItemsProvider(phonenumber).notifier);
       cartViewModel
           .removeCartItems(phonenumber, product.productId)
           .whenComplete(() {
@@ -71,7 +71,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
         });
       });
     } else {
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      final cartViewModel = ref.read(cartItemsProvider(phonenumber).notifier);
       cartViewModel
           .updateCartItem(
               phonenumber, (counter - 1).toString(), product.productId)
@@ -85,7 +85,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
 
   Widget addTile(scWidth, String number) {
     if (number != '') {
-      final CartItemModel = ref.watch(cartItemsProvider);
+      final CartItemModel = ref.watch(cartItemsProvider(number));
 
       if (CartItemModel.isLoading) {
         // return CircularProgressIndicator();
@@ -121,7 +121,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
     return buildAddTile(scWidth, number);
   }
 
-  Widget buildAddTile(scWidth, String? number) {
+  Widget buildAddTile(scWidth, String number) {
     return counter != 0
         ? Container(
             width: scWidth * 0.48 * 0.36,
@@ -181,7 +181,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
                         counter++;
                       });
                       final cartViewModel =
-                          ref.read(cartItemsProvider.notifier);
+                          ref.read(cartItemsProvider(number).notifier);
                       cartViewModel.addCartItems(number, product.productId);
                     }
                   },

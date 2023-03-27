@@ -139,7 +139,7 @@ class CheckoutScreen extends StatelessWidget {
               ),
             );
           } else {
-            final cartViewModel = ref.read(cartItemsProvider.notifier);
+            final cartViewModel = ref.read(cartItemsProvider(number).notifier);
             String succesdata = await cartViewModel.placeOrder(
                 number,
                 (pricetotal - discount + deliveryCharges).toString(),

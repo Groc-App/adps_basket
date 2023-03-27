@@ -7,6 +7,7 @@ import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:readmore/readmore.dart';
+import 'package:your_basket/Screens/offerScreen.dart';
 import 'package:your_basket/models/product/productdetail.dart';
 import 'package:your_basket/models/product/products.dart';
 import 'package:your_basket/providers/providers.dart';
@@ -264,7 +265,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
         counter++;
       });
 
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      final cartViewModel = ref.read(cartItemsProvider(phonenumber).notifier);
       cartViewModel.updateCartItem(
           phonenumber, counter.toString(), product.productId);
     }
@@ -272,7 +273,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
 
   void decrementHandler(phonenumber) {
     if ((counter - 1) == 0) {
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      final cartViewModel = ref.read(cartItemsProvider(phonenumber).notifier);
       cartViewModel
           .removeCartItems(phonenumber, product.productId)
           .whenComplete(() {
@@ -281,7 +282,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
         });
       });
     } else {
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      final cartViewModel = ref.read(cartItemsProvider(phonenumber).notifier);
       cartViewModel
           .updateCartItem(
               phonenumber, (counter - 1).toString(), product.productId)
@@ -295,7 +296,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
 
   Widget addTile(scWidth, String number) {
     if (number != '') {
-      final CartItemModel = ref.watch(cartItemsProvider);
+      final CartItemModel = ref.watch(cartItemsProvider(number));
       if (CartItemModel.isLoading) {
         return SpinKitThreeInOut(
           size: 38,
@@ -393,7 +394,8 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                     setState(() {
                       counter++;
                     });
-                    final cartViewModel = ref.read(cartItemsProvider.notifier);
+                    final cartViewModel =
+                        ref.read(cartItemsProvider(number).notifier);
                     cartViewModel.addCartItems(number, product.productId);
                   }
                 },

@@ -41,18 +41,18 @@ final authCheckProvider = StateProvider<String?>((ref) {
 });
 
 final cartItemsProvider =
-    StateNotifierProvider.autoDispose<CartNotifier, CartState>(
-  (ref) {
-    print("provider:");
-    String number;
-    var user = ref.watch(authCheckProvider);
+    StateNotifierProvider.autoDispose.family<CartNotifier, CartState, String>(
+  (ref, number) {
+    // print("provider:");
+    // String number;
+    // var user = ref.watch(authCheckProvider);
 
-    if (user == null) {
-      number = '';
-    } else {
-      print("provider:${user}");
-      number = user;
-    }
+    // if (user == null) {
+    //   number = '';
+    // } else {
+    //   print("provider:${user}");
+    //   number = user;
+    // }
     //  SharedPreferences prefs = await SharedPreferences.getInstance();
     // String userNumberr = prefs.getString('username') ?? '';
     return CartNotifier(ref.watch(cartApiService), number);

@@ -94,7 +94,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
   }
 
   Widget _cartList(WidgetRef ref, scHeight, scWidth) {
-    final cartState = ref.watch(cartItemsProvider);
+    final cartState = ref.watch(cartItemsProvider(userNumber));
 
     if (cartState.cartModel == null) {
       return const CartItemSinner();

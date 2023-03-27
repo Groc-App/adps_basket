@@ -46,7 +46,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         counter++;
       });
 
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      final cartViewModel = ref.read(cartItemsProvider(phonenumber).notifier);
       cartViewModel.updateCartItem(
           phonenumber, counter.toString(), product.productId);
     }
@@ -56,7 +56,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   void decrementHandler(phonenumber, Product product) {
     if ((counter - 1) == 0) {
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      final cartViewModel = ref.read(cartItemsProvider(phonenumber).notifier);
       cartViewModel
           .removeCartItems(phonenumber, product.productId)
           .whenComplete(() {
@@ -65,7 +65,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         });
       });
     } else {
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      final cartViewModel = ref.read(cartItemsProvider(phonenumber).notifier);
       cartViewModel
           .updateCartItem(
               phonenumber, (counter - 1).toString(), product.productId)

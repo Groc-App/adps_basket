@@ -54,7 +54,7 @@ class _CartItemState extends ConsumerState<CartItem> {
     } else {
       int newquan = quan + 1;
 
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      final cartViewModel = ref.read(cartItemsProvider(userid).notifier);
       cartViewModel.updateCartItem(userid, newquan.toString(), item.productId);
 
       setState(() {
@@ -70,7 +70,7 @@ class _CartItemState extends ConsumerState<CartItem> {
     if (newquan == 0) {
       print('0000000000000000000000000000000000000000000000000000000000000');
       print('inside cart item ${item.productId}');
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      final cartViewModel = ref.read(cartItemsProvider(userid).notifier);
       cartViewModel
           .removeCartItems(userid, item.productId)
           .whenComplete(() => Navigator.pushReplacement(
@@ -86,7 +86,7 @@ class _CartItemState extends ConsumerState<CartItem> {
                 ),
               ));
     } else {
-      final cartViewModel = ref.read(cartItemsProvider.notifier);
+      final cartViewModel = ref.read(cartItemsProvider(userid).notifier);
       cartViewModel.updateCartItem(userid, newquan.toString(), item.productId);
     }
 
