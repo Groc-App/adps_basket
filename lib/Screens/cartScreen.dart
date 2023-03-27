@@ -52,7 +52,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     // (_) async {
 // your code goes here
     getNumber();
-    setStatus();
+    setStatus(userNumber);
 
     print("Statuss real:$referralVeri");
     print("Statuss real:$discount");
@@ -60,7 +60,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     // },
   }
 
-  Future<void> setStatus() async {
+  Future<void> setStatus(String userNumber) async {
+    print(userNumber);
     var status = await ref.read(verifyCouponProvider(userNumber).future);
     print("init:$userNumber");
     print("Statussss:$status");
@@ -334,20 +335,15 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
     print("Body:::: $referralVeri");
     print("Body:::: $discount");
-    //   return FutureBuilder<bool>(
-    //   future: checkInternetConnection(),
-    //   builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-    //     if (snapshot.hasData && snapshot.data) {
-    //       // render widget content
-    //     } else {
-    //       // display error message or fallback content
-    //     }
-    //   },
-    // );
 
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        leading: BackButton(
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, '/cartScreen');
+          },
+        ),
         centerTitle: true,
         title: Column(
           children: [

@@ -236,7 +236,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                               SharedPreferences prefs =
                                   await SharedPreferences.getInstance();
                               await prefs.setString(
-                                  'phonenumber', user!.phoneNumber ?? '');
+                                  'username', user!.phoneNumber ?? '');
 
                               // navigate to home screen
                               Navigator.of(context).pushNamedAndRemoveUntil(

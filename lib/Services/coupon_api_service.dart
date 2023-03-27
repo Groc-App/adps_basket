@@ -60,7 +60,7 @@ class APIServiceCoupon {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      print('\n${data['message']}');
+      print('Message:\n${data['message']}');
       return data['message'];
     } else {
       return '';

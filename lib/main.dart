@@ -121,7 +121,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? username = prefs.getString('phonenumber');
+    String? username = prefs.getString('username');
     print("This is username $username");
     // bool? _seen = (prefs.getBool('seen'));
 
