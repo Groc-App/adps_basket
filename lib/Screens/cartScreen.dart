@@ -47,7 +47,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
   }
 
   Future<void> setStatus(String userNumber) async {
-    print(userNumber);
     var status = await ref.read(verifyCouponProvider(userNumber).future);
 
     if (status == 'true') {

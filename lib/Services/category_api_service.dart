@@ -15,7 +15,7 @@ class APIServiceCategory {
     };
 
     var ur =
-        "${Config.apiURL}${Config.getAllCategoryByMainCategory}/${mainCategoryId}}";
+        "${Config.apiURL}${Config.getAllCategoryByMainCategory}/${mainCategoryId}";
     var url = Uri.parse(ur);
 
     var response = await client.get(
@@ -34,6 +34,7 @@ class APIServiceCategory {
   Future<List<Category>?> getmainCategory() async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin": "*",
     };
 
     var ur = "${Config.apiURL}${Config.getAllmainCategoryApi}";

@@ -16,13 +16,15 @@ class APIServiceOffer {
       };
 
       final queryParameter = map;
-      var u = "${Config.apiURL}${Config.getAllOffers}${queryParameter}";
+      var u = "${Config.apiURL}${Config.getAllOffers}";
 
       var url = Uri.parse(u);
+      print("url:$url");
 
-      var response = await client.get(
+      var response = await client.post(
         url,
         headers: requestHeaders,
+        body: jsonEncode({"number": map['number']}),
       );
       var data = jsonDecode(response.body);
 
@@ -39,7 +41,9 @@ class APIServiceOffer {
         'Content-Type': 'application/json',
       };
 
-      var url = Uri.http(Config.apiURL, Config.updateOffer);
+      var u = "${Config.apiURL}${Config.updateOffer}";
+
+      var url = Uri.parse(u);
       var body = json.encode(map);
 
       var response =

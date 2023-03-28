@@ -8,12 +8,7 @@ class SearchData {
 
   static void initialize(WidgetRef ref) async {
     List<Product> pdata = await ref.watch(allProductProvider.future);
-    // pdata.when(
-    //     data: (value) {
-    //       data = value;
-    //     },
-    //     error: (_, __) {},
-    //     loading: () {});
+
     data = pdata;
   }
 }

@@ -16,13 +16,14 @@ class APIServiceSubscription {
 
     final queryParameter = {'number': number};
 
-    var u = "${Config.apiURL}${Config.getSubscriptionByUser}/${queryParameter}";
+    var u = "${Config.apiURL}${Config.getSubscriptionByUser}";
 
     var url = Uri.parse(u);
 
-    var response = await client.get(
+    var response = await client.post(
       url,
       headers: requestHeaders,
+      body: jsonEncode({"number": number}),
     );
 
     if (true) {
@@ -58,7 +59,9 @@ class APIServiceSubscription {
       'Content-Type': 'application/json',
     };
 
-    var url = Uri.http(Config.apiURL, Config.editSubscripiotn);
+    var u = "${Config.apiURL}${Config.editSubscripiotn}";
+
+    var url = Uri.parse(u);
 
     var response = await client.post(url,
         headers: requestHeaders,
@@ -87,8 +90,9 @@ class APIServiceSubscription {
 
       var body = json.encode(map);
 
-      var url =
-          Uri.http(Config.apiURL, Config.cancelSubscription, queryParameter);
+      var u = "${Config.apiURL}${Config.cancelSubscription}${queryParameter}";
+
+      var url = Uri.parse(u);
 
       var response = await client.delete(
         url,

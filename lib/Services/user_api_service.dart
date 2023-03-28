@@ -15,8 +15,9 @@ class APIServiceUser {
       'Content-Type': 'application/json',
     };
 
-    var ur = Config.getrefferalID + '/${number}';
-    var url = Uri.http(Config.apiURL, ur);
+    var u = "${Config.apiURL}${Config.getrefferalID}/${number}";
+
+    var url = Uri.parse(u);
 
     print("Url of ger refferral id $url");
 
@@ -39,9 +40,9 @@ class APIServiceUser {
       'Content-Type': 'application/json',
     };
 
-    var ur = Config.createuserApi;
+    var u = "${Config.apiURL}${Config.createuserApi}";
 
-    var url = Uri.http(Config.apiURL, ur);
+    var url = Uri.parse(u);
 
     print(url);
 

@@ -19,7 +19,9 @@ class APIServiceCoupon {
       'Content-Type': 'application/json',
     };
 
-    var url = Uri.http(Config.apiURL, Config.checkOffer);
+    var u = "${Config.apiURL}${Config.checkOffer}";
+
+    var url = Uri.parse(u);
 
     print(url);
 
@@ -46,7 +48,9 @@ class APIServiceCoupon {
       'Content-Type': 'application/json',
     };
 
-    var url = Uri.http(Config.apiURL, Config.verifyOffer);
+    var u = "${Config.apiURL}${Config.verifyOffer}";
+
+    var url = Uri.parse(u);
 
     print("This is verifyReferral url $url");
 

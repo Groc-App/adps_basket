@@ -16,9 +16,10 @@ class APIServiceProducts {
       'Content-Type': 'application/json',
     };
 
-    var url = Uri.http(Config.apiURL, Config.getAllProducts);
-    print("\nThis is productData URL::");
-    print(url);
+    var u = "${Config.apiURL}${Config.getAllProducts}";
+    print("\nThis is productData URL::$u");
+    var url = Uri.parse(u);
+    print("\nThis is productData URL::$url");
     var response = await client.get(
       url,
       headers: requestHeaders,
@@ -39,8 +40,9 @@ class APIServiceProducts {
     final queryParameter = map;
 
     var u =
-        "${Config.apiURL}${Config.getProductsByCategoriesApi}$queryParameter";
+        "${Config.apiURL}${Config.getProductsByCategoriesApi}?mainCategoryId=${queryParameter['mainCategoryId']}&subCategoryId=${queryParameter['subCategoryId']}";
 
+    print("u$u");
     var url = Uri.parse(u);
 
     var response = await client.get(

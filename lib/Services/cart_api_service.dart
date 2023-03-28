@@ -1,9 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:your_basket/Widgets/Homepage/ProductItem.dart';
-import 'package:your_basket/data/productsdata.dart';
-import 'package:your_basket/models/cart/cartitem.dart';
-import 'package:your_basket/models/category/category.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config.dart';
 import '../models/cart/cart.dart';
@@ -19,10 +15,9 @@ class APIServiceCart {
       'Content-Type': 'application/json',
     };
 
-    var ur = Config.placeorderApi;
-    var url = Uri.http(Config.apiURL, ur);
+    var u = "${Config.apiURL}${Config.placeorderApi}";
 
-    print(url);
+    var url = Uri.parse(u);
 
     var response = await client.post(
       url,
@@ -36,14 +31,9 @@ class APIServiceCart {
       }),
     );
 
-    print(response.body);
-
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      print('Yasssssss:::::::::::::::::::::::');
       return 'success';
     } else {
-      print('Noooo:::::::::::::::::::::::::::');
       return '';
     }
   }
@@ -55,16 +45,13 @@ class APIServiceCart {
 
     String userid = number ?? '';
 
-    var ur = Config.getCartItemApi + '/${userid}';
-    var url = Uri.http(Config.apiURL, ur);
+    var u = "${Config.apiURL}${Config.getCartItemApi}/$userid";
+    var url = Uri.parse(u);
 
     var response = await client.get(
       url,
       headers: requestHeaders,
-      // body: jsonEncode({"phone": }),
     );
-
-    var data = response.statusCode;
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -80,10 +67,10 @@ class APIServiceCart {
       'Content-Type': 'application/json',
     };
 
-    var ur = Config.createcartitemApi;
-    var url = Uri.http(Config.apiURL, ur);
+    var u = "${Config.apiURL}${Config.createcartitemApi}";
 
-    print(url);
+    // var ur = Config.createcartitemApi;
+    var url = Uri.parse(u);
 
     var response = await client.post(
       url,
@@ -92,11 +79,8 @@ class APIServiceCart {
     );
 
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      print("success in updating");
       return null;
     } else {
-      print("failure");
       return null;
     }
   }
@@ -107,12 +91,9 @@ class APIServiceCart {
       'Content-Type': 'application/json',
     };
 
-    var ur = Config.addorupdatecartitemApi;
-    var url = Uri.http(Config.apiURL, ur);
+    var u = "${Config.apiURL}${Config.addorupdatecartitemApi}";
 
-    print(url);
-    print(number);
-    print(productid);
+    var url = Uri.parse(u);
 
     var response = await client.post(
       url,
@@ -123,10 +104,8 @@ class APIServiceCart {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      print("success in updating");
       return null;
     } else {
-      print("failure");
       return null;
     }
   }
@@ -136,10 +115,9 @@ class APIServiceCart {
       'Content-Type': 'application/json',
     };
 
-    var ur = Config.removeCartItem;
-    var url = Uri.http(Config.apiURL, ur);
+    var u = "${Config.apiURL}${Config.removeCartItem}";
 
-    print(url);
+    var url = Uri.parse(u);
 
     var response = await client.post(
       url,
@@ -149,10 +127,8 @@ class APIServiceCart {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      print("success in deleting");
       return null;
     } else {
-      print("failure");
       return null;
     }
   }

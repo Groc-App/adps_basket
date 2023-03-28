@@ -140,7 +140,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
       results = [];
     });
-    // AppBuilder.of(context).rebuild();
   }
 
   @override
@@ -148,8 +147,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
     final scWidth = scSize.width;
-
-    // var authInfo = ref.watch(authCheckProvider);
 
     return Scaffold(
       /* ---------------------------------- BODY ---------------------------------- */
@@ -168,65 +165,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               elevation: 5.0,
               floating: false,
               pinned: true,
-              // title: innerBoxIsScrolled
-              //     ? Padding(
-              //         padding: const EdgeInsets.symmetric(vertical: 10.0),
-              //         child: SearchBar(),
-              //       )
-              //     : null,
               flexibleSpace: FlexibleSpaceBar(
                   background: _buildSilverAppBarBackground(context, 100.0)),
             ),
           ];
         },
-        // child: Column(
-        //   children: [
-        //     /* ---------------------------- Top SLider Bar ---------------------------- */
-        //     Container(
-        //       height: 50,
-        //       margin: const EdgeInsets.all(8),
-        //       padding: const EdgeInsets.all(10),
-        //       decoration: BoxDecoration(
-        //           boxShadow: const [
-        //             BoxShadow(
-        //                 color: Colors.grey, spreadRadius: 1, blurRadius: 1)
-        //           ],
-        //           color: Colors.white,
-        //           borderRadius: BorderRadius.circular(20)),
-        //       child: Row(
-        //         children: [
-        //           const Icon(Icons.search),
-        //           Container(
-        //             width: 250,
-        //             margin: const EdgeInsets.only(left: 10),
-        //             child: TextFormField(
-        //               autofocus: true,
-        //               // obscuringCharacter: ,
-        //               enableSuggestions: true,
-        //               // onSaved: (value) {
-        //               //   runFilter(value!);
-        //               // },
-        //               onChanged: (value) {
-        //                 runFilter(value);
-        //               },
-        //               decoration: InputDecoration.collapsed(
-        //                 hintText: 'Search',
-        //               ).copyWith(isDense: true),
-        //             ),
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //     foundUser.isEmpty
-        //         ? SizedBox(
-        //             height: scHeight * 0.8,
-        //             child: const Center(child: Text("Your Items")),
-        //           )
-        //         : SizedBox(
-        //             /* ---------------------- Building Categories Item Grid --------------------- */
-        //             child: buildProducts(foundUser, authInfo, scWidth))
-        //   ],
-        // ),
       ),
     );
   }

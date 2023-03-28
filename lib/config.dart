@@ -12,9 +12,10 @@ class Config {
   // ignore: constant_identifier_names
   static const String GrocApp = 'GrocApp';
   // static const String apiURL = '127.0.0.1:8000';
+  // static const String apiURL = 'http://35.154.32.225:8000';
   static const String apiURL = 'http://35.154.32.225:8000';
   // static const String apiURL = '127.0.0.1:8000';
-  // static const String apiURL = '192.168.1.11:8000';
+  // static const String apiURL = 'http://192.168.1.9:8000';
   // 127.0.0.1:8000
   // 192.168.1.16:8000
   // static const String apiURL =
@@ -40,7 +41,7 @@ class Config {
 
   /* ---------------------------- Categories APi's ---------------------------- */
 
-  static const String getAllmainCategoryApi = 'category/getallmaincategory';
+  static const String getAllmainCategoryApi = '/category/getallmaincategory';
   static const String getAllCategoryApi = '/category/getAllCategory';
   static const String getAllCategoryByMainCategory =
       '/category/getCategoryByMainCategory';
