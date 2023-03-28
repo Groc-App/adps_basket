@@ -21,7 +21,7 @@ class CopyRightSymbol extends StatelessWidget {
             'v1.0.0.1',
             style: TextStyle(fontSize: 16, color: Colors.grey),
           ),
-        )
+        ),
       ],
     );
   }
