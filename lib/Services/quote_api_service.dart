@@ -13,7 +13,9 @@ class APIServiceQuote {
       'Content-Type': 'application/json',
     };
 
-    var url = Uri.http(Config.apiURL, Config.getQuote);
+    var u = "${Config.apiURL}${Config.getQuote}";
+
+    var url = Uri.parse(u);
 
     var response = await client.get(
       url,

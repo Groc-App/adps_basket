@@ -14,8 +14,9 @@ class APIServiceCategory {
       'Content-Type': 'application/json',
     };
 
-    String ur = Config.getAllCategoryByMainCategory + '/${mainCategoryId}';
-    var url = Uri.http(Config.apiURL, ur);
+    var ur =
+        "${Config.apiURL}${Config.getAllCategoryByMainCategory}/${mainCategoryId}}";
+    var url = Uri.parse(ur);
 
     var response = await client.get(
       url,
@@ -35,7 +36,8 @@ class APIServiceCategory {
       'Content-Type': 'application/json',
     };
 
-    var url = Uri.http(Config.apiURL, Config.getAllmainCategoryApi);
+    var ur = "${Config.apiURL}${Config.getAllmainCategoryApi}";
+    var url = Uri.parse(ur);
     print(url);
 
     var response = await client.get(

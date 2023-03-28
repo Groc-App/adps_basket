@@ -16,7 +16,8 @@ class APIServiceAddress {
       'Content-Type': 'application/json',
     };
 
-    var url = Uri.http(Config.apiURL, Config.addnewaddress);
+    var u = "${Config.apiURL}${Config.addnewaddress}";
+    var url = Uri.parse(u);
 
     Map<String, String?> address = {
       "Recipients_Name": mp['Recipients_Name'],
@@ -46,7 +47,8 @@ class APIServiceAddress {
       'Content-Type': 'application/json',
     };
 
-    var url = Uri.http(Config.apiURL, Config.deleteaddress);
+    var u = "${Config.apiURL}${Config.deleteaddress}";
+    var url = Uri.parse(u);
 
     var response = await client.post(
       url,
@@ -67,7 +69,8 @@ class APIServiceAddress {
       'Content-Type': 'application/json',
     };
 
-    var url = Uri.http(Config.apiURL, Config.updateaddress);
+    var u = "${Config.apiURL}${Config.updateaddress}";
+    var url = Uri.parse(u);
 
     Map<String, String?> address = {
       "Recipients_Name": addressdetail['Recipients_Name'],
@@ -95,7 +98,9 @@ class APIServiceAddress {
       'Content-Type': 'application/json',
     };
 
-    var url = Uri.http(Config.apiURL, Config.getalladdressbyid);
+    var u = "${Config.apiURL}${Config.getalladdressbyid}";
+
+    var url = Uri.parse(u);
 
     String? phonenumber = number;
 
@@ -118,9 +123,9 @@ class APIServiceAddress {
       'Content-Type': 'application/json',
     };
 
-    var ur = '${Config.getselectedaddress}/$phonenumber';
+    var u = "${Config.apiURL}${Config.getselectedaddress}/$phonenumber}";
 
-    var url = Uri.http(Config.apiURL, ur);
+    var url = Uri.parse(u);
 
     var response = await client.get(
       url,
@@ -140,7 +145,9 @@ class APIServiceAddress {
       'Content-Type': 'application/json',
     };
 
-    var url = Uri.http(Config.apiURL, Config.setSelectedaddress);
+    var u = "${Config.apiURL}${Config.setSelectedaddress}";
+
+    var url = Uri.parse(u);
 
     var response = await client.post(url,
         headers: requestHeaders,

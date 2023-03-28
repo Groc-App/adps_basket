@@ -37,8 +37,11 @@ class APIServiceProducts {
     };
 
     final queryParameter = map;
-    var url = Uri.http(
-        Config.apiURL, Config.getProductsByCategoriesApi, queryParameter);
+
+    var u =
+        "${Config.apiURL}${Config.getProductsByCategoriesApi}$queryParameter";
+
+    var url = Uri.parse(u);
 
     var response = await client.get(
       url,
@@ -61,8 +64,8 @@ class APIServiceProducts {
         'Content-Type': 'application/json',
         "Access-Control-Allow-Origin": "*", // Required for CORS support to work
       };
-
-      var url = Uri.http(Config.apiURL, Config.getProductsMostSellingApi);
+      var u = "${Config.apiURL}${Config.getProductsMostSellingApi}";
+      var url = Uri.parse(u);
       print("This is url");
       print(url);
 

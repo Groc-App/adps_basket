@@ -16,7 +16,9 @@ class APIServiceOffer {
       };
 
       final queryParameter = map;
-      var url = Uri.http(Config.apiURL, Config.getAllOffers, queryParameter);
+      var u = "${Config.apiURL}${Config.getAllOffers}${queryParameter}";
+
+      var url = Uri.parse(u);
 
       var response = await client.get(
         url,

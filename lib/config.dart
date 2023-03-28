@@ -12,7 +12,7 @@ class Config {
   // ignore: constant_identifier_names
   static const String GrocApp = 'GrocApp';
   // static const String apiURL = '127.0.0.1:8000';
-  static const String apiURL = '192.168.1.5:8000';
+  static const String apiURL = 'http://35.154.32.225:8000';
   // static const String apiURL = '127.0.0.1:8000';
   // static const String apiURL = '192.168.1.11:8000';
   // 127.0.0.1:8000

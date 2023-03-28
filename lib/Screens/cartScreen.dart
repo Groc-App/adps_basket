@@ -43,16 +43,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     super.initState();
 
     getNumber();
-<<<<<<< HEAD
     setStatus(userNumber);
-
-    print("Statuss real:$referralVeri");
-    print("Statuss real:$discount");
-    // ref.invalidate(verifyCouponProvider);
-    // },
-=======
-    setStatus();
->>>>>>> aded54154ab7bc0b5b46f824c2bf144e2a58342f
   }
 
   Future<void> setStatus(String userNumber) async {
@@ -324,10 +315,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
     // var authInfo?=username
 
-<<<<<<< HEAD
-    print("Body:::: $referralVeri");
-    print("Body:::: $discount");
-=======
     //   return FutureBuilder<bool>(
     //   future: checkInternetConnection(),
     //   builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
@@ -338,7 +325,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     //     }
     //   },
     // );
->>>>>>> aded54154ab7bc0b5b46f824c2bf144e2a58342f
 
     return Scaffold(
       appBar: AppBar(

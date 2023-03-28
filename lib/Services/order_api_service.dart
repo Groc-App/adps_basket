@@ -16,8 +16,10 @@ class APIServiceOrder {
         'Content-Type': 'application/json',
       };
 
-      var ur = Config.getOrderbyIdApi + '/${userid}';
-      var url = Uri.http(Config.apiURL, ur);
+      var u = "${Config.apiURL}${Config.getOrderbyIdApi}${userid}";
+
+      // var ur = Config.getOrderbyIdApi + '/${userid}';
+      var url = Uri.parse(u);
 
       print(url);
 
@@ -48,7 +50,9 @@ class APIServiceOrder {
       'quantity': cartitemdet['quantity'],
     };
 
-    var url = Uri.http(Config.apiURL, Config.getProductByIdApi);
+    var u = "${Config.apiURL}${Config.getProductByIdApi}";
+
+    var url = Uri.parse(u);
 
     print(url);
 

@@ -16,8 +16,9 @@ class APIServiceSubscription {
 
     final queryParameter = {'number': number};
 
-    var url =
-        Uri.http(Config.apiURL, Config.getSubscriptionByUser, queryParameter);
+    var u = "${Config.apiURL}${Config.getSubscriptionByUser}/${queryParameter}";
+
+    var url = Uri.parse(u);
 
     var response = await client.get(
       url,
@@ -39,7 +40,9 @@ class APIServiceSubscription {
 
     var body = json.encode(map);
 
-    var url = Uri.http(Config.apiURL, Config.createSubscripiotn);
+    var u = "${Config.apiURL}${Config.createSubscripiotn}";
+
+    var url = Uri.parse(u);
 
     var response = await client.post(url, headers: requestHeaders, body: body);
 

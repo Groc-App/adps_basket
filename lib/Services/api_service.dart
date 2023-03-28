@@ -14,9 +14,11 @@ class APIServiceAuth {
       'Content-Type': 'application/json',
     };
 
+    // var u = "${Config.apiURL}${Config.getProductsMostSellingApi}";
+
     var ur = '${Config.getProductByIdApi}/$productid';
 
-    var url = Uri.http(Config.apiURL, ur);
+    var url = Uri.parse(ur);
 
     var response = await client.get(
       url,
