@@ -315,17 +315,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
     // var authInfo?=username
 
-    //   return FutureBuilder<bool>(
-    //   future: checkInternetConnection(),
-    //   builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-    //     if (snapshot.hasData && snapshot.data) {
-    //       // render widget content
-    //     } else {
-    //       // display error message or fallback content
-    //     }
-    //   },
-    // );
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
