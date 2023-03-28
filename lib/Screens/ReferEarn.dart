@@ -329,8 +329,8 @@ class ReferEarnScreen extends ConsumerWidget {
                             ),
                           ),
                         ),
-                      )
-                      // refferalId('', number);
+                      ),
+                      // refferalId(ref, number, context),
                       // _buildrefferal('ebjcjjkb'),
                     ],
                   ),

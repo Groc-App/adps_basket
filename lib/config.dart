@@ -21,6 +21,10 @@ class Config {
   // static const String apiURL =
   //     'https://i1fn4d1wa3.execute-api.ap-south-1.amazonaws.com/dev';
 
+  // list of available pincodes
+
+  static List<String> availpincode = ['131028'];
+
   /* -------------------------------------------------------------------------- */
   /*                               End Points                                   */
   /* -------------------------------------------------------------------------- */
@@ -31,6 +35,8 @@ class Config {
 //  screenWidth = ui.window.physicalSize.width / ui.window.devicePixelRatio;
   static double scHeight =
       ui.window.physicalSize.height / ui.window.devicePixelRatio;
+  static double scWidth =
+      ui.window.physicalSize.width / ui.window.devicePixelRatio;
 
   /* ---------------------------------- AUth ---------------------------------- */
   static const String otpLoginAPI = '/otpLogin';

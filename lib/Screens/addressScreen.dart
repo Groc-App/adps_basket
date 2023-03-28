@@ -3,10 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:your_basket/Widgets/Address/address.dart';
 import '../Widgets/Cart/Noitems.dart';
 import '../Widgets/Sinners/addresssinner.dart';
+import '../config.dart';
 import '../providers/providers.dart';
 // ignore: library_prefixes
 import '../models/address/address.dart' as AddressModel;
@@ -23,13 +25,14 @@ class AddressBook extends ConsumerStatefulWidget {
 class _AddressBookState extends ConsumerState<AddressBook> {
   // AddressBook({super.key});
 
+  bool _showCheckfield = false;
+  bool _checked = false;
+  bool _correct = false;
+  TextEditingController _pincodeController = TextEditingController();
+
   @override
   void initState() {
-    // foundUser = data;
     super.initState();
-// your code goes here
-
-    // ref.invalidate(verifyCouponProvider);
   }
 
   Future<void> getNumber() async {
@@ -192,6 +195,9 @@ class _AddressBookState extends ConsumerState<AddressBook> {
                             validator: (value) {
                               if (value == null || value.length != 6) {
                                 return 'Please enter correct Pincode';
+                              } else if (Config.availpincode.contains(value) ==
+                                  false) {
+                                return 'Sorry, we are not available in this area right now.';
                               }
                               return null;
                             },
@@ -265,35 +271,153 @@ class _AddressBookState extends ConsumerState<AddressBook> {
             )
           : SingleChildScrollView(
               padding: const EdgeInsets.all(8.0),
-              child: Column(children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  /* -------------------------------------------------------------------------- */
-                  child: GestureDetector(
-                    onTap: (() {
-                      bottomsheet(ref, context, phonenumber, scHeight,
-                          'addAddress', '');
-                    }),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.add),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          "Add New Address",
-                          style:
-                              TextStyle(color: Theme.of(context).primaryColor),
-                        )
-                      ],
+              child: SizedBox(
+                height: Config.scHeight -
+                    (MediaQuery.of(context).padding.top + kToolbarHeight) -
+                    20,
+                child: Column(children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    /* -------------------------------------------------------------------------- */
+                    child: GestureDetector(
+                      onTap: (() {
+                        bottomsheet(ref, context, phonenumber, scHeight,
+                            'addAddress', '');
+                      }),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.add),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "Add New Address",
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                const Divider(),
-                /* -------------------------------------------------------------------------- */
-                _addressList(ref, phonenumber),
-                // AddressSinner(),
-              ]),
+                  const Divider(),
+                  /* -------------------------------------------------------------------------- */
+                  _addressList(ref, phonenumber),
+                  const Spacer(),
+                  _showCheckfield
+                      ? Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 7),
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                controller: _pincodeController,
+                                maxLength: 6,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Enter Pincode',
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.length != 6) {
+                                    return 'Please enter correct Pincode';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: ((Config.scWidth * 0.5) - 95)),
+                                    child: ElevatedButton(
+                                        onPressed: () {
+                                          FocusScope.of(context).unfocus();
+
+                                          if (Config.availpincode.contains(
+                                              _pincodeController.text)) {
+                                            setState(() {
+                                              _correct = true;
+                                              _checked = true;
+                                              _showCheckfield = false;
+                                            });
+                                          } else {
+                                            setState(() {
+                                              _correct = false;
+                                              _checked = true;
+                                              _showCheckfield = false;
+                                            });
+                                          }
+                                        },
+                                        child:
+                                            const Text('Check Availability')),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  const Spacer(),
+                                  GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          _showCheckfield = false;
+                                        });
+                                      },
+                                      child: const Icon(
+                                        FontAwesomeIcons.xmark,
+                                        size: 17,
+                                      )),
+                                ],
+                              )
+                            ],
+                          ),
+                        )
+                      : Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 5, vertical: 5),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 3),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.delivery_dining_rounded),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              _checked
+                                  ? _correct
+                                      ? Text(
+                                          'Yayy, service available',
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .primaryColor),
+                                        )
+                                      : const Text(
+                                          'Sorry, service unavailable',
+                                          style: TextStyle(color: Colors.red),
+                                        )
+                                  : const Text('Check available delivery'),
+                              const Spacer(),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _showCheckfield = true;
+                                  });
+                                },
+                                child: Text(
+                                  _checked ? 'Check other' : 'Check',
+                                  style: const TextStyle(
+                                      color: Colors.blue, fontSize: 12),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                ]),
+              ),
             ),
     );
   }

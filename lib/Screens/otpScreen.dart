@@ -1,5 +1,7 @@
 // ignore_for_file: file_names, prefer_const_constructors, prefer_typing_uninitialized_variables, use_build_context_synchronously, unnecessary_null_comparison
 
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +27,13 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _timer!.cancel();
+  }
+
   // const OtpScreen({super.key});
   FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -32,11 +41,27 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
   bool wait = true;
   var smscoded;
   bool _isLoading = false;
+  Timer? _timer;
 
   var phoneNumber = '';
   var hint = '000000';
 
-  void startTimer() {}
+  void startTimer() {
+    print('Timer started');
+    const onsec = Duration(seconds: 1);
+    _timer = Timer.periodic(onsec, (timer) {
+      if (start == 0) {
+        setState(() {
+          wait = false;
+          timer.cancel();
+        });
+      } else {
+        setState(() {
+          start--;
+        });
+      }
+    });
+  }
 
   Widget otpField() {
     return OTPTextField(
@@ -90,12 +115,16 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                    padding: EdgeInsets.only(left: 15),
+                    margin: EdgeInsets.only(left: 12),
                     height: scheight * 0.45,
                     width: scWidth,
                     child: CachedNetworkImage(
                         imageUrl:
                             'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Screens%2FOtpScreen%2Fotpscreen%20(2).png?alt=media&token=8d38b962-91c8-47ce-825b-513d4897d47c')),
+
+                SizedBox(
+                  height: 15,
+                ),
                 Text(
                   'Verification',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:about/about.dart';
+import 'package:readmore/readmore.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -58,8 +59,23 @@ class _ContentState extends ConsumerState<Content> {
               'year': DateTime.now().year.toString(),
             },
             applicationLegalese: 'Copyright © ADPS, {{ year }}',
-            applicationDescription: const Text(
-                'Basko is delivery app which delivers grocery items to your door steps in no time.'),
+            applicationDescription: const ReadMoreText(
+              // trimLength: 50,
+              trimLines: 4,
+              colorClickableText: Colors.pink,
+              trimMode: TrimMode.Line,
+              moreStyle: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue),
+              lessStyle: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue),
+              trimCollapsedText: '\nRead more >>',
+              trimExpandedText: '\nShow less <<',
+              'Basko is a cutting-edge grocery delivery app that allows users to order their groceries in real time and have them delivered straight to their doorstep. With a user-friendly interface and a vast selection of fresh, high-quality products, Basko makes grocery shopping easier and more convenient than ever before. Whether you need to stock up on pantry essentials, fresh produce, or household items, Basko offers a seamless shopping experience that saves you time and energy. With its reliable and efficient delivery system, Basko is the perfect solution for busy individuals who want to enjoy the convenience of shopping from the comfort of their own homes.',
+            ),
             children: const <Widget>[
               MarkdownPageListTile(
                 icon: Icon(Icons.list),
@@ -75,7 +91,7 @@ class _ContentState extends ConsumerState<Content> {
               height: 100,
               child: CachedNetworkImage(
                   imageUrl:
-                      'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Logo%2Flogo.png?alt=media&token=bde72ad0-a31b-405c-911c-6a45e258b6db'),
+                      'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Logo%2FNew%2Flogo%20png%202.png?alt=media&token=c9f57ebd-d2e6-402b-8844-3758029d9258'),
             ),
           );
         } else if (naviUrl == 'logout') {

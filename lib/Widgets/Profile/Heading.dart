@@ -71,20 +71,21 @@ class _HeadingSupportState extends ConsumerState<HeadingSupport> {
           ]),
           GestureDetector(
             onTap: () async {
-              var whatsapp = userNumber;
-              var whatsappAndroid =
-                  Uri.parse("whatsapp://send?phone=$whatsapp&text=hello");
-              if (await canLaunchUrl(whatsappAndroid)) {
-                await launchUrl(whatsappAndroid);
-              } else {
-                ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text(
-                        "WhatsApp is not installed on the device or some error"),
-                  ),
-                );
-              }
+              var contact = "+917988923447";
+              var androidUrl = "https://wa.me/$contact?text=Hey, Basko Man!!";
+              // if (await canLaunch(androidUrl)) {
+              //   await launch(androidUrl);
+              // } else {
+              //   ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              //   ScaffoldMessenger.of(context).showSnackBar(
+              //     const SnackBar(
+              //       content: Text(
+              //           "WhatsApp is not installed on the device or some error"),
+              //     ),
+              //   );
+              // }
+
+              await launch(androidUrl);
 
               // var whatsappAndroid =
               //     Uri.parse("whatsapp://send?phone=$whatsapp?text=Your");

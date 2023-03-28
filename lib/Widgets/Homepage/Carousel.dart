@@ -22,72 +22,47 @@ class Carousel extends StatelessWidget {
       child: CarouselSlider(
         // ignore: sort_child_properties_last
         children: [
-          GestureDetector(
-            onTap: () {
-              // Navigator.of(context).pushNamed(
-              //   '/categoryScreen',
-              // );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black12),
-                borderRadius: BorderRadius.circular(10.0),
-                image: const DecorationImage(
-                  image: CachedNetworkImageProvider(
-                      'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2FNew%20Customised%2Fc2.png?alt=media&token=e066aa14-d925-414a-aaf7-60690df67018'),
-                  fit: BoxFit.contain,
-                ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black12),
+              borderRadius: BorderRadius.circular(10.0),
+              image: const DecorationImage(
+                image: CachedNetworkImageProvider(
+                    'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2FNew%20Customised%2Fc2.png?alt=media&token=e066aa14-d925-414a-aaf7-60690df67018'),
+                fit: BoxFit.contain,
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              // Navigator.of(context).pushNamed('/categoryScreen',
-              //     arguments: {'maincategoryid': '63ef527f0f5f88744b7814ed'});
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black12),
-                borderRadius: BorderRadius.circular(10.0),
-                image: const DecorationImage(
-                  image: CachedNetworkImageProvider(
-                      'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2FNew%20Customised%2Fc1.png?alt=media&token=7fe9ca1d-6123-4a43-a49c-528df9453ecb'),
-                  fit: BoxFit.contain,
-                ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black12),
+              borderRadius: BorderRadius.circular(10.0),
+              image: const DecorationImage(
+                image: CachedNetworkImageProvider(
+                    'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2FNew%20Customised%2Fc1.png?alt=media&token=7fe9ca1d-6123-4a43-a49c-528df9453ecb'),
+                fit: BoxFit.contain,
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).pushNamed(
-                '/subscriptionScreen',
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black12),
-                borderRadius: BorderRadius.circular(10.0),
-                image: const DecorationImage(
-                  image: CachedNetworkImageProvider(
-                      'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2FNew%20Customised%2Fc3.png?alt=media&token=8367a667-7c2e-4d97-9b72-3c2a2d2a4847'),
-                  fit: BoxFit.contain,
-                ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black12),
+              borderRadius: BorderRadius.circular(10.0),
+              image: const DecorationImage(
+                image: CachedNetworkImageProvider(
+                    'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2FNew%20Customised%2Fc3.png?alt=media&token=8367a667-7c2e-4d97-9b72-3c2a2d2a4847'),
+                fit: BoxFit.contain,
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).pushNamed('/referearnScreen');
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black12),
-                borderRadius: BorderRadius.circular(10.0),
-                image: const DecorationImage(
-                  image: CachedNetworkImageProvider(
-                      'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2FNew%20Customised%2Fc4.png?alt=media&token=ab0dcde9-662e-4273-8145-1c11de0dbd70'),
-                  fit: BoxFit.contain,
-                ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black12),
+              borderRadius: BorderRadius.circular(10.0),
+              image: const DecorationImage(
+                image: CachedNetworkImageProvider(
+                    'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2FNew%20Customised%2Fc4.png?alt=media&token=ab0dcde9-662e-4273-8145-1c11de0dbd70'),
+                fit: BoxFit.contain,
               ),
             ),
           ),

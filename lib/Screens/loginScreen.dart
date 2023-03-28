@@ -64,10 +64,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         /* --------------------------------- Headings -------------------------------- */
-                        const Text(
-                          "India's last minute app",
+                        Text(
+                          "Shop easy, with Basko's speedy.",
                           style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.bold),
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).primaryColor),
                         ),
                         const SizedBox(height: 10),
                         const Text(
@@ -151,7 +153,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       _isLoading = false;
                                     });
                                     final snackBar = SnackBar(
-                                      content: Text('${e.message}'),
+                                      content:
+                                          Text('Please enter valid number'),
                                       behavior: SnackBarBehavior.fixed,
                                       // padding: EdgeInsets.only(
                                       //     left: scWidth * 0.35, top: 10, bottom: 10),

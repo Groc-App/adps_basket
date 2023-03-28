@@ -16,7 +16,7 @@ class APIServiceOrder {
         'Content-Type': 'application/json',
       };
 
-      var u = "${Config.apiURL}${Config.getOrderbyIdApi}${userid}";
+      var u = "${Config.apiURL}${Config.getOrderbyIdApi}/${userid}";
 
       // var ur = Config.getOrderbyIdApi + '/${userid}';
       var url = Uri.parse(u);

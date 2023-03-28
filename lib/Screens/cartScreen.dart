@@ -446,7 +446,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                               });
                                             },
                                             child: const Icon(
-                                                Icons.cancel_rounded)),
+                                              FontAwesomeIcons.xmark,
+                                              size: 17,
+                                            )),
                                       ],
                                     )
                                   ],
