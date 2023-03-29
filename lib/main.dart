@@ -121,24 +121,24 @@ class _MyHomePageState extends State<MyHomePage> {
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? username = prefs.getString('phonenumber');
-    // bool? _seen = (prefs.getBool('seen'));
+    bool? _seen = (prefs.getBool('seen'));
 
-    if (username != null) {
-      // setState(() {
-
-      // });
-      // Config.phonenumber = username;
-      return '/homepage';
-    } else {
-      return '/intoAnimationScreen';
-    }
-
-    // if (_seen != null) {
+    // if (username != null) {
     //   return '/homepage';
     // } else {
-    //   await prefs.setBool('seen', true);
-    //   return '/introScreen';
+    //   return '/intoAnimationScreen';
     // }
+
+    if (_seen != null) {
+      if (username != null) {
+        return '/homepage';
+      } else {
+        return '/intoAnimationScreen';
+      }
+    } else {
+      await prefs.setBool('seen', true);
+      return '/introScreen';
+    }
   }
 
   @override
@@ -191,10 +191,12 @@ class _MyHomePageState extends State<MyHomePage> {
               child: CircularProgressIndicator(),
             );
           } else {
-            if (snapshot.data != null) {
+            if (snapshot.data == '/intoAnimationScreen') {
               return const IntroAnimationScreen();
-            } else {
+            } else if (snapshot.data == 'introScreen') {
               return const IntroScreen();
+            } else {
+              return const HomeScreen();
             }
           }
         });
