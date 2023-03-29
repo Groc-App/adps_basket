@@ -27,7 +27,6 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
     super.initState();
     getNumber();
   }
-  // ProductItemScreen({super.key});
 
   late Product product;
   int counter = 0;
@@ -57,10 +56,6 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                     panEnabled: true,
                     child: CachedNetworkImage(
                       imageUrl: imageurl,
-                      // progressIndicatorBuilder:
-                      //     (context, url, downloadProgress) =>
-                      //         CircularProgressIndicator(
-                      //             value: downloadProgress.progress),
                       errorWidget: (context, url, error) =>
                           const Icon(Icons.error),
                     )),
@@ -99,10 +94,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
               width: double.infinity,
               height: double.infinity,
               child: CachedNetworkImage(
-                // fit: BoxFit.contain,
                 imageUrl: product.ImageUrl[idx],
-                // progressIndicatorBuilder: (context, url, downloadProgress) =>
-                //     CircularProgressIndicator(value: downloadProgress.progress),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               )),
         );
@@ -133,10 +125,8 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
           constraints: BoxConstraints(
             minHeight: MediaQuery.of(context).size.height * 0.53,
           ),
-          // height: MediaQuery.of(context).size.height * 0.53,
           margin: const EdgeInsets.only(top: 20),
           padding: const EdgeInsets.all((15)),
-          // ignore: prefer_const_constructors
           decoration: BoxDecoration(
             boxShadow: const [
               BoxShadow(
@@ -144,8 +134,6 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                   blurRadius: 2,
                   spreadRadius: 2)
             ],
-            // color: Color.fromARGB(255, 250, 246, 246),
-            // color: Color.fromRGBO(236, 236, 234, 1),
             color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20),
@@ -159,7 +147,6 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                 top: 10,
                 bottom: 15,
               ),
-              // ignore: prefer_const_literals_to_create_immutables
               child: Row(children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -191,11 +178,9 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                       Share.share(
                           'https://play.google.com/store/apps/details?id=com.instructivetech.kidskite');
                     })
-                // const Icon(Icons.share),
               ]),
             ),
             Row(
-              // ignore: prefer_const_literals_to_create_immutables
               children: [
                 Text(
                   "₹ ${product.Price.toInt()}",
@@ -207,7 +192,6 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
               ],
             ),
             const Divider(
-              // height: 10,
               thickness: 0.8,
               color: Colors.grey,
             ),
@@ -215,7 +199,6 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
               padding: const EdgeInsets.symmetric(vertical: 6),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                // ignore: prefer_const_literals_to_create_immutables
                 children: [
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 9),
@@ -353,7 +336,6 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                 child: GestureDetector(
                   onTap: () => decrementHandler(number),
                   child: Icon(
-                    // Color(value),
                     color: Theme.of(context).primaryColor,
                     Icons.remove,
                     size: scWidth * 0.25 * 0.3,
@@ -424,9 +406,6 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
     var productIdMap = (ModalRoute.of(context)?.settings.arguments ??
         <String, String>{}) as Map;
     product = productIdMap['product'];
-    // counter = productIdMap['counter'];
-
-    // var authInfo = ref.watch(authCheckProvider);
 
     return Scaffold(
         appBar: AppBar(
@@ -437,7 +416,6 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                   product.Name,
                   style: const TextStyle(fontSize: 15),
                   softWrap: false,
-                  // overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],
@@ -462,7 +440,6 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor),
-                  // textColor: Colors.white,
                   child: const Text('View Cart'),
                 ),
                 ElevatedButton(
@@ -476,7 +453,6 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor),
-                  // textColor: Colors.white,
                   child: const Text('Subscribe'),
                 ),
               ],

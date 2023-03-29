@@ -101,16 +101,11 @@ class _ProductItemState extends ConsumerState<ProductItem> {
       final CartItemModel = ref.watch(cartItemsProvider(number));
 
       if (CartItemModel.isLoading) {
-        // return CircularProgressIndicator();
         return SpinKitThreeInOut(
           size: 25,
           color: Theme.of(context).primaryColor,
         );
       }
-
-      // if (CartItemModel.cartModel == null) {
-      //   return const LinearProgressIndicator();
-      // }
 
       var searchdata = CartItemModel.cartModel!.products;
 
@@ -210,87 +205,69 @@ class _ProductItemState extends ConsumerState<ProductItem> {
 
     product = widget.product;
 
-    // var authInfo = ref.watch(authCheckProvider);
-    // print(authInfo);
-
     return GestureDetector(
       onTap: () {
-        // print("IIIIIIIID $prod");
         Navigator.of(context).pushNamed('/productItemPage', arguments: {
           'product': product,
           'counter': counter,
         });
       },
       child: Card(
-        // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        // color: Colors.white,
         elevation: 5,
-
         child: Padding(
           padding: const EdgeInsets.only(left: 5),
-          child: Column(
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              // crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Flexible(
-                  fit: FlexFit.loose,
-                  flex: 3,
-                  child: CachedNetworkImage(
-                    imageUrl: product.ImageUrl[0],
-                    fit: BoxFit.cover,
-                    // progressIndicatorBuilder:
-                    // (context, url, downloadProgress) =>
-                    //     CircularProgressIndicator(
-                    //         value: downloadProgress.progress),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.only(top: 7, left: 5, right: 5),
-                    // fit: BoxFit.scaleDown,
-                    // decoration: BoxDecoration(border: Border.all()),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          product.Name,
-                          softWrap: true,
-                          maxLines: 2,
-                          style: const TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.w600),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4),
-                          child: Text(
-                            product.Quantity,
-                            style: const TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                      ],
+          child: Column(children: [
+            Flexible(
+              fit: FlexFit.loose,
+              flex: 3,
+              child: CachedNetworkImage(
+                imageUrl: product.ImageUrl[0],
+                fit: BoxFit.cover,
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.only(top: 7, left: 5, right: 5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product.Name,
+                      softWrap: true,
+                      maxLines: 2,
+                      style: const TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.w600),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Text(
+                        product.Quantity,
+                        style: const TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ],
                 ),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(
-                          width: scWidth * 0.48 * 0.28,
-                          child: Text(
-                            '\u{20B9}${product.Price.toInt()}',
-                            style: const TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.bold),
-                          )),
-                      addTile(scWidth, userNumber),
-                      // addTile(scWidth, '+917982733943'),
-                    ],
-                  ),
-                )
-              ]),
+              ),
+            ),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                      width: scWidth * 0.48 * 0.28,
+                      child: Text(
+                        '\u{20B9}${product.Price.toInt()}',
+                        style: const TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.bold),
+                      )),
+                  addTile(scWidth, userNumber),
+                ],
+              ),
+            )
+          ]),
         ),
       ),
     );

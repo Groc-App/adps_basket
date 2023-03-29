@@ -16,63 +16,8 @@ const kExpandedHeight = 120.0;
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  // const HomeScreen({super.key});
-  // _appBar(height, context) => PreferredSize(
-  //       preferredSize: Size(MediaQuery.of(context).size.width, height + 80),
-  //       child: Stack(
-  //         children: <Widget>[
-  //           Container(
-  //             // Background
-  //             child: Center(
-  //               child: Text(
-  //                 "Basko",
-  //                 style: TextStyle(
-  //                     fontSize: 25.0,
-  //                     fontWeight: FontWeight.w600,
-  //                     color: Colors.white),
-  //               ),
-  //             ),
-  //             color: const Color.fromRGBO(83, 177, 117, 1),
-  //             height: height + 75,
-  //             width: MediaQuery.of(context).size.width,
-  //           ),
-
-  //           Container(), // Required some widget in between to float AppBar
-
-  //           Positioned(
-  //             // To take AppBar Size only
-  //             top: 100.0,
-  //             left: 20.0,
-  //             right: 20.0,
-  //             child: AppBar(
-  //               backgroundColor: Colors.white,
-  //               leading: Icon(
-  //                 Icons.menu,
-  //                 color: Theme.of(context).primaryColor,
-  //               ),
-  //               primary: false,
-  //               title: TextField(
-  //                   decoration: InputDecoration(
-  //                       hintText: "Search",
-  //                       border: InputBorder.none,
-  //                       hintStyle: TextStyle(color: Colors.grey))),
-  //               actions: <Widget>[
-  //                 IconButton(
-  //                   icon: Icon(Icons.search,
-  //                       color: Theme.of(context).primaryColor),
-  //                   onPressed: () {},
-  //                 ),
-  //               ],
-  //             ),
-  //           )
-  //         ],
-  //       ),
-  //     );
-
   @override
   Widget build(BuildContext context) {
-    // final scSize = MediaQuery.of(context).size;
-    // final scHeight = scSize.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: NestedScrollView(
@@ -118,23 +63,17 @@ class HomeScreen extends StatelessWidget {
 
 _buildSilverAppBarBackground(context, height) {
   return Container(
-    decoration: BoxDecoration(
-        // border: Border.all(),
-        color: Colors.white),
-    // color: Colors.white,
+    decoration: BoxDecoration(color: Colors.white),
     height: 25,
     child: Stack(
       children: <Widget>[
         Container(
           decoration: BoxDecoration(
             color: Colors.green[400],
-            // color: Colors.white,bo
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
           ),
-
           height: height + 25,
           width: MediaQuery.of(context).size.width,
-          // Background
           child: const Center(
             child: Text(
               "Basko",
@@ -145,21 +84,13 @@ _buildSilverAppBarBackground(context, height) {
             ),
           ),
         ),
-
-        // Container(), // Required some widget in between to float AppBar
-//
         Positioned(
-          // To take AppBar Size only
           top: 100.0,
           left: 20.0,
           right: 20.0,
           child: AppBar(
-            // titleSpacing: 5,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12
-
-                  // bottom: Radius.circular(8),
-                  ),
+              borderRadius: BorderRadius.circular(12),
             ),
             backgroundColor: Colors.white,
             leading: Icon(

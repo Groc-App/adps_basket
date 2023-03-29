@@ -14,8 +14,6 @@ class APIServiceAuth {
       'Content-Type': 'application/json',
     };
 
-    // var u = "${Config.apiURL}${Config.getProductsMostSellingApi}";
-
     var ur = '${Config.getProductByIdApi}/$productid';
 
     var url = Uri.parse(ur);
@@ -24,8 +22,6 @@ class APIServiceAuth {
       url,
       headers: requestHeaders,
     );
-
-    // print(response.body);
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);

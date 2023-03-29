@@ -60,7 +60,6 @@ class _ContentState extends ConsumerState<Content> {
             },
             applicationLegalese: 'Copyright © ADPS, {{ year }}',
             applicationDescription: const ReadMoreText(
-              // trimLength: 50,
               trimLines: 4,
               colorClickableText: Colors.pink,
               trimMode: TrimMode.Line,
@@ -109,9 +108,6 @@ class _ContentState extends ConsumerState<Content> {
                   onPressed: () async {
                     FirebaseAuth auth = FirebaseAuth.instance;
                     await auth.signOut();
-                    // ref
-                    //     .read(authCheckProvider.notifier)
-                    //     .update((state) => null);
 
                     await logout();
 
@@ -171,8 +167,6 @@ class _ContentState extends ConsumerState<Content> {
 
   @override
   Widget build(BuildContext context) {
-    // Cheching user login info
-
     return Column(
       children: [
         Container(
@@ -183,7 +177,6 @@ class _ContentState extends ConsumerState<Content> {
               style: TextStyle(
                   fontSize: 15, color: Color.fromARGB(255, 121, 117, 117)),
             ),
-            // Divider(),
             const SizedBox(
               height: 10,
             ),
@@ -206,23 +199,19 @@ class _ContentState extends ConsumerState<Content> {
                   style: TextStyle(
                       fontSize: 15, color: Color.fromARGB(255, 121, 117, 117)),
                 )),
-            // Divider(),
             const SizedBox(
               height: 12,
             ),
             iconRow(FontAwesomeIcons.share, 'Refer and Earn', context,
                 '/referearnScreen', ref, userNumber),
-
             const SizedBox(
               height: 3,
             ),
             iconRow(FontAwesomeIcons.shareNodes, 'Share the app', context,
                 'share', ref, userNumber),
-
             const SizedBox(
               height: 3,
             ),
-
             iconRow(FontAwesomeIcons.info, 'About us', context, 'about', ref,
                 userNumber),
             const SizedBox(

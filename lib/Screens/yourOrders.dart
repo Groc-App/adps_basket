@@ -1,5 +1,4 @@
 // ignore: file_names
-// ignore: file_names
 // ignore_for_file: implementation_imports, file_names, duplicate_ignore, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
@@ -17,8 +16,6 @@ String userNumber = '';
 class YourOrderes extends ConsumerStatefulWidget {
   const YourOrderes({super.key});
 
-  // YourOrderes({super.key});
-
   @override
   _YourOrderesState createState() => _YourOrderesState();
 }
@@ -28,7 +25,6 @@ class _YourOrderesState extends ConsumerState<YourOrderes>
   late final AnimationController _animationController;
 
   bool islistempty = false;
-  // String userid = '+917982733943';
 
   late final String orderID;
   late String totalAmount;
@@ -62,9 +58,7 @@ class _YourOrderesState extends ConsumerState<YourOrderes>
 
   Widget orderList(WidgetRef ref, BuildContext context, double scHeight,
       String phonenumber) {
-    // print("\nInside orderList");
     final data = ref.watch(yourordersProvider(phonenumber));
-    // print("\nInside orderList after it $data");
 
     return data.when(
       data: (list) {

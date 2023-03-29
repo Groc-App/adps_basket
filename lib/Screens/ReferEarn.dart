@@ -35,8 +35,6 @@ class ReferEarnScreen extends ConsumerWidget {
   Widget _buildrefferal(UserN value, BuildContext context) {
     return Column(
       children: [
-        // My earnings ----------------------------->>>>>>>>>>>>
-
         const Text(
           'My Earnings',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
@@ -81,7 +79,6 @@ class ReferEarnScreen extends ConsumerWidget {
             ),
           )
         ]),
-
         const SizedBox(
           height: 14,
         ),
@@ -103,13 +100,9 @@ class ReferEarnScreen extends ConsumerWidget {
             )
           ]),
         ),
-
-        // refferal code --------->>>>>>
-
         const SizedBox(
           height: 24,
         ),
-
         const Text(
           'Your Referral Code',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
@@ -145,9 +138,6 @@ class ReferEarnScreen extends ConsumerWidget {
             Clipboard.setData(ClipboardData(text: value.referralCode));
           },
         ),
-
-        // share button -------------->>>>>>
-
         const SizedBox(
           height: 20,
         ),
@@ -292,7 +282,6 @@ class ReferEarnScreen extends ConsumerWidget {
                           ),
                         ),
                       ),
-
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.only(top: 35.0),
@@ -301,7 +290,6 @@ class ReferEarnScreen extends ConsumerWidget {
                                 horizontal: 9, vertical: 5),
                             decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
-                                // border: Border.all(),
                                 borderRadius: BorderRadius.circular(10)),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -330,8 +318,6 @@ class ReferEarnScreen extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      // refferalId(ref, number, context),
-                      // _buildrefferal('ebjcjjkb'),
                     ],
                   ),
                 ),

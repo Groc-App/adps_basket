@@ -16,9 +16,3 @@ abstract class Cart with _$Cart {
 
   factory Cart.fromJson(Map<String, dynamic> json) => _$CartFromJson(json);
 }
-
-// extension CartExt on Cart{
-//   double get grandTotal{
-//     return CartItem.map((e) => )
-//   }
-// }

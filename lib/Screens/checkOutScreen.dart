@@ -163,14 +163,6 @@ class CheckoutScreen extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: const [
-              // Container(
-              //   margin: const EdgeInsets.only(right: 10),
-              //   child: const FaIcon(
-              //     FontAwesomeIcons.basketShopping,
-              //     size: 23,
-              //     color: Colors.white,
-              //   ),
-              // ),
               Text(
                 'Place Order',
                 style: TextStyle(
@@ -190,57 +182,6 @@ class CheckoutScreen extends StatelessWidget {
           ),
         ),
       ),
-
-      // ElevatedButton(
-      //     style: ElevatedButton.styleFrom(
-      //         elevation: 40, backgroundColor: Theme.of(context).primaryColor),
-      //     onPressed: () async {
-      //       var cartProductsArray = [];
-      //       for (var i = 0; i < datalist.length; i++) {
-      //         var cartItem = datalist[i];
-
-      //         var map = {
-      //           'Product': cartItem.Item.productId,
-      //           'Quantity': cartItem.ItemCount
-      //         };
-      //         cartProductsArray.add(map);
-      //       }
-
-      //       var addressid = value.addressId;
-
-      //       if (addressid == '') {
-      //         print('hitted');
-      //         showDialog(
-      //           context: context,
-      //           builder: (context) => AlertDialog(
-      //             title: Text('Address Alert'),
-      //             content: Text('Please add address first.'),
-      //             actions: [
-      //               TextButton(
-      //                   onPressed: () => Navigator.of(context).pop(),
-      //                   child: Text('OK'))
-      //             ],
-      //           ),
-      //         );
-      //       } else {
-      //         final cartViewModel = ref.read(cartItemsProvider.notifier);
-      //         String succesdata = await cartViewModel.placeOrder(
-      //             number,
-      //             (pricetotal - discount + deliveryCharges).toString(),
-      //             cartProductsArray,
-      //             addressid,
-      //             couponCode);
-
-      //         if (succesdata == 'Success') {
-      //           Navigator.of(context).pushNamed('/ordersuccessScreen',
-      //               arguments: {'type': 'order'});
-      //         } else {
-      //           Navigator.of(context).pushNamed('/orderfailureScreen',
-      //               arguments: {'type': 'order'});
-      //         }
-      //       }
-      //     },
-      //     child: Text("Place Order")),
     );
   }
 
@@ -405,13 +346,6 @@ class CheckoutScreen extends StatelessWidget {
                         text: TextSpan(
                           text: 'This item costs ',
                           children: <TextSpan>[
-                            // TextSpan(
-                            //   text: '',
-                            //   style: TextStyle(
-                            //     color: Colors.grey,
-                            //     decoration: TextDecoration.lineThrough,
-                            //   ),
-                            // ),
                             TextSpan(
                               text: '₹${deliveryCharges}',
                               style: TextStyle(color: Colors.grey),
@@ -535,10 +469,6 @@ class CheckoutScreen extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            // Text(
-                            //     // softWrap: true,
-                            //     // overflow: TextOverflow.ellipsis,
-                            //     ''),
                           ],
                         ),
                       ]),

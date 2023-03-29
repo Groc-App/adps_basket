@@ -69,7 +69,6 @@ class APIServiceCart {
 
     var u = "${Config.apiURL}${Config.createcartitemApi}";
 
-    // var ur = Config.createcartitemApi;
     var url = Uri.parse(u);
 
     var response = await client.post(

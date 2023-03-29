@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, library_private_types_in_public_api, non_constant_identifier_names, unused_local_variable
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,16 +10,12 @@ import 'package:your_basket/providers/providers.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-// const number = '917982733943';
-// Map<String, String> map = {"number": number};
 var scHeight = 0.0;
-// ignore: prefer_typing_uninitialized_variables
+
 var scSize;
 
 class BuySubscriptionScreen extends ConsumerStatefulWidget {
   const BuySubscriptionScreen({super.key});
-
-  // const OfferScreen({Key? key}) : super(key: key);
 
   @override
   _BuySubscriptionScreenState createState() => _BuySubscriptionScreenState();
@@ -33,7 +27,6 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
   var startDate = 'Select Date';
   var endDate = 'Select Date';
 
-  // Initial Selected Value
   String dropdownvalue = '1';
   Address address = Address(
       addressId: '',
@@ -44,7 +37,6 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
       City: '',
       Pincode: '');
 
-  // List of items in our dropdown menu
   var items = [
     '1',
     '2',
@@ -52,7 +44,6 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
     '4',
     '5',
   ];
-  // const SubscriptionScreen({super.key});
 
   Future<void> getNumber() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -64,10 +55,6 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
 
   submitHandler(String productId, String number, String stDate, String eDate,
       String functiontype, String subsid) {
-    // final AddressBookState = ref.watch(addressBokkProvider);
-    // var reqData = AddressBookState.AddressBookModel!.addresses
-    //     .firstWhere((e) => e.defaultAddress == true);
-
     DateTime startDate =
         Intl.withLocale('en', () => DateFormat('d/M/y').parse(stDate));
     DateTime endDate =
@@ -148,9 +135,6 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
   Widget build(BuildContext context) {
     initializeDateFormatting('en', null);
 
-    // var authInfo = ref.watch(authCheckProvider);
-    // var number = (authInfo == null ? '' : authInfo);
-
     if (userNumber != '') {
       final AddressBookState = ref.watch(addressBokkProvider(userNumber));
       if (AddressBookState.AddressBookModel!.addresses.isNotEmpty) {
@@ -173,13 +157,8 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
     String? StartDate = productMap['startDate'];
     String? EndDate = productMap['endDate'];
 
-    // if (Quantity != null) dropdownvalue = Quantity;
-    // if (StartDate != null) startDate = StartDate;
-    // if (EndDate != null) endDate = EndDate;
-
     return Scaffold(
       appBar: AppBar(
-        // leading: const Icon(Icons.arrow_back),
         title: functiontype == 'buy'
             ? const Text("Buy Subscription")
             : const Text('Edit Subscription'),

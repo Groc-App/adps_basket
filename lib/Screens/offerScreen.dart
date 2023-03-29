@@ -25,41 +25,25 @@ var map = {'number': number};
 class OfferScreen extends ConsumerStatefulWidget {
   const OfferScreen({super.key});
 
-  // const OfferScreen({Key? key}) : super(key: key);
-
   @override
   _OfferScreenState createState() => _OfferScreenState();
 }
 
 class _OfferScreenState extends ConsumerState<OfferScreen> {
-  // static CacheManager instance = CacheManager(
-  //   Config(
-  //     "imagemanager",
-  //     stalePeriod: const Duration(days: 7),
-  //     maxNrOfCacheObjects: 20,
-  //   ),
-  // );
-  // var imageUrl = storageRef.getDownloadURL();
   String? imageURL;
-  // String number = '';
 
   final ConfettiController _controller = ConfettiController(
     duration: const Duration(seconds: 2),
   );
-
-  // late var offers;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getNumber();
-
-      // ref.invalidate(verifyCouponProvider);
     });
   }
 
-  // ignore: prefer_typing_uninitialized_variables
   late var scSize;
   late var scHeight = 0.0;
   late int totalAmount = 0;
@@ -190,8 +174,6 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   }
 
   Widget _buildGridViewContainer(List<Offer>? list) {
-    // print("\n\nbuildGridViewContainer 1");
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -208,14 +190,10 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
   }
 
   Widget offerList(String number, WidgetRef ref) {
-    // print("\n
-    //\offer list 2");
-
     final offers = ref.watch(allOfferProvider(map));
 
     return offers.when(
       data: (list) {
-        // print("\nThiss is list of Offerrrrrrs:" + '${list}');
         return _buildGridViewCards(list);
       },
       error: (_, __) => const DataError(),
@@ -234,7 +212,6 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
             mainAxisSpacing: 10.0),
         padding: const EdgeInsets.all(10.0),
         itemBuilder: (BuildContext context, int index) {
-          // print(list[index].isUserClaimed);
           if (list[index].isUserClaimed) {
             return scratchedContainer(list, index, context);
           } else {
@@ -259,7 +236,6 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
             child: Stack(
               children: [
                 CachedNetworkImage(
-                  // fit: BoxFit.fitWidth,
                   imageUrl:
                       'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Freward_appbar_bg.jpg?alt=media&token=bf1c3400-ba8e-48c9-8b82-29c2803bd4ee',
                   errorWidget: (context, url, error) => const Icon(Icons.error),
@@ -268,7 +244,6 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Expanded(flex: 1, child: _buildRewardsPoints()),
-                    // Expanded(flex: 1, child: _buildRewardImage())
                   ],
                 ),
               ],
@@ -308,13 +283,11 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                           padding: EdgeInsets.symmetric(vertical: 10.0),
                           child: Text(
                             "You Won",
-                            // style: TextStyle(fontSize: 15.0),
                           ))),
                   Expanded(
                       flex: 1,
                       child: Text(
                         'Rs ${list[index].worth.toInt()}.',
-                        // style: const TextStyle(fontSize: 20.0),
                       )),
                 ],
               )),
@@ -343,7 +316,6 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                                 OutlinedButton(
                                   style: OutlinedButton.styleFrom(
                                       backgroundColor: Colors.green[400]),
-                                  // style: ButtonStyle(backgroundColor: ),
                                   child: const Text("Close"),
                                   onPressed: () {
                                     Navigator.pop(context);
@@ -365,7 +337,6 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                                             image: CachedNetworkImageProvider(
                                               "https://st4.depositphotos.com/7668048/28693/v/600/depositphotos_286933884-stock-illustration-indian-rupee-coins-falling-scattered.jpg",
                                             )),
-                                        // color: Colors.white,
                                         borderRadius: BorderRadius.circular(8)),
                                     child: Padding(
                                       padding: const EdgeInsets.only(
@@ -430,26 +401,10 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    // OutlinedButton(
-                                    //   style: OutlinedButton.styleFrom(
-                                    //       backgroundColor:
-                                    //           Colors.black.withOpacity(0.5)),
-                                    //   // style: ButtonStyle(backgroundColor: ),
-                                    //   child: const Text("Copy"),
-                                    //   onPressed: () {
-                                    //     onTap:
-                                    //     () async {
-                                    //       await Clipboard.setData(ClipboardData(
-                                    //           text: list[index].offerId));
-                                    //       // copied successfully
-                                    //     };
-                                    //   },
-                                    // ),
                                     OutlinedButton(
                                       style: OutlinedButton.styleFrom(
                                           backgroundColor:
                                               Colors.black.withOpacity(0.5)),
-                                      // style: ButtonStyle(backgroundColor: ),
                                       child: const Text("Close"),
                                       onPressed: () {
                                         Navigator.pop(context);
@@ -562,7 +517,6 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             backgroundColor: Colors.black.withOpacity(0.5)),
-                        // style: ButtonStyle(backgroundColor: ),
                         child: const Text("Close"),
                         onPressed: () {
                           Navigator.of(context).pushNamedAndRemoveUntil(

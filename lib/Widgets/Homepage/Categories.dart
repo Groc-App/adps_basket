@@ -165,33 +165,6 @@ class MainCategory extends ConsumerWidget {
           height: scHeight * 0.25,
           width: (scWidth * wid_th) - 6,
           margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
-          // child: ClipRRect(
-          //   borderRadius: BorderRadius.circular(5),
-          //   child: Container(
-          //     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 0),
-          //     // ignore: prefer_const_constructors
-          //     decoration: BoxDecoration(
-          //       // boxShadow: [BoxShadow(blurRadius: 1)],
-          //       /* ---------------------------------- color --------------------------------- */
-          //       color: clr,
-          //       borderRadius: BorderRadius.circular(8),
-          //       // border: Border.all(width: 2, color: clr),
-          //       // ignore: prefer_const_constructors
-          //       image: DecorationImage(
-          //         image: NetworkImage(img_url),
-          //         fit: BoxFit.scaleDown,
-          //       ),
-          //     ),
-          //     alignment: const Alignment(0, -0.9),
-          //     child: FittedBox(
-          //       child: Text(
-          //         "$name",
-          //         style: const TextStyle(
-          //             fontWeight: FontWeight.bold, fontSize: 17),
-          //       ),
-          //     ),
-          //   ),
-          // ),
           child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: Container(
@@ -216,23 +189,11 @@ class MainCategory extends ConsumerWidget {
                           child: CachedNetworkImage(
                             imageUrl: img_url,
                             fit: BoxFit.contain,
-                            // progressIndicatorBuilder:
-                            //     (context, url, downloadProgress) =>
-                            //         CircularProgressIndicator(
-                            //             value: downloadProgress.progress),
                             errorWidget: (context, url, error) =>
                                 const Icon(Icons.error),
                           ))
                     ]),
-              )
-              // child: Stack(
-              //   alignment: Alignment.bottomCenter,
-              //   children: [
-              //     Image.network(img_url),
-              //     Text(name),
-              //   ],
-              // ),
-              ),
+              )),
         ),
       ),
     );

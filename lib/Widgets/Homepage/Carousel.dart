@@ -11,7 +11,6 @@ class Carousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final scSize = MediaQuery.of(context).size;
-    // final scHeight = scSize.height;
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -20,7 +19,6 @@ class Carousel extends StatelessWidget {
       ),
       height: 190,
       child: CarouselSlider(
-        // ignore: sort_child_properties_last
         children: [
           Container(
             decoration: BoxDecoration(

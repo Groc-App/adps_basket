@@ -23,26 +23,11 @@ class BotmNavBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Icon(
-                //   FontAwesomeIcons.houseChimney,
-                //   size: 22,
-                // ),
-                // ImageIcon(
-                //   CachedNetworkImageProvider(
-                //       'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Icons%2Fbottomnavbar%2Fhome-icon.png?alt=media&token=13a30502-d306-4391-a39e-e578a61c0b9c'),
-                //   size: 22,
-                //   color: Colors.amber,
-                // ),
                 CachedNetworkImage(
                   height: 22,
                   imageUrl:
                       'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Logo%2FNew%2Flogo%20png%202.png?alt=media&token=c9f57ebd-d2e6-402b-8844-3758029d9258',
                 ),
-                // CachedNetworkImage(
-                //   height: 22,
-                //   imageUrl:
-                //       'https://img.icons8.com/external-others-inmotus-design/67/null/external-B-keyboard-others-inmotus-design-10.png',
-                // ),
                 const Text(
                   'Home',
                   textAlign: TextAlign.center,

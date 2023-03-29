@@ -97,7 +97,6 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
 
   final ScrollController _controller = ScrollController();
 
-  // This is what you're looking for!
   void _scrollDown() {
     _controller.animateTo(
       _controller.position.extentAfter,
@@ -175,7 +174,6 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
         Container(
             height: 135,
             alignment: Alignment.center,
-            // width: sc_width * 0.9,
             child: ListView.separated(
               separatorBuilder: (context, index) => const SizedBox(
                 width: 20,
@@ -205,14 +203,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
       padding: const EdgeInsets.only(top: 0),
       children: [
         /* ---------------------------- Top SLider Bar ---------------------------- */
-        // GestureDetector(
-        //     onTap: () {
-        //       Navigator.of(context).pushNamed('/searchScreen');
-        //     },
-        //     child: SearchBar()),
-        // Text(connectivityStatusProvider == ConnectivityStatus.isConnected
-        //     ? 'Is Connected to Internet'
-        //     : 'Is Disconnected from Internet'),
+
         categoriesList(ref, mainCategoryId, imgUrl),
         /* ------------------------------Body Pane----------------------------- */
         SizedBox(child: productList(ref, map))
@@ -222,10 +213,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
 
   _buildSilverAppBarBackground(context, height, name) {
     return Container(
-      decoration: const BoxDecoration(
-          // border: Border.all(),
-          color: Colors.white),
-      // color: Colors.white,
+      decoration: const BoxDecoration(color: Colors.white),
       height: 30,
       child: Stack(
         children: <Widget>[
@@ -243,11 +231,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
             height: height + 30,
             width: MediaQuery.of(context).size.width,
           ),
-
-          // Container(), // Required some widget in between to float AppBar
-//
           Positioned(
-            // To take AppBar Size only
             top: 100.0,
             left: 20.0,
             right: 20.0,
@@ -255,10 +239,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
               leadingWidth: 50,
               titleSpacing: 0,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12
-
-                    // bottom: Radius.circular(8),
-                    ),
+                borderRadius: BorderRadius.circular(12),
               ),
               backgroundColor: Colors.white,
               leading: Icon(
@@ -287,38 +268,19 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
         <String, dynamic>{}) as Map;
 
     var imgUrl = categ['imageUrl'];
-    // var catNavImg = categ['catNavImg'];
-
-    // ref.read(categoryProvider.notifier).update((state) => mapp);
 
     mainCategoryId = categ['maincategoryid'];
-    // mapp['categoryId'] = "null";
-    // ConnectivityProvider connect =
-    //     ref.watch(connectivityProvider).startMonitoring();
 
     Map<String, String> map =
         ref.watch(categoryProvider(categ['maincategoryid']));
     /* ------------------------------- dummy Data ------------------------------- */
-    // var dummyList = List.generate(20, (index) => Catalog().products[0]);
 
     /* --------------------------- Screen Intilization -------------------------- */
-    // final scSize = MediaQuery.of(context).size;
-    // final scHeight = scSize.height;
 
     /* -------------------------------- Scaffold -------------------------------- */
     return Scaffold(
       backgroundColor: Colors.white,
       /* --------------------------------- appBar --------------------------------- */
-      // appBar: AppBar(
-      //   // centerTitle: true,
-      //   // ignore: prefer_const_constructors
-      //   elevation: 1,
-      //   title: Text(
-      //     categ['name'],
-      //     softWrap: true,
-      //     style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
-      //   ),
-      // ),
 
       /* ---------------------------------- body ---------------------------------- */
       body: NestedScrollView(
@@ -328,10 +290,9 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
             SliverAppBar(
               titleSpacing: 0,
               iconTheme: const IconThemeData(
-                color: Colors.white, //change your color here
+                color: Colors.white,
               ),
               leadingWidth: 30,
-              // leading: ,
               backgroundColor: const Color.fromRGBO(102, 187, 106, 1),
               centerTitle: true,
               expandedHeight: 140,
@@ -350,31 +311,6 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
             ),
           ];
         },
-        // connect.isOnline != null ?
-        //         Column(
-        //   children: [
-        //     /* ---------------------------- Top SLider Bar ---------------------------- */
-        //     GestureDetector(
-        //         onTap: () {
-        //           Navigator.of(context).pushNamed('/searchScreen');
-        //         },
-        //         child: SearchBar()),
-        //     // Text(connectivityStatusProvider == ConnectivityStatus.isConnected
-        //     //     ? 'Is Connected to Internet'
-        //     //     : 'Is Disconnected from Internet'),
-        //     categoriesList(ref, mainCategoryId, imgUrl),
-
-        //     // Carousel(),
-
-        //     /* -------------------------------------------------------------------------- */
-
-        //     /* ------------------------------Body Pane----------------------------- */
-        //     // ProductData(),2
-        //     // ProductDataWidgets(),
-        //     SizedBox(child: productList(ref, map))
-        //   ],
-        // )
-        // : InternetConnection(),
       ),
     );
   }

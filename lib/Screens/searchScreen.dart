@@ -117,23 +117,18 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     foundUser = [];
     if (enteredKeyword.isEmpty) {
       // if the search field is empty or only contains white-space, we'll display all users
-      // setState(() {});
+
       return;
     } else {
       results = SearchData.data
           .where((user) => user.Name.toLowerCase()
-                  .trim()
-                  .replaceAll(' ', '')
-                  .contains(
-                      enteredKeyword.toLowerCase().trim().replaceAll(' ', ''))
-              //  ||
-              // user.Name.toLowerCase().startsWith(enteredKeyword.toLowerCase())
-              )
+              .trim()
+              .replaceAll(' ', '')
+              .contains(
+                  enteredKeyword.toLowerCase().trim().replaceAll(' ', '')))
           .toList();
-      // we use the toLowerCase() method to make it case-insensitive
     }
 
-    // Refresh the UI
     setState(() {
       foundUser = [];
       foundUser = results;
@@ -158,7 +153,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             SliverAppBar(
               backgroundColor: Colors.green[400],
               iconTheme: const IconThemeData(
-                color: Colors.white, //change your color here
+                color: Colors.white,
               ),
               centerTitle: true,
               expandedHeight: 130,
@@ -176,24 +171,18 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   _buildSilverAppBarBackground(context, height) {
     return Container(
-      decoration: const BoxDecoration(
-          // border: Border.all(),
-          color: Colors.white),
-      // color: Colors.white,
+      decoration: const BoxDecoration(color: Colors.white),
       height: 25,
       child: Stack(
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
               color: Colors.green[400],
-              // color: Colors.white,bo
               borderRadius:
                   const BorderRadius.vertical(bottom: Radius.circular(10)),
             ),
-
             height: height + 25,
             width: MediaQuery.of(context).size.width,
-            // Background
             child: const Center(
               child: Text(
                 "Basko",
@@ -204,21 +193,13 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               ),
             ),
           ),
-
-          // Container(), // Required some widget in between to float AppBar
-//
           Positioned(
-            // To take AppBar Size only
             top: 100.0,
             left: 20.0,
             right: 20.0,
             child: AppBar(
-              // titleSpacing: 5,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12
-
-                    // bottom: Radius.circular(8),
-                    ),
+                borderRadius: BorderRadius.circular(12),
               ),
               backgroundColor: Colors.white,
               leading: Icon(
@@ -228,11 +209,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               primary: false,
               title: TextFormField(
                 autofocus: true,
-                // obscuringCharacter: ,
                 enableSuggestions: true,
-                // onSaved: (value) {
-                //   runFilter(value!);
-                // },
                 onChanged: (value) {
                   runFilter(value);
                 },
@@ -261,92 +238,22 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   Widget noItems() {
     return SingleChildScrollView(
-      child: Column(
-
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 160),
-              height: Config.scHeight * 0.25,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(
-                      "https://media.istockphoto.com/id/1158317995/vector/cute-jack-russell-terrier-paws-up-over-wall-dog-face-cartoon-vector-illustration.jpg?s=170667a&w=0&k=20&c=e_tyRS_-oSA1eowlfNVNaU__mlNig7aETgEf3pOkaBI="),
-                ),
-              ),
+      child: Column(children: [
+        Container(
+          margin: const EdgeInsets.only(top: 160),
+          height: Config.scHeight * 0.25,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                  "https://media.istockphoto.com/id/1158317995/vector/cute-jack-russell-terrier-paws-up-over-wall-dog-face-cartoon-vector-illustration.jpg?s=170667a&w=0&k=20&c=e_tyRS_-oSA1eowlfNVNaU__mlNig7aETgEf3pOkaBI="),
             ),
-            const Text(
-              "No Items",
-              style: TextStyle(fontStyle: FontStyle.italic),
-            )
-          ]),
+          ),
+        ),
+        const Text(
+          "No Items",
+          style: TextStyle(fontStyle: FontStyle.italic),
+        )
+      ]),
     );
   }
 }
-
-
-//  /* --------------------------- Screen Intilization -------------------------- */
-//     final scSize = MediaQuery.of(context).size;
-//     final scHeight = scSize.height;
-
-//     /* -------------------------------- Scaffold -------------------------------- */
-//     return Scaffold(
-
-//         /* --------------------------------- appBar --------------------------------- */
-//         appBar: AppBar(
-//             centerTitle: true,
-//             // ignore: prefer_const_constructors
-//             title: Text(
-//               "Milk And Bakery",
-//               style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 30),
-//             ),
-//             backgroundColor: const Color.fromARGB(255, 237, 230, 230)),
-//         backgroundColor: const Color.fromARGB(255, 237, 230, 230),
-
-//         /* ---------------------------------- body ---------------------------------- */
-//         body: SingleChildScrollView(
-//             child: Column(
-//           children: [
-//             /* ---------------------------- Top SLider Bar ---------------------------- */
-//             Container(
-//             height: 50,
-//             margin: const EdgeInsets.all(8),
-//             padding: const EdgeInsets.all(10),
-//             decoration: BoxDecoration(boxShadow: const [
-//               BoxShadow(color: Colors.grey, spreadRadius: 1, blurRadius: 1)
-//             ], color: Colors.white, borderRadius: BorderRadius.circular(20)),
-//             child: Row(
-//               children: [
-//                 const Icon(Icons.search),
-//                 Container(
-//                   width: 250,
-//                   margin: const EdgeInsets.only(left: 10),
-//                   child: TextFormField(
-//                     onChanged: (value) {
-//                       runFilter(value);
-//                     },
-//                     decoration: const InputDecoration(
-//                       hintText: "Search here......",
-//                       border: InputBorder.none,
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           foundUser.length == 0
-//               ? SizedBox(
-//                   height: scHeight * 0.8,
-//                   child: const Center(child: Text("Your Items")),
-//                 )
-//               :  SizedBox(
-//                 // height: scHeight * 0.8,
-//                 // width: sc_width * 0.s8,
-//                 // height: double.maxFinite,
-
-//                 /* ---------------------- Building Categories Item Grid --------------------- */
-//                 child: productList(foundUser))
-//         ],
-//       ),
-//           ],
-//         )));

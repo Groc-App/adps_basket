@@ -30,7 +30,6 @@ class OrderSuuccess extends StatelessWidget {
                 'https://assets5.lottiefiles.com/packages/lf20_jbrw3hcz.json',
                 height: scHeight * 0.40),
             Column(
-              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 successType == 'order'
                     ? const Text(

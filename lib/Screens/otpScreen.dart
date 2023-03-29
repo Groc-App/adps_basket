@@ -34,7 +34,6 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     _timer!.cancel();
   }
 
-  // const OtpScreen({super.key});
   FirebaseAuth auth = FirebaseAuth.instance;
 
   int start = 30;
@@ -83,7 +82,6 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     );
   }
 
-  // OtpScreen({this.otpHash, this.phoneNumber});
   @override
   Widget build(BuildContext context) {
     final scSize = MediaQuery.of(context).size;
@@ -94,11 +92,10 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
         <String, dynamic>{}) as Map;
     var otp = opthash['otp'];
     phoneNumber = opthash['number'];
-    // ignore: unused_local_variable
+
     var resendToken = opthash['resendtoken'];
     var refferalCode = opthash['refferalCode'];
 
-    // print("OTP HASH::" + otpHash);
     return Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.white,
@@ -121,7 +118,6 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                     child: CachedNetworkImage(
                         imageUrl:
                             'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Screens%2FOtpScreen%2Fotpscreen%20(2).png?alt=media&token=8d38b962-91c8-47ce-825b-513d4897d47c')),
-
                 SizedBox(
                   height: 15,
                 ),
@@ -173,7 +169,6 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                                     verificationId: otp,
                                     smsCode: smscoded.toString().trim());
 
-                            // Sign the user in (or link) with the credential
                             var cred =
                                 await auth.signInWithCredential(credential);
 
@@ -184,11 +179,9 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                               'refferalcode': refferalCode
                             };
 
-                            // create user in nodejs backend
                             String loginstatus =
                                 await ref.read(createuserProvider(mp).future);
 
-                            //chceking refferal code status
                             if (refferalCode != '' &&
                                 loginstatus == 'AlreadyRegistered') {
                               final snackBar = SnackBar(
@@ -235,19 +228,11 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                                 _isLoading = false;
                               });
                             } else {
-                              //updating authcheckprovider
-                              // ref
-                              //     .read(authCheckProvider.notifier)
-                              //     .update((state) => user!.phoneNumber);
-
-                              // setting number preferences
-
                               SharedPreferences prefs =
                                   await SharedPreferences.getInstance();
                               await prefs.setString(
                                   'username', user!.phoneNumber ?? '');
 
-                              // navigate to home screen
                               Navigator.of(context).pushNamedAndRemoveUntil(
                                   '/homepage', (Route<dynamic> route) => false);
                             }
@@ -283,11 +268,6 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                 SizedBox(
                   height: 5,
                 ),
-                // if (_wrongOTP)
-                //   Text('Wrong OTP, Please Enter Correct One',
-                //       style: TextStyle(
-                //         color: Colors.red,
-                //       )),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

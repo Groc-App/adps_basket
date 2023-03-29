@@ -31,15 +31,11 @@ class SubscriptionScreen extends ConsumerStatefulWidget {
 }
 
 class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
-  // const SubscriptionScreen({super.key});
-
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getNumber();
-
-      // ref.invalidate(verifyCouponProvider);
     });
   }
 
@@ -82,7 +78,6 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
 
   Widget subscriptionListBuilder(List<Subscription>? list) {
     return ListView.separated(
-        // padding: EdgeInsets.all(10),
         shrinkWrap: true,
         physics: const ClampingScrollPhysics(),
         itemCount: list!.length,
@@ -101,7 +96,6 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                       return SingleChildScrollView(
                         child: Container(
                           padding: const EdgeInsets.all(8),
-                          // height: scHeight * 0.9,
                           child: Column(
                             children: [
                               const SizedBox(
@@ -112,9 +106,6 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                                 style: TextStyle(
                                     fontSize: 24, fontWeight: FontWeight.bold),
                               ),
-                              // SizedBox(
-                              //   height: 2,
-                              // ),
                               ModalItem(
                                   name: list[i].product.Name,
                                   imageURL: list[i].product.ImageUrl[0]),
@@ -318,13 +309,12 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                   borderRadius: BorderRadius.circular(10)),
               tileColor: Theme.of(context).scaffoldBackgroundColor,
               leading: ClipRRect(
-                borderRadius: const BorderRadius.all(
-                    Radius.circular(10.0)), //add border radius here
+                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                 child: Image.network(
                   list[i].product.ImageUrl[0],
                   width: 80,
                   fit: BoxFit.contain,
-                ), //add image location here
+                ),
               ),
               title: Text(list[i].product.Name),
               subtitle: Text("${list[i].quantity} Qty"),
@@ -417,7 +407,6 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
                 ),
                 const SizedBox(height: 20),
                 Container(
-                  // height: scHeight * 0.7,
                   padding: const EdgeInsets.all(10),
                   child: subscriptionListBuilder(list),
                 ),
@@ -435,24 +424,22 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
 
   Widget noItems() {
     return Center(
-      child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 200),
-              height: 150,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: CachedNetworkImageProvider(
-                      "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Screens%2FNoItem%2Femptylist.png?alt=media&token=4f834d3f-2064-47a3-b9c6-9dce502aa65e"),
-                ),
-              ),
+      child: Column(children: [
+        Container(
+          margin: const EdgeInsets.only(top: 200),
+          height: 150,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: CachedNetworkImageProvider(
+                  "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Screens%2FNoItem%2Femptylist.png?alt=media&token=4f834d3f-2064-47a3-b9c6-9dce502aa65e"),
             ),
-            const Text(
-              "No Subscriptions",
-              style: TextStyle(fontStyle: FontStyle.italic),
-            )
-          ]),
+          ),
+        ),
+        const Text(
+          "No Subscriptions",
+          style: TextStyle(fontStyle: FontStyle.italic),
+        )
+      ]),
     );
   }
 
@@ -461,7 +448,6 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
     totalAmount = 0;
     scSize = MediaQuery.of(context).size;
     scHeight = scSize.height;
-    // number = authInfo.phoneNumber ?? '';
 
     return Scaffold(
         appBar: AppBar(

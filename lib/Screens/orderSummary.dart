@@ -12,7 +12,7 @@ class OrderSummaryScreen extends StatelessWidget {
   late DateTime date;
   late Address address;
   late String orderStatus;
-  // String imageUrl;
+
   late List<Map<String, dynamic>> orderDetails;
 
   @override
@@ -45,7 +45,6 @@ class OrderSummaryScreen extends StatelessWidget {
                     boxShadow: const [
                       BoxShadow(blurRadius: 1, spreadRadius: 0)
                     ],
-                    // border: Border.all(),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     color: Colors.white),
                 width: double.infinity,
@@ -54,13 +53,9 @@ class OrderSummaryScreen extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: double.infinity,
-                      // decoration: BoxDecoration(
-                      //   border: Border.all(),
-                      // ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        // ignore: prefer_const_literals_to_create_immutables
                         children: [
                           Text(
                             "Order Summary",
@@ -72,18 +67,10 @@ class OrderSummaryScreen extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.w100),
                           ),
-                          // Text(
-                          //   "Download Summary",
-                          //   style: TextStyle(
-                          //       color: Colors.green,
-                          //       fontSize: 12,
-                          //       fontWeight: FontWeight.w100),
-                          // ),
                         ],
                       ),
                     ),
                     Container(
-                      // decoration: BoxDecoration(border: Border.all()),
                       margin: EdgeInsetsDirectional.symmetric(vertical: 8),
                       child: Text(
                         "${orderDetails.length} items in this order",
@@ -96,7 +83,6 @@ class OrderSummaryScreen extends StatelessWidget {
                     Column(
                       children: [
                         ListView.builder(
-                          // scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           itemBuilder: (context, i) {
                             int price = orderDetails[i]['Product']['Price'] *
@@ -104,10 +90,10 @@ class OrderSummaryScreen extends StatelessWidget {
 
                             return ListTile(
                               leading: ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(
-                                    10.0)), //add border radius here
-                                child: Image.network(orderDetails[i]['Product']
-                                    ['ImageUrl'][0]), //add image location here
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                child: Image.network(
+                                    orderDetails[i]['Product']['ImageUrl'][0]),
                               ),
                               title: Text(orderDetails[i]['Product']['Name']),
                               subtitle: Text(
@@ -134,14 +120,11 @@ class OrderSummaryScreen extends StatelessWidget {
                     boxShadow: const [
                       BoxShadow(blurRadius: 1, spreadRadius: 0)
                     ],
-                    // border: Border.all(),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     color: Colors.white),
                 width: double.infinity,
                 child: Column(
-                  // mainAxisAlignment: MainA,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  // ignore: prefer_const_literals_to_create_immutables
                   children: [
                     Text(
                       "Bill Details",
@@ -151,7 +134,6 @@ class OrderSummaryScreen extends StatelessWidget {
                     SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         Text("MRP"),
                         Text("₹$totalAmount"),
@@ -168,7 +150,6 @@ class OrderSummaryScreen extends StatelessWidget {
                     SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         Text(
                           "Bill Total",
@@ -193,13 +174,11 @@ class OrderSummaryScreen extends StatelessWidget {
                     boxShadow: const [
                       BoxShadow(blurRadius: 1, spreadRadius: 0)
                     ],
-                    // border: Border.all(),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     color: Colors.white),
                 width: double.infinity,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  // ignore: prefer_const_literals_to_create_immutables
                   children: [
                     Text(
                       "Order Details",
@@ -210,11 +189,8 @@ class OrderSummaryScreen extends StatelessWidget {
                       thickness: 1,
                       color: Color.fromARGB(255, 241, 237, 237),
                     ),
-                    // ignore: prefer_const_literals_to_create_immutables
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-
-                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         Text(
                           "Order id",
@@ -227,11 +203,8 @@ class OrderSummaryScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 10),
-
                     Column(
-                      // ignore: prefer_const_literals_to_create_immutables
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         Text(
                           "Payment",
@@ -244,11 +217,8 @@ class OrderSummaryScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 10),
-
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-
-                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         Text(
                           "Deliver to",
@@ -262,11 +232,8 @@ class OrderSummaryScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 10),
-
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-
-                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         Text(
                           "Order placed",
@@ -280,11 +247,8 @@ class OrderSummaryScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 10),
-
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-
-                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         Text(
                           "Order Status",

@@ -100,11 +100,6 @@ class _CartItemState extends ConsumerState<CartItem> {
     final scHeight = scSize.height;
     final scWidth = scSize.width - 10 - 4 - 8;
 
-    // print('\ncart itemmmmmmmmmmmmmm rebuild ho rhi hhhhhhhhhhhhhhhhhhhh\n${item.Name}');
-    //
-    // print('\ninside cart itemmmmmmmmmmmmmmmmmmmm\n');
-    // print(item);
-
     return GestureDetector(
       onTap: () {
         Product product = Product(
@@ -126,10 +121,6 @@ class _CartItemState extends ConsumerState<CartItem> {
             height: scHeight * 0.18,
             margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
             padding: const EdgeInsets.all(3),
-            // decoration: BoxDecoration(
-            //     boxShadow: const [BoxShadow(blurRadius: 1, spreadRadius: 0)],
-            //     borderRadius: BorderRadius.circular(5),
-            //     color: Colors.white),
             child: Row(
               children: [
                 SizedBox(
@@ -179,11 +170,6 @@ class _CartItemState extends ConsumerState<CartItem> {
                 Container(
                   decoration: BoxDecoration(
                       color: Theme.of(context).scaffoldBackgroundColor,
-                      // border: const Border(
-                      //     top: BorderSide(width: 2),
-                      //     bottom: BorderSide(width: 2),
-                      //     left: BorderSide(width: 2),
-                      //     right: BorderSide(width: 2)),
                       borderRadius: BorderRadius.circular(5)),
                   width: scWidth * 0.25,
                   height: scWidth * 0.25 * 0.4,
@@ -193,9 +179,7 @@ class _CartItemState extends ConsumerState<CartItem> {
                       child: GestureDetector(
                         onTap: () => decrementHandler(),
                         child: Icon(
-                          // Color(value),
                           color: Theme.of(context).primaryColor,
-
                           Icons.remove,
                           size: scWidth * 0.25 * 0.3,
                         ),

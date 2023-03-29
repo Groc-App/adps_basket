@@ -24,8 +24,6 @@ class CartScreen extends ConsumerStatefulWidget {
 }
 
 class _CartScreenState extends ConsumerState<CartScreen> {
-  // CartScreen({super.key});
-
   bool iscartempty = false;
   double pricetotal = 0.0;
   int listsize = 0;
@@ -136,7 +134,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           borderRadius: BorderRadius.circular(5),
           color: Colors.white),
       width: scWidth * 0.85,
-      // height: min(scHeight * 0.3, 145),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -311,8 +308,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     final scSize = MediaQuery.of(context).size;
     final scWidth = scSize.width;
     final scHeight = scSize.height;
-
-    // var authInfo?=username
 
     return Scaffold(
       appBar: AppBar(

@@ -27,19 +27,11 @@ class APIServiceAddress {
       "Pincode": mp['Pincode']
     };
 
-    // ignore: unused_local_variable
     var response = await client.post(
       url,
       headers: requestHeaders,
       body: jsonEncode({"number": mp["number"], "address": address}),
     );
-
-    // if (response.statusCode == 200) {
-    //   var data = jsonDecode(response.body);
-    //   return null;
-    // } else {
-    //   return null;
-    // }
   }
 
   Future<void> deleteaddress(String number, String addressId) async {

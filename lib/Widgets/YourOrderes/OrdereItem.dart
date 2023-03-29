@@ -6,14 +6,12 @@ import 'package:your_basket/models/address/address.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class OrdereItem extends StatelessWidget {
-  // const OrdereItem({super.key});
-
   final String orderID;
   String totalAmount;
   DateTime date;
   Address address;
   String orderStatus;
-  // String imageUrl;
+
   List<Map<String, dynamic>> orderDetails;
 
   OrdereItem(
@@ -29,7 +27,6 @@ class OrdereItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-      // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
       child: ListTile(
         onTap: () {
           Navigator.of(context).pushNamed('/orderSummaryScreen', arguments: {
@@ -48,12 +45,7 @@ class OrdereItem extends StatelessWidget {
               child: Image(
                   image: CachedNetworkImageProvider(
                       'https://img.freepik.com/free-vector/delivery-service-illustrated_23-2148505081.jpg?w=2000'),
-                  fit: BoxFit.contain)
-              // child: Image.network(
-              //   'https://img.freepik.com/free-vector/delivery-service-illustrated_23-2148505081.jpg?w=2000',
-              //   fit: BoxFit.contain,
-              // ),
-              ),
+                  fit: BoxFit.contain)),
         ),
         title: Text('Order Id: ${orderID.toUpperCase()}'),
         subtitle: Container(
