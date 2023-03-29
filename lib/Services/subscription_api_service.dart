@@ -90,7 +90,8 @@ class APIServiceSubscription {
 
       var body = json.encode(map);
 
-      var u = "${Config.apiURL}${Config.cancelSubscription}${queryParameter}";
+      var u =
+          "${Config.apiURL}${Config.cancelSubscription}?subscriptionId=${map['subscriptionId']}";
 
       var url = Uri.parse(u);
 

@@ -58,6 +58,11 @@ class MyTheme {
                 backgroundColor: Colors.green[400],
                 foregroundColor: Colors.white)),
 
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green[400],
+                foregroundColor: Colors.white)),
+
         /* ------------------------------- CARD THEME ------------------------------- */
         cardTheme: CardTheme(
             color: Colors.white,

@@ -77,8 +77,8 @@ class MyApp extends StatelessWidget {
                 mainCategoryId: "63e00827b56990c02866bba5",
               ),
             ),
-        '/productItemPage': (context) => const ConnectionScreen(
-            child: ConnectionScreen(child: ProductItemScreen())),
+        '/productItemPage': (context) =>
+            ConnectionScreen(child: ProductItemScreen()),
         '/cartScreen': (context) => const ConnectionScreen(child: CartScreen()),
         '/searchScreen': (context) => const SearchScreen(),
         '/profileScreen': (context) =>

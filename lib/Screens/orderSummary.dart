@@ -173,9 +173,12 @@ class OrderSummaryScreen extends StatelessWidget {
                         Text(
                           "Bill Total",
                           style: TextStyle(
-                              fontSize: 13, fontWeight: FontWeight.w600),
+                              fontSize: 13, fontWeight: FontWeight.bold),
                         ),
-                        Text("₹$totalAmount"),
+                        Text(
+                          "₹$totalAmount",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ],
                     )
                   ],

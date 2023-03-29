@@ -122,6 +122,8 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 }).toList(),
               ),
               _totalprice(scHeight, scWidth),
+              couponBar(scWidth),
+              bottomNavbar(scHeight, scWidth)
             ],
           )
         : Container();
@@ -354,201 +356,199 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                     ),
                   ),
 
-                  if (iscartempty == false)
-                    _showCoupon == false
-                        ? douyouhavecoupon()
-                        : (discount == 0.0)
-                            ? Container(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 7),
-                                child: Column(
-                                  children: [
-                                    TextFormField(
-                                      controller: couponController,
-                                      decoration: const InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        labelText: 'Enter coupon code',
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              left: ((scWidth * 0.5) - 80)),
-                                          child: ElevatedButton(
-                                            onPressed: () async {
-                                              FocusScope.of(context).unfocus();
-
-                                              setCouponCode(
-                                                  couponController.text);
-
-                                              setState(() {
-                                                _isLoading = true;
-                                              });
-
-                                              var status = await ref.read(
-                                                  checkcouponprovider({
-                                                'number': userNumber,
-                                                'code': couponController.text
-                                              }).future);
-
-                                              if (status == 'Invalid') {
-                                                ScaffoldMessenger.of(context)
-                                                    .hideCurrentSnackBar();
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(const SnackBar(
-                                                        content: Text(
-                                                            'Invalid code')));
-                                              } else if (status == 'Redeemed') {
-                                                ScaffoldMessenger.of(context)
-                                                    .hideCurrentSnackBar();
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(const SnackBar(
-                                                        content: Text(
-                                                            'Already Redeemed')));
-                                              } else if (status == 'Sortage') {
-                                                ScaffoldMessenger.of(context)
-                                                    .hideCurrentSnackBar();
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(const SnackBar(
-                                                        content: Text(
-                                                            'No referral left')));
-                                              } else {
-                                                ScaffoldMessenger.of(context)
-                                                    .hideCurrentSnackBar();
-                                                setState(() {
-                                                  discount =
-                                                      double.parse(status);
-                                                });
-                                              }
-
-                                              setState(() {
-                                                _isLoading = false;
-                                              });
-                                            },
-                                            child: _isLoading == false
-                                                ? const Text('Apply Coupon')
-                                                : SpinKitThreeInOut(
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                    size: 28,
-                                                  ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        const Spacer(),
-                                        GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                _showCoupon = false;
-                                              });
-                                            },
-                                            child: const Icon(
-                                              FontAwesomeIcons.xmark,
-                                              size: 17,
-                                            )),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              )
-                            : Container(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 5, vertical: 5),
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 3),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                ),
-                                child: Row(
-                                  children: [
-                                    CachedNetworkImage(
-                                      imageUrl:
-                                          'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Icons%2Fbottomnavbar%2Foffer-icon-2.png?alt=media&token=ebadf132-5585-4527-8511-c7790ff1ab88',
-                                      height: 27,
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    const Text('Yayy, Coupon applied'),
-                                    const Spacer(),
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          discount = 0.0;
-                                        });
-                                      },
-                                      child: const Text(
-                                        'Change Coupon',
-                                        style: TextStyle(
-                                            color: Colors.blue, fontSize: 12),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-
                   // ----------         Button to checkout     --------
-
-                  if (iscartempty == false)
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/checkoutScreen',
-                            arguments: {
-                              'number': userNumber,
-                              'cartProductList': datalist,
-                              'tamount': pricetotal,
-                              'discount': discount,
-                              'deliveryCharges': deliveryCharges,
-                              'couponCode': couponCode
-                            });
-                      },
-                      child: Container(
-                        width: scWidth,
-                        height: scHeight * 0.08,
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(8),
-                                topRight: Radius.circular(8)),
-                            color: Theme.of(context).primaryColor),
-                        alignment: const Alignment(0, 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(right: 10),
-                              child: const FaIcon(
-                                FontAwesomeIcons.basketShopping,
-                                size: 23,
-                                color: Colors.white,
-                              ),
-                            ),
-                            const Text(
-                              'Proceed to Checkout',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                shadows: [
-                                  Shadow(
-                                    color: Color.fromARGB(255, 74, 74, 74),
-                                    offset: Offset(1, 1),
-                                    blurRadius: 1,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
                 ],
               ),
             ),
     );
+  }
+
+  Widget couponBar(scWidth) {
+    return iscartempty == false
+        ? _showCoupon == false
+            ? douyouhavecoupon()
+            : (discount == 0.0)
+                ? Container(
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          controller: couponController,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Enter coupon code',
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsets.only(left: ((scWidth * 0.5) - 80)),
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  FocusScope.of(context).unfocus();
+
+                                  setCouponCode(couponController.text);
+
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+
+                                  var status = await ref.read(
+                                      checkcouponprovider({
+                                    'number': userNumber,
+                                    'code': couponController.text
+                                  }).future);
+
+                                  if (status == 'Invalid') {
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text('Invalid code')));
+                                  } else if (status == 'Redeemed') {
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text('Already Redeemed')));
+                                  } else if (status == 'Sortage') {
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text('No referral left')));
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
+                                    setState(() {
+                                      discount = double.parse(status);
+                                    });
+                                  }
+
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
+                                },
+                                child: _isLoading == false
+                                    ? const Text('Apply Coupon')
+                                    : SpinKitThreeInOut(
+                                        color: Theme.of(context).primaryColor,
+                                        size: 28,
+                                      ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            const Spacer(),
+                            GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _showCoupon = false;
+                                  });
+                                },
+                                child: const Icon(
+                                  FontAwesomeIcons.xmark,
+                                  size: 17,
+                                )),
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                : Container(
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 3),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
+                    child: Row(
+                      children: [
+                        CachedNetworkImage(
+                          imageUrl:
+                              'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Icons%2Fbottomnavbar%2Foffer-icon-2.png?alt=media&token=ebadf132-5585-4527-8511-c7790ff1ab88',
+                          height: 27,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        const Text('Yayy, Coupon applied'),
+                        const Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              discount = 0.0;
+                            });
+                          },
+                          child: const Text(
+                            'Change Coupon',
+                            style: TextStyle(color: Colors.blue, fontSize: 12),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+        : SizedBox.shrink();
+  }
+
+  Widget bottomNavbar(scHeight, scWidth) {
+    return iscartempty == false
+        ? GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/checkoutScreen', arguments: {
+                'number': userNumber,
+                'cartProductList': datalist,
+                'tamount': pricetotal,
+                'discount': discount,
+                'deliveryCharges': deliveryCharges,
+                'couponCode': couponCode
+              });
+            },
+            child: Container(
+              width: scWidth,
+              height: scHeight * 0.08,
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8)),
+                  color: Theme.of(context).primaryColor),
+              alignment: const Alignment(0, 0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    child: const FaIcon(
+                      FontAwesomeIcons.basketShopping,
+                      size: 23,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const Text(
+                    'Proceed to Checkout',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      shadows: [
+                        Shadow(
+                          color: Color.fromARGB(255, 74, 74, 74),
+                          offset: Offset(1, 1),
+                          blurRadius: 1,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        : SizedBox.shrink();
   }
 }

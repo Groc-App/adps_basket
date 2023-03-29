@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:your_basket/models/address/address.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class OrdereItem extends StatelessWidget {
   // const OrdereItem({super.key});
@@ -43,12 +44,16 @@ class OrdereItem extends StatelessWidget {
         leading: CircleAvatar(
           radius: 22,
           backgroundColor: Colors.grey[200],
-          child: ClipOval(
-            child: Image.network(
-              'https://img.freepik.com/free-vector/delivery-service-illustrated_23-2148505081.jpg?w=2000',
-              fit: BoxFit.contain,
-            ),
-          ),
+          child: const ClipOval(
+              child: Image(
+                  image: CachedNetworkImageProvider(
+                      'https://img.freepik.com/free-vector/delivery-service-illustrated_23-2148505081.jpg?w=2000'),
+                  fit: BoxFit.contain)
+              // child: Image.network(
+              //   'https://img.freepik.com/free-vector/delivery-service-illustrated_23-2148505081.jpg?w=2000',
+              //   fit: BoxFit.contain,
+              // ),
+              ),
         ),
         title: Text('Order Id: ${orderID.toUpperCase()}'),
         subtitle: Container(

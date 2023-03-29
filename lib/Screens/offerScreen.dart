@@ -335,13 +335,14 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                                 const Center(
                                     child: Text(
                                   "Already Redeemed",
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
                                 )),
-                                const SizedBox(height: 10),
+                                const SizedBox(height: 15),
                                 OutlinedButton(
                                   style: OutlinedButton.styleFrom(
-                                      backgroundColor:
-                                          Colors.black.withOpacity(0.5)),
+                                      backgroundColor: Colors.green[400]),
                                   // style: ButtonStyle(backgroundColor: ),
                                   child: const Text("Close"),
                                   onPressed: () {
@@ -361,7 +362,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                                     decoration: BoxDecoration(
                                         image: const DecorationImage(
                                             fit: BoxFit.cover,
-                                            image: NetworkImage(
+                                            image: CachedNetworkImageProvider(
                                               "https://st4.depositphotos.com/7668048/28693/v/600/depositphotos_286933884-stock-illustration-indian-rupee-coins-falling-scattered.jpg",
                                             )),
                                         // color: Colors.white,
