@@ -122,8 +122,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 }).toList(),
               ),
               _totalprice(scHeight, scWidth),
-              couponBar(scWidth),
-              bottomNavbar(scHeight, scWidth)
             ],
           )
         : Container();
@@ -319,11 +317,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        leading: BackButton(
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, '/cartScreen');
-          },
-        ),
         centerTitle: true,
         title: Column(
           children: [
@@ -345,21 +338,18 @@ class _CartScreenState extends ConsumerState<CartScreen> {
               noitemtext: 'Login/SignUp First',
               pageroute: 'loginpage',
             )
-          : Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Column(
-                children: [
-                  Expanded(
-                    // Expanded kr lio
-                    child: SingleChildScrollView(
-                      child: _cartList(ref, scHeight, scWidth),
-                    ),
-                  ),
-
-                  // ----------         Button to checkout     --------
-                ],
-              ),
-            ),
+          : CustomScrollView(slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(
+                  children: [
+                    Expanded(child: _cartList(ref, scHeight, scWidth)),
+                    couponBar(scWidth),
+                    bottomNavbar(scHeight, scWidth),
+                  ],
+                ),
+              )
+            ]),
     );
   }
 

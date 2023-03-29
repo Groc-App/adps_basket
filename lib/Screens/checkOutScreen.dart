@@ -275,7 +275,7 @@ class CheckoutScreen extends StatelessWidget {
         elevation: 0,
         color: Theme.of(context).scaffoldBackgroundColor,
         child: Container(
-          height: 160, //set your height here
+          height: 130, //set your height here
           width: double.maxFinite, //set your width here
           decoration: BoxDecoration(
             // color: Theme.of(context).scaffoldBackgroundColor,
