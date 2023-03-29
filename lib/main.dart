@@ -173,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
 
-// 3. This method only call when App in background and not terminated(not closed)
+// 3. This method only call when App in background and not terminated(not closed
     FirebaseMessaging.onMessageOpenedApp.listen(
       (message) {
         if (message.notification != null) {}
