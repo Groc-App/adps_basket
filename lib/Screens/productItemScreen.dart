@@ -41,7 +41,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
 
   void showZommedimage(BuildContext context, String imageurl) {
     showModalBottomSheet(
-        constraints: BoxConstraints(minHeight: Config.scHeight),
+        // constraints: BoxConstraints(minHeight: Config.scHeight),
         isScrollControlled: true,
         context: context,
         enableDrag: false,
@@ -122,18 +122,21 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
           child: imageslider(),
         ),
         Container(
-          constraints: BoxConstraints(
-            minHeight: MediaQuery.of(context).size.height * 0.53,
-          ),
+          height: MediaQuery.of(context).size.height * 0.7,
+
+          // constraints: BoxConstraints(
+          //   minHeight: MediaQuery.of(context).size.height * 0.43,
+          //   maxHeight: MediaQuery.of(context).size.height * 0.83,
+          // ),
           margin: const EdgeInsets.only(top: 20),
           padding: const EdgeInsets.all((15)),
           decoration: BoxDecoration(
-            boxShadow: const [
-              BoxShadow(
-                  color: Color.fromRGBO(207, 203, 203, 1),
-                  blurRadius: 2,
-                  spreadRadius: 2)
-            ],
+            // boxShadow: const [
+            //   BoxShadow(
+            //       color: Color.fromRGBO(207, 203, 203, 1),
+            //       blurRadius: 2,
+            //       spreadRadius: 2)
+            // ],
             color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20),
@@ -421,10 +424,8 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
             ],
           ),
         ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-              child: buildProduct(context, scWidth, userNumber)),
-        ),
+        body: SingleChildScrollView(
+            child: buildProduct(context, scWidth, userNumber)),
         backgroundColor: Colors.white,
         bottomNavigationBar: Container(
           decoration:

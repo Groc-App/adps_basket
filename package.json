@@ -1,8 +1,0 @@
-{
-  "devDependencies": {
-    "prettier": "2.8.3"
-  },
-  "dependencies": {
-    "uniqid": "^5.4.0"
-  }
-}
