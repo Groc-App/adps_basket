@@ -2,7 +2,7 @@
     package="com.example.your_basket">
    <application
         android:usesCleartextTraffic="true"
-        android:label="your_basket"
+        android:label="Basko"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

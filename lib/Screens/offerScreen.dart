@@ -236,6 +236,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
             child: Stack(
               children: [
                 CachedNetworkImage(
+                  fadeInDuration: const Duration(milliseconds: 50),
                   imageUrl:
                       'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Freward_appbar_bg.jpg?alt=media&token=bf1c3400-ba8e-48c9-8b82-29c2803bd4ee',
                   errorWidget: (context, url, error) => const Icon(Icons.error),
@@ -272,6 +273,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                   Expanded(
                     flex: 2,
                     child: CachedNetworkImage(
+                      fadeInDuration: const Duration(milliseconds: 50),
                       imageUrl:
                           'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Frewards_cup_image.jpg?alt=media&token=da5bffc1-c263-4007-8239-aabadbefeebc',
                       fit: BoxFit.cover,
@@ -428,6 +430,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
       child: Container(
           margin: const EdgeInsets.only(top: 0.0),
           child: CachedNetworkImage(
+              fadeInDuration: const Duration(milliseconds: 50),
               imageUrl:
                   "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Fscratch_image.jpg?alt=media&token=5d49818f-1078-48de-abe1-dac53e69f845")),
       onTap: () {
@@ -542,6 +545,7 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
         margin: const EdgeInsets.only(top: 0.0),
         child: Stack(alignment: Alignment.center, children: [
           CachedNetworkImage(
+            fadeInDuration: const Duration(milliseconds: 50),
             imageUrl:
                 "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Fscratch_image.jpg?alt=media&token=5d49818f-1078-48de-abe1-dac53e69f845",
             height: 320.0,

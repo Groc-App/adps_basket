@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, prefer_const_literals_to_create_immutables, no_logic_in_create_state, library_private_types_in_public_api
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -88,8 +89,9 @@ class _CategorySliderItemsState extends ConsumerState<CategorySliderItems> {
             height: 60,
             alignment: Alignment.center,
             color: selected == index ? Colors.white : Colors.black,
-            child: Image.network(
-              catergoryURL,
+            child: CachedNetworkImage(
+              fadeInDuration: const Duration(milliseconds: 50),
+              imageUrl: catergoryURL,
               fit: BoxFit.cover,
               height: 60,
             ),

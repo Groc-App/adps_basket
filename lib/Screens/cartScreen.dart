@@ -247,6 +247,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
             child: Row(
               children: [
                 CachedNetworkImage(
+                  fadeInDuration: const Duration(milliseconds: 50),
                   imageUrl:
                       'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Icons%2Fbottomnavbar%2Foffer-icon-2.png?alt=media&token=ebadf132-5585-4527-8511-c7790ff1ab88',
                   height: 27,
@@ -269,6 +270,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
             child: Row(
               children: [
                 CachedNetworkImage(
+                  fadeInDuration: const Duration(milliseconds: 50),
                   imageUrl:
                       'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Icons%2Fbottomnavbar%2Foffer-icon-2.png?alt=media&token=ebadf132-5585-4527-8511-c7790ff1ab88',
                   height: 27,
@@ -455,6 +457,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                     child: Row(
                       children: [
                         CachedNetworkImage(
+                          fadeInDuration: const Duration(milliseconds: 50),
                           imageUrl:
                               'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Icons%2Fbottomnavbar%2Foffer-icon-2.png?alt=media&token=ebadf132-5585-4527-8511-c7790ff1ab88',
                           height: 27,
