@@ -27,8 +27,10 @@ class OrderSuuccess extends StatelessWidget {
           padding: const EdgeInsets.only(top: 200.0),
           child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             Lottie.network(
-                'https://assets5.lottiefiles.com/packages/lf20_jbrw3hcz.json',
-                height: scHeight * 0.40),
+              'https://assets5.lottiefiles.com/packages/lf20_jbrw3hcz.json',
+              height: scHeight * 0.40,
+              frameRate: FrameRate.max,
+            ),
             Column(
               children: [
                 successType == 'order'
