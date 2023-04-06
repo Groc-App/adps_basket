@@ -116,6 +116,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                     height: scheight * 0.45,
                     width: scWidth,
                     child: CachedNetworkImage(
+                        fadeInDuration: const Duration(milliseconds: 50),
                         imageUrl:
                             'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Screens%2FOtpScreen%2Fotpscreen%20(2).png?alt=media&token=8d38b962-91c8-47ce-825b-513d4897d47c')),
                 SizedBox(

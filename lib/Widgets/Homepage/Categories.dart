@@ -187,6 +187,7 @@ class MainCategory extends ConsumerWidget {
                       SizedBox(
                           height: scHeight * 0.25 * 0.7,
                           child: CachedNetworkImage(
+                            fadeInDuration: const Duration(milliseconds: 50),
                             imageUrl: img_url,
                             fit: BoxFit.contain,
                             errorWidget: (context, url, error) =>

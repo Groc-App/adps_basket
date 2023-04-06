@@ -19,12 +19,12 @@ class Intro3 extends StatelessWidget {
             Container(
                 transform: Matrix4.rotationZ(6.15),
                 margin: const EdgeInsets.only(left: 30, right: 35, top: 20),
-                child: const Text(
+                child: Text(
                   'Get exciting offers and deals',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 18,
-                      color: Colors.purple,
+                      color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.w900),
                 )),
           ],

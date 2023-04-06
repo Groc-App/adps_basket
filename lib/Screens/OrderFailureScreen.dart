@@ -19,6 +19,7 @@ class OrderFailure extends StatelessWidget {
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           CachedNetworkImage(
+            fadeInDuration: const Duration(milliseconds: 50),
             imageUrl:
                 'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Screens%2ForderFailure%2ForderFailure.png?alt=media&token=e5a0b523-ff34-4efd-be38-056fee96a50e',
             height: scHeight * 0.4,

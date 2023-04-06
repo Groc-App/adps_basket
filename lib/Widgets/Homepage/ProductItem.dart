@@ -221,6 +221,7 @@ class _ProductItemState extends ConsumerState<ProductItem> {
               fit: FlexFit.loose,
               flex: 3,
               child: CachedNetworkImage(
+                fadeInDuration: const Duration(milliseconds: 200),
                 imageUrl: product.ImageUrl[0],
                 fit: BoxFit.cover,
                 errorWidget: (context, url, error) => const Icon(Icons.error),

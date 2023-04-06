@@ -14,17 +14,18 @@ class Intro1 extends StatelessWidget {
         child: Column(
           children: [
             Lottie.network(
-                'https://assets5.lottiefiles.com/packages/lf20_3tryizhw.json',
-                height: scHeight * 0.7),
+              'https://assets5.lottiefiles.com/packages/lf20_3tryizhw.json',
+              height: scHeight * 0.7,
+            ),
             Container(
                 // transform: Matrix4.rotationZ(6.15),
                 margin: const EdgeInsets.only(left: 30, right: 35, top: 20),
-                child: const Text(
-                  'Things at your doorstep everyday before 8 AM',
+                child: Text(
+                  'Things at your doorstep in real time.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 18,
-                      color: Colors.purple,
+                      color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.w900),
                 )),
           ],

@@ -4,7 +4,7 @@
     <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>Add this -->
    <application
         android:usesCleartextTraffic="true"
-        android:label="your_basket"
+        android:label="Basko"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

@@ -120,7 +120,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? username = prefs.getString('phonenumber');
+    // String? username = prefs.getString('phonenumber');
     bool? _seen = (prefs.getBool('seen'));
 
     // if (username != null) {
@@ -130,11 +130,12 @@ class _MyHomePageState extends State<MyHomePage> {
     // }
 
     if (_seen != null) {
-      if (username != null) {
-        return '/homepage';
-      } else {
-        return '/intoAnimationScreen';
-      }
+      // if (username != null) {
+      //   return '/homepage';
+      // } else {
+      //   return '/intoAnimationScreen';
+      // }
+      return '/intoAnimationScreen';
     } else {
       await prefs.setBool('seen', true);
       return '/introScreen';
@@ -191,9 +192,10 @@ class _MyHomePageState extends State<MyHomePage> {
               child: CircularProgressIndicator(),
             );
           } else {
-            if (snapshot.data == '/intoAnimationScreen') {
-              return const IntroAnimationScreen();
-            } else if (snapshot.data == 'introScreen') {
+            // if (snapshot.data == '/intoAnimationScreen') {
+            //   return const IntroAnimationScreen();
+            // } else if (snapshot.data == 'introScreen') {
+            if (snapshot.data == '/introScreen') {
               return const IntroScreen();
             } else {
               return const HomeScreen();
