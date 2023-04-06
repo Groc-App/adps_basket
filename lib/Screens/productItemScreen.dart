@@ -41,44 +41,79 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
 
   void showZommedimage(BuildContext context, String imageurl) {
     showModalBottomSheet(
-        // constraints: BoxConstraints(minHeight: Config.scHeight),
+        constraints: BoxConstraints(minHeight: Config.scHeight),
         isScrollControlled: true,
         context: context,
         enableDrag: false,
         builder: (context) {
-          return Container(
-            margin: const EdgeInsets.only(top: 30),
-            child: Stack(children: [
-              SizedBox(
-                height: Config.scHeight,
-                child: InteractiveViewer(
-                    maxScale: 5.0,
-                    panEnabled: true,
-                    child: CachedNetworkImage(
-                      imageUrl: imageurl,
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
-                    )),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Positioned.fill(
-                  child: Align(
-                    alignment: const Alignment(-0.96, -0.96),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.grey[300],
-                      child: const Icon(
-                        Icons.close,
-                        color: Colors.black,
-                      ),
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 30.0),
+              child: Scaffold(
+                appBar: AppBar(
+                  elevation: 0,
+                  // iconTheme: IconThemeData(color: Colors.green[400]),
+                  // leading: Icon(
+                  //   Icons.abc,
+                  //   color: Colors.red,
+                  // )
+                  leading: IconButton(
+                    color: Colors.green[400],
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: Colors.green,
                     ),
+                    onPressed: () => Navigator.pop(context),
                   ),
+                  // title: Text('Modal Bottom Sheet'),
                 ),
-              )
-            ]),
+                body: SizedBox(
+                  height: Config.scHeight,
+                  child: InteractiveViewer(
+                      maxScale: 5.0,
+                      panEnabled: true,
+                      child: CachedNetworkImage(
+                        imageUrl: imageurl,
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      )),
+                ),
+              ),
+            ),
           );
+          // return Container(
+          //   margin: const EdgeInsets.only(top: 30),
+          //   child: Stack(children: [
+          //     SizedBox(
+          //       height: Config.scHeight,
+          //       child: InteractiveViewer(
+          //           maxScale: 5.0,
+          //           panEnabled: true,
+          //           child: CachedNetworkImage(
+          //             imageUrl: imageurl,
+          //             errorWidget: (context, url, error) =>
+          //                 const Icon(Icons.error),
+          //           )),
+          //     ),
+          //     GestureDetector(
+          //       onTap: () {
+          //         Navigator.pop(context);
+          //       },
+          //       child: Positioned.fill(
+          //         child: Align(
+          //           alignment: const Alignment(-0.96, -0.96),
+          //           child: CircleAvatar(
+          //             backgroundColor: Colors.grey[300],
+          //             child: const Icon(
+          //               Icons.close,
+          //               color: Colors.black,
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     )
+          //   ]),
+          // );
         });
   }
 
@@ -122,12 +157,12 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
           child: imageslider(),
         ),
         Container(
-          height: MediaQuery.of(context).size.height * 0.7,
+          // height: MediaQuery.of(context).size.height * 0.7,
 
-          // constraints: BoxConstraints(
-          //   minHeight: MediaQuery.of(context).size.height * 0.43,
-          //   maxHeight: MediaQuery.of(context).size.height * 0.83,
-          // ),
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height * 0.43,
+            // maxHeight: MediaQuery.of(context).size.height * 0.83,
+          ),
           margin: const EdgeInsets.only(top: 20),
           padding: const EdgeInsets.all((15)),
           decoration: BoxDecoration(
@@ -156,16 +191,14 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                   children: [
                     SizedBox(
                       width: scWidth * 0.75,
-                      child: Flexible(
-                        child: Text(
-                          product.Name,
-                          softWrap: true,
-                          maxLines: 2,
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold),
-                        ),
+                      child: Text(
+                        product.Name,
+                        softWrap: true,
+                        maxLines: 2,
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                     Padding(
@@ -232,8 +265,8 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                         color: Colors.blue),
-                    trimCollapsedText: '\nRead more >>',
-                    trimExpandedText: '\nShow less <<',
+                    trimCollapsedText: '\nRead more',
+                    trimExpandedText: '\nShow less',
                     product.Description,
                   ),
                 ],

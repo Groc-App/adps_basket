@@ -41,7 +41,7 @@ class _HeadingSupportState extends ConsumerState<HeadingSupport> {
     // Cheching user login info
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.only(bottom: 20, top: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -63,7 +63,7 @@ class _HeadingSupportState extends ConsumerState<HeadingSupport> {
                       Navigator.of(context).pushNamed('/loginScreen');
                     },
                     child: const Text(
-                      'LogIn to view Profile',
+                      'Login to view profile',
                       style: TextStyle(
                           color: Colors.blue, fontWeight: FontWeight.w500),
                     ),

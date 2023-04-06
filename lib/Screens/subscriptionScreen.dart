@@ -451,7 +451,16 @@ class _SubscriptionScreenState extends ConsumerState<SubscriptionScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Subscriptions"),
+          elevation: 0,
+          centerTitle: true,
+          title: const Column(
+            children: [
+              Text(
+                'Subscription',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
         ),
         body: userNumber == ''
             ? const NoItems(

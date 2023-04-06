@@ -18,6 +18,7 @@ class ProfileScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Column(children: [
           HeadingSupport(),
+          SizedBox(height: 10),
           Content(),
           CopyRightSymbol(),
         ]),

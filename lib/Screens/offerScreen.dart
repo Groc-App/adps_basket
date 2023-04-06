@@ -125,6 +125,20 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
     scHeight = scSize.height;
 
     return Scaffold(
+        appBar: number == ''
+            ? AppBar(
+                elevation: 0,
+                centerTitle: true,
+                title: const Column(
+                  children: [
+                    Text(
+                      'Offers',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              )
+            : null,
         body: number == ''
             ? const NoItems(
                 noitemtext: 'Login/SignUp First',
