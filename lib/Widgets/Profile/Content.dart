@@ -202,11 +202,11 @@ class _ContentState extends ConsumerState<Content> {
             const SizedBox(
               height: 12,
             ),
-            iconRow(FontAwesomeIcons.share, 'Refer and Earn', context,
-                '/referearnScreen', ref, userNumber),
-            const SizedBox(
-              height: 3,
-            ),
+            // iconRow(FontAwesomeIcons.share, 'Refer and Earn', context,
+            //     '/referearnScreen', ref, userNumber),
+            // const SizedBox(
+            //   height: 3,
+            // ),
             iconRow(FontAwesomeIcons.shareNodes, 'Share the app', context,
                 'share', ref, userNumber),
             const SizedBox(

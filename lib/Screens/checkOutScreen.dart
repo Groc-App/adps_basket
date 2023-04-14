@@ -3,18 +3,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:your_basket/Screens/cartScreen.dart';
 import 'package:your_basket/config.dart';
 import 'package:your_basket/models/address/address.dart';
 import 'package:your_basket/models/cart/cartitem.dart';
+import 'package:your_basket/models/product/productdetail.dart';
 
 import '../providers/providers.dart';
 
-class CheckoutScreen extends StatelessWidget {
+class CheckoutScreen extends StatefulWidget {
+  CheckoutScreen({super.key});
+
+  @override
+  State<CheckoutScreen> createState() => _CheckoutScreenState();
+}
+
+class _CheckoutScreenState extends State<CheckoutScreen> {
   // const CheckoutScreen({super.key});
   final scWidth = Config.scSize.width;
-  final scHeight = Config.scSize.height;
 
-  CheckoutScreen({super.key});
+  final scHeight = Config.scSize.height;
 
   Widget placeordertile(
       WidgetRef ref,
@@ -110,6 +118,7 @@ class CheckoutScreen extends StatelessWidget {
       child: GestureDetector(
         onTap: () async {
           var cartProductsArray = [];
+
           for (var i = 0; i < datalist.length; i++) {
             var cartItem = datalist[i];
 
@@ -202,6 +211,61 @@ class CheckoutScreen extends StatelessWidget {
     double discount = Orderdata['discount'];
     double deliveryCharges = Orderdata['deliveryCharges'];
     String? couponCode = Orderdata['couponCode'];
+
+    if (selectedItem == "aloo") {
+      print("selectedItem $selectedItem");
+      Map<String, dynamic> productItemMap = {
+        "productId": "64383d67f0ca3cfde723707e",
+        "Name": "Aloo 1kg",
+        "Price": 0,
+        "Discount": 0,
+        "Description": "Sting energy drink gives you an.",
+        "Category": ["Energy Drinks"],
+        "MainCategory": "Cold Drinks & Juices",
+        "Quantity": "1kg",
+        "Company": "Sting",
+        "ImageUrl": [
+          "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/potato.jpg?alt=media&token=a001afef-3c26-4dcb-b446-820c707748ac"
+        ]
+      };
+
+      ProductItem productItem = ProductItem.fromJson(productItemMap);
+
+      Map<String, dynamic> cartMap = {
+        "Item": productItemMap,
+        "ItemCount": 1,
+      };
+
+      CartItem c = CartItem.fromJson(cartMap);
+      datalist = [...datalist, c];
+      // datalist.add(c);
+    } else if (selectedItem == "maggi") {
+      print("selectedItem $selectedItem");
+      Map<String, dynamic> productItemMap = {
+        "productId": "64384606f0ca3cfde72370ad",
+        "Name": "Maggi",
+        "Price": 0,
+        "Discount": 0,
+        "Description": "Sting energy drink gives you an.",
+        "Category": ["Energy Drinks"],
+        "MainCategory": "Cold Drinks & Juices",
+        "Quantity": "1pcs",
+        "Company": "Sting",
+        "ImageUrl": [
+          "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/maggi.png?alt=media&token=0f56e793-a795-4a02-832c-3b08ca859e1f"
+        ]
+      };
+
+      // ProductItem productItem = ProductItem.fromJson(productItemMap);
+
+      Map<String, dynamic> cartMap = {
+        "Item": productItemMap,
+        "ItemCount": 1,
+      };
+
+      CartItem c = CartItem.fromJson(cartMap);
+      datalist = [...datalist, c];
+    }
 
     return Scaffold(
       appBar: AppBar(

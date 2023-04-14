@@ -1,7 +1,9 @@
 // ignore_for_file: file_names, prefer_const_constructors
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:your_basket/Screens/buySubscriptionScreen.dart';
 import 'package:your_basket/Widgets/Homepage/Quote.dart';
+import 'package:your_basket/config.dart';
 
 import '../Widgets/Categories/searchBar.dart';
 import '../Widgets/Homepage/Carousel.dart';
@@ -13,9 +15,14 @@ import 'package:flutter/material.dart';
 
 const kExpandedHeight = 120.0;
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

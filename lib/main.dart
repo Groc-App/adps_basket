@@ -103,8 +103,8 @@ class MyApp extends StatelessWidget {
             const ConnectionScreen(child: SubscriptionScreen()),
         '/buySubscriptionScreen': (context) =>
             const ConnectionScreen(child: BuySubscriptionScreen()),
-        '/referearnScreen': (context) =>
-            ConnectionScreen(child: ReferEarnScreen()),
+        // '/referearnScreen': (context) =>
+        //     ConnectionScreen(child: ReferEarnScreen()),
         '/introAnimationScreen': (context) => const IntroAnimationScreen(),
       },
     );
@@ -198,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
             if (snapshot.data == '/introScreen') {
               return const IntroScreen();
             } else {
-              return const HomeScreen();
+              return Material(child: const HomeScreen());
             }
           }
         });
