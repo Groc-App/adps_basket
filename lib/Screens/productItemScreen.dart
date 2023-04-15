@@ -136,7 +136,7 @@ class _ProductItemScreenState extends ConsumerState<ProductItemScreen> {
       },
       slideIndicator: CircularSlideIndicator(
           padding: const EdgeInsets.all(2),
-          indicatorBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          indicatorBackgroundColor: Theme.of(context).primaryColor,
           currentIndicatorColor: Colors.black.withOpacity(0.8)),
       enableAutoSlider: true,
       unlimitedMode: true,

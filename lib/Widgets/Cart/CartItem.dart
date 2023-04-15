@@ -112,7 +112,7 @@ class _CartItemState extends ConsumerState<CartItem> {
             Description: item.Description,
             MainCategory: item.MainCategory,
             Category: item.Category);
-        Navigator.pushNamed(context, '/productItemPage',
+        Navigator.pushReplacementNamed(context, '/productItemPage',
             arguments: {'product': product});
       },
       child: Card(
