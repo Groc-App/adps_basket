@@ -24,7 +24,7 @@ class NoItems extends StatelessWidget {
                 imageUrl:
                     'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Screens%2FNoItem%2Floginfirst2.png?alt=media&token=6d8fd382-93b3-4031-966d-85291540d926')
             : Container(
-                margin: const EdgeInsets.only(top: 200),
+                // margin: const EdgeInsets.only(top: 200),
                 child: CachedNetworkImage(
                     fadeInDuration: const Duration(milliseconds: 50),
                     height: scHeight * 0.4,

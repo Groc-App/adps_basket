@@ -1,10 +1,9 @@
 // ignore_for_file: file_names, prefer_const_constructors, unused_local_variable
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,9 +16,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
   int? _resendToken;
-  bool _haverefferal = false;
+  // bool _haverefferal = false;
 
-  final TextEditingController _refferalcontroller = TextEditingController();
+  // final TextEditingController _refferalcontroller = TextEditingController();
   final TextEditingController _numbercontroller = TextEditingController();
 
   @override
@@ -34,22 +33,25 @@ class _LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               /* ----------------------------- Image Container ---------------------------- */
               Container(
                 alignment: Alignment(0, 0),
                 height: scHeight * 0.5,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.fitWidth,
-                      image: CachedNetworkImageProvider(imgUrl)),
-                ),
+                // decoration: BoxDecoration(
+                //   image: DecorationImage(
+                //       fit: BoxFit.fitWidth,
+                //       image: CachedNetworkImageProvider(imgUrl)),
+
+                // ),
+                child: Lottie.network(
+                    'https://assets8.lottiefiles.com/private_files/lf30_vb7v5ca0.json'),
               ),
               /* ----------------------------- B
               ody Container ----------------------------- */
               Container(
-                height: 480,
+                // height: 400,
                 decoration: const BoxDecoration(),
                 alignment: Alignment.center,
                 child: Padding(
@@ -63,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).primaryColor),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     const Text(
                       "Login or Signup",
                       style:
@@ -72,14 +74,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     /* -------------------------------- TextField ------------------------------- */
                     Container(
+                      padding: EdgeInsets.only(top: 13, bottom: 13),
                       margin: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.black, width: 1.5),
                           borderRadius: BorderRadius.circular(10)),
                       child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(left: 6, right: 2),
+                            padding: EdgeInsets.only(left: 6, right: 5),
                             child: Text(
                               "+91",
                               style: TextStyle(fontWeight: FontWeight.bold),
@@ -93,30 +97,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                 LengthLimitingTextInputFormatter(10),
                                 FilteringTextInputFormatter.digitsOnly
                               ],
-                              decoration: InputDecoration(
+                              decoration: InputDecoration.collapsed(
                                 hintText: 'Phone Number',
-                                border: null,
                               ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    if (_haverefferal)
-                      Container(
-                        margin: const EdgeInsets.all(15),
-                        padding: EdgeInsets.only(left: 12),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black, width: 1.5),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: TextFormField(
-                          controller: _refferalcontroller,
-                          decoration: InputDecoration(
-                            hintText: 'Referral Code',
-                            border: null,
-                          ),
-                        ),
-                      ),
+                    SizedBox(
+                      height: 4,
+                    ),
 
                     /* --------------------------------- Button --------------------------------- */
                     SizedBox(
@@ -125,13 +116,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: ElevatedButton(
                         onPressed: () async {
                           try {
+                            FocusScope.of(context).unfocus();
                             setState(() {
                               _isLoading = true;
                             });
-                            SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
-                            await prefs.setString(
-                                'username', "+91${_numbercontroller.text}");
+                            // SharedPreferences prefs =
+                            //     await SharedPreferences.getInstance();
+                            // await prefs.setString(
+                            //     'username', "+91${_numbercontroller.text}");
                             await FirebaseAuth.instance.verifyPhoneNumber(
                               phoneNumber: '+91${_numbercontroller.text}',
                               verificationCompleted:
@@ -163,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   'otp': verificationId,
                                   'number': _numbercontroller.text,
                                   'resendtoken': resendToken,
-                                  'refferalCode': _refferalcontroller.text,
+                                  'refferalCode': '',
                                 });
                               },
                               codeAutoRetrievalTimeout:
@@ -188,42 +180,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             : Text("Continue"),
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    _haverefferal == false
-                        ? GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _haverefferal = true;
-                              });
-                            },
-                            child: Text(
-                              'Do you have a refferal code?',
-                              style: TextStyle(color: Colors.blue),
-                            ),
-                          )
-                        : GestureDetector(
-                            onTap: () {
-                              _refferalcontroller.text = '';
-                              setState(() {
-                                _haverefferal = false;
-                              });
-                            },
-                            child: Text(
-                              'Cancel refferal',
-                              style: TextStyle(color: Colors.blue),
-                            ),
-                          ),
                     const SizedBox(
                       height: 45,
                     ),
-                    const Flexible(
-                      child: Text(
-                          "By continuing you agree to our terms of services and policy",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w200)),
-                    )
+                    Text(
+                        "By continuing you agree to our terms of services and policy",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontWeight: FontWeight.w200))
                   ]),
                 ),
               )
@@ -239,7 +202,7 @@ class _LoginScreenState extends State<LoginScreen> {
               borderRadius: BorderRadius.circular(10),
               color: Theme.of(context).primaryColor),
           child: Text(
-            'Skip for now >>',
+            'Skip now >>',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
