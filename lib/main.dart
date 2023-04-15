@@ -46,6 +46,7 @@ Future<void> main() async {
   );
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   LocalNotificationService.initialize();
+
   runApp(
     const ProviderScope(child: MyApp()),
   );
@@ -62,12 +63,10 @@ class MyApp extends StatelessWidget {
       title: 'Basko',
       theme: MyTheme.lightTheme(context),
       debugShowCheckedModeBanner: false,
-      home: const ConnectionScreen(
-        child: MyHomePage(),
-      ),
+      home: IntroAnimationScreen(),
       // initialRoute: '/',
       routes: {
-        // '/': (context) => MyHomePage(),
+        '/my': (context) => const ConnectionScreen(child: MyHomePage()),
         '/introScreen': (context) => const IntroScreen(),
         '/loading': (context) => const ConnectionScreen(child: LoadingSinner()),
         '/homepage': (context) => const HomeScreen(),
@@ -119,22 +118,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // String? username = prefs.getString('phonenumber');
     bool? seen = (prefs.getBool('seen'));
 
-    // if (username != null) {
-    //   return '/homepage';
-    // } else {
-    //   return '/intoAnimationScreen';
-    // }
-
     if (seen != null) {
-      // if (username != null) {
-      //   return '/homepage';
-      // } else {
-      //   return '/intoAnimationScreen';
-      // }
-      return '/intoAnimationScreen';
+      return '/homepage';
     } else {
       await prefs.setBool('seen', true);
       return '/introScreen';
@@ -191,18 +178,12 @@ class _MyHomePageState extends State<MyHomePage> {
               child: CircularProgressIndicator(),
             );
           } else {
-            // if (snapshot.data == '/intoAnimationScreen') {
-            //   return const IntroAnimationScreen();
-            // } else if (snapshot.data == 'introScreen') {
             if (snapshot.data == '/introScreen') {
               return const IntroScreen();
             } else {
-              // return IntroScreen();
-              // return const Material(child: IntroAnimationScreen());
               return const HomeScreen();
             }
           }
         });
-    // return HomeScreen();
   }
 }

@@ -6,13 +6,13 @@
         android:usesCleartextTraffic="true"
         android:label="Basko"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@drawable/app_logo">
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             exported="true"
-            android:theme="@style/LaunchTheme"
+            android:theme="@style/SplashScreenTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
@@ -21,6 +21,9 @@
                  while the Flutter UI initializes. After that, this theme continues
                  to determine the Window background behind the Flutter UI. -->
             
+            <meta-data
+                android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
+                android:resource="@layout/splash_screen"/>
             <meta-data
                 android:name="com.google.firebase.messaging.default_notification_channel_id"
                 android:value="your_basket"/>

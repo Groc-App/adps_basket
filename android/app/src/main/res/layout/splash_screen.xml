@@ -20,7 +20,7 @@
                 android:fromYScale="0.3"
                 android:toXScale="1.0"
                 android:toYScale="1.0"
-                android:duration="1000"
+                android:duration="10"
                 android:interpolator="@android:anim/accelerate_decelerate_interpolator"
                 android:fillAfter="true" />
         </ImageView.animation>

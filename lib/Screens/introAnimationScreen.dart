@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:your_basket/main.dart';
 
 class IntroAnimationScreen extends StatefulWidget {
   const IntroAnimationScreen({super.key});
@@ -33,7 +34,7 @@ class _IntroAnimationScreenState extends State<IntroAnimationScreen>
     _animationController.forward();
 
     Timer(const Duration(milliseconds: 2500), () {
-      Navigator.pushReplacementNamed(context, '/homepage');
+      Navigator.pushReplacementNamed(context, '/my');
     });
   }
 
