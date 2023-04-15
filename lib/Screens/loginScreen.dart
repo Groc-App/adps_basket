@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final scSize = MediaQuery.of(context).size;
     final scHeight = scSize.height;
     String imgUrl =
-        "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Screens%2FLoginScreen%2FloginScreen.png?alt=media&token=a855de09-6027-4796-8e3d-80d5e501bbc7";
+        "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Screens%2FLoginScreen%2Floginscreen%20(2).png?alt=media&token=173fb833-708f-4bf6-892d-9c2a780ade8c";
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
@@ -38,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               /* ----------------------------- Image Container ---------------------------- */
               Container(
+                alignment: Alignment(0, 0),
                 height: scHeight * 0.5,
                 decoration: BoxDecoration(
                   image: DecorationImage(
