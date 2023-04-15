@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=C:\Dev\FLutter\flutter"
-export "FLUTTER_APPLICATION_PATH=D:\Groc-App\adps_basket"
+export "FLUTTER_ROOT=C:\Users\Public\Development\sdks\flutter"
+export "FLUTTER_APPLICATION_PATH=C:\Users\Public\Development\Projects\adps\your_basket"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib\main.dart"
 export "FLUTTER_BUILD_DIR=build"

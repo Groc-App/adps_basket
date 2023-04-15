@@ -249,6 +249,7 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
               primary: false,
               title: TextField(
                   onTap: () {
+                    FocusScope.of(context).unfocus();
                     Navigator.of(context).pushNamed('/searchScreen');
                   },
                   decoration: InputDecoration(

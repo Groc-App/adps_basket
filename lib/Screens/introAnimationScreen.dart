@@ -32,7 +32,7 @@ class _IntroAnimationScreenState extends State<IntroAnimationScreen>
 
     _animationController.forward();
 
-    Timer(const Duration(seconds: 4), () {
+    Timer(const Duration(milliseconds: 2500), () {
       Navigator.pushReplacementNamed(context, '/homepage');
     });
   }

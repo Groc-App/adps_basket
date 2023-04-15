@@ -18,7 +18,6 @@ import 'package:your_basket/Screens/otpScreen.dart';
 import 'package:your_basket/Screens/productItemScreen.dart';
 import 'package:your_basket/Screens/subscriptionScreen.dart';
 import 'package:your_basket/Screens/yourOrders.dart';
-import 'package:your_basket/Screens/ReferEarn.dart';
 import 'package:your_basket/Widgets/Sinners/loadingsinner.dart';
 import 'package:your_basket/utils/theme.dart';
 import 'Screens/OrderFailureScreen.dart';
@@ -78,7 +77,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
         '/productItemPage': (context) =>
-            ConnectionScreen(child: ProductItemScreen()),
+            const ConnectionScreen(child: ProductItemScreen()),
         '/cartScreen': (context) => const ConnectionScreen(child: CartScreen()),
         '/searchScreen': (context) => const SearchScreen(),
         '/profileScreen': (context) =>
@@ -121,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // String? username = prefs.getString('phonenumber');
-    bool? _seen = (prefs.getBool('seen'));
+    bool? seen = (prefs.getBool('seen'));
 
     // if (username != null) {
     //   return '/homepage';
@@ -129,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //   return '/intoAnimationScreen';
     // }
 
-    if (_seen != null) {
+    if (seen != null) {
       // if (username != null) {
       //   return '/homepage';
       // } else {
@@ -198,7 +197,9 @@ class _MyHomePageState extends State<MyHomePage> {
             if (snapshot.data == '/introScreen') {
               return const IntroScreen();
             } else {
-              return Material(child: const HomeScreen());
+              // return IntroScreen();
+              // return const Material(child: IntroAnimationScreen());
+              return const HomeScreen();
             }
           }
         });

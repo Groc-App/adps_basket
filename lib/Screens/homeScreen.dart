@@ -108,6 +108,7 @@ _buildSilverAppBarBackground(context, height) {
             primary: false,
             title: TextField(
                 onTap: () {
+                  FocusScope.of(context).unfocus();
                   Navigator.of(context).pushNamed('/searchScreen');
                 },
                 decoration: InputDecoration(

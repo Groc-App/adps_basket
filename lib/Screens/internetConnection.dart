@@ -14,7 +14,7 @@ class ConnectionScreen extends StatefulWidget {
 }
 
 class _ConnectionScreenState extends State<ConnectionScreen> {
-  bool _isConnected = false;
+  bool _isConnected = true;
 
   @override
   void initState() {
