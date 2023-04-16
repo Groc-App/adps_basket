@@ -53,17 +53,17 @@ class Carousel extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black12),
-              borderRadius: BorderRadius.circular(10.0),
-              image: const DecorationImage(
-                image: CachedNetworkImageProvider(
-                    'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2FNew%20Customised%2Fc4.png?alt=media&token=ab0dcde9-662e-4273-8145-1c11de0dbd70'),
-                fit: BoxFit.contain,
-              ),
-            ),
-          ),
+          // Container(
+          //   decoration: BoxDecoration(
+          //     border: Border.all(color: Colors.black12),
+          //     borderRadius: BorderRadius.circular(10.0),
+          //     image: const DecorationImage(
+          //       image: CachedNetworkImageProvider(
+          //           'https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/CarouselImage%2FNew%20Customised%2Fc4.png?alt=media&token=ab0dcde9-662e-4273-8145-1c11de0dbd70'),
+          //       fit: BoxFit.contain,
+          //     ),
+          //   ),
+          // ),
         ],
         slideTransform: const DepthTransform(),
         slideIndicator: CircularSlideIndicator(

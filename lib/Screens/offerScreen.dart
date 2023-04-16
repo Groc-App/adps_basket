@@ -463,8 +463,8 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                   children: [
                     Center(
                       child: Scratcher(
-                        brushSize: 50,
-                        threshold: 50,
+                        brushSize: 80,
+                        threshold: 30,
                         color: Colors.red,
                         image: Image.network(
                           "https://firebasestorage.googleapis.com/v0/b/your-basket-515fc.appspot.com/o/Offers%2Fscratch_image.jpg?alt=media&token=5d49818f-1078-48de-abe1-dac53e69f845",
@@ -536,8 +536,8 @@ class _OfferScreenState extends ConsumerState<OfferScreen> {
                             backgroundColor: Colors.black.withOpacity(0.5)),
                         child: const Text("Close"),
                         onPressed: () {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              '/offerScreen', (Route<dynamic> route) => false);
+                          Navigator.of(context)
+                              .pushReplacementNamed('/offerScreen');
                         },
                       ),
                     )
