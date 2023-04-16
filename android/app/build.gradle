@@ -58,8 +58,8 @@ android {
         release {
             keyAlias 'alias_name' // The alias name you specified when creating the keystore
             keyPassword 'Apdsearnswinner100000' // The password for the keystore
-            storeFile file('A:/Signed\\ Keystore/Basko') // The path to your keystore file
-            storePassword 'Apdsearnswinner100000' // The password for the keystore
+            storeFile file('A:\\Signed Keystore\\Basko\\keystore.jks') // The path to your keystore file
+            storePassword 'Apdsearnswinner100000'  // The password for the keystore
         }
     }
 
