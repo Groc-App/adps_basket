@@ -23,7 +23,7 @@
             
             <meta-data
                 android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
-                android:resource="@layout/splash_screen"/>
+                android:resource="@drawable/launch_background"/>
             <meta-data
                 android:name="com.google.firebase.messaging.default_notification_channel_id"
                 android:value="your_basket"/>
