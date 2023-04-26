@@ -447,49 +447,50 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     // bottomNavBarHeight = scHeight * 0.1385;
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        centerTitle: true,
-        title: Column(
-          children: [
-            const Text(
-              'Your Cart',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            if (listsize != 0)
-              Text(
-                '$listsize items',
-                style:
-                    const TextStyle(fontSize: 10, fontWeight: FontWeight.w100),
-              )
-          ],
+        appBar: AppBar(
+          elevation: 0,
+          centerTitle: true,
+          title: Column(
+            children: [
+              const Text(
+                'Your Cart',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              if (listsize != 0)
+                Text(
+                  '$listsize items',
+                  style: const TextStyle(
+                      fontSize: 10, fontWeight: FontWeight.w100),
+                )
+            ],
+          ),
         ),
-      ),
-      body: userNumber == ''
-          ? const NoItems(
-              noitemtext: 'Login/SignUp First',
-              pageroute: 'loginpage',
-            )
-          : CustomScrollView(slivers: [
-              SliverFillRemaining(
-                hasScrollBody: false,
+        body: userNumber == ''
+            ? const NoItems(
+                noitemtext: 'Login/SignUp First',
+                pageroute: 'loginpage',
+              )
+            : CustomScrollView(slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Column(
+                    children: [
+                      Expanded(child: _cartList(ref, scHeight, scWidth)),
+                    ],
+                  ),
+                )
+              ]),
+        bottomNavigationBar: userNumber == ''
+            ? null
+            : Container(
+                height: bottomNavBarHeight,
                 child: Column(
                   children: [
-                    Expanded(child: _cartList(ref, scHeight, scWidth)),
+                    couponBar(scWidth),
+                    bottomNavbar(scHeight, scWidth),
                   ],
                 ),
-              )
-            ]),
-      bottomNavigationBar: Container(
-        height: bottomNavBarHeight,
-        child: Column(
-          children: [
-            couponBar(scWidth),
-            bottomNavbar(scHeight, scWidth),
-          ],
-        ),
-      ),
-    );
+              ));
   }
 
   Widget couponBar(scWidth) {
