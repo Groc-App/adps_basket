@@ -1,58 +1,12 @@
-<!-- <?xml version="1.0" encoding="utf-8"?> -->
-<!-- <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Modify this file to customize your launch splash screen -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@android:color/white" />
 
-    <item
-        android:drawable="@drawable/app_logo"
-        android:gravity="center" />
-</layer-list> -->
-
-<?xml version="1.0" encoding="utf-8"?>
-<!-- res/layout/splash_screen.xml -->
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFF">
-
-    <!-- App logo image view with animation -->
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/app_logo"
-        android:layout_centerInParent="true">
-
-        <ImageView.animation>
-            <scale
-                android:fromXScale="0.3"
-                android:fromYScale="0.3"
-                android:toXScale="1.0"
-                android:toYScale="1.0"
-                android:duration="10"
-                android:interpolator="@android:anim/accelerate_decelerate_interpolator"
-                android:fillAfter="true" />
-        </ImageView.animation>
-    </ImageView>
-
-    <!-- App name text view with animation -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="My App Name"
-        android:layout_below="@id/logo"
-        android:layout_centerHorizontal="true">
-
-        <TextView.animation>
-            <alpha
-                android:fromAlpha="1.0"
-                android:toAlpha="0.0"
-                android:duration="500"
-                android:startOffset="500"
-                android:interpolator="@android:anim/accelerate_interpolator" />
-        </TextView.animation>
-    </TextView>
-
-    <!-- Add any other UI elements for your splash screen here -->
-</RelativeLayout>
-
+    <!-- You can insert your own image assets here -->
+    <!-- <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@mipmap/launch_image" />
+    </item> -->
+</layer-list>
