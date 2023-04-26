@@ -26,6 +26,7 @@ class CartScreen extends ConsumerStatefulWidget {
 }
 
 class _CartScreenState extends ConsumerState<CartScreen> {
+  double bottomNavBarHeight = Config.scHeight * 0.1385;
   bool iscartempty = false;
   double pricetotal = 0.0;
   int listsize = 0;
@@ -291,7 +292,12 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 GestureDetector(
                   onTap: () {
                     setState(() {
+                      print("clicked b: $bottomNavBarHeight");
+
                       _showCoupon = true;
+                      bottomNavBarHeight =
+                          MediaQuery.of(context).size.height * 0.2327;
+                      print("clicked: $bottomNavBarHeight");
                     });
                   },
                   child: const Text(
@@ -438,6 +444,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     final scSize = MediaQuery.of(context).size;
     final scWidth = scSize.width;
     final scHeight = scSize.height;
+    // bottomNavBarHeight = scHeight * 0.1385;
 
     return Scaffold(
       appBar: AppBar(
@@ -469,12 +476,19 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 child: Column(
                   children: [
                     Expanded(child: _cartList(ref, scHeight, scWidth)),
-                    couponBar(scWidth),
-                    bottomNavbar(scHeight, scWidth),
                   ],
                 ),
               )
             ]),
+      bottomNavigationBar: Container(
+        height: bottomNavBarHeight,
+        child: Column(
+          children: [
+            couponBar(scWidth),
+            bottomNavbar(scHeight, scWidth),
+          ],
+        ),
+      ),
     );
   }
 
@@ -566,6 +580,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                       GestureDetector(
                           onTap: () {
                             setState(() {
+                              bottomNavBarHeight = Config.scHeight * 0.1385;
                               _showCoupon = false;
                             });
                           },
