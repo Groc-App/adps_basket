@@ -18,7 +18,6 @@ import 'package:your_basket/Screens/otpScreen.dart';
 import 'package:your_basket/Screens/productItemScreen.dart';
 import 'package:your_basket/Screens/subscriptionScreen.dart';
 import 'package:your_basket/Screens/yourOrders.dart';
-import 'package:your_basket/Screens/ReferEarn.dart';
 import 'package:your_basket/Widgets/Sinners/loadingsinner.dart';
 import 'package:your_basket/utils/theme.dart';
 import 'Screens/OrderFailureScreen.dart';
@@ -47,6 +46,7 @@ Future<void> main() async {
   );
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   LocalNotificationService.initialize();
+
   runApp(
     const ProviderScope(child: MyApp()),
   );
@@ -63,12 +63,10 @@ class MyApp extends StatelessWidget {
       title: 'Basko',
       theme: MyTheme.lightTheme(context),
       debugShowCheckedModeBanner: false,
-      home: const ConnectionScreen(
-        child: MyHomePage(),
-      ),
+      home: IntroAnimationScreen(),
       // initialRoute: '/',
       routes: {
-        // '/': (context) => MyHomePage(),
+        '/my': (context) => const ConnectionScreen(child: MyHomePage()),
         '/introScreen': (context) => const IntroScreen(),
         '/loading': (context) => const ConnectionScreen(child: LoadingSinner()),
         '/homepage': (context) => const HomeScreen(),
@@ -78,7 +76,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
         '/productItemPage': (context) =>
-            ConnectionScreen(child: ProductItemScreen()),
+            const ConnectionScreen(child: ProductItemScreen()),
         '/cartScreen': (context) => const ConnectionScreen(child: CartScreen()),
         '/searchScreen': (context) => const SearchScreen(),
         '/profileScreen': (context) =>
@@ -103,8 +101,8 @@ class MyApp extends StatelessWidget {
             const ConnectionScreen(child: SubscriptionScreen()),
         '/buySubscriptionScreen': (context) =>
             const ConnectionScreen(child: BuySubscriptionScreen()),
-        '/referearnScreen': (context) =>
-            ConnectionScreen(child: ReferEarnScreen()),
+        // '/referearnScreen': (context) =>
+        //     ConnectionScreen(child: ReferEarnScreen()),
         '/introAnimationScreen': (context) => const IntroAnimationScreen(),
       },
     );
@@ -120,22 +118,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // String? username = prefs.getString('phonenumber');
-    bool? _seen = (prefs.getBool('seen'));
+    bool? seen = (prefs.getBool('seen'));
 
-    // if (username != null) {
-    //   return '/homepage';
-    // } else {
-    //   return '/intoAnimationScreen';
-    // }
-
-    if (_seen != null) {
-      // if (username != null) {
-      //   return '/homepage';
-      // } else {
-      //   return '/intoAnimationScreen';
-      // }
-      return '/intoAnimationScreen';
+    if (seen != null) {
+      return '/homepage';
     } else {
       await prefs.setBool('seen', true);
       return '/introScreen';
@@ -192,9 +178,6 @@ class _MyHomePageState extends State<MyHomePage> {
               child: CircularProgressIndicator(),
             );
           } else {
-            // if (snapshot.data == '/intoAnimationScreen') {
-            //   return const IntroAnimationScreen();
-            // } else if (snapshot.data == 'introScreen') {
             if (snapshot.data == '/introScreen') {
               return const IntroScreen();
             } else {
@@ -202,6 +185,5 @@ class _MyHomePageState extends State<MyHomePage> {
             }
           }
         });
-    // return HomeScreen();
   }
 }
