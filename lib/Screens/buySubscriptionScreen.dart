@@ -398,7 +398,7 @@ class _BuySubscriptionScreenState extends ConsumerState<BuySubscriptionScreen> {
                             height: scHeight * 0.05,
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.green),
+                                    backgroundColor: green),
                                 onPressed: () {
                                   submitHandler(product.productId, userNumber,
                                       startDate, endDate, 'edit', subsid);
