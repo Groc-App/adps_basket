@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
       title: 'Basko',
       theme: MyTheme.lightTheme(context),
       debugShowCheckedModeBanner: false,
-      home: IntroAnimationScreen(),
+      home: const IntroAnimationScreen(),
       // initialRoute: '/',
       routes: {
         '/my': (context) => const ConnectionScreen(child: MyHomePage()),
