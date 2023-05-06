@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -46,19 +49,9 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD9Tlp_LbsonD_liNj6c_q8eydE9-BTDDs',
-    appId: '1:895275598043:web:9daa8fc624edf171aaccfe',
-    messagingSenderId: '895275598043',
-    projectId: 'your-basket-515fc',
-    authDomain: 'your-basket-515fc.firebaseapp.com',
-    storageBucket: 'your-basket-515fc.appspot.com',
-    measurementId: 'G-G1K14Q6WQV',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBQkrNi9IS2JejhephuvQOpR2Oz7ChSKHI',
-    appId: '1:895275598043:android:269761cb3962e28caaccfe',
+    appId: '1:895275598043:android:7043f9476688300daaccfe',
     messagingSenderId: '895275598043',
     projectId: 'your-basket-515fc',
     storageBucket: 'your-basket-515fc.appspot.com',
@@ -66,12 +59,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyA-MC9TwBVi4EgfjCD4sRS3bfUh6P5SdwU',
-    appId: '1:895275598043:ios:f19930a7c2f93e7daaccfe',
+    appId: '1:895275598043:ios:06654d55840ce54caaccfe',
     messagingSenderId: '895275598043',
     projectId: 'your-basket-515fc',
     storageBucket: 'your-basket-515fc.appspot.com',
-    androidClientId: '895275598043-7cn6lcnsp47tl32n1hp40hpqhpvqbcse.apps.googleusercontent.com',
-    iosClientId: '895275598043-2a7n1vtl7nvveuq9iti74lf1girusb7j.apps.googleusercontent.com',
-    iosBundleId: 'com.example.yourBasket',
+    androidClientId: '895275598043-1ntt2ebus84nu01gt0l9tgcqqjsfmpi4.apps.googleusercontent.com',
+    iosClientId: '895275598043-hkbi4oklc1kho87midae5j7c1ho25oq2.apps.googleusercontent.com',
+    iosBundleId: 'com.buztron.basko',
   );
 }
